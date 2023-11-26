@@ -32,4 +32,11 @@ When “Gabriel” seleciona a opção “Não tem uma conta ?!”
 And preenche os campos com seu nome “Gabriel” , sobrenome “Lopes” , CPF “000000000-00”, endereço: “Rua alameda sempre verde”, CEP “XXXXXXXX”, data de nascimento “20/06/2001” , email “XXXXXXXXXXXX@gmail.com”  e a senha “123456yuytre ”. 
 And “Gabriel” seleciona a opção “realizar cadastro”
 Then “Gabriel” visualiza a mensagem “Cadastro realizado”
-And “Gabriel” é direcionado para a “página inicial” da plataformaS
+And “Gabriel” é direcionado para a “página inicial” da plataforma
+
+Scenario: login mal-sucedido devido a senha incorreta 
+Given "Gabriel" está na página "Fazer login"
+And "Gabriel" tem o seu nome “Gabriel” , sobrenome “Lopes” , CPF “000000000-00”, endereço: “Rua alameda sempre verde”, CEP “XXXXXXXX”, data de nascimento “20/06/2001” , email “XXXXXXXXXXXX@gmail.com”  e a senha “123456yuytre ” armazenados no banco de dados. 
+When "Gabriel" preenche os campos com seu email "XXXXXXXXXXXX@gmail.com" e senha "12345uyureea"
+Then "Gabriel" visualiza a mensagem: "Email e/ou senha incorretos"
+And permanece na página "fazer login"
