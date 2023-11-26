@@ -33,10 +33,18 @@ And preenche os campos com seu nome “Gabriel” , sobrenome “Lopes” , CPF 
 And “Gabriel” seleciona a opção “realizar cadastro”
 Then “Gabriel” visualiza a mensagem “Cadastro realizado”
 And “Gabriel” é direcionado para a “página inicial” da plataforma
+And "Gabriel" visualiza a página "lista de ofertas"
 
 Scenario: login mal-sucedido devido a senha incorreta 
 Given "Gabriel" está na página "Fazer login"
-And "Gabriel" tem o seu nome “Gabriel” , sobrenome “Lopes” , CPF “000000000-00”, endereço: “Rua alameda sempre verde”, CEP “XXXXXXXX”, data de nascimento “20/06/2001” , email “XXXXXXXXXXXX@gmail.com”  e a senha “123456yuytre ” armazenados no banco de dados. 
+And "Gabriel" tem o seu nome “Gabriel” , sobrenome “Lopes” , CPF “000000000-00”, endereço: “Rua alameda sempre verde”, CEP “XXXXXXXX”, data de nascimento “20/06/2001” , email “XXXXXXXXXXXX@gmail.com”  e a senha “123456yuytre” armazenados no banco de dados. 
 When "Gabriel" preenche os campos com seu email "XXXXXXXXXXXX@gmail.com" e senha "12345uyureea"
+Then "Gabriel" visualiza a mensagem: "Email e/ou senha incorretos"
+And permanece na página "fazer login"
+
+Scenario: login mal-sucedido devido a email incorreto 
+Given "Gabriel" está na página "Fazer login"
+And "Gabriel" tem o seu nome “Gabriel” , sobrenome “Lopes” , CPF “000000000-00”, endereço: “Rua alameda sempre verde”, CEP “XXXXXXXX”, data de nascimento “20/06/2001” , email “teste@gmail.com”  e a senha “123456yuytre” armazenados no banco de dados. 
+When "Gabriel" preenche os campos com seu email "teste_errado@gmail.com" e senha "123456yuytre"
 Then "Gabriel" visualiza a mensagem: "Email e/ou senha incorretos"
 And permanece na página "fazer login"
