@@ -25,3 +25,11 @@ And seleciona “redefinir senha”
 Then “Gabriel” visualiza a mensagem “senha redefinida”
 And retorna para a página de login 
 
+Scenario: Ausência de cadastro
+Given “Gabriel” está na página de login 
+And “Gabriel” não tem nenhum cadastro na plataforma 
+When “Gabriel” seleciona a opção “Não tem uma conta ?!”
+And preenche os campos com seu nome “Gabriel” , sobrenome “Lopes” , CPF “000000000-00”, endereço: “Rua alameda sempre verde”, CEP “XXXXXXXX”, data de nascimento “20/06/2001” , email “XXXXXXXXXXXX@gmail.com”  e a senha “123456yuytre ”. 
+And “Gabriel” seleciona a opção “realizar cadastro”
+Then “Gabriel” visualiza a mensagem “Cadastro realizado”
+And “Gabriel” é direcionado para a “página inicial” da plataformaS
