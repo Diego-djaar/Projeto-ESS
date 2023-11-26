@@ -72,3 +72,8 @@ When eu tento realizar o pagamento
 Then recebo uma mensagem avisando que o produto "Camisa" está fora de estoque
 And estou na página "Carrinho"
 And o produto "Camisa" está marcado como "Esgotado"
+
+Scenario: Ir para o carrinho
+Given estou em qualquer página do sistema
+When eu tento clicar no ícone do carrinho
+Then eu estou na página "Carrinho"
