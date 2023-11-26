@@ -36,3 +36,12 @@ Given o sistema tem armazenado o pedido “19” associado ao login “usuario@g
 When eu solicito ao sistema a alteração do status do pedido “19” para “cancelado”
 Then o sistema muda o status do pedido “19” para “cancelado”
 And o servidor responde com o status  “200”
+
+Cenário: Cancelamento de pedido por motivo inválido
+Given o usuário de email “usuario@gmail.com” está na página “histórico de pedidos”
+And o usuário de email “usuario@gmail.com” vê o pedido de número “59” no “histórico de pedidos” como “a caminho”
+When o usuário de email “usuario@gmail.com” seleciona em “cancelar pedido” do pedido de número “59”
+Then o usuário de email “usuario@gmail.com” recebe “requisição de senha e motivo de cancelamento”
+And o usuário de email “usuario@gmail.com” preenche com o motivo de cancelamento com “Pedido não está vindo de avião” e preenche sua senha corretamente
+Then o usuário de email “usuario@gmail.com” recebe a mensagem “O motivo de cancelamento é inválido. Preencha com um motivo válido”
+And o usuário de email “usuario@gmail.com” recebe “requisição de senha e motivo de cancelamento” novamente
