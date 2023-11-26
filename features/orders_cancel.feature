@@ -29,7 +29,6 @@ Then o usuário de email “usuario@gmail.com” recebe “requisição de senha
 And o usuário de email “usuario@gmail.com” seleciona em “confirmar o cancelamento”
 Then o usuário de email “usuario@gmail.com” recebe a mensagem “Você precisa preencher todos os dados, tente novamente!”
 And o usuário de email “usuario@gmail.com” recebe “requisição de senha e motivo de cancelamento” novamente
-Then os stakeholders pediram um novo passo "then" no cenário
 
 Feature: Cancelamento de pedidos
 Cenário: Cancelamento bem-sucedido
@@ -37,4 +36,3 @@ Given o sistema tem armazenado o pedido “19” associado ao login “usuario@g
 When eu solicito ao sistema a alteração do status do pedido “19” para “cancelado”
 Then o sistema muda o status do pedido “19” para “cancelado”
 And o servidor responde com o status  “200”
-Then o cenário foi devidamente corrigido
