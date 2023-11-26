@@ -51,3 +51,15 @@ Then eu vejo uma mensagem de erro
 And nenhum dinheiro sai da minha conta
 And Eu estou na página "Carrinho"
 And o carrinho permanece inalterado
+
+Scenario: Falha em remover item do carrinho
+Given eu estou logado com o email “usuario@gmail.com”
+And estou na página “Carrinho”
+And vejo o item “Camisa” com preço “60” na lista de itens do carrinho
+And vejo o item “Calça” com preço “100” na lista de itens do carrinho
+And vejo o preço “160” no "Total" carrinho
+When eu tento remover “Camisa”
+Then eu recebo uma mensagem de erro
+And eu ainda vejo o item "Camisa" com preço "60" na lista de itens do carrinho
+And eu vejo o item “Calça” com preço “100” no carrinho
+And vejo que o preço ainda é “160”
