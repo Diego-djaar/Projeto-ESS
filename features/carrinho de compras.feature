@@ -63,3 +63,17 @@ Then eu recebo uma mensagem de erro
 And eu ainda vejo o item "Camisa" com preço "60" na lista de itens do carrinho
 And eu vejo o item “Calça” com preço “100” no carrinho
 And vejo que o preço ainda é “160”
+
+Scenario: Produto do carrinho esgotado
+Given eu estou logado com o email "usuario@gmail.com"
+And eu estou na página "Carrinho"
+And vejo o item "Camisa" no carrinho
+When eu tento realizar o pagamento
+Then recebo uma mensagem avisando que o produto "Camisa" está fora de estoque
+And estou na página "Carrinho"
+And o produto "Camisa" está marcado como "Esgotado"
+
+Scenario: Ir para o carrinho
+Given estou em qualquer página do sistema
+When eu tento clicar no ícone do carrinho
+Then eu estou na página "Carrinho"
