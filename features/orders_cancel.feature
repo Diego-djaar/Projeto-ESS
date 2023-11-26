@@ -36,9 +36,3 @@ Given o sistema tem armazenado o pedido “19” associado ao login “usuario@g
 When eu solicito ao sistema a alteração do status do pedido “19” para “cancelado”
 Then o sistema muda o status do pedido “19” para “cancelado”
 And o servidor responde com o status  “200”
-
-Cenário: Exemplo de commit master
-
-Cenário: Exemplo 1 de commit branch dev
-
-Cenário: Exemplo 2 de commit branch dev
