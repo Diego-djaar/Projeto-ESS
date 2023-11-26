@@ -42,3 +42,12 @@ And o carrinho tem “1” produto
 When eu seleciono “Adicionar produto no carrinho”
 Then eu recebo uma mensagem de confirmação
 And eu vejo que o carrinho tem “2” itens no carrinho
+
+Scenario: Falha no pagamento
+Given eu estou logado com o email "usuario@gmail.com"
+And eu estou na página "Pagamento"
+When eu realizo o pagamento
+Then eu vejo uma mensagem de erro
+And nenhum dinheiro sai da minha conta
+And Eu estou na página "Carrinho"
+And o carrinho permanece inalterado
