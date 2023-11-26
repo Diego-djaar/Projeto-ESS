@@ -29,3 +29,4 @@ Then o usuário de email “usuario@gmail.com” recebe “requisição de senha
 And o usuário de email “usuario@gmail.com” seleciona em “confirmar o cancelamento”
 Then o usuário de email “usuario@gmail.com” recebe a mensagem “Você precisa preencher todos os dados, tente novamente!”
 And o usuário de email “usuario@gmail.com” recebe “requisição de senha e motivo de cancelamento” novamente
+Then os stakeholders pediram um novo passo "then" no cenário
