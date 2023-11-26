@@ -16,4 +16,12 @@ And seleciona a opção “Login”
 Then “Gabriel” visualiza a mensagem “e-mail ou senha incorreto”
 And permanece na pagina de login 
 
-Adicionando linha para testes
+Scenario: Esquecimento de senha
+Given “Gabriel” está na página de login 
+And “Gabriel” esqueceu a senha de login
+When “Gabriel” seleciona a opção “esqueci minha senha”
+And preenche os campos com o cpf “000000000-00” e a nova senha “abcde345”
+And seleciona “redefinir senha”
+Then “Gabriel” visualiza a mensagem “senha redefinida”
+And retorna para a página de login 
+
