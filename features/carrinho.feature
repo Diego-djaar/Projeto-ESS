@@ -78,3 +78,4 @@ Given estou logado com o email "usuario@gmail.com"
 And estou em qualquer página do sistema
 When eu tento clicar no ícone do carrinho
 Then eu estou na página "Carrinho"
+
