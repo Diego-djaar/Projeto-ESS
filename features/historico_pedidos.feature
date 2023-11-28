@@ -18,3 +18,10 @@ And estou numa tela com os "5" pedidos que fiz
 When clico em "Filtro por data" no menu de cima e seleciono "Últimos 5 meses"
 Then os pedidos são atualizados
 And consigo ver os "2" pedidos  que fiz nos "Últimos 5 meses" 
+
+Feature: Exibir histórico de pedidos | Filtro por fornecedor
+Given cliquei na opção "Histórico de pedidos"
+And estou numa tela com os "5" pedidos que fiz
+When clico em "Filtro por fornecedor" no menu de cima e seleciono "Americanas"
+Then os pedidos são atualizados
+And consigo ver os "1" pedidos  que fiz com o fornecedor "Americanas" 
