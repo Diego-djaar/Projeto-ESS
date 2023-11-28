@@ -10,3 +10,7 @@ And verifico meu e-mail "João@gmail.com"
 Then vejo que recebi um e-mail novo do site "e-commerce@gmail.com"
 And vejo que o assunto é "Pedido 1234 confirmado!"
 
+Feature: Notificação confirmação de pedido | e-mail detalhes
+Given acabei de confirmar o pagamento de minha  "Bolsa da Nike"
+And verifico meu e-mail "João@gmail.com"
+Then vejo que recebi um e-mail novo do site "e-commerce@gmail.com"
