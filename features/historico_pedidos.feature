@@ -25,3 +25,10 @@ And estou numa tela com os "5" pedidos que fiz
 When clico em "Filtro por fornecedor" no menu de cima e seleciono "Americanas"
 Then os pedidos são atualizados
 And consigo ver os "1" pedidos  que fiz com o fornecedor "Americanas" 
+
+Feature: Exibir histórico de pedidos | Filtro por preço
+Given cliquei na opção "Histórico de pedidos"
+And estou numa tela com os "5" pedidos que fiz
+When clico em "Filtro por preço" no menu de cima e seleciono "Maior que R$50,00"
+Then os pedidos são atualizados
+And consigo ver os "1" pedidos  que fiz com o preço "Maior que R$50,00" 
