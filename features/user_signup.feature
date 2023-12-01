@@ -33,7 +33,7 @@ And Eu sou redirecionado para a página “Página Principal”
 And A conta de “Enzo” é um “Usuário comum”
 
 
-Cenário: Processar dados cadastrais
+Cenário: Processar dados cadastrais bem sucedido
 Given Usuário "Enzo" não está cadastrado
 When uma requisição "POST" for enviada para "login", com "Dados Cadastrais"
 And a requisição está correta
