@@ -7,3 +7,5 @@ Scenario: Usuario esqueceu a senha
     Given o usuario "Peterson Melo" esqueceu a senha.
     When o usuario acessa a pagina de recuperacao AND insere seu email
     Then o sistema deve enviar um email com um link para redifinir a senha para "petersonMelo@gmail.com"
+
+Scenario: 
