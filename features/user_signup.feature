@@ -11,3 +11,12 @@ And Eu estou na página de “Cadastro”
 When Eu preencho os “Dados Cadastrais” incorretamente
 Then O cadastro não é bem sucedido
 And Eu sou notificado dos campos de cadastro que estão mal preenchidos
+
+
+Cenário: Cadastro de usuário já existente
+Given Usuário “Enzo” está cadastrado
+And Eu não estou logado
+And Eu estou na página de “Cadastro”
+When Eu preencho os “Dados Cadastrais”
+Then Eu sou notificado que o usuário “Enzo” já existe
+And Eu sou redirecionado para a página de “Login”
