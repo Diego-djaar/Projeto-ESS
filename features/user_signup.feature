@@ -30,3 +30,18 @@ When Eu preencho os “Dados Cadastrais” corretamente // Dados cadastrais poss
 Then O cadastro é bem sucedido
 And Eu sou redirecionado para a página “Página Principal”
 And A conta de “Enzo” é um “Usuário comum”
+
+
+Cenário: Processar dados cadastrais
+Given Usuário "Enzo" não está cadastrado
+When uma requisição "POST" for enviada para "login", com "Dados Cadastrais"
+And a requisição está correta
+And o campo "Nome" da requisição é "Enzo Gabriel" e o campo "sobrenome" é "de Oliveira"
+And o campo "Username" é "Enzo"
+Then o campo "CPF" da requisição é validado
+And o campo "Data_de_nascimento" da requisição é validado
+And o campo "Email" da requisição é validado
+Then o status da resposta deve ser "200"
+And o JSON da resposta indica que o cadastro foi bem sucedido
+And Usuário "Enzo" está cadastrado
+And a conexão é autenticada como usuário "Enzo"
