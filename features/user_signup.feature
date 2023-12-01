@@ -20,3 +20,4 @@ And Eu estou na página de “Cadastro”
 When Eu preencho os “Dados Cadastrais”
 Then Eu sou notificado que o usuário “Enzo” já existe
 And Eu sou redirecionado para a página de “Login”
+And eu não estou logado
