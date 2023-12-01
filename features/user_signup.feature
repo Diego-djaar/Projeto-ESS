@@ -12,7 +12,6 @@ When Eu preencho os "Dados Cadastrais” incorretamente
 Then O cadastro não é bem sucedido
 And Eu sou notificado dos campos de cadastro que estão mal preenchidos
 
-
 Cenário: Cadastro de usuário já existente
 Given Usuário "Enzo” está cadastrado
 And Eu não estou logado
@@ -22,7 +21,6 @@ Then Eu sou notificado que o usuário "Enzo” já existe
 And Eu sou redirecionado para a página de "Login”
 And eu não estou logado
 
-
 Cenário: Cadastro de usuário bem sucedido
 Given Usuário "Enzo” não está cadastrado
 And Eu não estou logado
@@ -31,7 +29,6 @@ When Eu preencho os "Dados Cadastrais” corretamente // Dados cadastrais possui
 Then O cadastro é bem sucedido
 And Eu sou redirecionado para a página "Página Principal”
 And A conta de "Enzo” é um "Usuário comum"
-
 
 Cenário: Processar dados cadastrais bem sucedido
 Given Usuário "Enzo" não está cadastrado
