@@ -1,7 +1,7 @@
 Feature: Carrinho de compras
 As a usuário comum do sistema
 I want to gerenciar os meus interesses de compra
-So that eu consiga decidir o que comprar
+So that eu possa tomar decisões informadas sobre o que comprar
 
 Scenario: Remover item do carrinho com sucesso
 Given eu estou logado com o email “usuario@gmail.com”
