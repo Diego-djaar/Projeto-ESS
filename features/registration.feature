@@ -1,6 +1,6 @@
 Feature: Cadastro e Gerenciamento de Lojas e Produtos
-As a Representante de um comercio
-I want to Ser capaz de fornecer as infromações do comercio e produtos
+As a Representante de um comércio
+I want to Ser capaz de fornecer as informações do comércio e produtos
 So that Eu possa usufruir da plataforma para minhas vendas
 
 Cenário: Cadastro de Nova Loja com Sucesso
@@ -61,4 +61,4 @@ And está na página de gerenciamento de produtos
 And "Abacate" está cadastrado na loja
 When seleciona a opção de remover produto
 And escolhe o "Abacate" como o produto para remover
-Then o ""Abacate" é removido do sistema e da página da loja
+Then o "Abacate" é removido do sistema e da página da loja
