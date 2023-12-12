@@ -43,3 +43,13 @@ Then o status da resposta deve ser "200"
 And o JSON da resposta indica que o cadastro foi bem sucedido
 And Usuário "Enzo" está cadastrado
 And a conexão é autenticada como usuário "Enzo"
+
+Cenário: Processar dados cadastrais mal sucedido
+Given Usuário "Enzo" não está cadastrado
+When uma requisição "POST" for enviada para "login", com "Dados Cadastrais"
+And a requisição está com o campo "CPF" com "00.00.00"
+Then o campo "CPF" da requisição é rejeitado
+Then o status da resposta deve ser "200"
+And o JSON da resposta indica que o cadastro foi mal sucedido
+And o JSON da resposta indica que o campo "CPF" foi mal preenchido
+
