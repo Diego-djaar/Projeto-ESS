@@ -51,8 +51,8 @@ And está na "página de gerenciamento de produtos"
 And deseja modificar o preço do "Abacate"
 When seleciona modificar um produto existente
 And escolhe o preço como o dado para modificar
-And modifica o valor para "32.80"
-Then p preço do produto é atualizado
+And modifica o valor do "Abacate" para "32.80"
+Then o preço do produto é atualizado
 And um popup indica o sucesso na alteração
 
 Cenário: Remoção de um Produto já Cadastrado
