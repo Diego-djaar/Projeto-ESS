@@ -37,6 +37,17 @@ Then Eu sou notificado que o usuário já existe
 And Eu sou redirecionado para a página de "Login”
 And eu não estou logado
 
+Cenário: Cadastro de usuário com Senha não atendendo aos requisitos
+Given Usuário "Enzo” não está cadastrado
+And Eu não estou logado
+And Eu estou na página de "Cadastro”
+When Eu preencho os "Dados Cadastrais”
+And Eu preencho "1234" no campo senha
+And eu clico em "Cadastrar"
+Then O cadastro não é bem sucedido
+And Eu sou notificado dos campos de cadastro que estão mal preenchidos
+
+
 Cenário: Cadastro de usuário bem sucedido
 Given Usuário "Enzo” não está cadastrado
 And Eu não estou logado
