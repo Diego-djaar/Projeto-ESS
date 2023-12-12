@@ -3,11 +3,13 @@ As a usuário da plataforma de e-commerce
 I want to preencher os campos com email e senha 
 So that eu posso acessar os serviços da plataforma 
 
-Scenario: login bem sucedido 
-Given “Gabriel” está na página de login 
-When “Gabriel”preenche os campos disponíveis com seu login “gabriel_lopes123” e senha “12345678abc”
-And seleciona a opção “Login”
-Then “Gabriel” visualiza a página inicial da plataforma.  
+Cenário: login bem sucedido 
+Given o usuário 'Gabriel' está na página 'Fazer login'
+And 'Gabriel' está cadastrado na plataforma com nome 'Gabriel', sobrenome 'Silva', CPF '111.222.333-44', endereço 'Rua alameda sempre verde', CEP '12345-678', data de nascimento '17/06/2003', email 'usuario@gmail.com' e senha '12345678a'. 
+When 'Gabriel' preenche os campos disponíveis com o email 'usuario@gmail.com' e senha '12345658b'
+And seleciona a opção 'Submeter'
+Then “Gabriel” visualiza a  página inicial da plataforma. 
+
 
 Scenario: Esquecimento de senha
 Given “Gabriel” está na página de login 
