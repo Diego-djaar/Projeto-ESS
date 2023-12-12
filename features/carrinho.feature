@@ -79,4 +79,12 @@ And estou em qualquer página do sistema
 When eu tento clicar no ícone do carrinho
 Then eu estou na página "Carrinho"
 
-
+Scenario: Alterar endereço destino
+Given estou logado com o email "usuario@gmail.com"
+And estou na página "Carrinho"
+And vejo o endereço "Rua 12345, nº 250"
+When eu seleciono a opção "Alterar endereço"
+And eu escrevo "Rua 54321, nº 150"
+Then eu recebo uma mensagem de confirmação
+And estou na página "Carrinho"
+And vejo o endereço	"Rua 54321, nº 150"
