@@ -8,7 +8,9 @@ Cenário: Cadastro de usuário mal sucedido
 Given Usuário "Enzo” não está cadastrado
 And Eu não estou logado
 And Eu estou na página de "Cadastro”
-When Eu preencho os "Dados Cadastrais” incorretamente
+When Eu preencho os "Dados Cadastrais”
+And Eu deixo o campo "Email" em branco
+And eu clico em "Cadastrar"
 Then O cadastro não é bem sucedido
 And Eu sou notificado dos campos de cadastro que estão mal preenchidos
 
@@ -16,8 +18,22 @@ Cenário: Cadastro de usuário já existente
 Given Usuário "Enzo” está cadastrado
 And Eu não estou logado
 And Eu estou na página de "Cadastro”
+And Eu preencho no campo "User" "Enzo"
 When Eu preencho os "Dados Cadastrais”
+And eu clico em "Cadastrar"
 Then Eu sou notificado que o usuário "Enzo” já existe
+And Eu sou redirecionado para a página de "Login”
+And eu não estou logado
+
+Cenário: Cadastro de usuário com CPF já existente
+Given Usuário "Enzo” está cadastrado
+And Usuário "Enzo" tem CPF "111.111.111-11"
+And Eu não estou logado
+And Eu estou na página de "Cadastro”
+When Eu preencho os "Dados Cadastrais”
+And Eu preencho no campo "CPF" "111.111.111-11"
+And eu clico em "Cadastrar"
+Then Eu sou notificado que o usuário já existe
 And Eu sou redirecionado para a página de "Login”
 And eu não estou logado
 
@@ -26,6 +42,7 @@ Given Usuário "Enzo” não está cadastrado
 And Eu não estou logado
 And Eu estou na página de "Cadastro”
 When Eu preencho os "Dados Cadastrais” corretamente // Dados cadastrais possui nome, sobrenome, CPF, endereço (opcional), CEP (opcional), data de nascimento, email e senha para login
+And eu clico em "Cadastrar"
 Then O cadastro é bem sucedido
 And Eu sou redirecionado para a página "Página Principal”
 And A conta de "Enzo” é um "Usuário comum"
@@ -52,4 +69,11 @@ Then o campo "CPF" da requisição é rejeitado
 Then o status da resposta deve ser "200"
 And o JSON da resposta indica que o cadastro foi mal sucedido
 And o JSON da resposta indica que o campo "CPF" foi mal preenchido
+
+Cenário: Remoção de usuário
+Given eu sou usuário "Administrador"
+And Usuário "Enzo" está cadastrado
+And estou na página "Administração"
+When eu insiro o comando para "Remover usuário Enzo"
+Then Usuário "Enzo" não está cadastrado
 
