@@ -37,12 +37,13 @@ Then 'Gabriel' visualiza a mensagem 'usuário ou senha incorreto'
 And permanece na página 'Fazer login' 
 
 
-Scenario: login mal-sucedido devido a email incorreto 
-Given "Gabriel" está na página "Fazer login"
-And "Gabriel" tem o seu nome “Gabriel” , sobrenome “Lopes” , CPF “000000000-00”, endereço: “Rua alameda sempre verde”, CEP “XXXXXXXX”, data de nascimento “20/06/2001” , email “teste@gmail.com”  e a senha “123456yuytre” armazenados no banco de dados. 
-When "Gabriel" preenche os campos com seu email "teste_errado@gmail.com" e senha "123456yuytre"
-And "Gabriel" seleciona a opção "Continuar"
-Then "Gabriel" visualiza a mensagem: "Email e/ou senha incorretos"
-And permanece na página "fazer login"
+Scenario: login mal sucedido devido a email incorreto
+Given 'Gabriel' está na página 'Fazer login' 
+And 'Gabriel' está cadastrado na plataforma com nome 'Gabriel', sobrenome 'Silva', CPF '111.222.333-44', endereço 'Rua alameda sempre verde', CEP '12345-678', data de nascimento '17/06/2003', email 'usuario@gmail.com' e senha '12345678a'. 
+When 'Gabriel' preenche os campos disponíveis com o email 'usuario@gmail.com' e senha '12345658b'
+And seleciona a opção 'Submeter'
+Then 'Gabriel' visualiza a mensagem 'usuário ou senha incorreto'
+And permanece na página 'Fazer login' 
+
 
 
