@@ -6,14 +6,14 @@ So that eu possa tomar decisões informadas sobre o que comprar
 Scenario: Remover item do carrinho com sucesso
 Given eu estou logado com o email “usuario@gmail.com”
 And estou na página “Carrinho”
-And vejo o item “Camisa” com preço “60” na lista de itens do carrinho
-And vejo o item “Calça” com preço “100” na lista de itens do carrinho
+And vejo o item “Camisa” com preço “60” e quantidade "1" na lista de itens do carrinho
+And vejo o item “Calça” com preço “100” e quantidade "1" na lista de itens do carrinho
 And vejo o preço “160” no carrinho
 When eu removo “Camisa”
 Then eu não vejo mais o item “Camisa” no carrinho
-And eu vejo o item “Calça” com preço “100” no carrinho
+And eu vejo o item “Calça” com preço “100” e quantidade "1" no carrinho
 And vejo uma mensagem de confirmação
-And vejo que o preço agora é “100”
+And vejo que o preço total agora é “100”
 
 Scenario: Atualizar a quantidade de um item no carrinho
 Given eu estou logado com o email “usuario@gmail.com”
