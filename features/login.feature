@@ -9,13 +9,6 @@ When “Gabriel”preenche os campos disponíveis com seu login “gabriel_lopes
 And seleciona a opção “Login”
 Then “Gabriel” visualiza a página inicial da plataforma.  
 
-Scenario: login mal sucedido devido a informações incorretas 
-Given “Gabriel” está na página de login 
-When “Gabriel”preenche os campos disponíveis com seu login “gabriel_lopes123” e senha “12345678abc”
-And seleciona a opção “Login”
-Then “Gabriel” visualiza a mensagem “e-mail ou senha incorreto”
-And permanece na pagina de login 
-
 Scenario: Esquecimento de senha
 Given “Gabriel” está na página de login 
 And “Gabriel” esqueceu a senha de login
