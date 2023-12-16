@@ -7,3 +7,5 @@ pytest
 pytest-mongodb
 pytest-bdd
 httpx
+py-bcrypt
+jsonpickle
