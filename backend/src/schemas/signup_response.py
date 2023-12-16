@@ -1,10 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel
-
-class HttpResponseModel(BaseModel):
-    message: str
-    status_code: int
-    data: Optional[dict] | Optional[list] = None
+from .response import HttpResponseModel
 
 class HTTPSignUpResponses:
 
@@ -24,6 +20,13 @@ class HTTPSignUpResponses:
         return HttpResponseModel(
             message = "Já existe uma conta com esse CPF",
             status_code=401,
+        )
+    
+    def BAD_REQUEST(reason_: str) -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Request mal feito",
+            data=[f"Campo {reason_} mal formulado"],
+            status_code=400
         )
 
     @staticmethod

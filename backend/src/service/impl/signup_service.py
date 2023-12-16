@@ -13,8 +13,8 @@ class DadosCadastrais(BaseModel):
     data_de_nascimento: datetime.date
     email: str
     senha: str
-    endereço: str | None
-    CEP: str | None
+    endereço: str | None = None
+    CEP: str | None = None
 
 class SingUpService():
     @staticmethod
@@ -27,7 +27,10 @@ class SingUpService():
         Returns:
             HttpResponseModel: _description_
         """
-        (success, reason) = dbase.signup(User(*dados_cadastrais.model_dump().values()))
+        (user, reason) = User.new(*dados_cadastrais.model_dump().values())
+        if user == None:
+            return HTTPSignUpResponses.BAD_REQUEST(reason)
+        (success, reason) = dbase.signup(user)
         
         # Depois, alguma coisa assim, com base no resultado da operação
         if success:
