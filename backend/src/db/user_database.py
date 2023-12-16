@@ -90,6 +90,12 @@ class UserDatabase():
     db: dict[User]
     file_path: str
     
+    def signup(self, user: User):
+        """Alias para add_user"""
+        success, reason = self.add_user(user)
+        return (success, reason)
+    
+    
     def __init__(self, path = "Usuários.json"):
         self.db = dict()
         self.file_path = path
@@ -113,17 +119,28 @@ class UserDatabase():
         with open(self.file_path, 'w+') as f:
             f.write(objetos)
     
-    def add_user(self, user: User):
+    def add_user(self, user: User, update = True):
         """Adicionar um novo usuário a database
 
         Args:
             user (User): Usuário em questão
+            
+        Returns:
+            success (bool): True para cadastro bem sucedido, False para mal sucedido
+            reason (str): Caso falhe, "CPF" se a razão for um CPF já existente, "USER" se for um user já existente.
+            "SUCCESS" caso tenha sido um cadastro bem sucedido
         """
-        self.try_read_from_file()
+        if update:
+            self.try_read_from_file()
+        if self.get_user_by_cpf(user.cpf, False):
+            return (False, "CPF")
+        if self.get_user_by_username(user.nome, False):
+            return (False, "USER")
         self.db[user.cpf] = user
         self.write_to_file()
+        return (True, "SUCCESS")
     
-    def get_user_by_cpf(self, cpf: str) -> User | None:
+    def get_user_by_cpf(self, cpf: str, update = True) -> User | None:
         """Pega um usuário da database por cpf. Esse é o método mais eficiente.
 
         Args:
@@ -132,10 +149,11 @@ class UserDatabase():
         Returns:
             User | None: Usuário retornado
         """
-        self.try_read_from_file()
+        if update:
+            self.try_read_from_file()
         return self.db.get(cpf)
     
-    def get_user_by_username(self, username: str) -> User | None:
+    def get_user_by_username(self, username: str, update = True) -> User | None:
         """Pega um usuário da database por username.
 
         Args:
@@ -144,13 +162,14 @@ class UserDatabase():
         Returns:
             User | None: Usuário retornado
         """
-        self.try_read_from_file()
+        if update:
+            self.try_read_from_file()
         for key, val in self.db.items():
             if val.username == username:
                 return val
         return None
     
-    def get_user_by_id(self, id: int) -> User | None:
+    def get_user_by_id(self, id: int, update = True) -> User | None:
         """Pega um usuário da database por id.
 
         Args:
@@ -159,15 +178,32 @@ class UserDatabase():
         Returns:
             User | None: Usuário retornado
         """
-        self.try_read_from_file()
+        if update:
+            self.try_read_from_file()
         for key, val in self.db.items():
             if val.id == id:
                 return val
         return None
         
-    def get_user_list(self) -> list[User]:
+    def get_user_list(self, update = True) -> list[User]:
         """Retorna a lista de todos os usuários no ecommerce
         """
-        self.try_read_from_file()
+        if update:
+            self.try_read_from_file()
         return list(self.db.values())
+    
+    def remove_user_by_cpf(self, cpf: str, update = True) -> User | None:
+        """Remove o usuário de respectivo CPF
+
+        Args:
+            cpf (str): CPF do usuário a ser removido
+
+        Returns:
+            User | None: Retorna o User removido, ou None se nenhum foi removido
+        """
+        if update:
+            self.try_read_from_file()
+        toreturn = self.db.pop(cpf, None)
+        self.write_to_file()
+        return toreturn
         

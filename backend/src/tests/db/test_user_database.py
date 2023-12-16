@@ -63,4 +63,23 @@ def test_verify_user_from_database():
     
     user = database.get_user_by_cpf("0")
     assert user == None
+
+def test_remove_user_from_database():
+    user = User(
+        username="Miguel", 
+        nome="Miguel Guerra", 
+        sobrenome="", 
+        cpf="777.777.777-77", 
+        data_de_nascimento=datetime.date.fromisocalendar(1,1,1),
+        email="mg4@cin.ufpe.br", 
+        senha="12345Abcx"
+    )
+    database = UserDatabase("Usuários teste.json")
+    database.add_user(user)
+    
+    assert database.get_user_by_cpf("777.777.777-77")
+    
+    database.remove_user_by_cpf("777.777.777-77")
+    
+    assert database.get_user_by_cpf("777.777.777-77") == None
     
