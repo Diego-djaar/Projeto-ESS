@@ -158,7 +158,7 @@ class UserDatabase():
             self.try_read_from_file()
         if self.get_user_by_cpf(user.cpf, False):
             return (False, "CPF")
-        if self.get_user_by_username(user.nome, False):
+        if self.get_user_by_username(user.username, False):
             return (False, "USER")
         self.db[user.cpf] = user
         self.write_to_file()
