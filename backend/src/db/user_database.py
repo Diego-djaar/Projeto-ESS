@@ -55,21 +55,26 @@ class User(object):
             CEP (str | None, optional): Defaults to None.
 
         Returns:
-            (User, "SUCCESS), ou (None, reason) caso o input não seja validado.
+            (User, reason), ou (None, reason) caso o input não seja validado.
             
-            reason será o nome do campo rejeitado pela validação
+            reason será a lista dos campos rejeitados pela validação. ["SUCCESS"] se o user for validado.
         """
+        reason = []
         if not cpf_pattern.match(cpf):
-            return (None, "CPF")
+            reason.append("CPF")
         if not (CEP is None) and not (cep_pattern.match(CEP)):
-            return (None, "CEP")
+            reason.append("CEP")
         if not email_pattern.match(email):
-            return (None, "EMAIL")
+            reason.append("EMAIL")
         if not senha_pattern.match(senha):
-            return (None, "SENHA")
-
-        obj = User(username, nome, sobrenome, cpf, data_de_nascimento, email, senha,endereço, CEP)
-        return (obj, "SUCCESSS")
+            reason.append("SENHA")
+            
+        obj = None
+        if reason.__len__() == 0:
+            reason.append("SUCCESS")
+            obj = User(username, nome, sobrenome, cpf, data_de_nascimento, email, senha,endereço, CEP)
+            
+        return (obj, reason)
     
     def __init__(self, username: str, nome: str, sobrenome: str, cpf: str, data_de_nascimento: datetime.date, email: str, senha: str, 
                 endereço: str | None = None, CEP: str | None = None): 
@@ -151,18 +156,22 @@ class UserDatabase():
             
         Returns:
             success (bool): True para cadastro bem sucedido, False para mal sucedido
-            reason (str): Caso falhe, "CPF" se a razão for um CPF já existente, "USER" se for um user já existente.
-            "SUCCESS" caso tenha sido um cadastro bem sucedido
+            reason (list[str]): contém "CPF" se a razão for um CPF já existente, contém "USER" se for um user já existente.
+            ["SUCCESS"] caso tenha sido um cadastro bem sucedido
         """
+        reason = []
         if update:
             self.try_read_from_file()
         if self.get_user_by_cpf(user.cpf, False):
-            return (False, "CPF")
+            reason.append("CPF")
         if self.get_user_by_username(user.username, False):
-            return (False, "USER")
+            reason.append("USER")
+        if reason.__len__() > 0:
+            return (False, reason)
+        
         self.db[user.cpf] = user
         self.write_to_file()
-        return (True, "SUCCESS")
+        return (True, ["SUCCESS"])
     
     def get_user_by_cpf(self, cpf: str, update = True) -> User | None:
         """Pega um usuário da database por cpf. Esse é o método mais eficiente.
@@ -230,4 +239,8 @@ class UserDatabase():
         toreturn = self.db.pop(cpf, None)
         self.write_to_file()
         return toreturn
+    
+    def clear_database(self):
+        self.db = dict()
+        self.write_to_file()
         

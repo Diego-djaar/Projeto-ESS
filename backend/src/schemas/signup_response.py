@@ -9,23 +9,35 @@ class HTTPSignUpResponses:
     """
 
     @staticmethod
-    def USER_ALREADY_EXIST() -> HttpResponseModel:
+    def USER_ALREADY_EXIST(reason_: list[str]) -> HttpResponseModel:
+        data = []
+        for reas in reason_:
+            data.append(f"Já existe uma conta com esse {reas}")
         return HttpResponseModel(
             message = "Já existe uma conta com esse User",
+            data = data,
             status_code=401,
         )
         
     @staticmethod
-    def CPF_ALREADY_EXIST() -> HttpResponseModel:
+    def CPF_ALREADY_EXIST(reason_: list[str]) -> HttpResponseModel:
+        data = []
+        for reas in reason_:
+            data.append(f"Já existe uma conta com esse {reas}")
         return HttpResponseModel(
             message = "Já existe uma conta com esse CPF",
+            data = data,
             status_code=401,
         )
     
-    def BAD_REQUEST(reason_: str) -> HttpResponseModel:
+    def BAD_REQUEST(reason_: list[str]) -> HttpResponseModel:
+        data = []
+        for reas in reason_:
+            data.append(f"Campo {reas} mal formulado")
+            
         return HttpResponseModel(
             message="Request mal feito",
-            data=[f"Campo {reason_} mal formulado"],
+            data=data,
             status_code=400
         )
 

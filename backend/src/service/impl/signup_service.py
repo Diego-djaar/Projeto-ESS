@@ -36,8 +36,8 @@ class SingUpService():
         if success:
             return HTTPSignUpResponses.SIGNUP_SUCCESSFUL()
         else:
-            if reason == "CPF":
-                return HTTPSignUpResponses.CPF_ALREADY_EXIST()
-            elif reason == "USER":
-                return HTTPSignUpResponses.USER_ALREADY_EXIST()
+            if "CPF" in reason:
+                return HTTPSignUpResponses.CPF_ALREADY_EXIST(reason)
+            elif "USER" in reason:
+                return HTTPSignUpResponses.USER_ALREADY_EXIST(reason)
         

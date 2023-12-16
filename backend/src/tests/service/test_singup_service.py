@@ -8,6 +8,9 @@ import src.service.impl.signup_service as signup
 import src.db.user_database as dbase
 
 def test_signup_user():
+    db.remove_user_by_cpf("123.123.123-45")
+    db.remove_user_by_cpf("000.000.000-00")
+    
     dados_cadastrais = signup.DadosCadastrais(
         username= "Maria",
         nome = "Maria",
@@ -22,7 +25,7 @@ def test_signup_user():
     res1 = signup.SingUpService.signup_user(dados_cadastrais, db)
     res2 = signup.SingUpService.signup_user(dados_cadastrais, db)
     
-    assert res2 == HTTPSignUpResponses.CPF_ALREADY_EXIST() or res2 == HTTPSignUpResponses.USER_ALREADY_EXIST()
+    assert res2 == HTTPSignUpResponses.CPF_ALREADY_EXIST(["CPF", "USER"]) or res2 == HTTPSignUpResponses.USER_ALREADY_EXIST(["CPF", "USER"])
     
     dados_cadastrais = signup.DadosCadastrais(
         username= "Maria",
@@ -38,7 +41,7 @@ def test_signup_user():
     
     res3 = signup.SingUpService.signup_user(dados_cadastrais, db)
     
-    assert res3 == HTTPSignUpResponses.USER_ALREADY_EXIST()
+    assert res3 == HTTPSignUpResponses.USER_ALREADY_EXIST(["USER"])
     
     db.remove_user_by_cpf("123.123.123-45")
     db.remove_user_by_cpf("000.000.000-00")
@@ -57,11 +60,11 @@ def test_bad_request():
     )
     res = signup.SingUpService.signup_user(dados_cadastrais, db)
     
-    assert res == HTTPSignUpResponses.BAD_REQUEST("CPF")
+    assert res == HTTPSignUpResponses.BAD_REQUEST(["CPF"])
 
 def test_good_request():
     dados_cadastrais = signup.DadosCadastrais(
-        username= "Maria",
+        username= "Mariazinha",
         nome = "Maria",
         sobrenome = "Agra",
         cpf = "000.000.000-00",
