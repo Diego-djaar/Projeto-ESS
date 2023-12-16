@@ -20,9 +20,13 @@ senha_pattern = re.compile(r"(?=.{8,})(?=.*[0-9].*)(?=.*[a-zA-Z].*)")
 
 class User(object):
     """Classe que representa um usuário do ecommerce
+    
+        Criar com método new()
 
     Returns:
-        User, ou None caso o input não seja validado.
+        (User, "SUCCESS), ou (None, reason) caso o input não seja validado.
+        
+        reason será o nome do campo rejeitado pela validação
     """
     username: str
     nome: str
@@ -35,19 +39,37 @@ class User(object):
     senha: bytes
     id: int
     
-    def __new__(cls, username: str, nome: str, sobrenome: str, cpf: str, data_de_nascimento: datetime.date, email: str, senha: str, 
-                endereço: str | None = None, CEP: str | None = None):
-        if not cpf_pattern.match(cpf):
-            return None
-        if not (CEP is None) and not (cep_pattern.match(CEP)):
-            return None
-        if not email_pattern.match(email):
-            return None
-        if not senha_pattern.match(senha):
-            return None
+    def new(username: str, nome: str, sobrenome: str, cpf: str, data_de_nascimento: datetime.date, email: str, senha: str, 
+        endereço: str | None = None, CEP: str | None = None):
+        """Cria novo usuário, validando-o
 
-        obj = object.__new__(cls)
-        return obj
+        Args:
+            username (str): str
+            nome (str): str
+            sobrenome (str): str
+            cpf (str): "DDD.DDD.DDD-DD"
+            data_de_nascimento (datetime.date): formato datetime
+            email (str): ter 1 @
+            senha (str): pelo menos 8 caracters, 1 letra e 1 número
+            endereço (str | None, optional): Defaults to None.
+            CEP (str | None, optional): Defaults to None.
+
+        Returns:
+            (User, "SUCCESS), ou (None, reason) caso o input não seja validado.
+            
+            reason será o nome do campo rejeitado pela validação
+        """
+        if not cpf_pattern.match(cpf):
+            return (None, "CPF")
+        if not (CEP is None) and not (cep_pattern.match(CEP)):
+            return (None, "CEP")
+        if not email_pattern.match(email):
+            return (None, "EMAIL")
+        if not senha_pattern.match(senha):
+            return (None, "SENHA")
+
+        obj = User(username, nome, sobrenome, cpf, data_de_nascimento, email, senha,endereço, CEP)
+        return (obj, "SUCCESSS")
     
     def __init__(self, username: str, nome: str, sobrenome: str, cpf: str, data_de_nascimento: datetime.date, email: str, senha: str, 
                 endereço: str | None = None, CEP: str | None = None): 
@@ -69,7 +91,9 @@ class User(object):
             senha (str): Senha em formato de string. Não deve ser armazenada em hipótese alguma.
         """
         hash = hmac.new(self.cpf.encode(), senha.encode(), hashlib.sha512)
-        self.senha = hashpw(hash.digest(), gensalt())
+        # Corrige bug de caracteres null
+        senha_hashed = hash.digest().replace(b'\x00',b'\x01')
+        self.senha = hashpw(senha_hashed, gensalt())
         
     def check_password(self, senha: str):
         """Verifica se essa senha é a do usuário

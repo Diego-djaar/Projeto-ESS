@@ -6,7 +6,7 @@ import hmac
 import hashlib
 
 def test_create_user():
-    user = User(
+    user = User.new(
         username="Enzo", 
         nome="Enzo Gabriel", 
         sobrenome="de Oliveira", 
@@ -14,7 +14,7 @@ def test_create_user():
         data_de_nascimento=datetime.date.fromisocalendar(2001,1,1),
         email="ego@cin.ufpe.br", 
         senha="12345Abcx"
-    )
+    )[0]
     assert user != None
     assert user.username == "Enzo"
     hash = hmac.new("111.111.111-11".encode(), "12345Abcx".encode(),  hashlib.sha512)
@@ -22,7 +22,7 @@ def test_create_user():
     assert user.check_password("12345Abcx")
 
 def test_write_user_to_file():
-    user = User(
+    user = User.new(
         username="Enzo", 
         nome="Enzo Gabriel", 
         sobrenome="de Oliveira", 
@@ -30,8 +30,8 @@ def test_write_user_to_file():
         data_de_nascimento=datetime.date.fromisocalendar(2001,1,1),
         email="ego@cin.ufpe.br", 
         senha="12345Abcx"
-    )
-    user2 = User(
+    )[0]
+    user2 = User.new(
         username="Enzoo", 
         nome="Enzo Gabriel", 
         sobrenome="de Oliveira", 
@@ -39,7 +39,7 @@ def test_write_user_to_file():
         data_de_nascimento=datetime.date.fromisocalendar(2001,1,1),
         email="ego@cin.ufpe.br", 
         senha="12345Abcx"
-    )
+    )[0]
     database = UserDatabase("Usuários teste.json")
     database.add_user(user)
     database.add_user(user2)
@@ -65,7 +65,7 @@ def test_verify_user_from_database():
     assert user == None
 
 def test_remove_user_from_database():
-    user = User(
+    user = User.new(
         username="Miguel", 
         nome="Miguel Guerra", 
         sobrenome="", 
@@ -73,7 +73,7 @@ def test_remove_user_from_database():
         data_de_nascimento=datetime.date.fromisocalendar(1,1,1),
         email="mg4@cin.ufpe.br", 
         senha="12345Abcx"
-    )
+    )[0]
     database = UserDatabase("Usuários teste.json")
     database.add_user(user)
     
