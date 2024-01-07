@@ -95,10 +95,8 @@ class User(object):
         Args:
             senha (str): Senha em formato de string. Não deve ser armazenada em hipótese alguma.
         """
-        hash = hmac.new(self.cpf.encode(), senha.encode(), hashlib.sha512)
-        # Corrige bug de caracteres null
-        senha_hashed = hash.digest().replace(b'\x00',b'\x01')
-        self.senha = hashpw(senha_hashed, gensalt())
+        hash = self.cpf.encode() + senha.encode()
+        self.senha = hashpw(hash, gensalt())
         
     def check_password(self, senha: str):
         """Verifica se essa senha é a do usuário
@@ -109,8 +107,8 @@ class User(object):
         Returns:
             True se é, ou False se não é
         """
-        hash = hmac.new(self.cpf.encode(), senha.encode(),  hashlib.sha512)
-        return checkpw(hash.digest(), self.senha)
+        hash = self.cpf.encode() + senha.encode()
+        return checkpw(hash, self.senha)
     
 
         

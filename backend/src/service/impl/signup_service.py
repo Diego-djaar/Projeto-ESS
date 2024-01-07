@@ -3,18 +3,9 @@ from pydantic import BaseModel
 from src.schemas.response import HTTPResponses, HttpResponseModel
 from src.db.__init__ import user_database as db
 from src.db.user_database import User, UserDatabase
-from src.schemas.signup_response import HTTPSignUpResponses
+from src.schemas.user_response import HTTPSignUpResponses
+from src.schemas.user_schemas import DadosCadastrais
 
-class DadosCadastrais(BaseModel):
-    username: str
-    nome: str
-    sobrenome: str
-    cpf: str
-    data_de_nascimento: datetime.date
-    email: str
-    senha: str
-    endereço: str | None = None
-    CEP: str | None = None
 
 class SingUpService():
     @staticmethod
@@ -32,7 +23,6 @@ class SingUpService():
             return HTTPSignUpResponses.BAD_REQUEST(reason)
         (success, reason) = dbase.signup(user)
         
-        # Depois, alguma coisa assim, com base no resultado da operação
         if success:
             return HTTPSignUpResponses.SIGNUP_SUCCESSFUL()
         else:

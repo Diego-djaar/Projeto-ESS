@@ -17,8 +17,8 @@ def test_create_user():
     )[0]
     assert user != None
     assert user.username == "Enzo"
-    hash = hmac.new("111.111.111-11".encode(), "12345Abcx".encode(),  hashlib.sha512)
-    assert checkpw(hash.digest(), user.senha)
+    hash = "111.111.111-11".encode() + "12345Abcx".encode()
+    assert checkpw(hash, user.senha)
     assert user.check_password("12345Abcx")
 
 def test_user_bad_request():
@@ -146,4 +146,11 @@ def test_not_add_account_on_fail():
     assert res == False
     
     assert dblen == database.db.__len__()
+    
+def test_cleanup():
+    database = UserDatabase("Usuários teste.json")
+    
+    database.remove_user_by_cpf("111.111.111-11")
+    database.remove_user_by_cpf("111.111.111-10")
+    database.remove_user_by_cpf("123.156.185-21")
     

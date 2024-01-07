@@ -1,11 +1,12 @@
 from fastapi import APIRouter, status, Response
 from src.schemas.response import HttpResponseModel
 from src.service.impl.signup_service import DadosCadastrais, SingUpService
+from src.service.impl.auth_service import DadosLogin, AuthService
 
 router = APIRouter()
 
 @router.post(
-    "/{item_id}",
+    "/register",
     response_model=HttpResponseModel,
     status_code=status.HTTP_200_OK,
     description="Cadastro de Usuário",
@@ -28,3 +29,25 @@ def cadastrar_usuário(dados: DadosCadastrais, response: Response) -> HttpRespon
     signup_get_response = SingUpService.signup_user(dados)
     response.status_code = signup_get_response.status_code
     return signup_get_response
+
+@router.post(
+    "/login",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Login de Usuário. Use o token recebido para manter a sessão"
+)
+def login_usuário(dados: DadosLogin, response: Response) -> HttpResponseModel:
+    login_response = AuthService.login_user(dados)
+    response.status_code = login_response.status_code
+    return login_response
+
+@router.post(
+    "/verify",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Retorna os dados de usuário referentes ao token de sessão"
+)
+def verify_usuário(token: str, response: Response) -> HttpResponseModel:
+    login_response = AuthService.get_user_data(token)
+    response.status_code = login_response.status_code
+    return login_response

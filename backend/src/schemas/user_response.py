@@ -1,6 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel
 from .response import HttpResponseModel
+from src.schemas.user_schemas import DadosLogin, DadosUser
 
 class HTTPSignUpResponses:
 
@@ -30,6 +31,7 @@ class HTTPSignUpResponses:
             status_code=401,
         )
     
+    @staticmethod
     def BAD_REQUEST(reason_: list[str]) -> HttpResponseModel:
         data = []
         for reas in reason_:
@@ -46,4 +48,53 @@ class HTTPSignUpResponses:
         return HttpResponseModel(
             message = "Usuário cadastrado com sucesso",
             status_code=200,
+        )
+        
+class HTTPLoginResponses:
+    """
+    Contém respostas http referentes ao login de usuário
+    """
+    
+    @staticmethod
+    def USER_NOT_FOUND() -> HttpResponseModel:
+        return HttpResponseModel(
+            message = "CPF ou Senha incorretos",
+            status_code = 401
+        )
+        
+    @staticmethod
+    def LOGIN_SUCCESSFUL(token: int) -> HttpResponseModel:
+        return HttpResponseModel(
+            message = "Login com sucesso",
+            data = {
+                "token": str(token)
+            },
+            status_code=200,
+        )
+    
+    @staticmethod
+    def LOGIN_FAILED() -> HttpResponseModel:
+        return HttpResponseModel(
+            message = "Login falhou",
+            status_code = 401
+        )
+        
+class HTTPVerifyResponses:
+    """
+    Contém respostas http referentes a verificação de usuário
+    """
+    def VERIFY(dados_user: DadosUser) -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Usuário retornado",
+            data={
+                "user": dados_user
+            },
+            
+                status_code = 200
+        )
+        
+    def VERIFY_FAIL() -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Verificação falhou",
+            status_code=401
         )
