@@ -164,6 +164,8 @@ class UserDatabase():
             reason.append("CPF")
         if self.get_user_by_username(user.username, False):
             reason.append("USER")
+        if self.get_user_by_email(user.email, False):
+            reason.append("EMAIL")
         if reason.__len__() > 0:
             return (False, reason)
         
@@ -197,6 +199,22 @@ class UserDatabase():
             self.try_read_from_file()
         for key, val in self.db.items():
             if val.username == username:
+                return val
+        return None
+    
+    def get_user_by_email(self, email: str, update = True) -> User | None:
+        """Pega um usuário da database por email.
+
+        Args:
+            email (str): Email do usuário
+
+        Returns:
+            User | None: Usuário retornado
+        """
+        if update:
+            self.try_read_from_file()
+        for key, val in self.db.items():
+            if val.email == email:
                 return val
         return None
     

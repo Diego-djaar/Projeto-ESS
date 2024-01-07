@@ -25,7 +25,9 @@ def sign_up_user(use_user):
     res1 = signup.SingUpService.signup_user(dados_cadastrais, db)
     res2 = signup.SingUpService.signup_user(dados_cadastrais, db)
     assert res1 == HTTPSignUpResponses.SIGNUP_SUCCESSFUL()
-    assert res2 == HTTPSignUpResponses.CPF_ALREADY_EXIST(["CPF", "USER"]) or res2 == HTTPSignUpResponses.USER_ALREADY_EXIST(["CPF", "USER"])
+    assert res2 == HTTPSignUpResponses.CPF_ALREADY_EXIST(["CPF", "USER", "EMAIL"]) or \
+        res2 == HTTPSignUpResponses.USER_ALREADY_EXIST(["CPF", "USER", "EMAIL"]) or \
+        res2 == HTTPSignUpResponses.ALREADY_EXIST(["CPF", "USER", "EMAIL"])
     
     dados_cadastrais = signup.DadosCadastrais(
         username= "Maria",
@@ -33,7 +35,7 @@ def sign_up_user(use_user):
         sobrenome = "Agra",
         cpf = "000.000.000-00",
         data_de_nascimento=datetime.datetime(1999,12,31),
-        email="Maria@proton.me",
+        email="Maria4@proton.me",
         senha="12345XyzW",
         endereço = None,
         CEP = None
@@ -75,7 +77,7 @@ def test_good_request():
         sobrenome = "Agra",
         cpf = "000.000.000-00",
         data_de_nascimento=datetime.datetime(1999,12,31),
-        email="Maria@proton.me",
+        email="Maria2@proton.me",
         senha="12345XyzW",
         endereço = None,
         CEP = None
@@ -85,3 +87,31 @@ def test_good_request():
     res = signup.SingUpService.signup_user(dados_cadastrais, db)
     assert res == HTTPSignUpResponses.SIGNUP_SUCCESSFUL()
     db.remove_user_by_cpf("000.000.000-00")
+
+def test_unique_email():
+    db.remove_user_by_cpf("141.414.141-14")
+    dados1 = signup.DadosCadastrais(
+        username = "LOUIS XIV",
+        nome = "Luis",
+        sobrenome="XIV",
+        cpf="141.414.141-14",
+        data_de_nascimento=datetime.datetime(1643,5,14),
+        email="luis14@proton.me",
+        senha="senha1234"
+    )
+    dados2 = signup.DadosCadastrais(
+        username = "LOUIS 14",
+        nome = "Luis",
+        sobrenome="XIV",
+        cpf="414.141.414-41",
+        data_de_nascimento=datetime.datetime(1643,5,14),
+        email="luis14@proton.me",
+        senha="senha1234"
+    )
+    
+    res = signup.SingUpService.signup_user(dados1, db)
+    assert res == HTTPSignUpResponses.SIGNUP_SUCCESSFUL()
+    
+    res2 = signup.SingUpService.signup_user(dados2, db)
+    assert res2 == HTTPSignUpResponses.ALREADY_EXIST(["EMAIL"])
+    db.remove_user_by_cpf("141.414.141-14")

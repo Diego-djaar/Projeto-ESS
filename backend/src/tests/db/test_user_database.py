@@ -54,7 +54,7 @@ def test_write_user_to_file():
         sobrenome="de Oliveira", 
         cpf="111.111.111-11", 
         data_de_nascimento=datetime.date.fromisocalendar(2001,1,1),
-        email="ego@cin.ufpe.br", 
+        email="ego2@cin.ufpe.br", 
         senha="12345Abcx"
     )[0]
     user2 = User.new(
@@ -63,7 +63,7 @@ def test_write_user_to_file():
         sobrenome="de Oliveira", 
         cpf="111.111.111-10", 
         data_de_nascimento=datetime.date.fromisocalendar(2001,1,1),
-        email="ego@cin.ufpe.br", 
+        email="ego3@cin.ufpe.br", 
         senha="12345Abcx"
     )[0]
     database = UserDatabase("Usuários teste.json")
@@ -135,7 +135,7 @@ def test_not_add_account_on_fail():
         sobrenome="sting",
         cpf="123.156.184-21",
         data_de_nascimento=datetime.datetime(1,1,1),
-        email="string@s",
+        email="string2@s",
         senha="string123",
         endereço="string",
         CEP="01010-142"
@@ -147,10 +147,42 @@ def test_not_add_account_on_fail():
     
     assert dblen == database.db.__len__()
     
+def test_unique_email():
+    database = UserDatabase("Usuários teste.json")
+    
+    user, reason = User.new(
+        username = "LOUIS XIV",
+        nome = "Luis",
+        sobrenome="XIV",
+        cpf="141.414.141-14",
+        data_de_nascimento=datetime.datetime(1643,5,14),
+        email="luis14@proton.me",
+        senha="senha1234"
+    )
+    user2, reason = User.new(
+        username = "LOUIS 14",
+        nome = "Luis",
+        sobrenome="XIV",
+        cpf="414.141.414-41",
+        data_de_nascimento=datetime.datetime(1643,5,14),
+        email="luis14@proton.me",
+        senha="senha1234"
+    )
+    res1, reas = database.add_user(user)
+    
+    assert res1 == True
+    
+    res2, reas2 = database.add_user(user2)
+    
+    assert res2 == False
+    assert reas2 == ["EMAIL"]
+    
+    
 def test_cleanup():
     database = UserDatabase("Usuários teste.json")
     
     database.remove_user_by_cpf("111.111.111-11")
     database.remove_user_by_cpf("111.111.111-10")
     database.remove_user_by_cpf("123.156.185-21")
+    database.remove_user_by_cpf("141.414.141-14")
     

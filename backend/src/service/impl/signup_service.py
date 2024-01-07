@@ -30,4 +30,6 @@ class SingUpService():
                 return HTTPSignUpResponses.CPF_ALREADY_EXIST(reason)
             elif "USER" in reason:
                 return HTTPSignUpResponses.USER_ALREADY_EXIST(reason)
+            elif reason.__len__() > 0:
+                return HTTPSignUpResponses.ALREADY_EXIST(reason)
         

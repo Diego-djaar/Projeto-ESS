@@ -32,6 +32,17 @@ class HTTPSignUpResponses:
         )
     
     @staticmethod
+    def ALREADY_EXIST(reason_: list[str]) -> HttpResponseModel:
+        data = []
+        for reas in reason_:
+            data.append(f"Já existe uma conta com esse {reas}")
+        return HttpResponseModel(
+            message = "Já existe uma conta com esses dados",
+            data = data,
+            status_code=401,
+        )
+    
+    @staticmethod
     def BAD_REQUEST(reason_: list[str]) -> HttpResponseModel:
         data = []
         for reas in reason_:
