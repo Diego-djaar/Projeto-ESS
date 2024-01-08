@@ -177,6 +177,19 @@ def test_unique_email():
     assert res2 == False
     assert reas2 == ["EMAIL"]
     
+def test_bad_username():
+    user, res = User.new(
+        username="Enzo@", 
+        nome="Enzo Gabriel", 
+        sobrenome="de Oliveira", 
+        cpf="111.111.111-11", 
+        data_de_nascimento=datetime.date.fromisocalendar(2001,1,1),
+        email="ego@cin.ufpe.br", 
+        senha="12345Abcx"
+    )
+    assert user == None
+    assert "USERNAME" in res
+    
     
 def test_cleanup():
     database = UserDatabase("Usuários teste.json")

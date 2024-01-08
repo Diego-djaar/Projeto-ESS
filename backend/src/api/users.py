@@ -2,6 +2,7 @@ from fastapi import APIRouter, status, Response
 from src.schemas.response import HttpResponseModel
 from src.service.impl.signup_service import DadosCadastrais, SingUpService
 from src.service.impl.auth_service import DadosLogin, AuthService
+import src.schemas.user_schemas as schemas
 
 router = APIRouter()
 
@@ -47,7 +48,7 @@ def login_usuário(dados: DadosLogin, response: Response) -> HttpResponseModel:
     status_code=status.HTTP_200_OK,
     description="Retorna os dados de usuário referentes ao token de sessão"
 )
-def verify_usuário(token: str, response: Response) -> HttpResponseModel:
-    login_response = AuthService.get_user_data(token)
+def verify_usuário(token: schemas.Token, response: Response) -> HttpResponseModel:
+    login_response = AuthService.get_user_data(token.token)
     response.status_code = login_response.status_code
     return login_response

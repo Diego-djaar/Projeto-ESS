@@ -17,6 +17,7 @@ cpf_pattern = re.compile(r"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$")
 cep_pattern = re.compile(r"^[0-9]{5}\-[0-9]{3}$")
 email_pattern = re.compile(r"^[\w\.]+@[\w\.]+$")
 senha_pattern = re.compile(r"(?=.{8,})(?=.*[0-9].*)(?=.*[a-zA-Z].*)")
+username_pattern = re.compile(r"([a-z]|[A-Z]| |_|[0-9])*$")
 
 class User(object):
     """Classe que representa um usuário do ecommerce
@@ -68,6 +69,8 @@ class User(object):
             reason.append("EMAIL")
         if not senha_pattern.match(senha):
             reason.append("SENHA")
+        if not username_pattern.match(username):
+            reason.append("USERNAME")
             
         obj = None
         if reason.__len__() == 0:

@@ -1,8 +1,11 @@
 from pydantic import BaseModel
 import datetime
 
+class Token(BaseModel):
+    token: str
+
 class DadosLogin(BaseModel):
-    cpf: str
+    cpf_ou_user_ou_email: str
     senha: str
     
 class DadosUser(BaseModel):

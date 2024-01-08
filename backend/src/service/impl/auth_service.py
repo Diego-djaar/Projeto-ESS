@@ -21,10 +21,16 @@ class AuthService():
         Returns:
             HttpResponseModel: _description_
         """
-        user_cpf = dados_login.cpf
+        user_credencial = dados_login.cpf_ou_user_ou_email
         user_senha = dados_login.senha
         
-        user = dbase.get_user_by_cpf(user_cpf)
+        user = dbase.get_user_by_cpf(user_credencial)
+        
+        if user == None:
+            user = dbase.get_user_by_email(user_credencial)
+        
+        if user == None:
+            user= dbase.get_user_by_username(user_credencial)
         
         if user == None or not user.check_password(user_senha):
             return HTTPLoginResponses.USER_NOT_FOUND()
