@@ -1,12 +1,17 @@
 from pydantic import BaseModel
 import datetime
 
-class Boleto_pix(BaseModel): 
-    type: str
+class PaymentBase(BaseModel): 
     nome_completo: str
     cpf: str
 
-class Cartao(Boleto_pix):
+class Pix(PaymentBase):
+    pass 
+
+class Boleto(PaymentBase):
+    pass
+
+class Cartao(PaymentBase):
     cvv: str
     nome_cartao: str
     num_cartao: str
