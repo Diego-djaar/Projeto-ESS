@@ -209,3 +209,26 @@ class Database():
             A list of all items in the collection.
 
         """
+
+    def add(self, collection_name: Collection, item: dict) -> dict: 
+
+        #Insert a item in a collection.
+        
+        #Args: 
+            #collection_name (Collection) --> name of the collection. 
+            #item (dict) --> the item in form of a dict.
+        
+        #Process:
+            #acessing the collection of the item. 
+            #storing the item in the collection. 
+
+        #Outuput:
+            #A document containing:
+                #A boolean acknowledged as true if the operation ran with write concern or false if write concern was disabled.
+                #A field insertedId with the _id value of the inserted document.
+
+        collection: Collection = self.db[collection_name]
+
+        result = collection.insert_one(item)
+
+        return result
