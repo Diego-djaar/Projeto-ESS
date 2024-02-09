@@ -229,6 +229,6 @@ class Database():
 
         collection: Collection = self.db[collection_name]
 
-        result = collection.insert_one(item)
+        result = collection.insert_one(dict(item))
 
         return result
