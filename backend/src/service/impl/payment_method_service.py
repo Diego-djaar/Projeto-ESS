@@ -35,4 +35,9 @@ class PaymentService:
     
     def get_payment_methods(user_name: str): 
         
-        return obter_lista_de_metodos_pagamento(user_name)
+        resultado = obter_lista_de_metodos_pagamento(user_name)
+
+        if resultado is None: 
+            return HTTPPaymentResponse.INEXISTENT_USER()
+        else: 
+            return resultado
