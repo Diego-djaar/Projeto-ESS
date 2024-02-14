@@ -22,7 +22,7 @@ class Database():
 
             logger.setLevel(INFO)
 
-            self.db = mongo_connection[env.DB_NAME]
+            self.db = mongo_connection[str(env.DB_NAME)]
 
             print("--------------------")
             logger.info("MongoDB connected!")

@@ -1,0 +1,11 @@
+{
+    "string": [
+        {
+            "nome_cartao": "string",
+            "numero_cartao": "string",
+            "cvv": "string",
+            "validade": "2024-02-14",
+            "cpf": "string"
+        }
+    ]
+}

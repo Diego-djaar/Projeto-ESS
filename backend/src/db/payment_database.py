@@ -1,6 +1,16 @@
+from typing import List, Dict
+from uuid import uuid4
+from pymongo import MongoClient, errors
+from pymongo.collection import Collection, IndexModel
+#from src.config.config import env
+from logging import INFO, WARNING, getLogger
+import datetime
+import hmac
+import hashlib
+import re
 import json 
-import datetime 
-import re 
+
+logger = getLogger('uvicorn')
 
 cpf_pattern = re.compile(r"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$")
 cartao_pattern = re.compile(r"^5[1-5][0-9]{14}$")
@@ -15,7 +25,7 @@ def ler_arquivo(database):
     with open("payment_database.json", "r") as f:
         return json.load(f)
 
-def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date): 
+def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date) -> bool: 
     #if not cpf_pattern.match(cpf):
         #raise ValueError("CPF inválido")
 
@@ -35,3 +45,5 @@ def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, v
 
     database[cpf].append(cartao)
     escrever_arquivo(database)
+
+    return True 
