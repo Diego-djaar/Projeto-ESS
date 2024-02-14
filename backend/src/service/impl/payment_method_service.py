@@ -8,7 +8,13 @@ class PaymentService:
     @staticmethod
     def inserting_method(cartao: Cartao) -> HttpResponseModel:
 
-        consulta = Adicionar_cartao(*cartao.model_dump().values())
+        sucesso, problemas = Adicionar_cartao(*cartao.model_dump().values())
 
-        if consulta: 
+        if sucesso: 
             return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
+        elif "CPF" in problemas or "VALIDADE" in problemas or "CARD_NUMBER" in problemas: 
+            return HTTPPaymentResponse.BAD_REQUEST(problemas)
+        # elif "VALIDADE" in problemas:
+        #     return HTTPPaymentResponse.EXPIRED_DATA()
+        # elif "CARD_NUMBER" in problemas:
+        #     return HTTPPaymentResponse.INVALID_NUMBER()
