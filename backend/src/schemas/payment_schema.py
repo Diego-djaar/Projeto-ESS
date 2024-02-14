@@ -8,6 +8,12 @@ class Cartao(BaseModel):
     cpf: str 
     validade: datetime.date
 
+class Pix(BaseModel):
+    nome_completo: str 
+    cpf: str 
+
+class Boleto(Pix):
+    pass
 
 
 
