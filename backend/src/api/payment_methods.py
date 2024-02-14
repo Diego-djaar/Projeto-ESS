@@ -34,6 +34,16 @@ def insert_payment(boleto: Boleto) -> HttpResponseModel:
     response = PaymentService.insertion_boleto(boleto)
     return response 
 
+@router.get(
+    "/get/payment_methods", 
+    description="Get the payments methods of a especific user"
+)
+def get_payment_methods(username:str): 
+
+    request = PaymentService.get_payment_methods(username)
+
+    return request 
+
 # @router.post(
 #     "/inserting/{method_name}",
 #     response_model=HttpResponseModel,
