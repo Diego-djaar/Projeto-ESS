@@ -26,11 +26,22 @@ def ler_arquivo(database):
         return json.load(f)
 
 def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date) -> bool: 
-    #if not cpf_pattern.match(cpf):
-        #raise ValueError("CPF inválido")
 
-    #if not cartao_pattern.match(numero_cartao):
-        #raise ValueError("Número de cartão inválido")
+    problemas = []
+
+    if not cpf_pattern.match(cpf):
+        problemas.append("CPF")
+
+    if not validade >= datetime.date.today():
+      problemas.append("VALIDADE")
+
+    # if not cartao_pattern.match(numero_cartao):
+    #     problemas.append("CARD_NUMBER")
+    
+    print(len(problemas))
+
+    if len(problemas) > 0:
+        return (False, problemas)
 
     if cpf not in database:
         database[cpf] = []
@@ -46,4 +57,4 @@ def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, v
     database[cpf].append(cartao)
     escrever_arquivo(database)
 
-    return True 
+    return (True, problemas)
