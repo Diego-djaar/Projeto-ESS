@@ -56,3 +56,12 @@ class HTTPPaymentResponse:
             message="boleto inserido com sucesso", 
             status_code=201 
         ) 
+    
+    @staticmethod
+    def INEXISTENT_USER() -> HttpResponseModel:
+
+        return HttpResponseModel (
+            message="O usuário não está registrado na base de dados", 
+            status_code=400  
+        ) 
+    
