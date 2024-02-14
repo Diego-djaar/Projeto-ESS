@@ -11,11 +11,11 @@ router = APIRouter()
         '/inserting/cartao', 
         response_model=HttpResponseModel,
         status_code=status.HTTP_201_CREATED, 
-        description="Create a new payment method", 
+        summary="Create a new payment method", 
              )
 def insert_payment(cartao: Cartao) -> HttpResponseModel: 
     response = PaymentService.inserting_method(cartao)
-    return JSONResponse(content="Método inserido!", status_code=201)
+    return response 
 
 @router.post(
     "/inserting/{method_name}",
