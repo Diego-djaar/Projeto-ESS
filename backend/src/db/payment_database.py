@@ -36,9 +36,7 @@ def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, v
       problemas.append("VALIDADE")
 
     # if not cartao_pattern.match(numero_cartao):
-    #     problemas.append("CARD_NUMBER")
-    
-    print(len(problemas))
+    #     problemas.append("CARD_NUMBER")cx
 
     if len(problemas) > 0:
         return (False, problemas)
@@ -58,3 +56,30 @@ def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, v
     escrever_arquivo(database)
 
     return (True, problemas)
+
+def Adicionar_pix(nome_completo: str, cpf: str): 
+    if cpf not in database:
+        database[cpf] = []
+
+    pix = {
+        "tipo": "pix", 
+        "nome_completo": nome_completo,
+        "cpf": cpf
+    }
+
+    database[cpf].append(pix)
+    escrever_arquivo(database)
+
+def Adicionar_boleto(nome_completo: str, cpf: str): 
+    if cpf not in database:
+        database[cpf] = []
+
+    pix = {
+        "tipo": "boleto", 
+        "nome_completo": nome_completo,
+        "cpf": cpf
+    }
+
+    database[cpf].append(pix)
+    escrever_arquivo(database)
+
