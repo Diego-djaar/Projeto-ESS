@@ -10,7 +10,7 @@ router = APIRouter()
 @router.post(
         '/inserting/cartao', 
         response_model=HttpResponseModel,
-        summary="Create a new payment method", 
+        description="Insert a new card", 
              )
 def insert_payment(cartao: Cartao) -> HttpResponseModel: 
     response = PaymentService.inserting_cartao(cartao)
@@ -19,7 +19,7 @@ def insert_payment(cartao: Cartao) -> HttpResponseModel:
 @router.post(
         '/inserting/pix', 
         response_model=HttpResponseModel,
-        summary="Create a new payment method", 
+        description="Insert a new pix acount", 
              )
 def insert_payment(pix: Pix) -> HttpResponseModel: 
     response = PaymentService.insertion_pix(pix)
@@ -28,7 +28,7 @@ def insert_payment(pix: Pix) -> HttpResponseModel:
 @router.post(
         '/inserting/boleto', 
         response_model=HttpResponseModel,
-        summary="Create a new payment method", 
+         description="Insert a new boleto acount", 
              )
 def insert_payment(boleto: Boleto) -> HttpResponseModel: 
     response = PaymentService.insertion_boleto(boleto)
