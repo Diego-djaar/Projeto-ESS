@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, HTTPException
 from src.service.impl.payment_method_service import PaymentService
-from src.schemas.payment_schema import Cartao
+from src.schemas.payment_schema import Cartao, Boleto, Pix
 from src.schemas.response import HTTPResponses, HttpResponseModel
 from fastapi.responses import JSONResponse
 
@@ -17,11 +17,9 @@ def insert_payment(cartao: Cartao) -> HttpResponseModel:
     response = PaymentService.inserting_method(cartao)
     return JSONResponse(content="Método inserido!", status_code=201)
 
-@router.get(
-    "/payment", 
-    response_model=HttpResponseModel,
-    status_code=status.HTTP_200_OK, 
-    description="Getting a payment method", 
+@router.post(
+    "/inserting/{method_name}",
+    summary="Inserting a new payment method"
 )
-def get_payment() -> HttpResponseModel: 
-    pass 
+def insert_payment_method(method_name: str, cartao: Cartao, pix: Pix, boleto: Boleto) -> HttpResponseModel:
+    pass
