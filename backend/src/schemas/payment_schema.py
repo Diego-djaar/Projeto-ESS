@@ -12,8 +12,9 @@ class Pix(BaseModel):
     nome_completo: str 
     cpf: str 
 
-class Boleto(Pix):
-    pass
+class Boleto(BaseModel):
+    nome_completo: str 
+    cpf: str 
 
 
 
