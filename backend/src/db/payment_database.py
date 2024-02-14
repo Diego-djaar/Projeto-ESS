@@ -25,7 +25,7 @@ def ler_arquivo(database):
     with open("payment_database.json", "r") as f:
         return json.load(f)
 
-def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date) -> bool: 
+def Adicionar_cartao(user_name: str, nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date) -> bool: 
 
     problemas = []
 
@@ -41,8 +41,8 @@ def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, v
     if len(problemas) > 0:
         return (False, problemas)
 
-    if cpf not in database:
-        database[cpf] = []
+    if user_name not in database:
+        database[user_name] = []
 
     cartao = {
         "nome_cartao": nome_cartao,
@@ -52,13 +52,14 @@ def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, v
         "cpf": cpf
     }
 
-    database[cpf].append(cartao)
+    database[user_name].append(cartao)
     escrever_arquivo(database)
 
     return (True, problemas)
 
-def Adicionar_pix(nome_completo: str, cpf: str): 
-    if cpf not in database:
+def Adicionar_pix(user_name: str, nome_completo: str, cpf: str): 
+
+    if user_name not in database:
         database[cpf] = []
 
     pix = {
@@ -67,11 +68,12 @@ def Adicionar_pix(nome_completo: str, cpf: str):
         "cpf": cpf
     }
 
-    database[cpf].append(pix)
+    database[user_name].append(pix)
     escrever_arquivo(database)
 
-def Adicionar_boleto(nome_completo: str, cpf: str): 
-    if cpf not in database:
+def Adicionar_boleto(user_name:str, nome_completo: str, cpf: str): 
+
+    if user_name not in database:
         database[cpf] = []
 
     pix = {
@@ -80,6 +82,6 @@ def Adicionar_boleto(nome_completo: str, cpf: str):
         "cpf": cpf
     }
 
-    database[cpf].append(pix)
+    database[user_name].append(pix)
     escrever_arquivo(database)
 
