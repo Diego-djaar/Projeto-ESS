@@ -61,7 +61,7 @@ def Adicionar_cartao(user_name: str, nome_cartao: str, numero_cartao: str, cvv: 
 def Adicionar_pix(user_name: str, nome_completo: str, cpf: str): 
 
     if user_name not in database:
-        database[cpf] = []
+        database[user_name] = []
 
     pix = {
         "tipo": "pix", 
@@ -90,8 +90,11 @@ def obter_lista_de_metodos_pagamento(user_name: str):
 
     dados = ler_arquivo(database)
 
-    metodos_usuario = dados[user_name.strip()]
-
+    if user_name.strip() in dados: 
+        metodos_usuario = dados[user_name.strip()]
+    else: 
+        metodos_usuario = None
+        
     return metodos_usuario
 
 
