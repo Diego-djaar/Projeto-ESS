@@ -1,6 +1,7 @@
 from src.db.payment_database import Adicionar_cartao
 from src.schemas.payment_schema import Cartao
 from src.schemas.response import HTTPResponses, HttpResponseModel
+from src.schemas.payment_response import HTTPPaymentResponse
 
 class PaymentService:
 
@@ -10,4 +11,4 @@ class PaymentService:
         consulta = Adicionar_cartao(*cartao.model_dump().values())
 
         if consulta: 
-            return HTTPResponses.ITEM_CREATED
+            return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
