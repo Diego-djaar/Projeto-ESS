@@ -33,9 +33,9 @@ class PaymentService:
 
         return HTTPPaymentResponse.BOLETO_INSERTED_SUCESSFULLY()
     
-    def get_payment_methods(user_name: str): 
+    def get_payment_methods(cpf: str): 
         
-        resultado = obter_lista_de_metodos_pagamento(user_name)
+        resultado = obter_lista_de_metodos_pagamento(cpf)
 
         if resultado is None: 
             return HTTPPaymentResponse.INEXISTENT_USER()

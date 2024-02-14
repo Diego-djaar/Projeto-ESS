@@ -1,11 +1,17 @@
 {
-    "string": [
+    "bgml": [
         {
-            "nome_cartao": "string",
-            "numero_cartao": "string",
-            "cvv": "string",
-            "validade": "2024-02-14",
-            "cpf": "string"
+            "tipo": "pix",
+            "nome_completo": "Breno Gabriel de Melo Lima",
+            "cpf": "222.2222.222-22"
+        },
+        {
+            "tipo": "cartao",
+            "nome_cartao": "nubank",
+            "numero_cartao": "3343 5545 3542 5456",
+            "cvv": "433",
+            "validade": "2028-02-14",
+            "cpf": "777.777.777-77"
         }
     ]
 }

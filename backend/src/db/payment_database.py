@@ -41,8 +41,8 @@ def Adicionar_cartao(user_name: str, nome_cartao: str, numero_cartao: str, cvv: 
     if len(problemas) > 0:
         return (False, problemas)
 
-    if user_name not in database:
-        database[user_name] = []
+    if cpf not in database:
+        database[cpf] = []
 
     cartao = {
         "tipo": "cartao", 
@@ -53,15 +53,15 @@ def Adicionar_cartao(user_name: str, nome_cartao: str, numero_cartao: str, cvv: 
         "cpf": cpf
     }
 
-    database[user_name].append(cartao)
+    database[cpf].append(cartao)
     escrever_arquivo(database)
 
     return (True, problemas)
 
 def Adicionar_pix(user_name: str, nome_completo: str, cpf: str): 
 
-    if user_name not in database:
-        database[user_name] = []
+    if cpf not in database:
+        database[cpf] = []
 
     pix = {
         "tipo": "pix", 
@@ -69,12 +69,12 @@ def Adicionar_pix(user_name: str, nome_completo: str, cpf: str):
         "cpf": cpf
     }
 
-    database[user_name].append(pix)
+    database[cpf].append(pix)
     escrever_arquivo(database)
 
 def Adicionar_boleto(user_name:str, nome_completo: str, cpf: str): 
 
-    if user_name not in database:
+    if cpf not in database:
         database[cpf] = []
 
     pix = {
@@ -83,15 +83,15 @@ def Adicionar_boleto(user_name:str, nome_completo: str, cpf: str):
         "cpf": cpf
     }
 
-    database[user_name].append(pix)
+    database[cpf].append(pix)
     escrever_arquivo(database)
 
-def obter_lista_de_metodos_pagamento(user_name: str): 
+def obter_lista_de_metodos_pagamento(cpf: str): 
 
     dados = ler_arquivo(database)
 
-    if user_name.strip() in dados: 
-        metodos_usuario = dados[user_name.strip()]
+    if cpf in dados: 
+        metodos_usuario = dados[cpf]
     else: 
         metodos_usuario = None
         
