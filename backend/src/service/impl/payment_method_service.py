@@ -1,4 +1,4 @@
-from src.db.payment_database import Adicionar_cartao, Adicionar_pix, Adicionar_boleto
+from src.db.payment_database import Adicionar_cartao, Adicionar_pix, Adicionar_boleto, obter_lista_de_metodos_pagamento
 from src.schemas.payment_schema import Cartao, Pix, Boleto 
 from src.schemas.response import HTTPResponses, HttpResponseModel
 from src.schemas.payment_response import HTTPPaymentResponse
@@ -32,3 +32,7 @@ class PaymentService:
         Adicionar_boleto(*boleto.model_dump().values())
 
         return HTTPPaymentResponse.BOLETO_INSERTED_SUCESSFULLY()
+    
+    def get_payment_methods(user_name: str): 
+        
+        return obter_lista_de_metodos_pagamento(user_name)
