@@ -45,6 +45,7 @@ def Adicionar_cartao(user_name: str, nome_cartao: str, numero_cartao: str, cvv: 
         database[user_name] = []
 
     cartao = {
+        "tipo": "cartao", 
         "nome_cartao": nome_cartao,
         "numero_cartao": numero_cartao,
         "cvv": cvv,
@@ -84,4 +85,15 @@ def Adicionar_boleto(user_name:str, nome_completo: str, cpf: str):
 
     database[user_name].append(pix)
     escrever_arquivo(database)
+
+def obter_lista_de_metodos_pagamento(user_name: str): 
+
+    dados = ler_arquivo(database)
+
+    metodos_usuario = dados[user_name.strip()]
+
+    return metodos_usuario
+
+
+
 
