@@ -40,3 +40,19 @@ class HTTPPaymentResponse:
             status_code=400, 
             data= problemas
         )
+    
+    @staticmethod
+    def PIX_INSERTED_SUCESSFULLY() -> HttpResponseModel:
+
+        return HttpResponseModel (
+            message="pix inserido com sucesso", 
+            status_code=201 
+        ) 
+    
+    @staticmethod
+    def BOLETO_INSERTED_SUCESSFULLY() -> HttpResponseModel:
+
+        return HttpResponseModel (
+            message="boleto inserido com sucesso", 
+            status_code=201 
+        ) 
