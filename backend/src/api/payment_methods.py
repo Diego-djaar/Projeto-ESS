@@ -48,38 +48,38 @@ def get_payment_methods(username:str):
     return request 
 
 @router.put(
-    "update/cartao/{card_id}", 
+    "update/cartao/{id}", 
     response_model=HttpResponseModel, 
     status_code=200, 
     description="Update the card payment method"
 )
-def update_payment(card_id: int, cartao: CartaoUpdate): 
+def update_payment(id: int, cartao: CartaoUpdate): 
     
-    response = PaymentService.update_cartao(card_id, cartao)
+    response = PaymentService.update_cartao(id, cartao)
 
     return response
 
 @router.put(
-    "/update/pix/{card_id}", 
+    "/update/pix/{id}", 
     response_model=HttpResponseModel, 
     status_code=200, 
     description="Update the pix payment method"
 )
-def update_payment(card_id: int, pix: PixUpdate): 
+def update_payment(id: int, pix: PixUpdate): 
     
-    response = PaymentService.update_pix(card_id, pix)
+    response = PaymentService.update_pix(id, pix)
 
     return response
 
 @router.put(
-    "/update/boleto/{card_id}", 
+    "/update/boleto/{id}", 
     response_model=HttpResponseModel, 
     status_code=200, 
     description="Update the boleto payment method"
 )
-def update_payment(card_id: int, boleto: BoletoUpdate): 
+def update_payment(id: int, boleto: BoletoUpdate): 
     
-    response = PaymentService.update_boleto(card_id, boleto)
+    response = PaymentService.update_boleto(id, boleto)
 
     return response
 
