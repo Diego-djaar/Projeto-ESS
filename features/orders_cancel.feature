@@ -32,7 +32,7 @@ When o usuário seleciona em "detalhes do pedido" do pedido de número "59"
 Then ele consegue ver os detalhes data do pedido "20/11/2023", valor "R$131,50" e status "entregue" 
 When o usuário seleciona em “cancelar pedido” 
 Then o usuário recebe “requisição do motivo de cancelamento” 
-And o usuário preenche com o motivo de cancelamento com “Não posso mais receber o produto””
+And o usuário preenche com o motivo de cancelamento com “Não posso mais receber o produto”
 Then o usuário recebe a mensagem "Este pedido já foi entregue"
 And o usuário volta para "detalhes do pedido"
 
