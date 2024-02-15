@@ -81,3 +81,11 @@ class HTTPPaymentResponse:
             status_code=200
         ) 
     
+    @staticmethod
+    def DELETE_SUCESSFULLY() -> HttpResponseModel:
+
+        return HttpResponseModel (
+            message="Deleção realizada com sucesso", 
+            status_code=200
+        ) 
+    

@@ -83,6 +83,18 @@ def update_payment(card_id: int, boleto: BoletoUpdate):
 
     return response
 
+@router.delete(
+    "/delete/{method_id}", 
+    response_model=HttpResponseModel, 
+    status_code=200, 
+    description="Delete a payment method"
+)
+def delete_method(method_id: int):
+
+    response = PaymentService.delete_method(method_id)
+
+    return response 
+
 # @router.post(
 #     "/inserting/{method_name}",
 #     response_model=HttpResponseModel,

@@ -1,4 +1,4 @@
-from src.db.payment_database import Adicionar_cartao, Adicionar_pix, Adicionar_boleto, atualizar_boleto_pix, obter_lista_de_metodos_pagamento, atualizar_cartao
+from src.db.payment_database import Adicionar_cartao, Adicionar_pix, Adicionar_boleto, atualizar_boleto_pix, obter_lista_de_metodos_pagamento, atualizar_cartao, deletar_metodo
 from src.schemas.payment_schema import Cartao, Pix, Boleto, CartaoUpdate, PixUpdate, BoletoUpdate
 from src.schemas.response import HTTPResponses, HttpResponseModel
 from src.schemas.payment_response import HTTPPaymentResponse
@@ -79,3 +79,14 @@ class PaymentService:
             return HTTPPaymentResponse.INEXISTENT_ID()
             
         return HTTPPaymentResponse.UPDATE_SUCESSFULLY()
+
+    @staticmethod
+    def delete_method(id: int):
+
+        sucesso = deletar_metodo(id)
+
+        if not sucesso: 
+
+            return HTTPPaymentResponse.INEXISTENT_ID()
+        
+        return HTTPPaymentResponse.DELETE_SUCESSFULLY()

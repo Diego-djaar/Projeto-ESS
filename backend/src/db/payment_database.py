@@ -144,6 +144,27 @@ def atualizar_boleto_pix(id: int, nome_completo: str):
                 else:
                     return False
 
+def deletar_metodo(id: int): 
+
+    dados = ler_arquivo(database)
+
+    for chave in dados:
+        for valor in dados[chave]: 
+                if valor["id"] == id:
+
+                    index = dados[chave].index(valor)
+            
+                    del dados[chave][index]
+
+                    escrever_arquivo(dados)
+
+                    return True 
+
+                else: 
+                    return False 
+
+
+
 
 
 
