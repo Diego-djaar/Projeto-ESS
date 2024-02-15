@@ -7,7 +7,7 @@ Cenário: Cancelamento de pedido bem sucedido
 Given o usuário de email “usuario@gmail.com” 
 And o usuário vê o pedido de número “59” no “histórico de pedidos”
 When o usuário seleciona em "detalhes do pedido" do pedido de número "59"
-Then ele consegue ver os detalhes data "20/11/2023", valor "R$131,50" e status "a caminho"
+Then ele consegue ver os detalhes data do pedido "20/11/2023", valor "R$131,50" e status "a caminho"
 When o usuário seleciona em “cancelar pedido” 
 Then o usuário recebe “requisição do motivo de cancelamento” 
 And o usuário preenche com o motivo de cancelamento com “Pedido demorou muito”
@@ -18,7 +18,7 @@ Cenário: Cancelamento de pedido sem o preenchimento de informações
 Given o usuário de email “usuario@gmail.com” 
 And o usuário vê o pedido de número “59” no “histórico de pedidos”
 When o usuário seleciona em "detalhes do pedido" do pedido de número "59"
-Then ele consegue ver os detalhes data "20/11/2023", valor "R$131,50" e status "a caminho"
+Then ele consegue ver os detalhes data do pedido "20/11/2023", valor "R$131,50" e status "a caminho"
 And o usuário seleciona em “cancelar pedido” 
 Then o usuário recebe “requisição do motivo de cancelamento”
 And o usuário seleciona em “confirmar o cancelamento”
@@ -29,7 +29,7 @@ Cenário: Cancelamento de pedido já entregue
 Given o usuário de email “usuario@gmail.com” 
 And o usuário vê o pedido de número “59” no “histórico de pedidos”
 When o usuário seleciona em "detalhes do pedido" do pedido de número "59"
-Then ele consegue ver os detalhes data "20/11/2023", valor "R$131,50" e status "entregue"
+Then ele consegue ver os detalhes data do pedido "20/11/2023", valor "R$131,50" e status "entregue" 
 When o usuário seleciona em “cancelar pedido” 
 Then o usuário recebe “requisição do motivo de cancelamento” 
 And o usuário preenche com o motivo de cancelamento com “Não posso mais receber o produto””
@@ -40,7 +40,7 @@ Cenário: Cancelamento de pedido já cancelado
 Given o usuário de email “usuario@gmail.com” 
 And o usuário vê o pedido de número “59” no “histórico de pedidos”
 When o usuário seleciona em "detalhes do pedido" do pedido de número "59"
-Then ele consegue ver os detalhes data "20/11/2023", valor "R$131,50" e status "cancelado"
+Then ele consegue ver os detalhes data do pedido "20/11/2023", valor "R$131,50" e status "cancelado"
 And o usuário seleciona em “cancelar pedido” 
 Then o usuário recebe “requisição do motivo de cancelamento” 
 And o usuário preenche com o motivo de cancelamento com “Não quero mais o produto”
