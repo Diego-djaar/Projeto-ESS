@@ -1,17 +1,10 @@
 {
-    "bgml": [
+    "111.111.111-11": [
         {
+            "id": 290598277920648421,
             "tipo": "pix",
-            "nome_completo": "Breno Gabriel de Melo Lima",
-            "cpf": "222.2222.222-22"
-        },
-        {
-            "tipo": "cartao",
-            "nome_cartao": "nubank",
-            "numero_cartao": "3343 5545 3542 5456",
-            "cvv": "433",
-            "validade": "2028-02-14",
-            "cpf": "777.777.777-77"
+            "nome_completo": "ZOro",
+            "cpf": "111.111.111-11"
         }
     ]
 }

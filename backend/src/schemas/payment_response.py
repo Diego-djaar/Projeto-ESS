@@ -65,3 +65,19 @@ class HTTPPaymentResponse:
             status_code=400  
         ) 
     
+    @staticmethod
+    def INEXISTENT_ID() -> HttpResponseModel:
+
+        return HttpResponseModel (
+            message="ID não encontrado na base de dados", 
+            status_code=400  
+        ) 
+    
+    @staticmethod
+    def UPDATE_SUCESSFULLY() -> HttpResponseModel:
+
+        return HttpResponseModel (
+            message="Dados atualizados com sucesso", 
+            status_code=200
+        ) 
+    

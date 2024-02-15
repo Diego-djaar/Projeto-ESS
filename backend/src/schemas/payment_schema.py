@@ -19,6 +19,16 @@ class Boleto(BaseModel):
     nome_completo: str 
     cpf: str 
 
+class CartaoUpdate(BaseModel): 
 
+    nome_cartao: str 
+    numero_cartao: str 
+    cvv: str 
+    validade: datetime.date
 
+class PixUpdate(BaseModel): 
+    nome_completo: str 
+
+class BoletoUpdate(PixUpdate): 
+    pass
 

@@ -25,7 +25,7 @@ def ler_arquivo(database):
     with open("payment_database.json", "r") as f:
         return json.load(f)
 
-def Adicionar_cartao(user_name: str, nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date) -> bool: 
+def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date) -> bool: 
 
     problemas = []
 
@@ -45,6 +45,7 @@ def Adicionar_cartao(user_name: str, nome_cartao: str, numero_cartao: str, cvv: 
         database[cpf] = []
 
     cartao = {
+        "id" : abs(hash((datetime.datetime.now(), cpf))), 
         "tipo": "cartao", 
         "nome_cartao": nome_cartao,
         "numero_cartao": numero_cartao,
@@ -58,12 +59,13 @@ def Adicionar_cartao(user_name: str, nome_cartao: str, numero_cartao: str, cvv: 
 
     return (True, problemas)
 
-def Adicionar_pix(user_name: str, nome_completo: str, cpf: str): 
+def Adicionar_pix(nome_completo: str, cpf: str): 
 
     if cpf not in database:
         database[cpf] = []
 
     pix = {
+        "id" : abs(hash((datetime.datetime.now(), cpf))), 
         "tipo": "pix", 
         "nome_completo": nome_completo,
         "cpf": cpf
@@ -72,12 +74,13 @@ def Adicionar_pix(user_name: str, nome_completo: str, cpf: str):
     database[cpf].append(pix)
     escrever_arquivo(database)
 
-def Adicionar_boleto(user_name:str, nome_completo: str, cpf: str): 
+def Adicionar_boleto(nome_completo: str, cpf: str): 
 
     if cpf not in database:
         database[cpf] = []
 
     pix = {
+        "id" : abs(hash((datetime.datetime.now(), cpf))), 
         "tipo": "boleto", 
         "nome_completo": nome_completo,
         "cpf": cpf
@@ -96,6 +99,50 @@ def obter_lista_de_metodos_pagamento(cpf: str):
         metodos_usuario = None
         
     return metodos_usuario
+
+def atualizar_cartao(id: int, nome_cartao: str, numero_cartao: str, cvv: str, validade: datetime.date):
+
+    dados = ler_arquivo(database)
+
+    problemas = []
+
+    for chave in dados:
+        for valor in dados[chave]: 
+                if valor["id"] == id:
+
+                    if not validade >= datetime.date.today():
+                        problemas.append("VALIDADE")
+
+                    # if not cartao_pattern.match(numero_cartao):
+                    #     problemas.append("CARD_NUMBER")cx
+
+                    if len(problemas) > 0:
+                        return (False, problemas)
+                    
+                    valor["nome_cartao"] = nome_cartao
+                    valor["numero_cartao"] = numero_cartao
+                    valor["cvv"] = cvv 
+                    valor["validade"] = validade
+                    
+                    escrever_arquivo(dados)
+
+                    return (True, ["SUCESS"])
+                else:
+                    problemas.append("ID_NOT_FOUND")
+                    return (False, problemas)
+
+def atualizar_boleto_pix(id: int, nome_completo: str):
+
+        dados = ler_arquivo(database)
+
+        for chave in dados:
+            for valor in dados[chave]: 
+                if valor["id"] == id:
+                    valor["nome_completo"] = nome_completo
+                    escrever_arquivo(dados)
+                    return True
+                else:
+                    return False
 
 
 
