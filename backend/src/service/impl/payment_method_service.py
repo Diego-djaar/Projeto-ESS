@@ -12,12 +12,8 @@ class PaymentService:
 
         if sucesso: 
             return HTTPPaymentResponse.INSERTION_SUCESSFULLY("cartao")
-        elif "CPF" in problemas or "VALIDADE" in problemas or "CARD_NUMBER" in problemas: 
+        else: 
             return HTTPPaymentResponse.BAD_REQUEST(problemas)
-        # elif "VALIDADE" in problemas:
-        #     return HTTPPaymentResponse.EXPIRED_DATA()
-        # elif "CARD_NUMBER" in problemas:
-        #     return HTTPPaymentResponse.INVALID_NUMBER()
     
     @staticmethod
     def insertion_pix(pix: Pix) -> HttpResponseModel: 

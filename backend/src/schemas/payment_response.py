@@ -5,9 +5,9 @@ from .response import HttpResponseModel
 class HTTPPaymentResponse:
 
     @staticmethod
-    def INSERTION_SUCESSFULLY() -> HttpResponseModel: 
+    def INSERTION_SUCESSFULLY(metodo_pagamento) -> HttpResponseModel: 
         return HttpResponseModel (
-            message="Payment method has been inserted sucessfully",
+            message=f"{metodo_pagamento} foi cadastrado com sucesso",
             status_code=201
         )
     
@@ -36,9 +36,9 @@ class HTTPPaymentResponse:
     def BAD_REQUEST(problemas) -> HttpResponseModel:
 
         return HttpResponseModel (
-            message="Os campos a seguir estão preenchidos incorretamente", 
-            status_code=400, 
-            data= problemas
+            message=f" informações inválidas", 
+            status_code=400,
+            data= problemas 
         )
     
     @staticmethod

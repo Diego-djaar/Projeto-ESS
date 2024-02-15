@@ -1,9 +1,30 @@
 {
     "111.111.111-11": [
         {
-            "id": 1140908644383793786,
-            "tipo": "pix",
-            "nome_completo": "Maria Alvez",
+            "id": 3658846314118992311,
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "493",
+            "validade": "2026-02-15",
+            "cpf": "111.111.111-11"
+        },
+        {
+            "id": 7240078092176620861,
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "30568901234567",
+            "cvv": "493",
+            "validade": "2026-02-15",
+            "cpf": "111.111.111-11"
+        },
+        {
+            "id": 7552644434137195974,
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "30568901234567",
+            "cvv": "493",
+            "validade": "2026-02-15",
             "cpf": "111.111.111-11"
         }
     ]
