@@ -11,7 +11,7 @@ class PaymentService:
         sucesso, problemas = Adicionar_cartao(*cartao.model_dump().values())
 
         if sucesso: 
-            return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
+            return HTTPPaymentResponse.INSERTION_SUCESSFULLY("cartao")
         elif "CPF" in problemas or "VALIDADE" in problemas or "CARD_NUMBER" in problemas: 
             return HTTPPaymentResponse.BAD_REQUEST(problemas)
         # elif "VALIDADE" in problemas:
@@ -24,14 +24,14 @@ class PaymentService:
 
         Adicionar_pix(*pix.model_dump().values())
 
-        return HTTPPaymentResponse.PIX_INSERTED_SUCESSFULLY()
+        return HTTPPaymentResponse.INSERTION_SUCESSFULLY("pix")
     
     @staticmethod
     def insertion_boleto(boleto: Boleto) -> HttpResponseModel: 
 
         Adicionar_boleto(*boleto.model_dump().values())
 
-        return HTTPPaymentResponse.BOLETO_INSERTED_SUCESSFULLY()
+        return HTTPPaymentResponse.INSERTION_SUCESSFULLY("boleto")
     
     @staticmethod
     def get_payment_methods(cpf: str): 
