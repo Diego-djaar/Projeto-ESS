@@ -115,8 +115,11 @@ class ItemDatabase():
         with open(self.file_path, 'w+') as file:
             file.write(objetos)
     
-    def get_itens_list(self):
+    def get_itens_list(self, update = True):
         """Retorna todos os itens da database"""
+        if update:
+            self.try_read_from_file()
+        return list(self.db.values())
     
     def add_new_item(self, item: Item, update: bool = True):
         """Adicionar um novo item a database
