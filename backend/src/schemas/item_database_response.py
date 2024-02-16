@@ -17,7 +17,7 @@ class HTTPDatabaseResponses:
         return HttpResponseModel(
             message = "Já existe um item com esse ID",
             data = data,
-            status_code = 401,
+            status_code = 401
         )
     
     @staticmethod
@@ -32,3 +32,9 @@ class HTTPDatabaseResponses:
             status_code= 400
         )
     
+    @staticmethod
+    def ADD_ITEM_SUCCESSFULLY() -> HttpResponseModel:
+        return HttpResponseModel(
+            message = "Item cadastrado com sucesso",
+            status_code=200,
+        )
