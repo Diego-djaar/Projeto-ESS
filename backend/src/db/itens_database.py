@@ -6,6 +6,8 @@ from pymongo.collection import Collection, IndexModel
 from logging import INFO, WARNING, getLogger
 from decimal import Decimal
 import re
+import os.path
+import jsonpickle
 
 logger = getLogger('uvicorn')
 
@@ -86,3 +88,72 @@ class Item():
             obj = Item(id, nome, description, price, quantidade, img)
 
         return (obj, reason)
+
+class ItemDatabase():
+    db: dict[Item]
+    file_path:str
+
+    def __init__(self, path: str = "Itens.json"):
+        self.db = dict()
+        self.file_path = path
+        self.try_read_from_file()
+
+    def try_read_from_file(self):
+        # Ler itens do arquivo
+        if not os.path.exists(self.file_path):
+            self.write_to_file()
+            return None
+
+        with open(self.file_path) as file:
+            itens = file.read()
+            db = jsonpickle.decode(itens)
+            if type(db) == dict:
+                self.db = db
+    
+    def write_to_file(self):
+        objetos = jsonpickle.encode(self.db)
+        with open(self.file_path, 'w+') as file:
+            file.write(objetos)
+    
+    def get_itens_list(self):
+        """Retorna todos os itens da database"""
+    
+    def add_new_item(self, item: Item, update: bool = True):
+        """Adicionar um novo item a database
+
+        Args:
+            item (Item): Item em questão
+            
+        Returns:
+            success (bool): True para operação bem sucedida, False para mal sucedida
+            reason (list[str]): contém "ITEM" se for um item já existente.
+            ["SUCCESS"] caso tenha sido uma operação bem sucedida
+        """
+
+    def remove_item_by_ID (self, item_id: int):
+        """ Remover um item da database
+
+        Args:
+            item_id (int): ID do item em questão
+
+        Returns:
+            success (bool): True para operação bem sucedida, False para mal sucedida
+            reason (list[str]): contém "NOT_FOUND" se o item não foi encontrado
+            ["SUCCESS"] caso tenha sido uma operação bem sucedida
+        """
+
+    def get_item_by_ID (self, item_id: int):
+        """ Acessar um item da database
+
+        Args:
+            item_id (int): ID do item em questão
+
+        Returns:
+            success (bool): True para operação bem sucedida, False para mal sucedida
+            Item (Item | None): Se o item for encontrado.
+        """
+
+    def clear_database(self):
+        self.db = dict()
+        self.write_to_file()
+        
