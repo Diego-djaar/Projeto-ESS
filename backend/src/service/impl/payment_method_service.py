@@ -6,28 +6,34 @@ from src.schemas.payment_response import HTTPPaymentResponse
 class PaymentService:
 
     @staticmethod
-    def inserting_cartao(cartao: Cartao) -> HttpResponseModel:
+    def inserting_card(cartao: Cartao) -> HttpResponseModel:
 
         sucesso, problemas = Adicionar_cartao(*cartao.model_dump().values())
 
         if sucesso: 
-            return HTTPPaymentResponse.INSERTION_SUCESSFULLY("cartao")
+            return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
         else: 
             return HTTPPaymentResponse.BAD_REQUEST(problemas)
     
     @staticmethod
     def insertion_pix(pix: Pix) -> HttpResponseModel: 
 
-        Adicionar_pix(*pix.model_dump().values())
+        sucesso, problemas = Adicionar_pix(*pix.model_dump().values())
 
-        return HTTPPaymentResponse.INSERTION_SUCESSFULLY("pix")
+        if not sucesso:
+            return HTTPPaymentResponse.BAD_REQUEST(problemas)
+
+        return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
     
     @staticmethod
-    def insertion_boleto(boleto: Boleto) -> HttpResponseModel: 
+    def insertion_ticket(boleto: Boleto) -> HttpResponseModel: 
 
-        Adicionar_boleto(*boleto.model_dump().values())
+        sucesso, problemas = Adicionar_pix(*boleto.model_dump().values())
 
-        return HTTPPaymentResponse.INSERTION_SUCESSFULLY("boleto")
+        if not sucesso:
+            return HTTPPaymentResponse.BAD_REQUEST(problemas)
+
+        return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
     
     @staticmethod
     def get_payment_methods(cpf: str): 

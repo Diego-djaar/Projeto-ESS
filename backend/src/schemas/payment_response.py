@@ -5,9 +5,9 @@ from .response import HttpResponseModel
 class HTTPPaymentResponse:
 
     @staticmethod
-    def INSERTION_SUCESSFULLY(metodo_pagamento) -> HttpResponseModel: 
+    def INSERTION_SUCESSFULLY() -> HttpResponseModel: 
         return HttpResponseModel (
-            message=f"{metodo_pagamento} foi cadastrado com sucesso",
+            message="metodo de pagamento cadastrado com sucesso",
             status_code=201
         )
     

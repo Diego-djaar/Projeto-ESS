@@ -61,6 +61,14 @@ def Adicionar_cartao(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, v
 
 def Adicionar_pix(nome_completo: str, cpf: str): 
 
+    problemas = []
+
+    if not cpf_pattern.match(cpf):
+        problemas.append("CPF")
+    
+    if len(problemas) > 0: 
+        return (False, problemas)
+
     if cpf not in database:
         database[cpf] = []
 
@@ -74,7 +82,15 @@ def Adicionar_pix(nome_completo: str, cpf: str):
     database[cpf].append(pix)
     escrever_arquivo(database)
 
-def Adicionar_boleto(nome_completo: str, cpf: str): 
+def Adicionar_boleto(nome_completo: str, cpf: str):
+
+    problemas = []
+
+    if not cpf_pattern.match(cpf):
+        problemas.append("CPF")
+    
+    if len(problemas) > 0: 
+        return (False, problemas)
 
     if cpf not in database:
         database[cpf] = []
