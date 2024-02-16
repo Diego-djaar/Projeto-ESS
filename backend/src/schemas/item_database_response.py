@@ -17,7 +17,14 @@ class HTTPDatabaseResponses:
         return HttpResponseModel(
             message = "Já existe um item com esse ID",
             data = data,
-            status_code = 401
+            status_code = 400
+        )
+    
+    @staticmethod
+    def NO_ITEM_IN_DATABASE() -> HttpResponseModel:
+        return HttpResponseModel(
+            message = "Nenhum item encontrado na base de dados",
+            status_code=404,
         )
     
     @staticmethod
