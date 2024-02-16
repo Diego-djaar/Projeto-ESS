@@ -145,7 +145,7 @@ class ItemDatabase():
         self.write_to_file
         return (True, ["SUCCESS"])
 
-    def remove_item_by_ID (self, item_id: int):
+    def remove_item_by_ID (self, item_id: int, update: bool = True) -> Item | None:
         """ Remover um item da database
 
         Args:
@@ -156,6 +156,11 @@ class ItemDatabase():
             reason (list[str]): contém "NOT_FOUND" se o item não foi encontrado
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
+        if update:
+            self.try_read_from_file()
+        toreturn = self.db.pop(item_id, None)
+        self.write_to_file()
+        return toreturn
 
     def get_item_by_ID (self, item_id: int, update: bool = True) -> Item | None:
         """ Acessar um item da database
