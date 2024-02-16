@@ -22,25 +22,43 @@ class Item():
     id: int # Acessos a database serão pelo ID (8 dígitos)
     nome: str # Nome visível na interface
     description: str
-    price: Decimal
+    price: str
     quantidade: int
     img: str | None # Path para o arquivo
     ID_LENGTH = 8
 
+    def __init__(self, id: str, nome: str, description: str, price: str, quantidade: int, img: str | None = None):
+        self.id = id
+        self.nome = nome
+        self.description = description
+        self.price = price
+        self.quantidade = quantidade
+        self.img = img
+
+
+    @staticmethod
     def is_image_path(path):
         # Função para verificar se o path é válido para evitar SQL injection
         # Ela considera extensões comuns de imagem e é case-insensitive (flag re.IGNORECASE)
         pattern = re.compile(r"^[^.\n]+\.(jpg|jpeg|png|gif|bmp|tiff)$", re.IGNORECASE)
         return re.match(pattern, path) is not None
+    
+    @staticmethod
+    def is_valid_price(price):
+        # Função para verificar se o preço do produto é válido
+        # Ela considera números no formato X.Y com X de no máximo 5 digitos e Y exatamente 2
+        pattern = re.compile(r"^\d{1,5}\.\d{2}$", re.IGNORECASE)
+        return re.match(pattern, price) is not None
+    
 
-    def new_item(self, id: str, nome: str, description: str, price: Decimal, quantidade: int, img: str | None):
+    def new_item(self, id: str, nome: str, description: str, price: str, quantidade: int, img: str | None = None):
         """Cria novo item, validando-o de acordo com validade do path e tamanho do ID
 
         Args:
             id: str
             nome: str
             description: str
-            price: Decimal -> Tipo para armazenar valores monetários
+            price: str -> Conversão em decimal feita na hora de fazer cálculos
             quantidade: int
             img: str | None -> Path do arquivo
 
@@ -52,12 +70,15 @@ class Item():
 
         reason = []
         # Verifica se imagem tem um formato sustentado
-        if img is not None and not self.is_image_path(img):
+        if img is not None and not Item.is_image_path(img):
             reason.append("PATH")
 
         # Verifica se ID tem 8 dígitos
-        if id.__len__() != self.ID_LENGTH:
-            reason.append("ID_size")
+        if str(id).__len__() != Item.ID_LENGTH:
+            reason.append("ID_LENGTH")
+
+        if not Item.is_valid_price(price):
+            reason.append("PRICE")
 
         obj = None
         if reason.__len__() == 0:
