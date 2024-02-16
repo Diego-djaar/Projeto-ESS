@@ -134,15 +134,15 @@ class ItemDatabase():
         """
         reason = []
         if update:
-            self.try_read_from_file
-        if self.get_item_by_ID(item.id, False):
+            self.try_read_from_file()
+        if ItemDatabase.get_item_by_ID(item.id, False):
             reason.append("Item com mesmo ID já na base de dados")
         
         if reason.__len__() > 0:
             return (False, reason)
         
         self.db[item.id] = item
-        self.write_to_file
+        self.write_to_file()
         return (True, ["SUCCESS"])
 
     def remove_item_by_ID (self, item_id: int, update: bool = True) -> Item | None:
@@ -162,6 +162,7 @@ class ItemDatabase():
         self.write_to_file()
         return toreturn
 
+    @staticmethod
     def get_item_by_ID (self, item_id: int, update: bool = True) -> Item | None:
         """ Acessar um item da database
 
@@ -173,11 +174,35 @@ class ItemDatabase():
             Item (Item | None): Se o item for encontrado.
         """
         if update:
-            self.try_read_from_file
+            self.try_read_from_file()
         for key,val in self.db.items():
             if val.id == item_id:
                 return val
         return None
+    
+    def modify_item_by_ID (self, item_id: int, new_item: Item, update: bool = True):
+        """ Modificar um item da database
+
+        Args:
+            item_id (int): ID do item em questão
+            new_item (Item): novos valores do item a ser modificado
+
+        Returns:
+            success (bool): True para operação bem sucedida, False para mal sucedida
+            Item (Item | None): Se o item for encontrado.
+        """
+        reason = []
+        if update:
+            self.try_read_from_file()
+        
+        if ItemDatabase.get_item_by_ID(item_id, False):
+            reason.append("Item não encontrado")
+            return(False, reason)
+        
+        self.db[item_id] = new_item
+        self.write_to_file()
+        return (True, ["SUCCESS"])
+
 
     def clear_database(self):
         self.db = dict()
