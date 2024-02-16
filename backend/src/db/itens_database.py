@@ -132,6 +132,18 @@ class ItemDatabase():
             reason (list[str]): contém "ITEM" se for um item já existente.
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
+        reason = []
+        if update:
+            self.try_read_from_file
+        if self.get_item_by_ID(item.id, False):
+            reason.append("ID_already_in_db")
+        
+        if reason.__len__() > 0:
+            return (False, reason)
+        
+        self.db[item.id] = item
+        self.write_to_file
+        return (True, ["SUCCESS"])
 
     def remove_item_by_ID (self, item_id: int):
         """ Remover um item da database
