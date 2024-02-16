@@ -38,3 +38,17 @@ class HTTPDatabaseResponses:
             message = "Item cadastrado com sucesso",
             status_code=200,
         )
+    
+    @staticmethod
+    def REMOVE_ITEM_SUCCESSFULLY() -> HttpResponseModel:
+        return HttpResponseModel(
+            message = "Item removido com sucesso",
+            status_code=200,
+        )
+    
+    @staticmethod
+    def MODIFY_ITEM_SUCCESSFULLY() -> HttpResponseModel:
+        return HttpResponseModel(
+            message = "Item modificado com sucesso",
+            status_code=200,
+        )
