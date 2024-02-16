@@ -16,7 +16,7 @@ class DadosItem(BaseModel):
 class ItemService(ItemServiceMeta):
 
     @staticmethod
-    def get_item(item_id: str) -> HttpResponseModel:
+    def get_item(item_id: int) -> HttpResponseModel:
         item = ItemDatabase.get_item_by_ID(item_id= item_id)
         if item is None:
             return HttpResponseModel(
@@ -55,6 +55,33 @@ class ItemService(ItemServiceMeta):
         if success:
             return HTTPDatabaseResponses.ADD_ITEM_SUCCESSFULLY()
         else:
-            return HTTPDatabaseResponses.ITEM_ALREADY_EXISTS()
+            return HTTPDatabaseResponses.ITEM_ALREADY_EXISTS(reason)
 
-    # TODO: implement other methods (create, update, delete)
+    @staticmethod
+    def remove_item(item_id: int) -> HttpResponseModel:
+        item = ItemDatabase.remove_item_by_ID(item_id= item_id)
+        if item is None:
+            return HttpResponseModel(
+                message=HTTPResponses.ITEM_NOT_FOUND().message,
+                status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
+            )
+        return HttpResponseModel(
+                message=HTTPDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY.message,
+                status_code=HTTPDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY.status_code,
+                data=item,
+            )
+    
+    @staticmethod
+    def modify_item(item_id: int, new_item_data: DadosItem) -> HttpResponseModel:
+        """Tenta modificar um item do banco de dados. Na prática só associa os novos dados do item ao id do alvo."""
+        (item, reason) = Item.new_item(*new_item_data.model_dump().values())
+        if item is None:
+            return HTTPDatabaseResponses.BAD_REQUEST(reason)
+        (success, reason) = ItemDatabase.modify_item_by_ID(item_id= item_id, new_item=item)
+        if success:
+            return HTTPDatabaseResponses.MODIFY_ITEM_SUCCESSFULLY()
+        else:
+            return HttpResponseModel(
+                message=HTTPResponses.ITEM_NOT_FOUND().message,
+                status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
+            )
