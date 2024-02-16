@@ -129,7 +129,7 @@ class ItemDatabase():
             
         Returns:
             success (bool): True para operação bem sucedida, False para mal sucedida
-            reason (list[str]): contém "ITEM" se for um item já existente.
+            reason (list[str]): contém "Item com mesmo ID já na base de dados" se for um item já existente.
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
         reason = []
