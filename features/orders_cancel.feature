@@ -46,3 +46,9 @@ Then o usuário recebe “requisição do motivo de cancelamento”
 And o usuário preenche com o motivo de cancelamento com “Não quero mais o produto”
 Then o usuário recebe a mensagem "Este pedido já foi cancelado"
 And o usuário volta para "detalhes do pedido"
+
+Cenário: Vendo lista de pedidos cancelados
+Given o usuário de email "usuario@gmail.com" está na página "histórico de pedidos"
+And o usuário vê os pedidos "10", "12", "15" e "19"no 
+When o usuário clica em "pedidos cancelados"
+Then o usuário agora está na página "pedidos cancelados" e vê os pedidos "12" e "15"
