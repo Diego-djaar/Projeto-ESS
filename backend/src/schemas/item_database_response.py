@@ -12,10 +12,23 @@ class HTTPDatabaseResponses:
     def ITEM_ALREADY_EXISTS(reason_list: list[str]) -> HttpResponseModel:
         data = []
         for reason in reason_list:
-            data.append(f"Já existe um item com esse ID")
+            data.append(reason)
         
         return HttpResponseModel(
             message = "Já existe um item com esse ID",
             data = data,
             status_code = 401,
         )
+    
+    @staticmethod
+    def BAD_REQUEST(reason_list: list[str]) -> HttpResponseModel:
+        data = []
+        for reason in reason_list:
+            data.append(reason)
+        
+        return HttpResponseModel(
+            message= "Solicitação mal feita.",
+            data= data,
+            status_code= 400
+        )
+    
