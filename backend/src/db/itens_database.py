@@ -145,7 +145,7 @@ class ItemDatabase():
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
 
-    def get_item_by_ID (self, item_id: int):
+    def get_item_by_ID (self, item_id: int, update: bool = True) -> Item | None:
         """ Acessar um item da database
 
         Args:
@@ -155,6 +155,12 @@ class ItemDatabase():
             success (bool): True para operação bem sucedida, False para mal sucedida
             Item (Item | None): Se o item for encontrado.
         """
+        if update:
+            self.try_read_from_file
+        for key,val in self.db.items():
+            if val.id == item_id:
+                return val
+        return None
 
     def clear_database(self):
         self.db = dict()
