@@ -9,4 +9,3 @@ pytest-bdd
 httpx
 bcrypt
 jsonpickle
-bidict
