@@ -19,12 +19,13 @@ class Item():
         
         reason será o nome do campo rejeitado pela validação
     """
-    id: int # Acessos a database serão pelo ID
+    id: int # Acessos a database serão pelo ID (8 dígitos)
     nome: str # Nome visível na interface
     description: str
     price: Decimal
     quantidade: int
     img: str | None # Path para o arquivo
+    ID_LENGTH = 8
 
     def is_image_path(path):
         # Função para verificar se o path é válido para evitar SQL injection
@@ -32,8 +33,8 @@ class Item():
         pattern = re.compile(r"^[^.\n]+\.(jpg|jpeg|png|gif|bmp|tiff)$", re.IGNORECASE)
         return re.match(pattern, path) is not None
 
-    def new_item(id: str, nome: str, description: str, price: Decimal, quantidade: int, img: str | None):
-        """Cria novo item no banco de dados, validando-o
+    def new_item(self, id: str, nome: str, description: str, price: Decimal, quantidade: int, img: str | None):
+        """Cria novo item, validando-o de acordo com validade do path e tamanho do ID
 
         Args:
             id: str
@@ -51,3 +52,16 @@ class Item():
 
         reason = []
         # Verifica se imagem tem um formato sustentado
+        if img is not None and not self.is_image_path(img):
+            reason.append("PATH")
+
+        # Verifica se ID tem 8 dígitos
+        if id.__len__() != self.ID_LENGTH:
+            reason.append("ID_size")
+
+        obj = None
+        if reason.__len__() == 0:
+            reason.append("SUCCESS")
+            obj = Item(id, nome, description, price, quantidade, img)
+
+        return (obj, reason)
