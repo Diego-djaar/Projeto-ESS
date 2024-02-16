@@ -49,6 +49,6 @@ And o usuário volta para "detalhes do pedido"
 
 Cenário: Vendo lista de pedidos cancelados
 Given o usuário de email "usuario@gmail.com" está na página "histórico de pedidos"
-And o usuário vê os pedidos "10", "12", "15" e "19"no 
+And o usuário vê os pedidos "10", "12", "15" e "19" 
 When o usuário clica em "pedidos cancelados"
 Then o usuário agora está na página "pedidos cancelados" e vê os pedidos "12" e "15"
