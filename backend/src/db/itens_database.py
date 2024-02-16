@@ -65,7 +65,7 @@ class Item():
             img: str | None -> Path do arquivo
 
         Returns:
-            (User, "SUCESS"), ou (None, reason) caso o input não seja validado.
+            (Item, "SUCESS"), ou (None, reason) caso o input não seja validado.
             
             reason será a lista dos campos rejeitados pela validação. ["SUCCESS"] se o user for validado.
         """
