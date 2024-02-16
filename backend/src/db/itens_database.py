@@ -73,14 +73,14 @@ class Item():
         reason = []
         # Verifica se imagem tem um formato sustentado
         if img is not None and not Item.is_image_path(img):
-            reason.append("PATH")
+            reason.append("Caminho da imagem mal formulado")
 
         # Verifica se ID tem 8 dígitos
         if str(id).__len__() != Item.ID_LENGTH:
-            reason.append("ID_LENGTH")
+            reason.append("ID com tamanho inválido")
 
         if not Item.is_valid_price(price):
-            reason.append("PRICE")
+            reason.append("Preço com formato inválido")
 
         obj = None
         if reason.__len__() == 0:
@@ -136,7 +136,7 @@ class ItemDatabase():
         if update:
             self.try_read_from_file
         if self.get_item_by_ID(item.id, False):
-            reason.append("ID_already_in_db")
+            reason.append("Item com mesmo ID já na base de dados")
         
         if reason.__len__() > 0:
             return (False, reason)
