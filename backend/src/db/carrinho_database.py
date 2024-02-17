@@ -216,8 +216,7 @@ class Carrinhos():
             new_item (Item): novos valores do item a ser modificado
 
         Returns:
-            success (bool): True para operação bem sucedida, False para mal sucedida
-            Item (Item | None): Se o item for encontrado.
+            
         """
         reason = []
         if update:
@@ -229,7 +228,7 @@ class Carrinhos():
                     cart[id] = new_item
 
         self.write_to_file()
-        return (True, ["SUCCESS"])
+        return None
 
 
     def clear_cart_database(self):
