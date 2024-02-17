@@ -57,7 +57,7 @@ class Carrinho():
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
         reason = []
-        if Carrinho.get_item_by_ID(item.id):
+        if self.get_item_by_ID(item.id):
             reason.append("Item com mesmo ID já no carrinho")
         
         if reason.__len__() > 0:
@@ -80,7 +80,6 @@ class Carrinho():
         toreturn = self.items.pop(item_id, None)
         return toreturn
 
-    @staticmethod
     def get_item_by_ID (self, item_id: int) -> Item | None:
         """ Acessar um item do carrinho
 
@@ -90,7 +89,7 @@ class Carrinho():
         Returns:
             Item (Item): Se o item for encontrado | None: Se o item não for encontrado.
         """
-        for key,val in self.db.items():
+        for key,val in self.items.items():
             if val.id == item_id:
                 return val
         return None
@@ -107,7 +106,7 @@ class Carrinho():
             Item (Item | None): Se o item for encontrado.
         """
         reason = [] 
-        if Carrinho.get_item_by_ID(item_id):
+        if self.get_item_by_ID(item_id):
             reason.append("Item não encontrado")
             return(False, reason)
         
@@ -165,7 +164,7 @@ class Carrinhos():
         reason = []
         if update:
             self.try_read_from_file()
-        if Carrinhos.get_cart_by_token(carrinho.token, False):
+        if self.get_cart_by_token(carrinho.token, False):
             reason.append("Carrinho com mesmo token já na base de dados")
         
         if reason.__len__() > 0:
@@ -190,7 +189,6 @@ class Carrinhos():
         self.write_to_file()
         return toreturn
 
-    @staticmethod
     def get_cart_by_token (self, token: str, update: bool = True) -> Item | None:
         """ Acessar um item da database
 
@@ -202,7 +200,7 @@ class Carrinhos():
             Carrinho (Carrinho | None): Se o carrinho for encontrado.
         """
         if update:
-            Carrinhos.try_read_from_file
+            self.try_read_from_file
         for key,val in self.db.items():
             if val.token == token:
                 return val
@@ -222,16 +220,14 @@ class Carrinhos():
         if update:
             self.try_read_from_file()
         
-        for cart in self.db:
-            for id,item in cart:
+        for token, cart in self.db:
+            for id, item in cart:
                 if id == item_id:
                     cart[id] = new_item
 
         self.write_to_file()
-        return None
 
 
     def clear_cart_database(self):
         self.db = dict()
         self.write_to_file()
-        
