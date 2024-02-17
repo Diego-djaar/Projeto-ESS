@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List, Optional
 import datetime
 
 # All these schemas are focus on other features, but I created them before get the schemas of others group members 
@@ -14,22 +15,34 @@ class Supplier(BaseModel):
 
 class Product(BaseModel):
 
+    id: int
     name: str
-    _type: str 
-    stock: int 
-    price: float
     supplier_corporate_name: str
     supplier_name: str
+    _type: str 
+    img: str | None
+    stock: int 
+    price: float
+
+class PreOrder(Product):
+        
+    request_date: datetime.date
+    delivery_date: datetime.date
+    delivery_model: str
+    stock: None
 
 class Order(BaseModel):
 
+    id: int
     supplier_name: str
+    name: str
+    img: str | None
     quantity: int = 1
     price: float
     request_date: datetime.date
     delivery_date: datetime.date
     delivery_model: str
-    status: str
+    _status: str
     payment_method: str
     composition: Optional[List['Order']] = None
 
@@ -43,4 +56,3 @@ class User(BaseModel):
     email: str
     address: str | None = None
     CEP: str | None = None
-    orders_list: Optional[List[Order]] = None
