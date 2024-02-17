@@ -329,7 +329,39 @@ class Carrinhos():
         reason.append("SUCCESS")
 
         return (True, reason)
+    
+    def increase_item_quantity(self, item_id: int, CPF: str, update: bool = True):
+        """Aumenta a quantidade de um item no carrinho.
 
+        Args:
+            item_id (int): ID do item a ter sua quantidade aumentada.
+            CPF (str): CPF do usuário associado ao carrinho.
+            update (bool): Se True, atualiza a base de dados a partir do arquivo JSON.
+
+        Returns:
+            (bool, list): Tupla contendo o sucesso da operação e uma lista de razões.
+        """
+        if update:
+            self.try_read_from_file()
+
+        reason = []
+        carrinho = self.get_cart_by_CPF(CPF)
+
+        if carrinho is None:
+            reason.append("Carrinho de usuário não encontrado na base de dados")
+            return (False, reason)
+
+        if item_id not in carrinho.items:
+            reason.append("Item não encontrado no carrinho")
+            return (False, reason)
+
+        carrinho.items[item_id].quantidade += 1
+
+        self.write_to_file()
+        reason.append("SUCCESS")
+
+        return (True, reason)
+    
     def clear_cart_database(self):
         self.db = dict()
         self.write_to_file()

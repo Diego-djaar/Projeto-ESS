@@ -1,0 +1,93 @@
+from src.schemas.response import HTTPResponses, HttpResponseModel
+from src.service.meta.item_service_meta import ItemServiceMeta
+from src.db.__init__ import carrinho_database as db
+from src.db.carrinho_database import Carrinho, Carrinhos
+from src.db.itens_database import Item
+from src.schemas.item_database_response import HTTPDatabaseResponses
+from pydantic import BaseModel
+from src.schemas.carrinho_response import HTTPCarrinhoResponses
+
+class DadosItem(BaseModel):
+    id: int # Acessos a database serão pelo ID (8 dígitos)
+    nome: str # Nome visível na interface
+    description: str
+    price: str
+    quantidade: int
+    img: str | None # Path para o arquivo
+
+class Carrinho_service():
+
+    @staticmethod
+    def get_cart(CPF: str, database: Carrinhos = db) -> HttpResponseModel:
+        """ Tenta obter um carrinho, se não conseguir criar um novo para o CPF selecionado """
+        carrinho = database.get_cart_by_CPF(CPF= CPF)
+        if carrinho is None:
+            carrinho = Carrinho.new_cart(CPF= CPF)
+            (success, reason) = database.add_new_cart(carrinho)
+            if not success:
+                return HttpResponseModel(
+                    message=reason[0],
+                    status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
+                )
+        return HttpResponseModel(
+                message=HTTPResponses.ITEM_FOUND().message,
+                status_code=HTTPResponses.ITEM_FOUND().status_code,
+                data=carrinho,
+            )
+
+    @staticmethod
+    def get_all_carts(database: Carrinhos = db) -> HttpResponseModel:
+        cart_database = database.get_cart_list()
+        return HttpResponseModel(
+                message=HTTPResponses.ITEM_FOUND().message,
+                status_code=HTTPResponses.ITEM_FOUND().status_code,
+                data=cart_database,
+            )
+    
+    @staticmethod
+    def add_item_to_cart(item_data: DadosItem, CPF: str, database: Carrinhos = db):
+        """Tenta adicionar um novo item no banco de dados"""
+        (item, reason) = Item.new_item(*item_data.model_dump().values())
+        if item is None:
+            return HTTPDatabaseResponses.BAD_REQUEST(reason)
+        (success, reason) = database.add_item_to_cart(item=item, CPF= CPF)
+
+        if success:
+            return HTTPDatabaseResponses.ADD_ITEM_SUCCESSFULLY()
+        else:
+            return HTTPCarrinhoResponses.CART_NOT_FOUND()
+
+    @staticmethod
+    def remove_item_from_cart(item_id: int, CPF: str, database: Carrinhos = db) -> HttpResponseModel:
+        (success, reason) = database.remove_item_from_cart(item_id= item_id, CPF= CPF)
+        if not success:
+            return HttpResponseModel(
+                message=reason[0],
+                status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
+            )
+        return HttpResponseModel(
+                message=HTTPDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY.message,
+                status_code=HTTPDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY.status_code,
+            )
+    
+    @staticmethod
+    def decrease_item_quantity(item_id: int, CPF: str, database: Carrinhos = db) -> HttpResponseModel:
+        """Tenta remover um na quantidade do item no carrinho"""
+        (success, reason) = database.decrease_item_quantity(item_id=item_id, CPF=CPF)
+        if not success:
+            return HttpResponseModel(
+                message=reason[0],
+                status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
+            )
+        return HTTPCarrinhoResponses.DECREASE_ITEM_QUANTITY(reason[0])
+    
+    @staticmethod
+    def increase_item_quantity(item_id: int, CPF: str, database: Carrinhos = db) -> HttpResponseModel:
+        """Tenta adicionar um na quantidade do item no carrinho"""
+        (success, reason) = database.increase_item_quantity(item_id= item_id, CPF= CPF)
+        if not success:
+            return HttpResponseModel(
+                message=reason[0],
+                status_code=HTTPResponses.ITEM_NOT_FOUND().status_code
+            )
+        return HTTPCarrinhoResponses.INCREASE_ITEM_QUANTITY()
