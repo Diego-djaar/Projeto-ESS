@@ -58,9 +58,19 @@ def verify_usuário(token: schemas.Token, response: Response) -> HttpResponseMod
     "/remove",
     response_model=HttpResponseModel,
     status_code=status.HTTP_200_OK,
-    description="Remove o usuário. É deslogado e removido do sistema"
+    description="Remove o usuário. É deslogado e removido do sistema",
+    responses = {
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Usuário deletado",
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Deletar usuário falhou",
+        },
+    },
 )
-def remove_usuário(token: schemas.Token, response: Response)  -> HttpResponseModel:
+def remove_usuário(token: schemas.Token, response: Response) -> HttpResponseModel:
     user = AuthService.unlogin_user_internal(token.token)
     remove_response = UpdateUserService.remove_user(user)
     response.status_code = remove_response.status_code
