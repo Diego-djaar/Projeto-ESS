@@ -216,7 +216,6 @@ class Carrinhos():
         Returns:
             
         """
-        reason = []
         if update:
             self.try_read_from_file()
         
@@ -227,6 +226,23 @@ class Carrinhos():
 
         self.write_to_file()
 
+
+    def remove_item_all_carts(self, item_id: int, update: bool = True):
+        """Remove um item especificado por item_id de todos os carrinhos na base de dados (chamar para aplicar alteração em todos os carrinhos que apresentam o item).
+
+        Args:
+            item_id (int): ID do item a ser removido.
+            update (bool): Se True, atualiza a base de dados a partir do arquivo JSON antes da operação.
+
+        """
+        if update:
+            self.try_read_from_file()
+
+        for cart_token, cart in self.db.items():
+            if item_id in cart.items:
+                del cart.items[item_id]
+
+        self.write_to_file()
 
     def clear_cart_database(self):
         self.db = dict()
