@@ -170,8 +170,7 @@ class ItemDatabase():
             item_id (int): ID do item em questão
 
         Returns:
-            success (bool): True para operação bem sucedida, False para mal sucedida
-            Item (Item | None): Se o item for encontrado.
+            item (Item | None): Item se existe, None se não
         """
         if update:
             self.try_read_from_file()
