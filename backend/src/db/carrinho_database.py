@@ -22,23 +22,23 @@ class Carrinho():
         
         reason será o nome do campo rejeitado pela validação
     """
-    token: str
+    CPF: str
     items: dict[Item]
 
-    def __init__(self, token: str):
-        self.token = token
+    def __init__(self, CPF: str):
+        self.CPF = CPF
         self.items = dict()
 
-    def new_cart(self, token: str):
+    def new_cart(self, CPF: str):
         """Cria novo carrinho
 
         Args:
-            token
+            CPF
 
         Returns:
             new cart object
         """
-        cart = Carrinho(token)
+        cart = Carrinho(CPF)
         return cart
     
     def get_all_items(self):
@@ -156,42 +156,42 @@ class Carrinhos():
             
         Returns:
             success (bool): True para operação bem sucedida, False para mal sucedida
-            reason (list[str]): contém "Carrinho com mesmo token já na base de dados" se for um token já existente.
+            reason (list[str]): contém "Carrinho com mesmo CPF já na base de dados" se for um CPF já existente.
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
         reason = []
         if update:
             self.try_read_from_file()
-        if self.get_cart_by_token(carrinho.token, False):
-            reason.append("Carrinho com mesmo token já na base de dados")
+        if self.get_cart_by_CPF(carrinho.CPF, False):
+            reason.append("Carrinho com mesmo CPF já na base de dados")
         
         if reason.__len__() > 0:
             return (False, reason)
         
-        self.db[carrinho.token] = carrinho
+        self.db[carrinho.CPF] = carrinho
         self.write_to_file()
         return (True, ["SUCCESS"])
 
-    def remove_cart_by_token (self, token: str, update: bool = True) -> Item | None:
+    def remove_cart_by_CPF (self, CPF: str, update: bool = True) -> Item | None:
         """ Remover um carrinho da database
 
         Args:
-            token (str): token do carrinho em questão
+            CPF (str): CPF do carrinho em questão
 
         Returns:
             carrinho (Carrinho | None): carrinho removido ou None.
         """
         if update:
             self.try_read_from_file()
-        toreturn = self.db.pop(token, None)
+        toreturn = self.db.pop(CPF, None)
         self.write_to_file()
         return toreturn
 
-    def get_cart_by_token (self, token: str, update: bool = True) -> Item | None:
+    def get_cart_by_CPF (self, CPF: str, update: bool = True) -> Item | None:
         """ Acessar um item da database
 
         Args:
-            token (str): token do carrinho em questão
+            CPF (str): CPF do carrinho em questão
 
         Returns:
             success (bool): True para operação bem sucedida, False para mal sucedida
@@ -200,7 +200,7 @@ class Carrinhos():
         if update:
             self.try_read_from_file
         for key,val in self.db.items():
-            if val.token == token:
+            if val.CPF == CPF:
                 return val
         return None
     
@@ -217,7 +217,7 @@ class Carrinhos():
         if update:
             self.try_read_from_file()
         
-        for token, cart in self.db:
+        for CPF, cart in self.db:
             for id, item in cart:
                 if id == item_id:
                     cart[id] = new_item
@@ -236,64 +236,64 @@ class Carrinhos():
         if update:
             self.try_read_from_file()
 
-        for cart_token, cart in self.db.items():
+        for cart_CPF, cart in self.db.items():
             if item_id in cart.items:
                 del cart.items[item_id]
 
         self.write_to_file()
 
-    def add_item_to_cart(self, item: Item, token: str, update: bool = True):
+    def add_item_to_cart(self, item: Item, CPF: str, update: bool = True):
         """Adiciona um item no carrinho
 
         Args:
             item (Item): item a ser adicionado
-            token (str): token do carrinho a ser modificado
+            CPF (str): CPF do carrinho a ser modificado
             update: ler do arquivo antes de operar
         
         Returns:
             success (bool): True para operação bem sucedida, False para mal sucedida
-            reason (list[str]): contém "Carrinho não encontrado" se for o token não existe na base de dados.
+            reason (list[str]): contém "Carrinho não encontrado" se for o CPF não existe na base de dados.
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
         if update:
             self.try_read_from_file()
         
         reason = []
-        carrinho = self.get_cart_by_token(token)
+        carrinho = self.get_cart_by_CPF(CPF)
 
         if carrinho is None:
             reason.append("Carrinho de usuário não encontrado na base de dados")
             return (False, reason)
 
-        reason = self.db[token].add_item(item)
+        reason = self.db[CPF].add_item(item)
         self.write_to_file()
 
         return (True, reason)
     
-    def remove_item_from_cart(self, item_id: int, token: str, update: bool = True):
+    def remove_item_from_cart(self, item_id: int, CPF: str, update: bool = True):
         """Remove um item do carrinho
 
         Args:
             item (Item): item a ser removido
-            token (str): token do carrinho a ser modificado
+            CPF (str): CPF do carrinho a ser modificado
             update: ler do arquivo antes de operar
         
         Returns:
             success (bool): True para operação bem sucedida, False para mal sucedida
-            reason (list[str]): contém "Carrinho não encontrado" se for o token não existe na base de dados.
+            reason (list[str]): contém "Carrinho não encontrado" se for o CPF não existe na base de dados.
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
         if update:
             self.try_read_from_file()
         
         reason = []
-        carrinho = self.get_cart_by_token(token)
+        carrinho = self.get_cart_by_CPF(CPF)
 
         if carrinho is None:
             reason.append("Carrinho de usuário não encontrado na base de dados")
             return (False, reason)
 
-        removed_item = self.db[token].remove_item_by_ID(item_id)
+        removed_item = self.db[CPF].remove_item_by_ID(item_id)
 
         if removed_item is None:
             reason.append("Item não encontrado no carrinho")
