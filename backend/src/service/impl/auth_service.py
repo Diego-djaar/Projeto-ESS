@@ -55,13 +55,22 @@ class AuthService():
         if user == None:
             return HTTPVerifyResponses.VERIFY_FAIL()
         else:
-            data = DadosUser(
-                username=user.username,
-                nome=user.nome,
-                sobrenome=user.sobrenome,
-                cpf=user.cpf,
-                data_de_nascimento=user.data_de_nascimento,
-                email=user.email,
-                CEP=user.CEP
-            )
+            data = DadosUser.from_user(user)
             return HTTPVerifyResponses.VERIFY(data)
+        
+    @staticmethod
+    def unlogin_user_internal(token: str) -> DadosUser:
+        token = int(token)
+        user: User = token_service.get_user_of_token(token)
+        if user is None:
+            return None
+        token_service.rm_user(token)
+        return DadosUser.from_user(user)
+    
+    # @staticmethod
+    # def unlogin_user(token: str) -> HttpResponseModel:
+    #     dados_user = AuthService.unlogin_user_internal(token)
+    #     if dados_user is None:
+    #         return HTTPLoginResponses.UNLOGIN_FAILED()
+    #     token_service.rm_user(token)
+    #     return HTTPLoginResponses.UNLOGIN_SUCCESSFUL()

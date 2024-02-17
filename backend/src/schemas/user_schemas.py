@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from src.db.user_database import User
 import datetime
 
 class Token(BaseModel):
@@ -17,6 +18,18 @@ class DadosUser(BaseModel):
     email: str
     endereço: str | None = None
     CEP: str | None = None
+    
+    def from_user(user: User):
+        return DadosUser(
+            username=user.username,
+            nome=user.nome,
+            sobrenome=user.sobrenome,
+            cpf=user.cpf,
+            data_de_nascimento=user.data_de_nascimento,
+            email=user.email,
+            CEP=user.CEP
+        )
+        
     
     
 class DadosCadastrais(BaseModel):

@@ -90,6 +90,20 @@ class HTTPLoginResponses:
             status_code = 401
         )
         
+    # @staticmethod
+    # def UNLOGIN_SUCCESSFUL() -> HttpResponseModel:
+    #     return HttpResponseModel (
+    #         message= "Deslogado com sucesso",
+    #         status_code=200
+    #     )
+        
+    # @staticmethod
+    # def UNLOGIN_FAILED() -> HttpResponseModel:
+    #     return HttpResponseModel (
+    #         message= "Algo falhou ao tentar deslogar",
+    #         status_code=400
+    #     )
+        
 class HTTPVerifyResponses:
     """
     Contém respostas http referentes a verificação de usuário
@@ -108,4 +122,22 @@ class HTTPVerifyResponses:
         return HttpResponseModel(
             message="Verificação falhou",
             status_code=401
+        )
+
+class HTTPUpdateUserResponses:
+    @staticmethod
+    def REMOVE(dados_user: DadosUser) -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Usuário deletado",
+            data={
+                "user": dados_user
+            },
+            status_code=200
+        )
+        
+    @staticmethod
+    def REMOVE_FAIL() -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Deletar usuário falhou",
+            status_code=400
         )

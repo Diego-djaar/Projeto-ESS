@@ -1,8 +1,9 @@
 from fastapi import APIRouter, status, Response
 from src.schemas.response import HttpResponseModel
 from src.service.impl.signup_service import DadosCadastrais, SingUpService
-from src.service.impl.auth_service import DadosLogin, AuthService
+from src.service.impl.auth_service import DadosLogin, AuthService, DadosUser
 import src.schemas.user_schemas as schemas
+from src.service.impl.update_user_service import UpdateUserService
 
 router = APIRouter()
 
@@ -52,3 +53,15 @@ def verify_usuário(token: schemas.Token, response: Response) -> HttpResponseMod
     login_response = AuthService.get_user_data(token.token)
     response.status_code = login_response.status_code
     return login_response
+
+@router.delete(
+    "/remove",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Remove o usuário. É deslogado e removido do sistema"
+)
+def remove_usuário(token: schemas.Token, response: Response)  -> HttpResponseModel:
+    user = AuthService.unlogin_user_internal(token.token)
+    remove_response = UpdateUserService.remove_user(user)
+    response.status_code = remove_response.status_code
+    return remove_response
