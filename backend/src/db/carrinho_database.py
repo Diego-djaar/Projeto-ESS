@@ -61,7 +61,7 @@ class Carrinho():
             self.items[item.id] = item
             reason.append("Novo item adicionado")
         else:
-            self.items[item.id].quantidade += 1
+            self.items[item.id].quantidade += item.quantidade
             reason.append("Quantidade do item existente aumentada")
 
         return reason
@@ -241,6 +241,34 @@ class Carrinhos():
                 del cart.items[item_id]
 
         self.write_to_file()
+
+    def add_item_to_cart(self, item: Item, token: str, update: bool = True):
+        """Adiciona um item no carrinho
+
+        Args:
+            item (Item): item a ser adicionado
+            token (str): token do carrinho a ser modificado
+            update: ler do arquivo antes de operar
+        
+        Returns:
+            success (bool): True para operação bem sucedida, False para mal sucedida
+            reason (list[str]): contém "Carrinho não encontrado" se for o token não existe na base de dados.
+            ["SUCCESS"] caso tenha sido uma operação bem sucedida
+        """
+        if update:
+            self.try_read_from_file()
+        
+        reason = []
+        carrinho = self.get_cart_by_token(token)
+
+        if carrinho is None:
+            reason.append("Carrinho de usuário não encontrado na base de dados")
+            return (False, reason)
+
+        reason = self.db[token].add_item(item)
+        self.write_to_file()
+
+        return (True, reason)
 
     def clear_cart_database(self):
         self.db = dict()
