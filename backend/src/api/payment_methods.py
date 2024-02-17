@@ -37,15 +37,15 @@ def insert_payment(boleto: Boleto) -> HttpResponseModel:
     response = PaymentService.insertion_ticket(boleto)
     return response 
 
-@router.get(
-    "/get/payment_methods", 
-    description="Get the payments methods of a especific user"
-)
-def get_payment_methods(username:str): 
+# @router.get(
+#     "/get/payment_methods", 
+#     description="Get the payments methods of a especific user"
+# )
+# def get_payment_methods(username:str): 
 
-    request = PaymentService.get_payment_methods(username)
+#     request = PaymentService.get_payment_methods(username)
 
-    return request 
+#     return request 
 
 @router.put(
     "update/cartao/{id}", 
@@ -55,7 +55,7 @@ def get_payment_methods(username:str):
 )
 def update_payment(id: int, cartao: CartaoUpdate): 
     
-    response = PaymentService.update_cartao(id, cartao)
+    response = PaymentService.update_card(id, cartao)
 
     return response
 
@@ -79,7 +79,7 @@ def update_payment(id: int, pix: PixUpdate):
 )
 def update_payment(id: int, boleto: BoletoUpdate): 
     
-    response = PaymentService.update_boleto(id, boleto)
+    response = PaymentService.update_ticket(id, boleto)
 
     return response
 

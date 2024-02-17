@@ -1,4 +1,4 @@
-from src.db.payment_database import Adicionar_cartao, Adicionar_pix, Adicionar_boleto, atualizar_boleto_pix, obter_lista_de_metodos_pagamento, atualizar_cartao, deletar_metodo
+from src.db.payment_database import *
 from src.schemas.payment_schema import Cartao, Pix, Boleto, CartaoUpdate, PixUpdate, BoletoUpdate
 from src.schemas.response import HTTPResponses, HttpResponseModel
 from src.schemas.payment_response import HTTPPaymentResponse
@@ -8,54 +8,54 @@ class PaymentService:
     @staticmethod
     def inserting_card(cartao: Cartao) -> HttpResponseModel:
 
-        sucesso, problemas = Adicionar_cartao(*cartao.model_dump().values())
+        sucess, problems = insert_card(*cartao.model_dump().values())
 
-        if sucesso: 
+        if sucess: 
             return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
         else: 
-            return HTTPPaymentResponse.BAD_REQUEST(problemas)
+            return HTTPPaymentResponse.BAD_REQUEST(problems)
     
     @staticmethod
     def insertion_pix(pix: Pix) -> HttpResponseModel: 
 
-        sucesso, problemas = Adicionar_pix(*pix.model_dump().values())
+        sucess, problems = insert_pix(*pix.model_dump().values())
 
-        if not sucesso:
-            return HTTPPaymentResponse.BAD_REQUEST(problemas)
+        if not sucess:
+            return HTTPPaymentResponse.BAD_REQUEST(problems)
 
         return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
     
     @staticmethod
     def insertion_ticket(boleto: Boleto) -> HttpResponseModel: 
 
-        sucesso, problemas = Adicionar_pix(*boleto.model_dump().values())
+        sucess, problems = insert_ticket(*boleto.model_dump().values())
 
-        if not sucesso:
-            return HTTPPaymentResponse.BAD_REQUEST(problemas)
+        if not sucess:
+            return HTTPPaymentResponse.BAD_REQUEST(problems)
 
         return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
     
-    @staticmethod
-    def get_payment_methods(cpf: str): 
+    # @staticmethod
+    # def get_payment_methods(cpf: str): 
         
-        resultado = obter_lista_de_metodos_pagamento(cpf)
+    #     resultado = obter_lista_de_metodos_pagamento(cpf)
 
-        if resultado is None: 
-            return HTTPPaymentResponse.INEXISTENT_USER()
-        else: 
-            return resultado
+    #     if resultado is None: 
+    #         return HTTPPaymentResponse.INEXISTENT_USER()
+    #     else: 
+    #         return resultado
     
     @staticmethod
-    def update_cartao(id: int, cartao: CartaoUpdate): 
+    def update_card(id: int, cartao: CartaoUpdate): 
 
-        sucesso, problemas = atualizar_cartao(id, *cartao.model_dump().values())
+        sucess, problems = update_card(id, *cartao.model_dump().values())
 
-        if not sucesso: 
+        if not sucess: 
 
-            if "VALIDADE" in problemas: 
+            if "VALIDADE" in problems: 
                 return HTTPPaymentResponse.BAD_REQUEST()
             
-            if "ID_NOT_FOUND" in problemas: 
+            if "ID_NOT_FOUND" in problems: 
                 return HTTPPaymentResponse.INEXISTENT_ID()
             
         return HTTPPaymentResponse.UPDATE_SUCESSFULLY()
@@ -63,20 +63,20 @@ class PaymentService:
     @staticmethod
     def update_pix(id:int, pix: PixUpdate): 
 
-        sucesso = atualizar_boleto_pix(id, *pix.model_dump().values())
+        sucess = update_pix_or_ticket(id, *pix.model_dump().values())
 
-        if not sucesso: 
+        if not sucess: 
             
             return HTTPPaymentResponse.INEXISTENT_ID()
             
         return HTTPPaymentResponse.UPDATE_SUCESSFULLY()
     
     @staticmethod
-    def update_boleto(id:int, boleto: BoletoUpdate): 
+    def update_ticket(id:int, boleto: BoletoUpdate): 
 
-        sucesso = atualizar_boleto_pix(id, *boleto.model_dump().values())
+        sucess = update_pix_or_ticket(id, *boleto.model_dump().values())
 
-        if not sucesso: 
+        if not sucess: 
             
             return HTTPPaymentResponse.INEXISTENT_ID()
             
@@ -85,9 +85,9 @@ class PaymentService:
     @staticmethod
     def delete_method(id: int):
 
-        sucesso = deletar_metodo(id)
+        sucess = delete_method(id)
 
-        if not sucesso: 
+        if not sucess: 
 
             return HTTPPaymentResponse.INEXISTENT_ID()
         
