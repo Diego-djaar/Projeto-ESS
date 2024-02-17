@@ -194,8 +194,7 @@ class Carrinhos():
             CPF (str): CPF do carrinho em questão
 
         Returns:
-            success (bool): True para operação bem sucedida, False para mal sucedida
-            Carrinho (Carrinho | None): Se o carrinho for encontrado.
+            Carrinho (Carrinho | None): Carrinho se for encontrado, None se não for encontrado
         """
         if update:
             self.try_read_from_file
@@ -281,6 +280,7 @@ class Carrinhos():
         Returns:
             success (bool): True para operação bem sucedida, False para mal sucedida
             reason (list[str]): contém "Carrinho não encontrado" se for o CPF não existe na base de dados.
+            contém "Item não encontrado no carrinho" se não se encontrou o item selecionado.
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
         if update:
@@ -298,6 +298,32 @@ class Carrinhos():
         if removed_item is None:
             reason.append("Item não encontrado no carrinho")
             return (False, reason)
+        
+        self.write_to_file()
+        reason.append("SUCCESS")
+
+        return (True, reason)
+    
+    def decrease_item_quantity(self, item_id: int, CPF: str, update: bool = True):
+        """ Diminui em um a quantidade de um item, se o item tiver só 1 na quantidade, remove o item """
+        if update:
+            self.try_read_from_file()
+
+        reason = []
+        carrinho = self.get_cart_by_CPF(CPF)
+
+        if carrinho is None:
+            reason.append("Carrinho de usuário não encontrado na base de dados")
+            return (False, reason)
+        
+        if item_id not in carrinho.items:
+            reason.append("Item não encontrado no carrinho")
+            return (False, reason)
+        
+        if carrinho.items[item_id].quantidade > 1:
+            carrinho.items[item_id].quantidade -= 1
+        else:
+            del carrinho.items[item_id]
         
         self.write_to_file()
         reason.append("SUCCESS")
