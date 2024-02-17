@@ -43,3 +43,9 @@ class RecuperacaoDatabase():
         self.db[recuperacao.email] = recuperacao
         self.write_to_file()
         return True
+    
+    def get_rec_by_email(self, email: str):
+        try:
+            return self.db.get(email)
+        except:
+            return None

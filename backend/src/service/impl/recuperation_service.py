@@ -4,6 +4,7 @@ from src.db.codigos_rec_database import Recuperacao
 import random, string, smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from datetime import datetime, timedelta
 
 class RecuperationService:
     @staticmethod
@@ -43,3 +44,27 @@ class RecuperationService:
         # Fechando a conexão com o servidor SMTP do Gmail
         server.quit()
 
+    @staticmethod
+    def recuperar_conta(email: str, codigo: str, nova_senha: str, nova_senha_repetida: str):
+
+        user = db_user.get_user_by_email(email)
+        recuperacao = db_recuperacao.get_rec_by_email(email)
+        
+        if not user:
+            return "Email não cadastrado"
+
+        if not recuperacao:
+            return "Não há recuperação solicitada para este email"
+        
+        if recuperacao.codigo != codigo:
+            return "Código Incorreto"
+        
+        if nova_senha != nova_senha_repetida:
+            return "Senhas não coicidem"
+        
+        if datetime.now() - recuperacao.date > timedelta(hours=1):
+            return "Tempo inspirado"
+        
+        user.add_password(nova_senha)
+        db_user.write_to_file()
+        return True

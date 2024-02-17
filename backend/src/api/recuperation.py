@@ -18,8 +18,16 @@ def esqueci_a_senha():
 @router.post(
     "/enviarcodigo",
     status_code=status.HTTP_200_OK,
-    description="Recuperar conta",
+    description="Enviar código de recuperação",
 )
-def recuperar_conta(email: str):
+def enviar_codigo(email: str):
     RecuperationService.enviar_email(email)
     return {"message": f"Caso o email '{email}' esteja cadastrado enviaremos um código para o mesmo"}
+
+@router.post(
+    "/recuperarconta",
+    status_code=status.HTTP_200_OK,
+    description="Digitar código de recuperação",
+)
+def recuperar_conta(email:str , codigo: str, nova_senha: str, nova_senha_repetida: str):
+    RecuperationService.recuperar_conta(email, codigo, nova_senha, nova_senha_repetida)
