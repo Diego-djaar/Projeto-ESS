@@ -45,26 +45,26 @@ class Carrinho():
         """Retorna todos os itens do carrinho"""
         return list(self.items.values())
     
-    def add_new_item(self, item: Item):
-        """Adicionar um novo item ao carrinho
+    def add_item(self, item: Item):
+        """Adicionar um item ao carrinho
 
         Args:
             item (Item): Item em questão
             
         Returns:
-            success (bool): True para operação bem sucedida, False para mal sucedida
-            reason (list[str]): contém "Item com mesmo ID já no carrinho" se for um item já existente.
-            ["SUCCESS"] caso tenha sido uma operação bem sucedida
+            reason (list[str]): contém informações sobre se o item já existia ou não.
         """
         reason = []
-        if self.get_item_by_ID(item.id):
-            reason.append("Item com mesmo ID já no carrinho")
-        
-        if reason.__len__() > 0:
-            return (False, reason)
-        
-        self.items[item.id] = item
-        return (True, ["SUCCESS"])
+        obj = self.get_item_by_ID(item.id)
+    
+        if obj is None:
+            self.items[item.id] = item
+            reason.append("Novo item adicionado")
+        else:
+            self.items[item.id].quantidade += 1
+            reason.append("Quantidade do item existente aumentada")
+
+        return reason
 
     def remove_item_by_ID (self, item_id: int) -> Item | None:
         """ Remover um item do carrinho
