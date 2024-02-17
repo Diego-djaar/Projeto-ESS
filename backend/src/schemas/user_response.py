@@ -141,3 +141,24 @@ class HTTPUpdateUserResponses:
             message="Deletar usuário falhou",
             status_code=400
         )
+    
+    @staticmethod
+    def UPDATE_FAIL(reason) -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Atualizar dados de usuário falhou",
+            data=reason,
+            status_code=400
+        )
+    
+    @staticmethod
+    def UPDATE_SUCCESS() -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Atualização de dados bem sucedida",
+            status_code=200
+        )
+    
+    def UNAUTORIZED() -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Não tem autorização para realizar essa requisição",
+            status_code=401
+        )

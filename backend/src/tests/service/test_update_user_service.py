@@ -41,3 +41,29 @@ def test_remove_user():
     # Testa falha ao tentar remover de novo
     res = UpdateUserService.remove_user(dados_user, db)
     assert res == HTTPUpdateUserResponses.REMOVE_FAIL()
+
+def test_update_user():
+     # Registra usuário
+    cpf1, cpf2, senha = sign_up_user(True)
+    dados = DadosLogin(cpf_ou_user_ou_email=cpf1, senha=senha)
+    token: str = AuthService.login_user(dados, db).data['token']
+    
+    dados_user: DadosUser = DadosUser.from_user(token_service.get_user_of_token(int(token)))
+    
+    res = UpdateUserService.update_user(token, dados_user, db)
+    assert res==HTTPUpdateUserResponses.UPDATE_SUCCESS()
+    
+    dados_user2 = dados_user.model_copy()
+    dados_user2.cpf = "999.999.999-99"
+    res = UpdateUserService.update_user(token, dados_user2, db)
+    assert res == HTTPUpdateUserResponses.UPDATE_FAIL(["Tried to update CPF, EMAIL or USERNAME"])
+    
+    dados_user3 = dados_user.model_copy()
+    dados_user3.CEP = "12654-456"
+    res = UpdateUserService.update_user(token, dados_user3)
+    assert res==HTTPUpdateUserResponses.UPDATE_SUCCESS()
+    
+    dados_user_new: DadosUser = DadosUser.from_user(token_service.get_user_of_token(int(token)))
+    assert dados_user_new.cpf == dados_user.cpf
+    assert dados_user_new.CEP != dados_user.CEP
+    assert dados_user_new.__dict__ == dados_user3.__dict__

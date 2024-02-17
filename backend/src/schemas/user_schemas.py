@@ -27,7 +27,8 @@ class DadosUser(BaseModel):
             cpf=user.cpf,
             data_de_nascimento=user.data_de_nascimento,
             email=user.email,
-            CEP=user.CEP
+            CEP=user.CEP,
+            endereço=user.endereço
         )
         
     
