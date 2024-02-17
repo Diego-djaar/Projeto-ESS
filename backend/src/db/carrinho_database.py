@@ -73,9 +73,7 @@ class Carrinho():
             item_id (int): ID do item em questão
 
         Returns:
-            success (bool): True para operação bem sucedida, False para mal sucedida
-            reason (list[str]): contém "NOT_FOUND" se o item não foi encontrado
-            ["SUCCESS"] caso tenha sido uma operação bem sucedida
+            item (Item | None): retorna item removido ou nada
         """
         toreturn = self.items.pop(item_id, None)
         return toreturn
