@@ -269,6 +269,40 @@ class Carrinhos():
         self.write_to_file()
 
         return (True, reason)
+    
+    def remove_item_from_cart(self, item_id: int, token: str, update: bool = True):
+        """Remove um item do carrinho
+
+        Args:
+            item (Item): item a ser removido
+            token (str): token do carrinho a ser modificado
+            update: ler do arquivo antes de operar
+        
+        Returns:
+            success (bool): True para operação bem sucedida, False para mal sucedida
+            reason (list[str]): contém "Carrinho não encontrado" se for o token não existe na base de dados.
+            ["SUCCESS"] caso tenha sido uma operação bem sucedida
+        """
+        if update:
+            self.try_read_from_file()
+        
+        reason = []
+        carrinho = self.get_cart_by_token(token)
+
+        if carrinho is None:
+            reason.append("Carrinho de usuário não encontrado na base de dados")
+            return (False, reason)
+
+        removed_item = self.db[token].remove_item_by_ID(item_id)
+
+        if removed_item is None:
+            reason.append("Item não encontrado no carrinho")
+            return (False, reason)
+        
+        self.write_to_file()
+        reason.append("SUCCESS")
+
+        return (True, reason)
 
     def clear_cart_database(self):
         self.db = dict()
