@@ -31,7 +31,7 @@ class Order(BaseModel):
     delivery_model: str
     status: str
     payment_method: str
-    composition : List[Order] | None = None
+    composition: Optional[List['Order']] = None
 
 class User(BaseModel):
 
@@ -43,3 +43,4 @@ class User(BaseModel):
     email: str
     address: str | None = None
     CEP: str | None = None
+    orders_list: Optional[List[Order]] = None
