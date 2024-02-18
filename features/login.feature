@@ -60,8 +60,8 @@ And o campo "data" possui o campo "user"
 And os elementos de "user" correspondem aos dados do usuário "Gabriel"
 
 Scenario: processar dados de login com usuário inexistente
-Given Usuário "Gabriel" não está cadastrado
-When uma requisição "POST" for enviada para "login", com Dados Login(usuário: "Gabriel", senha: "senha1234")
+Given Usuário "Enzo" não está cadastrado
+When uma requisição "POST" for enviada para "login", com Dados Login(usuário: "Enzo", senha: "senha1234")
 Then o status da resposta deve ser "401"
 And o campo "message" tem o valor "CPF ou Senha incorretos"
 
