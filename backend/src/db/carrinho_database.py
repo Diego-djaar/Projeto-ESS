@@ -185,7 +185,7 @@ class Carrinhos():
             Carrinho (Carrinho | None): Carrinho se for encontrado, None se não for encontrado
         """
         if update:
-            self.try_read_from_file
+            self.try_read_from_file()
         for key,val in self.db.items():
             if val.CPF == CPF:
                 return val

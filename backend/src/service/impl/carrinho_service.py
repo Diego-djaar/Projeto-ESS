@@ -1,6 +1,6 @@
 from src.schemas.response import HTTPResponses, HttpResponseModel
 from src.service.meta.item_service_meta import ItemServiceMeta
-from src.db.__init__ import carrinho_database as db
+from src.db.__init__ import cart_database as db
 from src.db.carrinho_database import Carrinho, Carrinhos
 from src.db.itens_database import Item
 from src.schemas.item_database_response import HTTPDatabaseResponses
@@ -22,7 +22,7 @@ class Carrinho_service():
         """ Tenta obter um carrinho, se não conseguir criar um novo para o CPF selecionado """
         carrinho = database.get_cart_by_CPF(CPF= CPF)
         if carrinho is None:
-            carrinho = Carrinho.new_cart(CPF= CPF)
+            carrinho = Carrinho(CPF=CPF)
             (success, reason) = database.add_new_cart(carrinho)
             if not success:
                 return HttpResponseModel(
@@ -32,7 +32,7 @@ class Carrinho_service():
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
-                data=carrinho,
+                data=carrinho.items,
             )
 
     @staticmethod
