@@ -9,6 +9,7 @@ import re
 import os.path
 import jsonpickle
 from src.db.itens_database import Item
+from src.db.schemas.adress_schema import Endereço
 
 logger = getLogger('uvicorn')
 
@@ -25,18 +26,35 @@ class Carrinho():
     CPF: str
     items: dict[Item]
     total: str # Total do preço dos produtos no carrinho
+    endereço: Endereço | None
 
     def __init__(self, CPF: str):
         self.CPF = CPF
         self.items = dict()
         self.total = "0.00"
+        self.endereço = None
 
     def recalcular_total(self):
         aux = Decimal("0.00")
         for item in self.items.values():
             aux += Decimal(item.price) * item.quantidade # Valor inteiro
         self.total = str(aux)
+
+    def alterar_endereço(self, rua: str, numero: int, bairro: str, cidade: str, estado: str, cep: str, pais: str, complemento: str | None = None):
+        """ Tenta adicionar um endereço """
+        # Fazer as verificações de validade do endereço (Se é real ou não)
+        reason = []
+        # exemplo: if cep invalido -> reason.append("CEP invalido") return (False, reason)
+        self.endereço = Endereço(rua, numero, bairro, cidade, estado, cep, pais, complemento)
+        reason.append("Endereço registrado com sucesso")
+        return (True, reason)
     
+    def get_adress(self) -> str:
+        """ Retorna o endereço do objeto em si na forma de string """
+        if self.endereço is None:
+            return "Endereço não registrado"
+        return self.endereço.__str__()
+
     def get_all_items(self):
         """Retorna todos os itens do carrinho"""
         return list(self.items.values())
@@ -147,6 +165,29 @@ class Carrinhos():
         if update:
             self.try_read_from_file()
         return list(self.db.values())
+    
+    def alterar_endereco_de_carrinho_por_CPF(self, CPF: str, rua: str, numero: int, bairro: str, cidade: str, estado: str, cep: str, pais: str, complemento: str | None = None, update: bool = True):
+        """ Recebe um CPF e altera o endereço do carrinho respectivo """
+        if update:
+            self.try_read_from_file()
+    
+        reason = []
+        carrinho = self.get_cart_by_CPF(CPF)
+        if carrinho is None:
+            reason.append("Carrinho não encontrado")
+            return (False, reason)
+
+        # Chama o método alterar_endereço do carrinho
+        (success, reason) = carrinho.alterar_endereço(rua, numero, bairro, cidade, estado, cep, pais, complemento)
+    
+        if not success:
+            return (False, reason)
+
+        # Se a alteração foi bem-sucedida
+        self.write_to_file()
+        reason.append("Endereço alterado com sucesso")
+        return (True, reason)
+
     
     def add_new_cart(self, carrinho: Carrinho, update: bool = True):
         """Adicionar um novo carrinho a database

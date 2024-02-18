@@ -15,6 +15,16 @@ class DadosItem(BaseModel):
     quantidade: int
     img: str | None # Path para o arquivo
 
+class DadosEndereço(BaseModel):
+    rua: str
+    numero: int
+    bairro: str
+    cidade: str
+    estado: str
+    cep: str
+    pais: str
+    complemento: str | None
+
 class Carrinho_service():
 
     @staticmethod
@@ -27,11 +37,12 @@ class Carrinho_service():
             return HttpResponseModel(
                 message="Carrinho não encontrado, novo carrinho criado vinculado a este CPF",
                 status_code=HTTPResponses.ITEM_CREATED().status_code,
+                data={"Itens:": carrinho.items, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
             )
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
-                data={"Itens:": carrinho.items, "Total": carrinho.total},
+                data={"Itens:": carrinho.items, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
             )
 
     @staticmethod
@@ -52,7 +63,6 @@ class Carrinho_service():
     @staticmethod
     def add_item_to_cart(item_data: DadosItem, CPF: str, database: Carrinhos = db):
         """Tenta adicionar um novo item no banco de dados"""
-        print(item_data)
         item_data_dict = item_data.model_dump()  # Se isso retornar um dicionário com as chaves corretas
         (item, reason) = Item.new_item(**item_data_dict)
         if item is None:
@@ -109,3 +119,11 @@ class Carrinho_service():
     def clear_all_carts(database: Carrinhos = db) -> HttpResponseModel:
         database.clear_cart_database()
         return HTTPCarrinhoResponses.CLEAR_ALL_CARTS()
+    
+    @staticmethod
+    def add_adress(adressData: DadosEndereço, CPF: str, database: Carrinhos = db) -> HttpResponseModel:
+        adressData_dict = adressData.model_dump()  # Se isso retornar um dicionário com as chaves corretas
+        (success, reason) = database.alterar_endereco_de_carrinho_por_CPF(CPF, **adressData_dict)
+        if success:
+            return HTTPCarrinhoResponses.MODIFY_ADRESS_SUCCESFULLY()
+        return HTTPCarrinhoResponses.CART_NOT_FOUND()

@@ -47,3 +47,10 @@ class HTTPCarrinhoResponses():
             message= "Conteúdo da database de carrinhos limpo",
             status_code=200
         )
+    
+    @staticmethod
+    def MODIFY_ADRESS_SUCCESFULLY() -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Endereço alterado com sucesso",
+            status_code=200
+        )

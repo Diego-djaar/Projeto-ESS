@@ -2,6 +2,7 @@ from fastapi import APIRouter, status, HTTPException
 from src.schemas.response import HttpResponseModel
 from src.service.impl.carrinho_service import Carrinho_service
 from src.service.impl.item_database_service import DadosItem
+from src.service.impl.carrinho_service import DadosEndereço
 
 router = APIRouter()
 
@@ -204,6 +205,34 @@ def incrementar_item (item_id: str, CPF: str) -> HttpResponseModel:
 def decrementar_item (item_id: str, CPF: str) -> HttpResponseModel:
     """ Tenta decrementar quantidade de item no carrinho """
     resultado = Carrinho_service.decrease_item_quantity(item_id=item_id, CPF=CPF)
+    if resultado.status_code == status.HTTP_200_OK:
+        return resultado
+    else:
+        # Se a adição não foi bem-sucedida, lançar uma exceção HTTP que será tratada pelo FastAPI
+        raise HTTPException(
+            status_code=resultado.status_code,
+            detail=resultado.message
+        )
+
+@router.put(
+    "/alterar_endereço",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Alterar endereço do carrinho",
+    responses={
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Item adicionado ao carrinho com sucesso"
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Falha na adição do item ao carrinho"
+        }
+    },
+)
+def alterar_endereço(dados: DadosEndereço, CPF: str) -> HttpResponseModel:
+    """ Tenta adicionar item ao carrinho """
+    resultado = Carrinho_service.add_adress(dados, CPF)
     if resultado.status_code == status.HTTP_200_OK:
         return resultado
     else:
