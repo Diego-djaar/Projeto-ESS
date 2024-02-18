@@ -10,6 +10,13 @@ import hmac
 import hashlib
 import re
 import jsonpickle
+import sys
+
+# Faz os testes não interferirem com o funcionamento do programa em live
+if "pytest" in sys.modules:
+    database_path = "Usuários teste.json"
+else:
+    database_path = "Usuários.json"
 
 logger = getLogger('uvicorn')
 
@@ -148,7 +155,7 @@ class UserDatabase():
         return (success, reason)
     
     
-    def __init__(self, path = "Usuários.json"):
+    def __init__(self, path = database_path):
         self.db = dict()
         self.file_path = path
         self.try_read_from_file()
@@ -162,7 +169,11 @@ class UserDatabase():
         
         with open(self.file_path) as f:
             objetos = f.read()
-            db = jsonpickle.decode(objetos)
+            try:
+                db = jsonpickle.decode(objetos)
+            except:
+                print("corrupted or wrong database")
+                self.write_to_file()
             if type(db) == dict:
                 self.db = db
 
