@@ -1,8 +1,9 @@
 from fastapi import APIRouter, status, Response
 from src.schemas.response import HttpResponseModel
 from src.service.impl.signup_service import DadosCadastrais, SingUpService
-from src.service.impl.auth_service import DadosLogin, AuthService
+from src.service.impl.auth_service import DadosLogin, AuthService, DadosUser
 import src.schemas.user_schemas as schemas
+from src.service.impl.update_user_service import UpdateUserService
 
 router = APIRouter()
 
@@ -52,3 +53,46 @@ def verify_usuário(token: schemas.Token, response: Response) -> HttpResponseMod
     login_response = AuthService.get_user_data(token.token)
     response.status_code = login_response.status_code
     return login_response
+
+@router.delete(
+    "/remove",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Remove o usuário. É deslogado e removido do sistema",
+    responses = {
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Usuário deletado",
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Deletar usuário falhou",
+        },
+    },
+)
+def remove_usuário(token: schemas.Token, response: Response) -> HttpResponseModel:
+    user = AuthService.unlogin_user_internal(token.token)
+    remove_response = UpdateUserService.remove_user(user)
+    response.status_code = remove_response.status_code
+    return remove_response
+
+@router.patch(
+    "/update",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Atualiza dados de usuário, exceto CPF, EMAIL, USER ou SENHA",
+    responses = {
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Usuário atualizado",
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Falha em atualizar dados de usuário",
+        },
+    },
+)
+def update_usuário(token: schemas.Token, new_data: DadosUser, response: Response) -> HttpResponseModel:
+    update_response = UpdateUserService.update_user(token.token, new_data)
+    response.status_code = update_response.status_code
+    return update_response

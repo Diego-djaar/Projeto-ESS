@@ -50,3 +50,25 @@ def test_get_user_data():
     res2 = AuthService.get_user_data(token)
     
     assert res2.data['user'].cpf == cpf1
+
+def test_unlogin_user():
+    cpf1, cpf2, senha = sign_up_user(True)
+    dados = DadosLogin(cpf_ou_user_ou_email=cpf1, senha=senha)
+    res_login = AuthService.login_user(dados, db)
+    token = res_login.data['token']
+    
+    res_get = AuthService.get_user_data(token)
+    assert res_get.message == "Usuário retornado"
+    
+    res = AuthService.unlogin_user_internal(token)
+    assert res is not None
+    
+    res2 = AuthService.unlogin_user_internal(token)
+    assert res2 is None
+    
+    res_get = AuthService.get_user_data(token)
+    assert res_get == HTTPVerifyResponses.VERIFY_FAIL()
+    
+    res3 = AuthService.unlogin_user_internal("13224353")
+    assert res3 is None
+    

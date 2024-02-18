@@ -198,4 +198,36 @@ def test_cleanup():
     database.remove_user_by_cpf("111.111.111-10")
     database.remove_user_by_cpf("123.156.185-21")
     database.remove_user_by_cpf("141.414.141-14")
+
+def test_update_user():
+    user: User = User.new(
+        username="Miguel", 
+        nome="Miguel Guerra", 
+        sobrenome="", 
+        cpf="777.777.777-77", 
+        data_de_nascimento=datetime.date.fromisocalendar(1,1,1),
+        email="mg4@cin.ufpe.br", 
+        senha="12345Abcx"
+    )[0]
+    database = UserDatabase("Usuários teste.json")
+    database.add_user(user)
     
+    user.update_data({
+        "nome":"Miguel Guerra",
+        "sobrenome":"Almeida",
+        "endereço": "rua das flores",
+        "CEP": "45545-455",
+        "data_de_nascimento": datetime.date.fromisocalendar(2001,1,1)
+    })
+    database.write_to_file()
+    db_user = database.get_user_by_cpf("777.777.777-77")
+    assert db_user.__dict__ == user.__dict__
+    
+    res = user.update_data({
+        "nome":"Miguel Guerra",
+        "sobrenome":"Almeida",
+        "endereço": "rua das flores",
+        "CEP": "45545455",
+        "data_de_nascimento": datetime.date.fromisocalendar(2001,1,1)
+    })
+    assert "CEP in wrong format" in res

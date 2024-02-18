@@ -42,7 +42,7 @@ class TokenService():
             self.sessao_usuario.pop(hash(token))
             self.sessoes_ativas.remove(hash(token))
     
-    def get_user_of_token(self, token: int):
+    def get_user_of_token(self, token: int) -> User | None:
         return self.sessao_usuario.get(hash(token), None)
     
     def user_active(self, token: int) -> bool:

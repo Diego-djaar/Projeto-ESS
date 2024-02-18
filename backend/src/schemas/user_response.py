@@ -90,6 +90,20 @@ class HTTPLoginResponses:
             status_code = 401
         )
         
+    # @staticmethod
+    # def UNLOGIN_SUCCESSFUL() -> HttpResponseModel:
+    #     return HttpResponseModel (
+    #         message= "Deslogado com sucesso",
+    #         status_code=200
+    #     )
+        
+    # @staticmethod
+    # def UNLOGIN_FAILED() -> HttpResponseModel:
+    #     return HttpResponseModel (
+    #         message= "Algo falhou ao tentar deslogar",
+    #         status_code=400
+    #     )
+        
 class HTTPVerifyResponses:
     """
     Contém respostas http referentes a verificação de usuário
@@ -107,5 +121,44 @@ class HTTPVerifyResponses:
     def VERIFY_FAIL() -> HttpResponseModel:
         return HttpResponseModel(
             message="Verificação falhou",
+            status_code=401
+        )
+
+class HTTPUpdateUserResponses:
+    @staticmethod
+    def REMOVE(dados_user: DadosUser) -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Usuário deletado",
+            data={
+                "user": dados_user
+            },
+            status_code=200
+        )
+        
+    @staticmethod
+    def REMOVE_FAIL() -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Deletar usuário falhou",
+            status_code=400
+        )
+    
+    @staticmethod
+    def UPDATE_FAIL(reason) -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Atualizar dados de usuário falhou",
+            data=reason,
+            status_code=400
+        )
+    
+    @staticmethod
+    def UPDATE_SUCCESS() -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Atualização de dados bem sucedida",
+            status_code=200
+        )
+    
+    def UNAUTORIZED() -> HttpResponseModel:
+        return HttpResponseModel(
+            message="Não tem autorização para realizar essa requisição",
             status_code=401
         )

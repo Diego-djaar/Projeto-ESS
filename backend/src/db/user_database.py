@@ -113,6 +113,28 @@ class User(object):
         hash = self.cpf.encode() + senha.encode()
         return checkpw(hash, self.senha)
     
+    def update_data(self, dados_user: dict):
+        """Atualiza os dados do usuário
+        
+        OBS: Sempre chame UserDatabase.write_to_file() para atualizar os dados do usuário na base de dados
+        """
+        reason = []
+        if not (dados_user['CEP'] is None) and not (cep_pattern.match(dados_user['CEP'])):
+            reason.append("CEP in wrong format")
+        
+        if reason.__len__() > 0:
+            return reason
+            
+        self.nome = dados_user['nome']
+        self.sobrenome = dados_user['sobrenome']
+        self.endereço = dados_user['endereço']
+        self.CEP = dados_user['CEP']
+        self.data_de_nascimento = dados_user['data_de_nascimento']
+        
+        reason.append("SUCCESS")
+        return reason
+
+        
 
         
 
