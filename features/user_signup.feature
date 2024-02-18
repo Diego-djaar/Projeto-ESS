@@ -59,7 +59,7 @@ And Estou logado como usuário “Enzo“
 
 Cenário: Processar dados cadastrais bem sucedido
 Given Usuário "Enzo" não está cadastrado
-When uma requisição "POST" for enviada para "login", com "Dados Cadastrais"
+When uma requisição "POST" for enviada para "sign_up", com "Dados Cadastrais"
 And a requisição está correta
 And o campo "Nome" da requisição é "Enzo Gabriel" e o campo "sobrenome" é "de Oliveira"
 And o campo "Username" é "Enzo"
@@ -73,10 +73,10 @@ And a conexão é autenticada como usuário "Enzo"
 
 Cenário: Processar dados cadastrais mal sucedido
 Given Usuário "Enzo" não está cadastrado
-When uma requisição "POST" for enviada para "login", com "Dados Cadastrais"
+When uma requisição "POST" for enviada para "sign_up", com "Dados Cadastrais"
 And a requisição está com o campo "CPF" com "00.00.00"
 Then o campo "CPF" da requisição é rejeitado
-Then o status da resposta deve ser "200"
+And o status da resposta deve ser "200"
 And o JSON da resposta indica que o cadastro foi mal sucedido
 And o JSON da resposta indica que o campo "CPF" foi mal preenchido
 

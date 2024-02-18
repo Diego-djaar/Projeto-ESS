@@ -48,4 +48,26 @@ Then 'Gabriel' visualiza a mensagem 'usuário ou senha incorreto'
 And permanece na página 'Fazer login' 
 
 
+Scenario: processar dados de login
+Given Usuário "Gabriel" está cadastrado
+When uma requisição "POST" for enviada para "login", com "Dados Login"
+And a requisição está com o campo "Senha" correto
+Then o status da resposta deve ser "200"
+And o campo "data" possui o campo "token" com valor "$token_valor"
+When uma requisição "POST" for enviada para "verify", com "$token_valor"
+Then o status da resposta deve ser "200"
+And o campo "data" possui o campo "user"
+And os elementos de "user" correspondem aos dados do usuário "Gabriel"
 
+Scenario: processar dados de login com usuário inexistente
+Given Usuário "Gabriel" não está cadastrado
+When uma requisição "POST" for enviada para "login", com "Dados Login"
+Then o status da resposta deve ser "401"
+And o campo "message" tem o valor "CPF ou Senha incorretos"
+
+Scenario: processar dados de login com senha incorreta
+Given Usuário "Gabriel" não está cadastrado
+When uma requisição "POST" for enviada para "login", com "Dados Login"
+And a requisição está com o campo "Senha" incorreto
+Then o status da resposta deve ser "401"
+And o campo "message" tem o valor "CPF ou Senha incorretos"
