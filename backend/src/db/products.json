@@ -1,0 +1,39 @@
+{
+    "1": 
+        {
+            "id": 1,
+            "name": "Produto A",
+            "supplier_corporate_name": "Empresa A LTDA",
+            "supplier_name": "Fornecedor A",
+            "cep": "08110030", 
+            "_type": "Notebook IdeiaPad Enovo",
+            "img": "XXXX",
+            "stock": 5,
+            "price": 3000
+        },
+    "2":  
+        {
+            "id": 2,
+            "name": "Produto B",
+            "supplier_corporate_name": "Empresa B LTDA",
+            "supplier_name": "Fornecedor B",
+            "cep": "64290000", 
+            "_type": "Bola de futebol Penâlti",
+            "img": "YYYY",
+            "stock": 20,
+            "price": 70.50
+        }
+    ,
+    "3": 
+        {
+            "id": 3,
+            "name": "Produto C",
+            "supplier_corporate_name": "Empresa C LTDA",
+            "supplier_name": "Fornecedor C",
+            "cep": "55870970", 
+            "_type": "Teclado Kogostech",
+            "img": "ZZZZ",
+            "stock": 15,
+            "price": 100
+        }
+}
