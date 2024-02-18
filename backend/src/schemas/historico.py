@@ -33,23 +33,23 @@ class OrderFilter(BaseModel):
     start_date: Optional[datetime.date]
     end_date: Optional[datetime.date]
 
-def validate_orders(filtro: OrderFilter, object: Order):
+def validate_orders(filter: OrderFilter, order: Order):
     valid = True
-    object = Order(**object)
-    if filtro.id and object.id != filtro.id:
+    order = Order(**order)
+    if filter.id and order.id != filter.id:
         valid = False
-    if valid and filtro.supplier_name and filtro.supplier_name.lower() not in object.supplier_name.lower():
+    if valid and filter.supplier_name and filter.supplier_name.lower() not in order.supplier_name.lower():
         valid = False
-    if valid and filtro.name and filtro.name.lower() not in object.name.lower():
+    if valid and filter.name and filter.name.lower() not in order.name.lower():
         valid = False
-    if valid and filtro.quantity and filtro.quantity != object.quantity:
+    if valid and filter.quantity and filter.quantity != order.quantity:
         valid = False
-    if valid and filtro.price_min and (object.price < filtro.price_min):
+    if valid and filter.price_min and (order.price < filter.price_min):
         valid = False
-    if valid and filtro.price_max and (object.price > filtro.price_max):
+    if valid and filter.price_max and (order.price > filter.price_max):
         valid = False
-    if valid and filtro.start_date and (object.request_date < filtro.start_date):
+    if valid and filter.start_date and (order.request_date < filter.start_date):
         valid = False
-    if valid and filtro.end_date and (object.request_date > filtro.end_date):
+    if valid and filter.end_date and (order.request_date > filter.end_date):
         valid = False
     return valid
