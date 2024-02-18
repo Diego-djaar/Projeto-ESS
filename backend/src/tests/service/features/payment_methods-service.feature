@@ -24,3 +24,5 @@ Scenario: Inserir pix com cpf incorreto
     Given o pix de nome "Breno Gabriel de Melo Lima" e cpf "222.222.222" não existe no banco de dados
     When o método insert_pix do PaymentDatabase for chamado com nome "Breno Gabriel de Melo Lima" e cpf "222.222.222" 
     Then o método insert_pix do PaymentDatabase retorna sucess "False"
+
+Sce

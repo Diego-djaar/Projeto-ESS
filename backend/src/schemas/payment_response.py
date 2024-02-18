@@ -108,3 +108,11 @@ class HTTPPaymentResponse:
             status_code=400
         )
     
+    def CARTAO_ALREADY_EXIST() -> HttpResponseModel:
+
+        
+        return HttpResponseModel (
+            message="esse cartão já está cadastrado no sistema", 
+            status_code=400
+        )
+    
