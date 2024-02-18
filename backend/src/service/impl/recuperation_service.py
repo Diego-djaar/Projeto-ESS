@@ -62,6 +62,9 @@ class RecuperationService:
         if nova_senha != nova_senha_repetida:
             return "Senhas não coicidem"
         
+        if not db_user.valid_password(nova_senha):
+            return "Senha inválida"
+        
         if datetime.now() - recuperacao.date > timedelta(hours=1):
             return "Tempo inspirado"
         

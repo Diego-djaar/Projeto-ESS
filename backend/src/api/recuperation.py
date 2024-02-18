@@ -30,4 +30,5 @@ def enviar_codigo(email: str):
     description="Digitar código de recuperação",
 )
 def recuperar_conta(email:str , codigo: str, nova_senha: str, nova_senha_repetida: str):
-    RecuperationService.recuperar_conta(email, codigo, nova_senha, nova_senha_repetida)
+    message = RecuperationService.recuperar_conta(email, codigo, nova_senha, nova_senha_repetida)
+    return {message}
