@@ -28,18 +28,6 @@ class Carrinho():
     def __init__(self, CPF: str):
         self.CPF = CPF
         self.items = dict()
-
-    def new_cart(self, CPF: str):
-        """Cria novo carrinho
-
-        Args:
-            CPF
-
-        Returns:
-            new cart object
-        """
-        cart = Carrinho(CPF)
-        return cart
     
     def get_all_items(self):
         """Retorna todos os itens do carrinho"""
