@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 import datetime
 
-# All these schemas are focus on other features, but I created them before get the schemas of others group members 
+# All these schemas are focus on other features, but I created them before get the schemas of others group members to test calculate the estimative of products arrival and cancel orders
 
 class Supplier(BaseModel):
 
@@ -27,9 +27,10 @@ class Product(BaseModel):
 
 class Order(BaseModel):
 
-    id: int
-    supplier_name: str
+    _id: int
     name: str
+    supplier_name: str
+    _type: str 
     img: str | None
     quantity: int = 1
     price: float
@@ -37,8 +38,8 @@ class Order(BaseModel):
     delivery_date: datetime.date
     delivery_model: str
     _status: str
+    cancel_reason: str | None
     payment_method: str
-    composition: Optional[List['Order']] = None
 
 class User(BaseModel):
 

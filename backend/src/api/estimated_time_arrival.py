@@ -10,8 +10,8 @@ router = APIRouter()
 @router.get(
     '/get_estimated_time/{product_id}',
     response_model=HttpResponseModel,
-    status_code=status.HTTP_201_CREATED,
-    description="Tempo estimado do produto obtido com sucesso",
+    status_code=status.HTTP_200_OK,
+    description="Route to obtain estimated delivery date, requisition date and mode of transport",
     )
 def get_time(product_id: int, user_CPF: str) -> HttpResponseModel:
     response = TimeArrivalService.calculating_time_arrival(product_id, user_CPF)

@@ -153,11 +153,11 @@ def calculate_time_arrival_db(id: int, user_CPF: str) -> (bool,{}):
 
         # Check the type of transportation based on the CEP states
         if regions_relations(product_CEP, user_CEP) == 'same states':
-            transportation = 'traditional'
+            transportation = 'Traditional delivery'
         elif regions_relations(product_CEP, user_CEP) == 'same regions':
-            transportation = 'express'
+            transportation = 'Express delivery'
         else:
-            transportation = 'air'
+            transportation = 'Air delivery'
         distance = calculate_distance(product_CEP, user_CEP)
 
         delivery_date = calculate_date(distance, transportation)

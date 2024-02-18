@@ -8,7 +8,7 @@ class HTTPTimeArrivalResponse:
     def GET_SUCESSFULLY(data_param) -> HttpResponseModel: 
         return HttpResponseModel (
             message="Tempo estimado do produto calculado com sucesso!",
-            status_code=201,
+            status_code=200, 
             data= data_param
         ) 
 
