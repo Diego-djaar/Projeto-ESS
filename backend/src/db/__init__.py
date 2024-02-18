@@ -9,4 +9,5 @@ user_database_example = UserDatabase("Usuários teste.json")
 user_database_example.clear_database()
 
 recuperacao_database = RecuperacaoDatabase()
+recuperacao_database_test = RecuperacaoDatabase("Códigos teste.json")
 # create_collections(database)

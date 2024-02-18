@@ -49,3 +49,7 @@ class RecuperacaoDatabase():
             return self.db.get(email)
         except:
             return None
+        
+    def clear_database(self):
+        self.db = dict()
+        self.write_to_file()

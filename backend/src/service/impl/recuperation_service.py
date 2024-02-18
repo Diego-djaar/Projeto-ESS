@@ -1,4 +1,6 @@
 from src.db.__init__ import user_database as db_user
+from src.db.user_database import UserDatabase
+from src.db.codigos_rec_database import RecuperacaoDatabase
 from src.db.__init__ import recuperacao_database as db_recuperacao
 from src.db.codigos_rec_database import Recuperacao
 import random, string, smtplib
@@ -8,7 +10,7 @@ from datetime import datetime, timedelta
 
 class RecuperationService:
     @staticmethod
-    def enviar_email(email :str):
+    def enviar_email(email :str, db_user: UserDatabase = db_user, db_recuperacao: RecuperacaoDatabase = db_recuperacao):
 
         if not db_user.get_user_by_email(email):
             return False
@@ -44,8 +46,10 @@ class RecuperationService:
         # Fechando a conexão com o servidor SMTP do Gmail
         server.quit()
 
+        return True
+
     @staticmethod
-    def recuperar_conta(email: str, codigo: str, nova_senha: str, nova_senha_repetida: str):
+    def recuperar_conta(email: str, codigo: str, nova_senha: str, nova_senha_repetida: str, db_user: UserDatabase = db_user, db_recuperacao: RecuperacaoDatabase = db_recuperacao):
 
         user = db_user.get_user_by_email(email)
         recuperacao = db_recuperacao.get_rec_by_email(email)
@@ -60,13 +64,13 @@ class RecuperationService:
             return "Código Incorreto"
         
         if nova_senha != nova_senha_repetida:
-            return "Senhas não coicidem"
+            return "Senhas não coincidem"
         
         if not db_user.valid_password(nova_senha):
             return "Senha inválida"
         
         if datetime.now() - recuperacao.date > timedelta(hours=1):
-            return "Tempo inspirado"
+            return "Tempo expirado"
         
         user.add_password(nova_senha)
         db_user.write_to_file()
