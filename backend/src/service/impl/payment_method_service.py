@@ -11,33 +11,33 @@ class PaymentService:
         sucess, problems = insert_card(*cartao.model_dump().values())
 
         if sucess: 
-            return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
+            return HTTPPaymentResponse.INSERTION_SUCESSFULLY(problems)
         else: 
             return HTTPPaymentResponse.BAD_REQUEST(problems)
     
     @staticmethod
     def insertion_pix(pix: Pix) -> HttpResponseModel: 
 
-        result = insert_pix(*pix.model_dump().values())
+        result, id = insert_pix(*pix.model_dump().values())
 
         if result == "CPF":
             return HTTPPaymentResponse.BAD_REQUEST(["CPF"])
         elif result == "ALREADY_EXIST":
             return HTTPPaymentResponse.PIX_ALREADY_EXIST()
 
-        return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
+        return HTTPPaymentResponse.INSERTION_SUCESSFULLY(id)
     
     @staticmethod
     def insertion_ticket(boleto: Boleto) -> HttpResponseModel: 
 
-        result = insert_ticket(*boleto.model_dump().values())
+        result, id = insert_ticket(*boleto.model_dump().values())
 
         if result == "CPF":
             return HTTPPaymentResponse.BAD_REQUEST(["CPF"])
         elif result == "ALREADY_EXIST":
             return HTTPPaymentResponse.BOLETO_ALREADY_EXIST()
 
-        return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
+        return HTTPPaymentResponse.INSERTION_SUCESSFULLY(id)
     
     # @staticmethod
     # def get_payment_methods(cpf: str): 

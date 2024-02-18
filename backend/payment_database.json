@@ -1,24 +1,10 @@
 {
-    "331.704.260-52": [
+    "111.111.111-10": [
         {
-            "id": 2117535573691622482,
-            "tipo": "cartao",
-            "nome_cartao": "American Express",
-            "numero_cartao": "371449635398431",
-            "cvv": "764",
-            "validade": "2028-02-16",
-            "cpf": "331.704.260-52"
-        }
-    ],
-    "111.111.111-11": [
-        {
-            "id": 4696510612940182689,
-            "tipo": "cartao",
-            "nome_cartao": "masterCard",
-            "numero_cartao": "4916123456789012",
-            "cvv": "242",
-            "validade": "2024-02-16",
-            "cpf": "111.111.111-11"
+            "id": "2616058799231613355",
+            "tipo": "pix",
+            "nome_completo": "Breno gabriel de Melo Lima",
+            "cpf": "111.111.111-10"
         }
     ]
 }

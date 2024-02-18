@@ -53,7 +53,7 @@ def insert_payment(boleto: Boleto) -> HttpResponseModel:
     status_code=200, 
     description="Update the card payment method"
 )
-def update_payment(id: int, cartao: CartaoUpdate): 
+def update_payment(id: str, cartao: CartaoUpdate): 
     
     response = PaymentService.update_card(id, cartao)
 
@@ -65,7 +65,7 @@ def update_payment(id: int, cartao: CartaoUpdate):
     status_code=200, 
     description="Update the pix payment method"
 )
-def update_payment(id: int, pix: PixUpdate): 
+def update_payment(id: str, pix: PixUpdate): 
     
     response = PaymentService.update_pix(id, pix)
 
@@ -77,7 +77,7 @@ def update_payment(id: int, pix: PixUpdate):
     status_code=200, 
     description="Update the boleto payment method"
 )
-def update_payment(id: int, boleto: BoletoUpdate): 
+def update_payment(id: str, boleto: BoletoUpdate): 
     
     response = PaymentService.update_ticket(id, boleto)
 
@@ -89,7 +89,7 @@ def update_payment(id: int, boleto: BoletoUpdate):
     status_code=200, 
     description="Delete a payment method"
 )
-def delete_method(method_id: int):
+def delete_method(method_id: str):
 
     response = PaymentService.delete_method(method_id)
 
