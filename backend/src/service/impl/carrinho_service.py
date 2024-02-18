@@ -47,7 +47,9 @@ class Carrinho_service():
     @staticmethod
     def add_item_to_cart(item_data: DadosItem, CPF: str, database: Carrinhos = db):
         """Tenta adicionar um novo item no banco de dados"""
-        (item, reason) = Item.new_item(*item_data.model_dump().values())
+        print(item_data)
+        item_data_dict = item_data.model_dump()  # Se isso retornar um dicionário com as chaves corretas
+        (item, reason) = Item.new_item(**item_data_dict)
         if item is None:
             return HTTPDatabaseResponses.BAD_REQUEST(reason)
         (success, reason) = database.add_item_to_cart(item=item, CPF= CPF)

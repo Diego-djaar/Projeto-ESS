@@ -6,7 +6,7 @@ from src.schemas.item_database_response import HTTPDatabaseResponses
 from pydantic import BaseModel
 
 class DadosItem(BaseModel):
-    id: int # Acessos a database serão pelo ID (8 dígitos)
+    id: str # Acessos a database serão pelo ID (8 dígitos)
     nome: str # Nome visível na interface
     description: str
     price: str
@@ -16,7 +16,7 @@ class DadosItem(BaseModel):
 class ItemService(ItemServiceMeta):
 
     @staticmethod
-    def get_item(item_id: int) -> HttpResponseModel:
+    def get_item(item_id: str) -> HttpResponseModel:
         item = ItemDatabase.get_item_by_ID(item_id= item_id)
         if item is None:
             return HttpResponseModel(
@@ -58,7 +58,7 @@ class ItemService(ItemServiceMeta):
             return HTTPDatabaseResponses.ITEM_ALREADY_EXISTS(reason)
 
     @staticmethod
-    def remove_item(item_id: int) -> HttpResponseModel:
+    def remove_item(item_id: str) -> HttpResponseModel:
         item = ItemDatabase.remove_item_by_ID(item_id= item_id)
         if item is None:
             return HttpResponseModel(
@@ -72,7 +72,7 @@ class ItemService(ItemServiceMeta):
             )
     
     @staticmethod
-    def modify_item(item_id: int, new_item_data: DadosItem) -> HttpResponseModel:
+    def modify_item(item_id: str, new_item_data: DadosItem) -> HttpResponseModel:
         """Tenta modificar um item do banco de dados. Na prática só associa os novos dados do item ao id do alvo."""
         (item, reason) = Item.new_item(*new_item_data.model_dump().values())
         if item is None:

@@ -21,7 +21,7 @@ class Item():
         
         reason será o nome do campo rejeitado pela validação
     """
-    id: int # Acessos a database serão pelo ID (8 dígitos)
+    id: str # Acessos a database serão pelo ID (8 dígitos)
     nome: str # Nome visível na interface
     description: str
     price: str
@@ -50,10 +50,10 @@ class Item():
         # Função para verificar se o preço do produto é válido
         # Ela considera números no formato X.Y com X de no máximo 5 digitos e Y exatamente 2
         pattern = re.compile(r"^\d{1,5}\.\d{2}$", re.IGNORECASE)
-        return re.match(pattern, price) is not None
+        return re.match(pattern, str(price)) is not None
     
-
-    def new_item(self, id: str, nome: str, description: str, price: str, quantidade: int, img: str | None = None):
+    @staticmethod
+    def new_item(id: str, nome: str, description: str, price: str, quantidade: int, img: str | None = None):
         """Cria novo item, validando-o de acordo com validade do path e tamanho do ID
 
         Args:
@@ -145,7 +145,7 @@ class ItemDatabase():
         self.write_to_file()
         return (True, ["SUCCESS"])
 
-    def remove_item_by_ID (self, item_id: int, update: bool = True) -> Item | None:
+    def remove_item_by_ID (self, item_id: str, update: bool = True) -> Item | None:
         """ Remover um item da database
 
         Args:
@@ -163,7 +163,7 @@ class ItemDatabase():
         return toreturn
 
     @staticmethod
-    def get_item_by_ID (self, item_id: int, update: bool = True) -> Item | None:
+    def get_item_by_ID (self, item_id: str, update: bool = True) -> Item | None:
         """ Acessar um item da database
 
         Args:
@@ -179,7 +179,7 @@ class ItemDatabase():
                 return val
         return None
     
-    def modify_item_by_ID (self, item_id: int, new_item: Item, update: bool = True):
+    def modify_item_by_ID (self, item_id: str, new_item: Item, update: bool = True):
         """ Modificar um item da database
 
         Args:

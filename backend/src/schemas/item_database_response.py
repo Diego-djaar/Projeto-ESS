@@ -29,15 +29,14 @@ class HTTPDatabaseResponses:
     
     @staticmethod
     def BAD_REQUEST(reason_list: list[str]) -> HttpResponseModel:
-        data = []
-        for reason in reason_list:
-            data.append(reason)
-        
+        # Cria uma mensagem detalhada com base na lista de razões
+        detailed_message = "Solicitação mal feita. Motivos: " + "; ".join(reason_list)
+    
         return HttpResponseModel(
-            message= "Solicitação mal feita.",
-            data= data,
-            status_code= 400
+            message=detailed_message,
+            status_code=400
         )
+
     
     @staticmethod
     def ADD_ITEM_SUCCESSFULLY() -> HttpResponseModel:
