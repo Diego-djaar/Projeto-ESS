@@ -15,7 +15,7 @@ class Supplier(BaseModel):
 
 class Product(BaseModel):
 
-    id: int
+    _id: int
     name: str
     supplier_corporate_name: str
     supplier_name: str

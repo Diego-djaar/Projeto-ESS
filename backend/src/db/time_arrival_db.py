@@ -57,7 +57,7 @@ def regions_relations(CEP1, CEP2):
     url_cep2 = f'https://viacep.com.br/ws/{CEP2}/json/'
     response_cep2 = requests.get(url_cep2)
 
-    state2 = (response_cep2.json()['state'])
+    state2 = (response_cep2.json()['uf'])
 
     brasil = {'ne' : ['AL','BA','CE','MA','PB','PI','PE','RN','SE'],
     'no' : ['AC','AM','AP','PA','RO','RR','TO'],
@@ -135,7 +135,7 @@ def calculate_date(distance, transportation_type):
     
     return formatted_date
 
-def calculate_time_arrival_db(id: int, user_CPF: str) -> tuple(bool,{}):
+def calculate_time_arrival_db(id: int, user_CPF: str) -> (bool,{}):
         
     # Read from the JSON with users the right cep
     users_db = read_file(database_user, "users.json")
