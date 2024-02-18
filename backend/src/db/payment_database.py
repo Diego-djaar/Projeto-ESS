@@ -1,5 +1,7 @@
+import os
 from typing import List, Dict
 from uuid import uuid4
+import jsonpickle
 from pymongo import MongoClient, errors
 from pymongo.collection import Collection, IndexModel
 #from src.config.config import env
@@ -9,15 +11,15 @@ import hmac
 import hashlib
 import re
 import json 
+import datetime 
+
 
 logger = getLogger('uvicorn')
 
 #Regex for CPF and card number. 
 cpf_pattern = re.compile(r"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$")
 cartao_pattern = re.compile(r"^(4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9]{2})[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])?[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$")
-
-database = {} 
-
+   
 def write_file(database): 
 
     """Write the content of a dict in a JSON. 
@@ -31,9 +33,11 @@ def write_file(database):
     with open("payment_database.json", "w") as f: 
         json.dump(database, f, default=str, indent=4)
 
-# def read_file(database): 
-#     with open("payment_database.json", "r") as f:
-#         return json.load(f)
+def read_file(): 
+    with open("payment_database.json", "r") as f:
+        return json.load(f)
+    
+database = read_file()
 
 def validate_CPF(cpf: str) -> bool: 
 
@@ -49,7 +53,7 @@ def validate_CPF(cpf: str) -> bool:
         return False 
     
     return True 
-    
+
 def validate_date(validade: datetime.date) -> bool:
 
     """Validate a validity date. 
@@ -59,6 +63,7 @@ def validate_date(validade: datetime.date) -> bool:
     Process: compare the input date with the today date.
 
     Outuput: A boolean indicating the validity or not of the input date. """
+
 
     if not validade >= datetime.date.today():
         return False 
@@ -80,7 +85,7 @@ def validate_card_number(numero_cartao: str) -> bool:
     
     return True 
 
-def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date) -> tuple[bool, List]: 
+def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date): 
 
     """Validate and insert or not a card. 
 
@@ -109,7 +114,7 @@ def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, valida
         database[cpf] = []
 
     cartao = {
-        "id" : abs(hash((datetime.datetime.now(), cpf))), 
+        "id" : abs(hash((datetime.date.today(), cpf))), 
         "tipo": "cartao", 
         "nome_cartao": nome_cartao,
         "numero_cartao": numero_cartao,
@@ -121,9 +126,9 @@ def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, valida
     database[cpf].append(cartao)
     write_file(database)
 
-    return (True, problems)
+    return (True, [])
 
-def insert_pix(nome_completo: str, cpf: str): 
+def insert_pix(nome_completo: str, cpf: str) -> str: 
 
     """Validate and insert or not a pix. 
 
@@ -137,10 +142,15 @@ def insert_pix(nome_completo: str, cpf: str):
     result = validate_CPF(cpf)
 
     if not result: 
-        return False 
+        return "CPF"
     
     if cpf not in database:
         database[cpf] = []
+
+    for key in database:
+        for val in database[key]:
+            if val["tipo"] == "boleto":
+                return "ALREADY_EXIST"
 
     pix = {
         "id" : abs(hash((datetime.datetime.now(), cpf))), 
@@ -152,9 +162,11 @@ def insert_pix(nome_completo: str, cpf: str):
     database[cpf].append(pix)
     write_file(database)
 
-    return True
+    print(database)
 
-def insert_ticket(nome_completo: str, cpf: str):
+    return "OK"
+
+def insert_ticket(nome_completo: str, cpf: str) -> str:
 
     """Validate and insert or not a ticket. 
 
@@ -168,10 +180,15 @@ def insert_ticket(nome_completo: str, cpf: str):
     result = validate_CPF(cpf)
 
     if not result: 
-        return False 
+        return "INVALID_CPF"
     
     if cpf not in database:
         database[cpf] = []
+
+    for key in database:
+        for val in database[key]:
+            if val["tipo"] == "boleto":
+                return "ALREADY_EXIST"
 
     pix = {
         "id" : abs(hash((datetime.datetime.now(), cpf))), 
@@ -183,18 +200,7 @@ def insert_ticket(nome_completo: str, cpf: str):
     database[cpf].append(pix)
     write_file(database)
 
-    return True 
-
-# def obter_lista_de_metodos_pagamento(cpf: str): 
-
-#     database = ler_arquivo(database)
-
-#     if cpf in database: 
-#         metodos_usuario = database[cpf]
-#     else: 
-#         metodos_usuario = None
-        
-#     return metodos_usuario
+    return "OK" 
 
 def update_card(id: int, nome_cartao: str, numero_cartao: str, cvv: str, validade: datetime.date):
 
@@ -210,6 +216,7 @@ def update_card(id: int, nome_cartao: str, numero_cartao: str, cvv: str, validad
 
     problems = []
 
+
     for key in database:
         for val in database[key]: 
                 if val["id"] == id:
@@ -217,8 +224,8 @@ def update_card(id: int, nome_cartao: str, numero_cartao: str, cvv: str, validad
                     if not validade >= datetime.date.today():
                         problems.append("VALIDADE")
 
-                    # if not cartao_pattern.match(numero_cartao):
-                    #     problems.append("CARD_NUMBER")cx
+                    if not cartao_pattern.match(numero_cartao):
+                        problems.append("CARD_NUMBER")
 
                     if len(problems) > 0:
                         return (False, problems)
@@ -230,27 +237,30 @@ def update_card(id: int, nome_cartao: str, numero_cartao: str, cvv: str, validad
                     
                     write_file(database)
 
+                    print(database)
+
                     return (True, ["SUCESS"])
-                else:
-                    problems.append("ID_NOT_FOUND")
-                    return (False, problems)
+                
+    problems.append("ID_NOT_FOUND")
+    return (False, problems)
 
 
-def update_pix_or_ticket(id: int, nome_completo: str):
-
+def update_pix_or_ticket(id: int, nome_completo: str) -> bool:
+                
         for key in database:
             for val in database[key]: 
                 if val["id"] == id:
                     val["nome_completo"] = nome_completo
                     write_file(database)
                     return True
-                else:
-                    return False
+                
+        return False
 
-def delete_method(id: int): 
+def delete_method(id: int) -> bool: 
 
     for key in database:
         for val in database[key]: 
+                
                 if val["id"] == id:
 
                     index = database[key].index(val)
@@ -260,12 +270,17 @@ def delete_method(id: int):
                     write_file(database)
 
                     return True 
+ 
+    return False 
 
-                else: 
-                    return False 
-
-
-
+def get_by_number(numero_cartao: str):
 
 
-
+    for key in database:
+        for val in database[key]: 
+            if val["tipo"] == "cartao": 
+                if val["numero_cartao"] == numero_cartao:
+                
+                    return val 
+                
+    return None

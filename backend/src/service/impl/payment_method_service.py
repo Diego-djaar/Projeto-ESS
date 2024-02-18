@@ -18,20 +18,24 @@ class PaymentService:
     @staticmethod
     def insertion_pix(pix: Pix) -> HttpResponseModel: 
 
-        sucess, problems = insert_pix(*pix.model_dump().values())
+        result = insert_pix(*pix.model_dump().values())
 
-        if not sucess:
-            return HTTPPaymentResponse.BAD_REQUEST(problems)
+        if result == "CPF":
+            return HTTPPaymentResponse.BAD_REQUEST(["CPF"])
+        elif result == "ALREADY_EXIST":
+            return HTTPPaymentResponse.PIX_ALREADY_EXIST()
 
         return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
     
     @staticmethod
     def insertion_ticket(boleto: Boleto) -> HttpResponseModel: 
 
-        sucess, problems = insert_ticket(*boleto.model_dump().values())
+        result = insert_ticket(*boleto.model_dump().values())
 
-        if not sucess:
-            return HTTPPaymentResponse.BAD_REQUEST(problems)
+        if result == "CPF":
+            return HTTPPaymentResponse.BAD_REQUEST(["CPF"])
+        elif result == "ALREADY_EXIST":
+            return HTTPPaymentResponse.BOLETO_ALREADY_EXIST()
 
         return HTTPPaymentResponse.INSERTION_SUCESSFULLY()
     
