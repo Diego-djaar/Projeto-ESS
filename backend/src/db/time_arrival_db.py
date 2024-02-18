@@ -21,7 +21,7 @@ def validate_CEP(cep: str):
 
     api_response = requests.get(url).json()
 
-    if ('error' in api_response) == True:
+    if ('cep' not in api_response) == True:
         return False
     else:
         return True
@@ -152,9 +152,9 @@ def calculate_time_arrival_db(id: int, user_CPF: str) -> (bool,{}):
         product_CEP = products_db[id_str]["cep"]
 
         # Check the type of transportation based on the CEP states
-        if regions_relations(product_CEP, user_CEP) == 'same state':
+        if regions_relations(product_CEP, user_CEP) == 'same states':
             transportation = 'traditional'
-        elif regions_relations(product_CEP, user_CEP) == 'same state':
+        elif regions_relations(product_CEP, user_CEP) == 'same regions':
             transportation = 'express'
         else:
             transportation = 'air'
