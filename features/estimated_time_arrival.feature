@@ -4,25 +4,25 @@ I want to conferir o tempo estimado de entrega
 So that eu possa saber em até quanto tempo receberei meu pedido
 
 Cenário: Cálculo de tempo estimado de entrega com CEP do user inválido
-Given o usuário de email "usuario@gmail.com" e CEP "11111111" está na página "tempo estimado de entrega" da loja "Enovo"
+Given o usuário de email "usuario@gmail.com" e CEP "11111111" está na página "tempo estimado de entrega" do produto de número "19"
 And o usuário seleciona "calcular estimativa de entrega" 
 Then o usuário recebe a mensagem "Seu CEP é inválido, coloque nas suas informações de endereço um CEP válido"
 And o usuário é redirecionado para a página de "alteração dos dados cadastrais"
 
 Cenário: Cálculo de tempo estimado de entrega entre o mesmo estado
-Given o usuário de email "usuario@gmail.com" e CEP "55875970" está na página "tempo estimado de entrega" da loja "HD"
+Given o usuário de email "usuario@gmail.com" e CEP "55875970" está na página "tempo estimado de entrega" do produto de número "21"
 And o usuário seleciona "calcular estimativa de entrega" 
 Then o usuário pode ver a data de estimativa de entrega do produto "16/02/2024"
 And o modelo de entrega "tradicional"
 
 Cenário: Cálculo de tempo estimado de entrega na mesma região
-Given o usuário de email "usuario@gmail.com" e CEP "58819-970" está na página "tempo estimado de entrega" da loja "Jpro"
+Given o usuário de email "usuario@gmail.com" e CEP "58819-970" está na página "tempo estimado de entrega" do produto de número "21"
 And o usuário seleciona "calcular estimativa de entrega" 
 Then o usuário pode ver a estimativa de entrega do produto "18/02/2024" 
 And o modelo de entrega "expresso"
 
 Cenário: Cálculo de tempo estimado de entrega entre regiões diferentes
-Given o usuário de email "usuario@gmail.com" e CEP "01153-000" está na página "tempo estimado de entrega" da loja "Kogitech"
+Given o usuário de email "usuario@gmail.com" e CEP "01153-000" está na página "tempo estimado de entrega" do produto de número "29"
 And o usuário seleciona "calcular estimativa de entrega" 
 Then o usuário pode ver a estimativa de entrega do produto "28/02/2024" 
 And o modelo de entrega "aéreo"

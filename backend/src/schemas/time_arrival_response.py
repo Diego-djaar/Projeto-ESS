@@ -2,36 +2,21 @@ from typing import Optional
 from pydantic import BaseModel
 from .response import HttpResponseModel
 
-class HTTPTime_arrivalResponse:
+class HTTPTimeArrivalResponse:
 
     @staticmethod
-    def INSERTION_SUCESSFULLY() -> HttpResponseModel: 
+    def GET_SUCESSFULLY(data_param) -> HttpResponseModel: 
         return HttpResponseModel (
-            message="Pré-ordem do produto criada com sucesso!",
-            status_code=201
+            message="Tempo estimado do produto calculado com sucesso!",
+            status_code=201,
+            data= data_param
         ) 
 
     @staticmethod
-    def BAD_REQUEST() -> HttpResponseModel:
+    def BAD_REQUEST(errors) -> HttpResponseModel:
 
         return HttpResponseModel (
             message="Informações inválidas", 
             status_code= 400,
-            data=["CEP"]
+            data=["User CEP"]
         )
-
-    @staticmethod
-    def UPDATE_SUCESSFULLY() -> HttpResponseModel:
-
-        return HttpResponseModel (
-            message="Pré-ordem atualizada com sucesso", 
-            status_code=200
-        ) 
-
-    @staticmethod
-    def DELETE_SUCESSFULLY() -> HttpResponseModel:
-
-        return HttpResponseModel (
-            message="Pré-ordem deletada com sucesso", 
-            status_code=200
-        ) 
