@@ -7,7 +7,7 @@ from src.service.impl.carrinho_service import DadosEndereço
 router = APIRouter()
 
 @router.get(
-    "/view",
+    "/view/{CPF}",
     response_model=HttpResponseModel,
     status_code=status.HTTP_200_OK,
     description="Visualização do carrinho",
