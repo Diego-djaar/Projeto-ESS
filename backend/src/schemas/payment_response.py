@@ -89,3 +89,19 @@ class HTTPPaymentResponse:
             status_code=200
         ) 
     
+    @staticmethod
+    def PIX_ALREADY_EXIST() -> HttpResponseModel:
+
+        return HttpResponseModel (
+            message="Já existe um pix cadastrado no sistema", 
+            status_code=400
+        )
+        
+    @staticmethod
+    def BOLETO_ALREADY_EXIST() -> HttpResponseModel:
+
+        return HttpResponseModel (
+            message="Já existe um boleto cadastrado no sistema", 
+            status_code=400
+        )
+    
