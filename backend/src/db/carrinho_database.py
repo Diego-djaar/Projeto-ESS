@@ -54,7 +54,7 @@ class Carrinho():
 
         return reason
 
-    def remove_item_by_ID (self, item_id: int) -> Item | None:
+    def remove_item_by_ID (self, item_id: str) -> Item | None:
         """ Remover um item do carrinho
 
         Args:
@@ -66,7 +66,7 @@ class Carrinho():
         toreturn = self.items.pop(item_id, None)
         return toreturn
 
-    def get_item_by_ID (self, item_id: int) -> Item | None:
+    def get_item_by_ID (self, item_id: str) -> Item | None:
         """ Acessar um item do carrinho
 
         Args:
@@ -80,7 +80,7 @@ class Carrinho():
                 return val
         return None
     
-    def modify_item_by_ID (self, item_id: int, new_item: Item):
+    def modify_item_by_ID (self, item_id: str, new_item: Item):
         """ Modificar um item da database
 
         Args:
@@ -131,7 +131,7 @@ class Carrinhos():
             file.write(objetos)
     
     def get_cart_list(self, update = True):
-        """Retorna todos os carrinhos da database"""
+        """Retorna uma lista de itens do tipo Carrinho"""
         if update:
             self.try_read_from_file()
         return list(self.db.values())
@@ -191,7 +191,7 @@ class Carrinhos():
                 return val
         return None
     
-    def modify_item_all_carts (self, item_id: int, new_item: Item, update: bool = True):
+    def modify_item_all_carts (self, item_id: str, new_item: Item, update: bool = True):
         """ Modificação em um item da database (chamar para aplicar alteração em todos os carrinhos que apresentam o item)
 
         Args:
@@ -212,7 +212,7 @@ class Carrinhos():
         self.write_to_file()
 
 
-    def remove_item_all_carts(self, item_id: int, update: bool = True):
+    def remove_item_all_carts(self, item_id: str, update: bool = True):
         """Remove um item especificado por item_id de todos os carrinhos na base de dados (chamar para aplicar alteração em todos os carrinhos que apresentam o item).
 
         Args:
@@ -257,7 +257,7 @@ class Carrinhos():
 
         return (True, reason)
     
-    def remove_item_from_cart(self, item_id: int, CPF: str, update: bool = True):
+    def remove_item_from_cart(self, item_id: str, CPF: str, update: bool = True):
         """Remove um item do carrinho
 
         Args:
@@ -292,7 +292,7 @@ class Carrinhos():
 
         return (True, reason)
     
-    def decrease_item_quantity(self, item_id: int, CPF: str, update: bool = True):
+    def decrease_item_quantity(self, item_id: str, CPF: str, update: bool = True):
         """ Diminui em um a quantidade de um item, se o item tiver só 1 na quantidade, remove o item """
         if update:
             self.try_read_from_file()
@@ -318,7 +318,7 @@ class Carrinhos():
 
         return (True, reason)
     
-    def increase_item_quantity(self, item_id: int, CPF: str, update: bool = True):
+    def increase_item_quantity(self, item_id: str, CPF: str, update: bool = True):
         """Aumenta a quantidade de um item no carrinho.
 
         Args:

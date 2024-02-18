@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from src.schemas.carrinho_response import HTTPCarrinhoResponses
 
 class DadosItem(BaseModel):
-    id: int # Acessos a database serão pelo ID (8 dígitos)
+    id: str # Acessos a database serão pelo ID (8 dígitos)
     nome: str # Nome visível na interface
     description: str
     price: str
@@ -38,10 +38,14 @@ class Carrinho_service():
     @staticmethod
     def get_all_carts(database: Carrinhos = db) -> HttpResponseModel:
         cart_database = database.get_cart_list()
+        # cart_database é uma lista de objetos do tipo Carrinho. Transformar em um dicionário de cpf: lista de itens
+        cart_dict = dict()
+        for carrinho in cart_database:
+            cart_dict[carrinho.CPF] = carrinho.get_all_items()
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
-                data=cart_database,
+                data=cart_dict,
             )
     
     @staticmethod
@@ -60,7 +64,7 @@ class Carrinho_service():
             return HTTPCarrinhoResponses.CART_NOT_FOUND()
 
     @staticmethod
-    def remove_item_from_cart(item_id: int, CPF: str, database: Carrinhos = db) -> HttpResponseModel:
+    def remove_item_from_cart(item_id: str, CPF: str, database: Carrinhos = db) -> HttpResponseModel:
         (success, reason) = database.remove_item_from_cart(item_id= item_id, CPF= CPF)
         if not success:
             return HttpResponseModel(
@@ -68,12 +72,12 @@ class Carrinho_service():
                 status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
             )
         return HttpResponseModel(
-                message=HTTPDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY.message,
-                status_code=HTTPDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY.status_code,
+                message=HTTPDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY().message,
+                status_code=HTTPDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY().status_code,
             )
     
     @staticmethod
-    def decrease_item_quantity(item_id: int, CPF: str, database: Carrinhos = db) -> HttpResponseModel:
+    def decrease_item_quantity(item_id: str, CPF: str, database: Carrinhos = db) -> HttpResponseModel:
         """Tenta remover um na quantidade do item no carrinho"""
         (success, reason) = database.decrease_item_quantity(item_id=item_id, CPF=CPF)
         if not success:
@@ -84,7 +88,7 @@ class Carrinho_service():
         return HTTPCarrinhoResponses.DECREASE_ITEM_QUANTITY(reason[0])
     
     @staticmethod
-    def increase_item_quantity(item_id: int, CPF: str, database: Carrinhos = db) -> HttpResponseModel:
+    def increase_item_quantity(item_id: str, CPF: str, database: Carrinhos = db) -> HttpResponseModel:
         """Tenta adicionar um na quantidade do item no carrinho"""
         (success, reason) = database.increase_item_quantity(item_id= item_id, CPF= CPF)
         if not success:

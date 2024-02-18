@@ -52,3 +52,55 @@ def adicionar_item_ao_carrinho(dados: DadosItem, CPF: str) -> HttpResponseModel:
             status_code=resultado.status_code,
             detail=resultado.message
         )
+    
+@router.delete(
+    "/remover",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Remover item do carrinho",
+    responses={
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Item removido do carrinho com sucesso"
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Falha na remoção do item do carrinho"
+        },
+        status.HTTP_404_NOT_FOUND: {
+            "model": HttpResponseModel,
+            "description": "Item ou carrinho não encontrado"
+        }
+    },
+)
+def remover_item_do_carrinho(item_id: str, CPF: str) -> HttpResponseModel:
+    """ Tenta remover item do carrinho """
+    resultado = Carrinho_service.remove_item_from_cart(item_id=item_id, CPF=CPF)
+    if resultado.status_code == status.HTTP_200_OK:
+        return resultado
+    else:
+        # Se a remoção não foi bem-sucedida, lançar uma exceção HTTP que será tratada pelo FastAPI
+        raise HTTPException(
+            status_code=resultado.status_code,
+            detail=resultado.message
+        )
+    
+@router.get(
+    "/view/all_carts",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Visualização dos carrinhos",
+    responses={
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Conteúdo dos carrinhos obtido com sucesso"
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Falha na obtenção do conteúdo dos carrinhos"
+        }
+    },
+)
+def visualizar_carrinho() -> HttpResponseModel:
+    """ Se carrinho não for encontrado cria carrinho para o respectivo CPF """
+    return Carrinho_service.get_all_carts()
