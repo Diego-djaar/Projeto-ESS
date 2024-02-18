@@ -19,9 +19,7 @@ async def orders_user(user_cpf: str, order_id: int):
         for order in db[user_cpf]:
             if order["id"] == order_id:
                 return order
-        return {}
-    else:
-        return {}
+    return {}
     
 @router.post("/orders_filtered/", status_code= 200, tags=["orders"], response_model= list[Order])
 async def orders_filtered(filtro: OrderFilter):
