@@ -19,17 +19,11 @@ class Product(BaseModel):
     name: str
     supplier_corporate_name: str
     supplier_name: str
+    CEP: str
     _type: str 
     img: str | None
     stock: int 
     price: float
-
-class PreOrder(Product):
-        
-    request_date: datetime.date
-    delivery_date: datetime.date
-    delivery_model: str
-    stock: None
 
 class Order(BaseModel):
 
