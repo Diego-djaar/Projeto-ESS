@@ -310,11 +310,12 @@ class Carrinhos():
         
         if carrinho.items[item_id].quantidade > 1:
             carrinho.items[item_id].quantidade -= 1
+            reason.append("Quantidade do item alterada com sucesso")
         else:
             del carrinho.items[item_id]
+            reason.append("Quantidade do item alterada para 0, item removido do carrinho")
         
         self.write_to_file()
-        reason.append("SUCCESS")
 
         return (True, reason)
     
@@ -353,3 +354,16 @@ class Carrinhos():
     def clear_cart_database(self):
         self.db = dict()
         self.write_to_file()
+
+    def clear_cart_by_CPF(self, CPF: str, update: bool = True):
+        """ Tenta limpar o conteúdo do carrinho em questão. Retorna bool (success)"""
+        if update:
+            self.try_read_from_file
+        
+        carrinho = self.get_cart_by_CPF(CPF=CPF)
+        if carrinho is None:
+            return False
+        else:
+            carrinho.items = dict()
+            self.write_to_file
+            return True

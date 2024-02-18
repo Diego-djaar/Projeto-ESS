@@ -26,8 +26,24 @@ class HTTPCarrinhoResponses():
         )
     
     @staticmethod
-    def INCREASE_ITEM_QUANTITY() -> HttpResponseModel:
+    def MODIFY_ITEM_QUANTITY() -> HttpResponseModel:
         return HttpResponseModel(
             message= "Quantidade do item alterada com sucesso",
+            status_code=200
+        )
+    
+    @staticmethod
+    def CLEAR_CART(success: bool) -> HttpResponseModel:
+        if success:
+            return HttpResponseModel(
+                message= "Conteúdo do carrinho limpo com sucesso",
+                status_code=200
+            )
+        return HTTPCarrinhoResponses.CART_NOT_FOUND()
+    
+    @staticmethod
+    def CLEAR_ALL_CARTS() -> HttpResponseModel:
+        return HttpResponseModel(
+            message= "Conteúdo da database de carrinhos limpo",
             status_code=200
         )

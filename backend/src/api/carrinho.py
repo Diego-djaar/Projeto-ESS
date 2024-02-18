@@ -28,10 +28,10 @@ def visualizar_carrinho(CPF: str) -> HttpResponseModel:
 @router.post(
     "/adicionar",
     response_model=HttpResponseModel,
-    status_code=status.HTTP_201_CREATED,
+    status_code=status.HTTP_200_OK,
     description="Adicionar item ao carrinho",
     responses={
-        status.HTTP_201_CREATED: {
+        status.HTTP_200_OK: {
             "model": HttpResponseModel,
             "description": "Item adicionado ao carrinho com sucesso"
         },
@@ -44,7 +44,7 @@ def visualizar_carrinho(CPF: str) -> HttpResponseModel:
 def adicionar_item_ao_carrinho(dados: DadosItem, CPF: str) -> HttpResponseModel:
     """ Tenta adicionar item ao carrinho """
     resultado = Carrinho_service.add_item_to_cart(item_data= dados, CPF= CPF)
-    if resultado.status_code == status.HTTP_201_CREATED:
+    if resultado.status_code == status.HTTP_200_OK:
         return resultado
     else:
         # Se a adição não foi bem-sucedida, lançar uma exceção HTTP que será tratada pelo FastAPI
@@ -104,3 +104,111 @@ def remover_item_do_carrinho(item_id: str, CPF: str) -> HttpResponseModel:
 def visualizar_carrinho() -> HttpResponseModel:
     """ Se carrinho não for encontrado cria carrinho para o respectivo CPF """
     return Carrinho_service.get_all_carts()
+
+@router.delete(
+    "/clear_cart",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Limpar carrinho",
+    responses={
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Conteúdo do carrinho limpo com sucesso"
+        },
+        status.HTTP_404_NOT_FOUND: {
+            "model": HttpResponseModel,
+            "description": "Carrinho não encontrado"
+        }
+    },
+)
+def clear_cart(CPF: str) -> HttpResponseModel:
+    """ Tenta limpar o carrinho """
+    resultado = Carrinho_service.clear_cart_by_CPF(CPF=CPF)
+    if resultado.status_code == status.HTTP_200_OK:
+        return resultado
+    else:
+        raise HTTPException(
+            status_code=resultado.status_code,
+            detail=resultado.message
+        )
+    
+@router.delete(
+    "/clear_carts",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Limpar database de carrinhos",
+    responses={
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Conteúdo da database limpo"
+        }
+    },
+)
+def clear_carts() -> HttpResponseModel:
+    """ Tenta limpar a database de carrinhos """
+    return Carrinho_service.clear_all_carts()
+
+@router.put(
+    "/incrementar_item",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Incrementar quantidade de item no carrinho",
+    responses={
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Item incrementado com sucesso"
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Falha no incremento da quantidade do item"
+        },
+        status.HTTP_404_NOT_FOUND: {
+            "model": HttpResponseModel,
+            "description": "Carrinho ou item não encontrado"
+        }
+    },
+)
+def incrementar_item (item_id: str, CPF: str) -> HttpResponseModel:
+    """ Tenta Incrementar quantidade de item no carrinho """
+    resultado = Carrinho_service.increase_item_quantity(item_id=item_id, CPF=CPF)
+    if resultado.status_code == status.HTTP_200_OK:
+        return resultado
+    else:
+        # Se a adição não foi bem-sucedida, lançar uma exceção HTTP que será tratada pelo FastAPI
+        raise HTTPException(
+            status_code=resultado.status_code,
+            detail=resultado.message
+        )
+
+
+@router.put(
+    "/decrementar_item",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Decrementar quantidade de item no carrinho",
+    responses={
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Item decrementado com sucesso"
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Falha no decremento da quantidade do item"
+        },
+        status.HTTP_404_NOT_FOUND: {
+            "model": HttpResponseModel,
+            "description": "Carrinho ou item não encontrado"
+        }
+    },
+)
+def decrementar_item (item_id: str, CPF: str) -> HttpResponseModel:
+    """ Tenta decrementar quantidade de item no carrinho """
+    resultado = Carrinho_service.decrease_item_quantity(item_id=item_id, CPF=CPF)
+    if resultado.status_code == status.HTTP_200_OK:
+        return resultado
+    else:
+        # Se a adição não foi bem-sucedida, lançar uma exceção HTTP que será tratada pelo FastAPI
+        raise HTTPException(
+            status_code=resultado.status_code,
+            detail=resultado.message
+        )

@@ -96,4 +96,15 @@ class Carrinho_service():
                 message=reason[0],
                 status_code=HTTPResponses.ITEM_NOT_FOUND().status_code
             )
-        return HTTPCarrinhoResponses.INCREASE_ITEM_QUANTITY()
+        return HTTPCarrinhoResponses.MODIFY_ITEM_QUANTITY()
+    
+    @staticmethod
+    def clear_cart_by_CPF(CPF: str, database: Carrinhos = db) -> HttpResponseModel:
+        """ Tenta limpar um carrinho da base de dados """
+        success = database.clear_cart_by_CPF(CPF=CPF)
+        return HTTPCarrinhoResponses.CLEAR_CART(success)
+    
+    @staticmethod
+    def clear_all_carts(database: Carrinhos = db) -> HttpResponseModel:
+        database.clear_cart_database()
+        return HTTPCarrinhoResponses.CLEAR_ALL_CARTS()
