@@ -41,5 +41,20 @@ def cancel_order_db(product_id:int, user_CPF: str,cancel_reason:str) -> (bool, {
                 write_file(orders_db, "orders.json")
 
                 return(True, {})
-                
+
     return (False, {"ID not found": True})
+
+def get_all_orders_db(user_CPF: str) -> (bool, []):
+
+    orders_db = read_file(database_orders, "orders.json")
+
+    canceled_orders = []
+
+    for order in orders_db[user_CPF]:
+        if order["_status"] == "Canceled":
+            canceled_orders.append(order)
+    
+    if len(canceled_orders) == 0:
+        return (False, [])
+    else:
+        return (True, canceled_orders)

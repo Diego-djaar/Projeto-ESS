@@ -11,6 +11,6 @@ class TimeArrivalService:
         success, data  = calculate_time_arrival_db(product_id, user_CPF)
 
         if success:
-            return HTTPTimeArrivalResponse.GET_SUCESSFULLY(data)
+            return HTTPTimeArrivalResponse.GET_SUCCESSFULLY(data)
         else:
             return HTTPTimeArrivalResponse.BAD_REQUEST(data)

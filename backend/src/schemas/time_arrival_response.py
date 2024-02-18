@@ -5,7 +5,7 @@ from .response import HttpResponseModel
 class HTTPTimeArrivalResponse:
 
     @staticmethod
-    def GET_SUCESSFULLY(data_param) -> HttpResponseModel: 
+    def GET_SUCCESSFULLY(data_param) -> HttpResponseModel: 
         return HttpResponseModel (
             message="Tempo estimado do produto calculado com sucesso!",
             status_code=200, 

@@ -23,8 +23,8 @@ def cancel_order(id_product: int, user_CPF: str, cancel_reason:str) -> HttpRespo
     status_code=status.HTTP_200_OK,
     description="Get all cancel products",
     )
-def get_all_orders() -> HttpResponseModel:
-    response = OrdersService.get_all_orders_service(product_id, user_CPF)
+def get_all_canceled_orders(user_CPF: str) -> HttpResponseModel:
+    response = OrdersService.get_all_orders_service(user_CPF)
     return response
 
 #@router.post(
