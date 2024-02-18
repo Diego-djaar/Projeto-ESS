@@ -61,7 +61,6 @@ from src.main import app
 from unittest.mock import MagicMock
 from unittest.mock import patch
 from fastapi.testclient import TestClient
-from src.db import database as db
 from datetime import datetime, timezone
 from unittest.mock import patch, MagicMock
 from src.service.impl.payment_method_service import PaymentService
