@@ -86,7 +86,7 @@ def remover_item_do_carrinho(item_id: str, CPF: str) -> HttpResponseModel:
         )
     
 @router.get(
-    "/view/all_carts",
+    "/view_all_carts",
     response_model=HttpResponseModel,
     status_code=status.HTTP_200_OK,
     description="Visualização dos carrinhos",

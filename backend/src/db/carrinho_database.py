@@ -24,10 +24,18 @@ class Carrinho():
     """
     CPF: str
     items: dict[Item]
+    total: str # Total do preço dos produtos no carrinho
 
     def __init__(self, CPF: str):
         self.CPF = CPF
         self.items = dict()
+        self.total = "0.00"
+
+    def recalcular_total(self):
+        aux = Decimal("0.00")
+        for item in self.items.values():
+            aux += Decimal(item.price) * item.quantidade # Valor inteiro
+        self.total = str(aux)
     
     def get_all_items(self):
         """Retorna todos os itens do carrinho"""
@@ -52,6 +60,8 @@ class Carrinho():
             self.items[item.id].quantidade += item.quantidade
             reason.append("Quantidade do item existente aumentada")
 
+        self.recalcular_total()
+
         return reason
 
     def remove_item_by_ID (self, item_id: str) -> Item | None:
@@ -64,6 +74,7 @@ class Carrinho():
             item (Item | None): retorna item removido ou nada
         """
         toreturn = self.items.pop(item_id, None)
+        self.recalcular_total()
         return toreturn
 
     def get_item_by_ID (self, item_id: str) -> Item | None:
@@ -97,6 +108,7 @@ class Carrinho():
             return(False, reason)
         
         self.items[item_id] = new_item
+        self.recalcular_total()
         return (True, ["SUCCESS"])
 
 

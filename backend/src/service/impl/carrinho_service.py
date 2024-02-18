@@ -24,24 +24,25 @@ class Carrinho_service():
         if carrinho is None:
             carrinho = Carrinho(CPF=CPF)
             (success, reason) = database.add_new_cart(carrinho)
-            if not success:
-                return HttpResponseModel(
-                    message=reason[0],
-                    status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
-                )
+            return HttpResponseModel(
+                message="Carrinho não encontrado, novo carrinho criado vinculado a este CPF",
+                status_code=HTTPResponses.ITEM_CREATED().status_code,
+            )
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
-                data=carrinho.items,
+                data={"Itens:": carrinho.items, "Total": carrinho.total},
             )
 
     @staticmethod
     def get_all_carts(database: Carrinhos = db) -> HttpResponseModel:
         cart_database = database.get_cart_list()
-        # cart_database é uma lista de objetos do tipo Carrinho. Transformar em um dicionário de cpf: lista de itens
+        # cart_database é uma lista de objetos do tipo Carrinho. Transformar em um dicionário de cpf: {"Itens": lista de itens,"Total": total}
         cart_dict = dict()
         for carrinho in cart_database:
-            cart_dict[carrinho.CPF] = carrinho.get_all_items()
+            lista_itens = carrinho.get_all_items()
+            carrinho_formatado = {"Itens": lista_itens, "Total": carrinho.total}
+            cart_dict[carrinho.CPF] = carrinho_formatado
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
