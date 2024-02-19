@@ -182,6 +182,10 @@ class UserDatabase():
         with open(self.file_path, 'w+') as f:
             f.write(objetos)
     
+
+    def valid_password(self, senha:str):
+        return senha_pattern.match(senha)
+
     def add_user(self, user: User, update = True):
         """Adicionar um novo usuário a database
 
