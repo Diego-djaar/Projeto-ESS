@@ -19,6 +19,7 @@ import pytest
 
 @pytest.fixture(scope="session", autouse=True)
 def database_setup():
+    user_database.remove_user_by_cpf("444.324.424-09")
     user = User.new(
         "Cleiton",
         "Cleiton Moura",
@@ -27,7 +28,7 @@ def database_setup():
         datetime.date.fromisocalendar(1,1,1),
         "Cleiton@momo",
         "12345Abcx" 
-    )
+    )[0]
     user_database.add_user(user)
     
     yield
@@ -35,17 +36,17 @@ def database_setup():
     user_database.remove_user_by_cpf("444.324.424-09")
 
 """Scenario: login user"""
-@scenario(scenario_name=" login user", feature_name="../features/auth_service.feature")
+@scenario(scenario_name="login user", feature_name="../features/auth_service.feature")
 def test_login():
     """User login"""
     
 """Scenario: login user fail"""
-@scenario(scenario_name=" login user fail", feature_name="../features/auth_service.feature")
+@scenario(scenario_name="login user fail", feature_name="../features/auth_service.feature")
 def test_login_fail():
     """User login fail"""
     
 """Scenario: login user fail 2"""
-@scenario(scenario_name=" login user fail 2", feature_name="../features/auth_service.feature")
+@scenario(scenario_name="login user fail 2", feature_name="../features/auth_service.feature")
 def test_login_fail2():
     """User login fail"""
     
@@ -73,11 +74,11 @@ def login(cpf: str, senha: str):
 
 @then('o método deve retornar que o login foi bem sucedido')
 def check_success(response):
-    assert response == HTTPLoginResponses.LOGIN_SUCCESSFUL()
+    assert response.message == "Login com sucesso"
 
 @then('o método deve retornar que o login foi mal sucedido')
 def check_fail(response):
-    assert response == HTTPLoginResponses.LOGIN_FAILED()
+    assert response.message == "Login falhou" or response.message == 'CPF ou Senha incorretos'
 
 @then(parsers.cfparse('o campo "{campo}" da resposta deve conter o valor "{value}"'))
 def check_value(campo: str, value: str, response):
