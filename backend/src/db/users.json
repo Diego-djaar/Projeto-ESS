@@ -1,0 +1,35 @@
+{
+    "331.704.260-52": 
+        {
+            "username": "user1",
+            "name": "Fulano",
+            "last_name": "da Silva",
+            "cpf": "331.704.260-52",
+            "date_of_birth": "20-02-2004",
+            "email": "usuario@gmail.com",
+            "address": "Rua 57",
+            "CEP": "50670-901"
+        },
+    "111.111.111-11":   
+        {
+        "username": "user2",
+        "name": "Cicrano",
+        "last_name": "das Dores",
+        "cpf": "111.111.111-11",
+        "date_of_birth": "18-02-2003",
+        "email": "usuario2@gmail.com",
+        "address": "Rua 58",
+        "CEP": "05508220"
+        },
+    "222.222.222-22":   
+        {
+        "username": "user3",
+        "name": "Beltrano",
+        "last_name": "Santos",
+        "cpf": "222.222.222-22",
+        "date_of_birth": "20-04-1998",
+        "email": "usuario3@gmail.com",
+        "address": "Avenida Getulio Vargas",
+        "CEP": "05508221"
+        }
+}
