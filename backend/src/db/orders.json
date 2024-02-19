@@ -1,7 +1,7 @@
 {
     "111.222.333-44": [
         {
-            "id": 1,
+            "_id": 1,
             "supplier_name": "Fornecedor A",
             "name": "Produto A",
             "img": "XXXX",
@@ -11,10 +11,11 @@
             "delivery_date": "2023-12-27",
             "delivery_model": "Entrega Expressa",
             "_status": "Entregue",
+            "cancel_reason": null,
             "payment_method": "Cartão de Crédito"
         },
         {
-            "id": 2,
+            "_id": 2,
             "supplier_name": "Fornecedor B",
             "name": "Produto B",
             "img": "YYYY",
@@ -23,12 +24,13 @@
             "delivery_date": "2023-12-28",
             "delivery_model": "Entrega Padrão",
             "_status": "Processando",
+            "cancel_reason": null,
             "payment_method": "Boleto Bancário"
         }
     ],
     "222.333.444-55": [
         {
-            "id": 3,
+            "_id": 3,
             "supplier_name": "Fornecedor C",
             "name": "Produto C",
             "img": "ZZZZ",
@@ -37,6 +39,7 @@
             "delivery_date": "2023-12-29",
             "delivery_model": "Entrega Expressa",
             "_status": "Entregue",
+            "cancel_reason": null,
             "payment_method": "Pix"
         }
     ]
