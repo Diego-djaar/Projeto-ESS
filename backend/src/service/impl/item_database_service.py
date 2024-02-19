@@ -1,5 +1,4 @@
 from src.schemas.response import HTTPResponses, HttpResponseModel
-from src.service.meta.item_service_meta import ItemServiceMeta
 from src.db.__init__ import ItemDatabase as db
 from src.db.itens_database import Item, ItemDatabase
 from src.schemas.item_database_response import HTTPDatabaseResponses
@@ -13,7 +12,7 @@ class DadosItem(BaseModel):
     quantidade: int
     img: str | None # Path para o arquivo
 
-class ItemService(ItemServiceMeta):
+class ItemService:
 
     @staticmethod
     def get_item(item_id: str) -> HttpResponseModel:

@@ -1,5 +1,4 @@
 from src.schemas.response import HTTPResponses, HttpResponseModel
-from src.service.meta.item_service_meta import ItemServiceMeta
 from src.db.__init__ import cart_database as db
 from src.db.carrinho_database import Carrinho, Carrinhos
 from src.db.itens_database import Item
