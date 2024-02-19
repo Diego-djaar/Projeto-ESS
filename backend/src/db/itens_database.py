@@ -8,6 +8,15 @@ from decimal import Decimal
 import re
 import os.path
 import jsonpickle
+from pydantic import BaseModel
+
+class DadosItem(BaseModel):
+    id: str # Acessos a database serão pelo ID (8 dígitos)
+    nome: str # Nome visível na interface
+    description: str
+    price: str
+    quantidade: int
+    img: str | None # Path para o arquivo
 
 logger = getLogger('uvicorn')
 
@@ -36,6 +45,16 @@ class Item():
         self.price = price
         self.quantidade = quantidade
         self.img = img
+    
+    def to_dados_item(self):
+        return DadosItem(
+            id=self.id,
+            nome=self.nome,
+            description=self.description,
+            price=self.price,
+            quantidade=self.quantidade,
+            img=self.img
+        )
 
 
     @staticmethod

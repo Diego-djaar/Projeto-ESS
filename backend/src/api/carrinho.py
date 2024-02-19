@@ -24,6 +24,7 @@ router = APIRouter()
 )
 def visualizar_carrinho(CPF: str) -> HttpResponseModel:
     """ Se carrinho não for encontrado cria carrinho para o respectivo CPF """
+    print("Entrou em visualizar carrinho")
     return Carrinho_service.get_cart(CPF=CPF)
 
 @router.post(
@@ -44,7 +45,9 @@ def visualizar_carrinho(CPF: str) -> HttpResponseModel:
 )
 def adicionar_item_ao_carrinho(dados: DadosItem, CPF: str) -> HttpResponseModel:
     """ Tenta adicionar item ao carrinho """
+    print("Entrou na função adicionar_item_ao_carrinho")
     resultado = Carrinho_service.add_item_to_cart(item_data= dados, CPF= CPF)
+    print(resultado)
     if resultado.status_code == status.HTTP_200_OK:
         return resultado
     else:

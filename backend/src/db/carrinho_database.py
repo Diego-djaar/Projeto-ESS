@@ -10,6 +10,13 @@ import os.path
 import jsonpickle
 from src.db.itens_database import Item
 from src.db.schemas.adress_schema import Endereço
+import sys
+
+# Faz os testes não interferirem com o funcionamento do programa em live
+if "pytest" in sys.modules:
+    database_path = "Carrinhos teste.json"
+else:
+    database_path = "Carrinhos.json"
 
 logger = getLogger('uvicorn')
 
@@ -138,7 +145,7 @@ class Carrinhos():
     db: dict[Carrinho]
     file_path:str
 
-    def __init__(self, path: str = "Carrinhos.json"):
+    def __init__(self, path: str = database_path):
         self.db = dict()
         self.file_path = path
         self.try_read_from_file()
@@ -204,12 +211,14 @@ class Carrinhos():
         if update:
             self.try_read_from_file()
         if self.get_cart_by_CPF(carrinho.CPF, False):
+            print("Carrinho com mesmo CPF já na base de dados")
             reason.append("Carrinho com mesmo CPF já na base de dados")
         
         if reason.__len__() > 0:
             return (False, reason)
         
         self.db[carrinho.CPF] = carrinho
+        print("Carrinho criado e adicionado a base de dados")
         self.write_to_file()
         return (True, ["SUCCESS"])
 

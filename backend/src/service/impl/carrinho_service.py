@@ -6,14 +6,7 @@ from src.db.itens_database import Item
 from src.schemas.item_database_response import HTTPDatabaseResponses
 from pydantic import BaseModel
 from src.schemas.carrinho_response import HTTPCarrinhoResponses
-
-class DadosItem(BaseModel):
-    id: str # Acessos a database serão pelo ID (8 dígitos)
-    nome: str # Nome visível na interface
-    description: str
-    price: str
-    quantidade: int
-    img: str | None # Path para o arquivo
+from src.db.itens_database import DadosItem
 
 class DadosEndereço(BaseModel):
     rua: str
@@ -30,19 +23,23 @@ class Carrinho_service():
     @staticmethod
     def get_cart(CPF: str, database: Carrinhos = db) -> HttpResponseModel:
         """ Tenta obter um carrinho, se não conseguir criar um novo para o CPF selecionado """
+        print("Entrou em get_cart")
         carrinho = database.get_cart_by_CPF(CPF= CPF)
         if carrinho is None:
+            print("Entrou em carrinho is none")
             carrinho = Carrinho(CPF=CPF)
             (success, reason) = database.add_new_cart(carrinho)
+            item_list = [item.to_dados_item() for item in carrinho.get_all_items()]
             return HttpResponseModel(
                 message="Carrinho não encontrado, novo carrinho criado vinculado a este CPF",
                 status_code=HTTPResponses.ITEM_CREATED().status_code,
-                data={"Itens:": carrinho.items, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
+                data={"Itens:": item_list, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
             )
+        item_list = [item.to_dados_item() for item in carrinho.get_all_items()]
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
-                data={"Itens:": carrinho.items, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
+                data={"Itens:": item_list, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
             )
 
     @staticmethod
