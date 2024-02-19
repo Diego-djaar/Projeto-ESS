@@ -58,7 +58,7 @@ def get_all_orders_db(user_CPF: str) -> (bool, []):
         return (False, [])
     else:
         return (True, canceled_orders)
-    
+
 def orders_user(user_CPF: str):
     db = read_file({}, "orders.json")
     if user_CPF in db:
@@ -106,4 +106,3 @@ def validate_orders(filter: OrderFilter, order_: Order):
     if valid and filter.end_date and (order.request_date > filter.end_date):
         valid = False
     return valid
-    
