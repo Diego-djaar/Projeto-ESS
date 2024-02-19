@@ -39,7 +39,7 @@ class HTTPPaymentResponse:
     def BAD_REQUEST(problemas) -> HttpResponseModel:
 
         return HttpResponseModel (
-            message=f" informações inválidas", 
+            message=f"informações inválidas", 
             status_code=400,
             data= problemas 
         )
@@ -65,7 +65,7 @@ class HTTPPaymentResponse:
 
         return HttpResponseModel (
             message="O usuário não está registrado na base de dados", 
-            status_code=400  
+            status_code=404
         ) 
     
     @staticmethod
@@ -73,7 +73,7 @@ class HTTPPaymentResponse:
 
         return HttpResponseModel (
             message="ID não encontrado na base de dados", 
-            status_code=400  
+            status_code=404
         ) 
     
     @staticmethod
