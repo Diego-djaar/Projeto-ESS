@@ -48,6 +48,12 @@ def carrinho_vazio(context, CPF: str):
     assert response.status_code == 200
     return context
 
+@given(parsers.cfparse('um produto com ID "{id}" está no carrinho de CPF "{CPF}"'), target_fixture="context")
+def adicionar_item_ao_carrinho(context, id: str, CPF: str):
+    context["id"] = id
+    context["CPF"] = CPF
+    adiciona_produto_ao_carrinho(context, id)
+
 @when(parsers.cfparse('o cliente adiciona o produto com ID "{id}" ao carrinho'), target_fixture="context")
 def adiciona_produto_ao_carrinho(context, id: str):
     response = TESTCLIENT.post("/carrinho/adicionar", 
@@ -61,13 +67,18 @@ def adiciona_produto_ao_carrinho(context, id: str):
                                     }, 
                                     params={"CPF": context["CPF"]})
     context["response"] = response
+    context['id'] = id 
     return context
 
 @then(parsers.cfparse('o item deve estar no carrinho'), target_fixture="context")
 def verificar_item_no_carrinho(context):
     response = Carrinho_service.get_cart(context["CPF"])
-    cart_dict = response.data # Da forma {"Itens": dict[Item], "Total": "20.99", "Endereço": "Endereço não registrado"}
-    #assert context["CPF"] in cart_dict["Itens"].keys()
+    cart_dict = response.data # Da forma {"Itens": list[DadosItem], "Total": "29.99", "Endereço": "Endereço não registrado"}
+
+    # Obter lista de IDs dos itens no carrinho
+    item_ids_no_carrinho = [item.id for item in cart_dict["Itens:"]]
+
+    assert context["id"] in item_ids_no_carrinho
     return context
 
 @when(parsers.cfparse('uma requisição GET for enviada para "/carrinho/view/123.456.789-10"'), target_fixture="context")
@@ -77,10 +88,10 @@ def send_get_cart_request(context, client = TESTCLIENT):
     return context
 
 @then(
-    parsers.cfparse('o status da resposta deve ser "200"'), target_fixture="context"
+    parsers.cfparse('o status da resposta deve ser "{status_code}"'), target_fixture="context"
 )
-def check_response_status_code(context):
-    assert context["response"].status_code == 200
+def check_response_status_code(context, status_code: int):
+    assert context["response"].status_code == int(status_code)
     return context
 
 @then(
