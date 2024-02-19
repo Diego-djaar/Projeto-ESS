@@ -71,7 +71,7 @@ def order_user(user_CPF: str, order_id: int):
     db = read_file({}, "orders.json")
     if user_CPF in db:
         for order in db[user_CPF]:
-            if order["_id"] == order_id:
+            if order["id"] == order_id:
                 return order
     return {}
 
@@ -89,7 +89,7 @@ def orders_filtered(filtro: OrderFilter):
 def validate_orders(filter: OrderFilter, order_: Order):
     valid = True
     order = Order(**order_)
-    if filter.id and order_['_id'] != filter.id:
+    if filter.id and order_['id'] != filter.id:
         valid = False
     if valid and filter.supplier_name and filter.supplier_name.lower() not in order.supplier_name.lower():
         valid = False
