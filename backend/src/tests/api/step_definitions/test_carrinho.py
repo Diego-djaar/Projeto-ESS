@@ -26,6 +26,10 @@ def test_get_cart_by_CPF():
 def test_add_valid_product_to_cart():
     pass
 
+@scenario(scenario_name="Remover um produto de um carrinho", feature_name="..//features/carrinho.feature")
+def test_remove_item():
+    pass
+
 @given(parsers.cfparse('o Carrinho_service retorna um carrinho com cpf "{CPF}"'))
 def mock_cart_service_response(CPF: str):
     #Carrinho_service.get_cart = lambda CPF: HttpResponseModel(
@@ -52,7 +56,22 @@ def carrinho_vazio(context, CPF: str):
 def adicionar_item_ao_carrinho(context, id: str, CPF: str):
     context["id"] = id
     context["CPF"] = CPF
+    send_get_cart_request(context)
     adiciona_produto_ao_carrinho(context, id)
+    return context
+
+@when(parsers.cfparse('o cliente tenta remover o produto com ID "{id}" do carrinho'), target_fixture="context")
+def remover_item_do_carrinho(context, id: str):
+    response = TESTCLIENT.delete("/carrinho/remover", params={"CPF": context["CPF"], "item_id": id})
+    context["response"] = response
+    return context
+
+@then(parsers.cfparse('o carrinho de CPF "{CPF}" está vazio'), target_fixture="context")
+def empty_cart(context, CPF):
+    send_get_cart_request(context)
+    check_response_json(context)
+    return context
+
 
 @when(parsers.cfparse('o cliente adiciona o produto com ID "{id}" ao carrinho'), target_fixture="context")
 def adiciona_produto_ao_carrinho(context, id: str):

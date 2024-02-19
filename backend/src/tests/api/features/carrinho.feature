@@ -12,3 +12,9 @@ Scenario: Adicionar um produto válido ao carrinho
     When o cliente adiciona o produto com ID "12345678" ao carrinho
     Then o status da resposta deve ser "200"
     And o item deve estar no carrinho
+
+Scenario: Remover um produto de um carrinho
+    Given um produto com ID "12345678" está no carrinho de CPF "123.456.789-10"
+    When o cliente tenta remover o produto com ID "12345678" do carrinho
+    Then o status da resposta deve ser "200"
+    And o carrinho de CPF "123.456.789-10" está vazio
