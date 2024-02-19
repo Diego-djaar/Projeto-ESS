@@ -85,7 +85,7 @@ def test_add_card(client: TestClient):
     
     PaymentService.inserting_card = MagicMock(return_value = mock_json)
 
-    response = client.post("/backend/src/api/payment/inserting/cartao", json=body)
+    response = client.post("/backend/api/payment/inserting/cartao", json=body)
 
     assert response.status_code == 201 
     assert response.json() ==  {
