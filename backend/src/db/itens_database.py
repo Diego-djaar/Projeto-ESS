@@ -11,6 +11,7 @@ import jsonpickle
 from pydantic import BaseModel
 
 class DadosItem(BaseModel):
+    
     id: str # Acessos a database serão pelo ID (8 dígitos)
     nome: str # Nome visível na interface
     description: str
