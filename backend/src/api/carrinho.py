@@ -127,6 +127,7 @@ def visualizar_carrinho() -> HttpResponseModel:
 )
 def clear_cart(CPF: str) -> HttpResponseModel:
     """ Tenta limpar o carrinho """
+    print("Entrou em clear_cart")
     resultado = Carrinho_service.clear_cart_by_CPF(CPF=CPF)
     if resultado.status_code == status.HTTP_200_OK:
         return resultado

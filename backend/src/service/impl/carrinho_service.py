@@ -109,6 +109,7 @@ class Carrinho_service():
     @staticmethod
     def clear_cart_by_CPF(CPF: str, database: Carrinhos = db) -> HttpResponseModel:
         """ Tenta limpar um carrinho da base de dados """
+        print("Entrou em clear_cart_by_CPF")
         success = database.clear_cart_by_CPF(CPF=CPF)
         return HTTPCarrinhoResponses.CLEAR_CART(success)
     

@@ -1,4 +1,4 @@
-from src.schemas.response import HTTPResponses, HttpResponseModel
+"""from src.schemas.response import HTTPResponses, HttpResponseModel
 from src.service.meta.item_service_meta import ItemServiceMeta
 from src.db.__init__ import database as db
 
@@ -6,7 +6,7 @@ class ItemService(ItemServiceMeta):
 
     @staticmethod
     def get_item(item_id: str) -> HttpResponseModel:
-        """Get item by id method implementation"""
+        Get item by id method implementation
         item = db.get_item_by_id('items', item_id)
         if not item:
             return HttpResponseModel(
@@ -21,7 +21,7 @@ class ItemService(ItemServiceMeta):
 
     @staticmethod
     def get_items():
-        """Get items method implementation"""
+        Get items method implementation
         items = db.get_all_items('items')
         if not items:
             return HttpResponseModel(
@@ -36,3 +36,4 @@ class ItemService(ItemServiceMeta):
             )
 
     # TODO: implement other methods (create, update, delete)
+"""

@@ -30,6 +30,14 @@ def test_add_valid_product_to_cart():
 def test_remove_item():
     pass
 
+@scenario(scenario_name="Falha em remover um produto de um carrinho vazio", feature_name="..//features/carrinho.feature")
+def test_remove_item_from_empty_cart():
+    pass
+
+@scenario(scenario_name="Limpar conteúdo do carrinho", feature_name="..//features/carrinho.feature")
+def test_clear_cart_content():
+    pass
+
 @given(parsers.cfparse('o Carrinho_service retorna um carrinho com cpf "{CPF}"'))
 def mock_cart_service_response(CPF: str):
     #Carrinho_service.get_cart = lambda CPF: HttpResponseModel(
@@ -48,7 +56,7 @@ def produto_disponivel(id: str):
 def carrinho_vazio(context, CPF: str):
     # Inicialização do carrinho
     context['CPF'] = CPF
-    response = TESTCLIENT.get(url="/carrinho/view/123.456.789-10")
+    response = TESTCLIENT.get(url="/backend/api/carrinho/view/123.456.789-10")
     assert response.status_code == 200
     return context
 
@@ -60,9 +68,23 @@ def adicionar_item_ao_carrinho(context, id: str, CPF: str):
     adiciona_produto_ao_carrinho(context, id)
     return context
 
+@given(parsers.cfparse('os produtos com ID "{id1}" e "{id2}" estão no carrinho de CPF "{CPF}"'), target_fixture="context")
+def carrinho_com_dois_itens(context, id1: str, id2: str, CPF: str):
+    context["CPF"] = CPF
+    send_get_cart_request(context)
+    adiciona_produto_ao_carrinho(context, id1)
+    adiciona_produto_ao_carrinho(context, id2)
+    return context
+
+@when(parsers.cfparse('o carrinho de CPF "{CPF}" é limpo'), target_fixture="context")
+def clear_cart(context, CPF: str):
+    response = TESTCLIENT.delete("/backend/api/carrinho/clear_cart", params= {"CPF": CPF})
+    context["response"] = response
+    return context
+
 @when(parsers.cfparse('o cliente tenta remover o produto com ID "{id}" do carrinho'), target_fixture="context")
 def remover_item_do_carrinho(context, id: str):
-    response = TESTCLIENT.delete("/carrinho/remover", params={"CPF": context["CPF"], "item_id": id})
+    response = TESTCLIENT.delete("/backend/api/carrinho/remover", params={"CPF": context["CPF"], "item_id": id})
     context["response"] = response
     return context
 
@@ -75,9 +97,9 @@ def empty_cart(context, CPF):
 
 @when(parsers.cfparse('o cliente adiciona o produto com ID "{id}" ao carrinho'), target_fixture="context")
 def adiciona_produto_ao_carrinho(context, id: str):
-    response = TESTCLIENT.post("/carrinho/adicionar", 
+    response = TESTCLIENT.post("/backend/api/carrinho/adicionar", 
                                json={
-                                        "id": "12345678",
+                                        "id": id,
                                         "nome": "Camisa",
                                         "description": "string",
                                         "price": "29.99",
@@ -100,9 +122,9 @@ def verificar_item_no_carrinho(context):
     assert context["id"] in item_ids_no_carrinho
     return context
 
-@when(parsers.cfparse('uma requisição GET for enviada para "/carrinho/view/123.456.789-10"'), target_fixture="context")
+@when(parsers.cfparse('uma requisição GET for enviada para "/backend/api/carrinho/view/123.456.789-10"'), target_fixture="context")
 def send_get_cart_request(context, client = TESTCLIENT):
-    response = client.get(url="/carrinho/view/123.456.789-10")
+    response = client.get(url="/backend/api/carrinho/view/123.456.789-10")
     context["response"] = response
     return context
 

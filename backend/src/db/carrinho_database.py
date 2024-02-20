@@ -139,6 +139,7 @@ class Carrinho():
 
     def clear_database(self):
         self.items = dict()
+        self.recalcular_total()
         
 
 class Carrinhos():
@@ -420,12 +421,13 @@ class Carrinhos():
     def clear_cart_by_CPF(self, CPF: str, update: bool = True):
         """ Tenta limpar o conteúdo do carrinho em questão. Retorna bool (success)"""
         if update:
-            self.try_read_from_file
+            self.try_read_from_file()
         
         carrinho = self.get_cart_by_CPF(CPF=CPF)
         if carrinho is None:
             return False
         else:
-            carrinho.items = dict()
-            self.write_to_file
+            carrinho.clear_database()
+            
+            self.write_to_file()
             return True
