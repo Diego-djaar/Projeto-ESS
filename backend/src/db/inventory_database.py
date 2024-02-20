@@ -14,6 +14,7 @@ class InventoryEntryData(BaseModel):
     cnpj: str # id de 14 dígitos
     id_item: str # id de 8 dígitos
     qnt : int # quantidade: número inteiro
+    nome : str # nome do item
 
 logger = getLogger('uvicorn')
 
@@ -31,29 +32,33 @@ class InventoryEntry():
     cnpj: str # 14 dígitos
     id_item: str # id de 8 dígitos
     qnt : int # quantidade
+    nome : str
     CNPJ_LENGTH = 14  # CNPJ
     ID_ITEM_LENGTH = 8
 
-    def __init__(self, cnpj: str, id_item: str, qnt: int):
+    def __init__(self, cnpj: str, id_item: str, qnt: int, nome: str):
         self.cnpj = cnpj
         self.id_item = id_item
         self.qnt = qnt
+        self.nome = nome
     
     def inventory_entry_to_data(self):
         return InventoryEntryData(
             cnpj = self.cnpj,
             id_item = self.id_item,
             qnt = self.qnt
+            nome = self.nome
         )
     
     @staticmethod
-    def new_inventory_entry(cnpj: str, id_item: str, qnt : int):
-        """Cria novo mapeamento loja-item-quantidade a menos que excessão seja levantada
+    def new_inventory_entry(cnpj: str, id_item: str, qnt : int, nome : str):
+        """Cria nova entrada no inventário a menos que excessão seja levantada
 
         Args:
             cnpj: str
             id_item : str
             qnt: int
+            nome: str
 
         Returns:
             (InventoryEntry, "SUCCESS"), ou (None, reason) caso o input não seja validado.
@@ -71,14 +76,18 @@ class InventoryEntry():
         if str(cnpj).__len__() != InventoryEntry.CNPJ_LENGTH:
             reason.append("CNPJ deve ter 14 dígitos")
 
-        # Verifica se quantidade é não-nula
+        # Verifica se quantidade é não negativa
         if qnt < 0:
-            reason.append("Quantidade deve ser não nula")
+            reason.append("Quantidade deve ser não negativa")
+
+        # verifica que nome é não nulo
+        if nome == ""
+            reason.append("Nome deve ser não nulo")
 
         obj = None
         if reason.__len__() == 0:
             reason.append("SUCCESS")
-            obj = InventoryEntry(cnpj = cnpj, id_item = id_item)
+            obj = InventoryEntry(cnpj = cnpj, id_item = id_item, qnt = qnt, nome = nome)
 
         return (obj, reason)
 
@@ -127,7 +136,7 @@ class InventoryDatabase():
         reason = []
         self.try_read_from_file()
         # verifica id do item, porque id da loja pode ocorrer mais de uma vez
-        if InventoryDatabase.get_inventory_entry_by_ID(inventory_entry.id_item): #---------------------------------------------------------
+        if InventoryDatabase.get_inventory_entry_by_ID(inventory_entry.id_item):
             reason.append("InventoryEntry com mesmo ID já na base de dados")
         
         if reason.__len__() > 0:
