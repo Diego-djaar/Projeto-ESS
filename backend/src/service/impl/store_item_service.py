@@ -1,30 +1,29 @@
 from src.schemas.response import HTTPResponses, HttpResponseModel
 from src.service.meta.item_service_meta import ItemServiceMeta
-from src.db.__init__ import ItemDatabase # db --------------------------------------------------------
-from src.db.__init__ import LojaItemDatabase
+#from src.db.__init__ import ItemDatabase
+#from src.db.__init__ import LojaItemDatabase
 from src.db.itens_database import DadosItem, Item, ItemDatabase
 from src.db.store_item_database import DadosLojaItem, LojaItem, LojaItemDatabase
-from src.schemas.item_database_response import HTTPDatabaseResponses
-from src.schemas.store_item_response import HTTPItemResponses
+from src.schemas.item_database_response import HTTPItemDatabaseResponses
+from src.schemas.store_item_response import HTTPLojaItemResponses
 from pydantic import BaseModel
 
 
 class LojaItemService(ItemServiceMeta):
 
-    # queries:
-    # pegar todos os itens da loja - OK
-    # pegar item por id (se for da loja) - OK
+    # ------------------------------------------------------------------------------------
+    def ITEM_ALREADY_EXISTS(reason_list: list[str]) -> HttpResponseModel:
 
-    # modificar
+    def NO_ITEM_IN_DATABASE() -> HttpResponseModel:
 
+    def BAD_REQUEST(reason_list: list[str]) -> HttpResponseModel:
 
-    # add:
-    # adicionar item: cria objeto item e objeto lojaitem
-    
-    # deletar:
-    # deletar item (se for da loja)
+    def ADD_ITEM_SUCCESSFULLY() -> HttpResponseModel:
 
-    # pega item por id (se for da loja)
+    def REMOVE_ITEM_SUCCESSFULLY() -> HttpResponseModel:
+
+    def MODIFY_ITEM_SUCCESSFULLY() 
+    # ----------------------------------------------------------------------------------
     @staticmethod
     def get_item(item_id: str, store_id : str) -> HttpResponseModel:
         item = ItemDatabase.get_item_by_ID(item_id= item_id)
@@ -38,8 +37,8 @@ class LojaItemService(ItemServiceMeta):
         lojaitem = LojaItemDatabase.get_lojaitem_by_ID(item_id)
         if (lojaitem.id_loja != store_id):
             return HttpResponseModel(
-                message=HTTPResponses.UNAUTHORIZED().message,
-                status_code=HTTPResponses.UNAUTHORIZED().status_code,
+                message=HTTPLojaItemResponses.UNAUTHORIZED().message,
+                status_code=HTTPLojaItemResponses.UNAUTHORIZED().status_code,
             )
         # tudo certo
         return HttpResponseModel(
@@ -60,15 +59,15 @@ class LojaItemService(ItemServiceMeta):
         # entre todos os itens
         for item in allitems: 
             id_item = item.id  # 
-            lojaitem =  LojaItemDatabse.get_lojaitem_by_ID(id_item)  # LojaItem correspondente a item
+            lojaitem =  LojaItemDatabase.get_lojaitem_by_ID(id_item)  # LojaItem correspondente a item
             loja = lojaitem.id_loja  # loja daquele item
             if (loja == id_loja):
                 storeitems.append(item) # adiciona à lista retornada apenas se for da loja que estiver pedindo
 
         if storeitems.__len__() == 0:
             return HttpResponseModel(
-                message=HTTPDatabaseResponses.NO_ITEM_IN_DATABASE().message,
-                status_code=HTTPDatabaseResponses.NO_ITEM_IN_DATABASE().status_code,
+                message=HTTPItemDatabaseResponses.NO_ITEM_IN_DATABASE().message,
+                status_code=HTTPItemDatabaseResponses.NO_ITEM_IN_DATABASE().status_code,
             )
 
         return HttpResponseModel(
@@ -83,7 +82,7 @@ class LojaItemService(ItemServiceMeta):
         """Tenta adicionar um novo item no banco de dados"""
         (item, reason) = Item.new_item(*item_data.model_dump().values())
         if item is None:
-            return HTTPDatabaseResponses.BAD_REQUEST(reason)
+            return HTTPItemDatabaseResponses.BAD_REQUEST(reason)
         (success, reason) = ItemDatabase.add_new_item(item=item)
 
         if success:
@@ -93,9 +92,9 @@ class LojaItemService(ItemServiceMeta):
             LojaItemDatabase.add_new_lojaitem(lojaitem)
 
             # retorna
-            return HTTPDatabaseResponses.ADD_ITEM_SUCCESSFULLY()
+            return HTTPItemDatabaseResponses.ADD_ITEM_SUCCESSFULLY()
         else:
-            return HTTPDatabaseResponses.ITEM_ALREADY_EXISTS(reason)
+            return HTTPItemDatabaseResponses.ITEM_ALREADY_EXISTS(reason)
 
     # remove da db itens e da db lojas-itens
     @staticmethod
@@ -111,8 +110,8 @@ class LojaItemService(ItemServiceMeta):
         LojaItemDatabase.remove_lojaitem_by_ID(id_item = item_id)
 
         return HttpResponseModel(
-                message=HTTPDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY.message,
-                status_code=HTTPDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY.status_code,
+                message=HTTPItemDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY().message,
+                status_code=HTTPItemDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY().status_code,
                 data=item,
             )
     
@@ -122,7 +121,7 @@ class LojaItemService(ItemServiceMeta):
         """Tenta modificar um item do banco de dados. Na prática só associa os novos dados do item ao id do alvo."""
         (item, reason) = Item.new_item(*new_item_data.model_dump().values())
         if item is None:
-            return HTTPDatabaseResponses.BAD_REQUEST(reason)
+            return HTTPItemDatabaseResponses.BAD_REQUEST(reason)
         (success, reason) = ItemDatabase.modify_item_by_ID(item_id= item_id, new_item=item)
         if success:
             return HTTPDatabaseResponses.MODIFY_ITEM_SUCCESSFULLY()
