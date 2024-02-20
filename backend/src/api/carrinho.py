@@ -29,8 +29,8 @@ router = APIRouter()
 def visualizar_carrinho(CPF: str) -> HttpResponseModel:
     """ Se carrinho não for encontrado cria carrinho para o respectivo CPF """
     print("Entrou em visualizar carrinho")
-    resposta = Carrinho_service.get_cart(CPF=CPF)
-    return resposta
+    resultado = Carrinho_service.get_cart(CPF=CPF)
+    return resultado
 
 @router.post(
     "/adicionar",

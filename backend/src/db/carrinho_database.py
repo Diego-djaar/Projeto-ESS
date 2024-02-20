@@ -379,7 +379,7 @@ class Carrinhos():
         else:
             del carrinho.items[item_id]
             reason.append("Quantidade do item alterada para 0, item removido do carrinho")
-        
+        carrinho.recalcular_total()
         self.write_to_file()
 
         return (True, reason)
@@ -410,6 +410,7 @@ class Carrinhos():
             return (False, reason)
 
         carrinho.items[item_id].quantidade += 1
+        carrinho.recalcular_total()
 
         self.write_to_file()
         reason.append("SUCCESS")
