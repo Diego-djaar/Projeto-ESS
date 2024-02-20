@@ -1,29 +1,15 @@
 from src.schemas.response import HTTPResponses, HttpResponseModel
 from src.service.meta.item_service_meta import ItemServiceMeta
 #from src.db.__init__ import ItemDatabase
-#from src.db.__init__ import LojaItemDatabase
+#from src.db.__init__ import InventoryDatabase
 from src.db.itens_database import DadosItem, Item, ItemDatabase
-from src.db.store_item_database import DadosLojaItem, LojaItem, LojaItemDatabase
-from src.schemas.item_database_response import HTTPItemDatabaseResponses
-from src.schemas.store_item_response import HTTPLojaItemResponses
+from src.db.inventory_database import InventoryEntryData, InventoryEntry, InventoryDatabase
+from src.schemas.item_database_response import HTTPItemDatabaseResponses 
+from src.schemas.inventory_response import HTTPItemResponses
 from pydantic import BaseModel
 
+class InventoryService(ItemServiceMeta):
 
-class LojaItemService(ItemServiceMeta):
-
-    # ------------------------------------------------------------------------------------
-    def ITEM_ALREADY_EXISTS(reason_list: list[str]) -> HttpResponseModel:
-
-    def NO_ITEM_IN_DATABASE() -> HttpResponseModel:
-
-    def BAD_REQUEST(reason_list: list[str]) -> HttpResponseModel:
-
-    def ADD_ITEM_SUCCESSFULLY() -> HttpResponseModel:
-
-    def REMOVE_ITEM_SUCCESSFULLY() -> HttpResponseModel:
-
-    def MODIFY_ITEM_SUCCESSFULLY() 
-    # ----------------------------------------------------------------------------------
     @staticmethod
     def get_item(item_id: str, store_id : str) -> HttpResponseModel:
         item = ItemDatabase.get_item_by_ID(item_id= item_id)
@@ -34,11 +20,11 @@ class LojaItemService(ItemServiceMeta):
                 status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
             )
         # se existe mas não é da loja
-        lojaitem = LojaItemDatabase.get_lojaitem_by_ID(item_id)
-        if (lojaitem.id_loja != store_id):
+        inventory_entry = InventoryDatabase.get_inventory_entry_by_ID(item_id)
+        if (inventory_entry.cnpj != store_id):
             return HttpResponseModel(
-                message=HTTPLojaItemResponses.UNAUTHORIZED().message,
-                status_code=HTTPLojaItemResponses.UNAUTHORIZED().status_code,
+                message=HTTPItemResponses.UNAUTHORIZED().message,
+                status_code=HTTPItemResponses.UNAUTHORIZED().status_code,
             )
         # tudo certo
         return HttpResponseModel(
@@ -49,7 +35,7 @@ class LojaItemService(ItemServiceMeta):
 
     # pegar todos os itens da loja - ok
     @staticmethod
-    def get_items(id_loja : str) -> HttpResponseModel:
+    def get_items(cnpj : str) -> HttpResponseModel:
 
         # busca 
         allitems = ItemDatabase.get_itens_list()
@@ -59,9 +45,9 @@ class LojaItemService(ItemServiceMeta):
         # entre todos os itens
         for item in allitems: 
             id_item = item.id  # 
-            lojaitem =  LojaItemDatabase.get_lojaitem_by_ID(id_item)  # LojaItem correspondente a item
-            loja = lojaitem.id_loja  # loja daquele item
-            if (loja == id_loja):
+            inventory_entry =  InventoryDatabase.get_inventory_entry_by_ID(id_item)  # InventoryEntry correspondente a item
+            id_loja = inventory_entry.cnpj  # loja daquele item
+            if (id_loja == cnpj):
                 storeitems.append(item) # adiciona à lista retornada apenas se for da loja que estiver pedindo
 
         if storeitems.__len__() == 0:
@@ -76,9 +62,9 @@ class LojaItemService(ItemServiceMeta):
                 data=storeitems,
             )
     
-    # adicionar item à db itens e à db lojas-itens
+    # adicionar item à db itens e à db inventory
     @staticmethod
-    def add_new_item(item_data: DadosItem, id_loja : str):
+    def add_new_item(item_data: DadosItem, cnpj : str):
         """Tenta adicionar um novo item no banco de dados"""
         (item, reason) = Item.new_item(*item_data.model_dump().values())
         if item is None:
@@ -88,15 +74,15 @@ class LojaItemService(ItemServiceMeta):
         if success:
             
             # add entrada relacionando item à loja
-            lojaitem = LojaItem.new_lojaitem(id_loja = id_loja, id_item = item.id)
-            LojaItemDatabase.add_new_lojaitem(lojaitem)
+            inventory_entry = InventoryEntry.new_inventory_entry(cnpj = cnpj, id_item = item.id)
+            InventoryDatabase.add_new_inventory_entry(inventory_entry)
 
             # retorna
             return HTTPItemDatabaseResponses.ADD_ITEM_SUCCESSFULLY()
         else:
             return HTTPItemDatabaseResponses.ITEM_ALREADY_EXISTS(reason)
 
-    # remove da db itens e da db lojas-itens
+    # remove da db itens e da db inventory
     @staticmethod
     def remove_item(item_id: str) -> HttpResponseModel:
         item = ItemDatabase.remove_item_by_ID(item_id= item_id)
@@ -106,8 +92,8 @@ class LojaItemService(ItemServiceMeta):
                 status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
             )
 
-        # remove entrada da base lojas-itens também
-        LojaItemDatabase.remove_lojaitem_by_ID(id_item = item_id)
+        # remove entrada da base Inventory também
+        InventoryDatabase.remove_inventory_entry_by_ID(id_item = item_id)
 
         return HttpResponseModel(
                 message=HTTPItemDatabaseResponses.REMOVE_ITEM_SUCCESSFULLY().message,
