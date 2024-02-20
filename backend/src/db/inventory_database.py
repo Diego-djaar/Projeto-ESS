@@ -10,47 +10,53 @@ import os.path
 import jsonpickle
 from pydantic import BaseModel
 
-class DadosLojaItem(BaseModel):
-    id_loja: str # id de 6 dígitos
+class InventoryEntryData(BaseModel):
+    cnpj: str # id de 14 dígitos
     id_item: str # id de 8 dígitos
+    qnt : int # quantidade: número inteiro
 
 logger = getLogger('uvicorn')
 
-class LojaItem():
-    """Classe que associa uma loja com um item
+class InventoryEntry():
+    """Classe que associa uma loja com um item e uma quantidade
     
-        Criar com método new_item()
+        Criar com método new_inventory_entry()
 
     Returns:
         (Item, "SUCCESS"), ou (None, reason) caso o input não seja validado.
         
         reason será o nome do campo rejeitado pela validação
     """
-    id_loja: str # id de 6 dígitos
+
+    cnpj: str # 14 dígitos
     id_item: str # id de 8 dígitos
-    ID_LOJA_LENGTH = 6
+    qnt : int # quantidade
+    CNPJ_LENGTH = 14  # CNPJ
     ID_ITEM_LENGTH = 8
 
-    def __init__(self, id_loja: str, id_item: str):
-        self.id_loja = id_loja
+    def __init__(self, cnpj: str, id_item: str, qnt: int):
+        self.cnpj = cnpj
         self.id_item = id_item
+        self.qnt = qnt
     
-    def to_dados_lojaitem(self):
-        return DadosLojaItem(
-            id_loja=self.id_loja,
-            id_item=self.id_item,
+    def inventory_entry_to_data(self):
+        return InventoryEntryData(
+            cnpj = self.cnpj,
+            id_item = self.id_item,
+            qnt = self.qnt
         )
     
     @staticmethod
-    def new_lojaitem(id_loja: str, id_item: str):
-        """Cria novo mapeamento loja-item a menos que excessão seja levantada
+    def new_inventory_entry(cnpj: str, id_item: str, qnt : int):
+        """Cria novo mapeamento loja-item-quantidade a menos que excessão seja levantada
 
         Args:
-            id_loja : str
+            cnpj: str
             id_item : str
+            qnt: int
 
         Returns:
-            (LojaItem, "SUCESS"), ou (None, reason) caso o input não seja validado.
+            (InventoryEntry, "SUCCESS"), ou (None, reason) caso o input não seja validado.
             
             reason será a lista dos campos rejeitados pela validação. ["SUCCESS"] caso seja validado.
         """
@@ -58,25 +64,29 @@ class LojaItem():
         reason = []
         
         # Verifica se ID item tem 8 dígitos
-        if str(id_item).__len__() != LojaItem.ID_ITEM_LENGTH:
+        if str(id_item).__len__() != InventoryEntry.ID_ITEM_LENGTH:
             reason.append("ID item com tamanho inválido")
 
-        # Verifica se ID loja tem 6 dígitos
-        if str(id_loja).__len__() != LojaItem.ID_LOJA_LENGTH:
-            reason.append("ID loja com tamanho inválido")
+        # Verifica se ID loja tem 14 dígitos (CNPJ)
+        if str(cnpj).__len__() != InventoryEntry.CNPJ_LENGTH:
+            reason.append("CNPJ deve ter 14 dígitos")
+
+        # Verifica se quantidade é não-nula
+        if qnt < 0:
+            reason.append("Quantidade deve ser não nula")
 
         obj = None
         if reason.__len__() == 0:
             reason.append("SUCCESS")
-            obj = LojaItem(id_loja, id_item)
+            obj = InventoryEntry(cnpj = cnpj, id_item = id_item)
 
         return (obj, reason)
 
-class LojaItemDatabase():
-    db: dict[LojaItem]
+class InventoryDatabase():
+    db: dict[InventoryEntry]
     file_path:str
 
-    def __init__(self, path: str = "Lojaitens.json"):
+    def __init__(self, path: str = "Inventory.json"):
         self.db = dict()
         self.file_path = path
         self.try_read_from_file()
@@ -98,37 +108,38 @@ class LojaItemDatabase():
         with open(self.file_path, 'w+') as file:
             file.write(objetos)
     
-    def get_lojaitens_list(self):
-        """Retorna todas as entradas loja-item da base"""
+    def get_inventory_list(self):
+        """Retorna todos as tuplas loja-item-quantidade da base"""
         self.try_read_from_file()
         return list(self.db.values())
     
-    def add_new_lojaitem(self, lojaitem: LojaItem):
-        """Adicionar um novo objeto loja-item a base
+    def add_new_inventory_entry(self, inventory_entry: InventoryEntry):
+        """Adicionar um novo objeto InventoryEntry à base
 
         Args:
-            lojaitem (Lojaitem): LojaItem em questão
-            
+            inventory_entry (InventoryEntry)
+
         Returns:
             success (bool): True para operação bem sucedida, False para mal sucedida
-            reason (list[str]): contém "LojaItem com mesmo ID já na base de dados" se for um item já existente.
+            reason (list[str]): contém "InventoryEntry com mesmo ID já na base de dados" se for um item já existente.
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
         reason = []
         self.try_read_from_file()
         # verifica id do item, porque id da loja pode ocorrer mais de uma vez
-        if LojaItemDatabase.get_lojaitem_by_ID(lojaitem.id_item): #---------------------------------------------------------
-            reason.append("LojaItem com mesmo ID já na base de dados")
+        if InventoryDatabase.get_inventory_entry_by_ID(inventory_entry.id_item): #---------------------------------------------------------
+            reason.append("InventoryEntry com mesmo ID já na base de dados")
         
         if reason.__len__() > 0:
             return (False, reason)
         
-        self.db[lojaitem.id_item] = lojaitem
+        # chave é id do item
+        self.db[inventory_entry.id_item] = inventory_entry
         self.write_to_file()
         return (True, ["SUCCESS"])
 
-    def remove_lojaitem_by_ID (self, id_item: str) -> LojaItem | None:
-        """ Remover um loja-item da base
+    def remove_inventory_entry_by_ID (self, id_item: str) -> InventoryEntry | None:
+        """ Remover um InventoryEntry da base
 
         Args:
             id_item (str): ID do item em questão (unicamente identificável)
@@ -145,18 +156,18 @@ class LojaItemDatabase():
         return toreturn
 
     @staticmethod
-    def get_lojaitem_by_ID (self, id_item: str) -> LojaItem | None:
-        """ Acessar um loja-item da database
+    def get_inventory_entry_by_ID (self, id_item: str) -> InventoryEntry | None:
+        """ Acessar um InventoryEntry da database
 
         Args:
             id_item (int): ID do item em questão
 
         Returns:
-            lojaitem (LojaItem | None): LojaItem se existe, None se não
+            (inventory_entry | None): InventoryEntry se existe, None se não
         """
         self.try_read_from_file()
         for key,val in self.db.items():
-            if val.id_item == id_item: # val é do tipo LojaItem, possui atributo id_item
+            if val.id_item == id_item: # val é do tipo InventoryEntry, possui atributo id_item
                 return val
         return None
 
