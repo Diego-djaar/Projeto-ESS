@@ -16,6 +16,10 @@ router = APIRouter()
             "model": HttpResponseModel,
             "description": "Conteúdo do carrinho obtido com sucesso"
         },
+        status.HTTP_201_CREATED: {
+            "model":HttpResponseModel,
+            "description": "Carrinho não encontrado, carrrinho criado"
+        },
         status.HTTP_400_BAD_REQUEST: {
             "model": HttpResponseModel,
             "description": "Falha na obtenção do conteúdo do carrinho"
@@ -25,7 +29,8 @@ router = APIRouter()
 def visualizar_carrinho(CPF: str) -> HttpResponseModel:
     """ Se carrinho não for encontrado cria carrinho para o respectivo CPF """
     print("Entrou em visualizar carrinho")
-    return Carrinho_service.get_cart(CPF=CPF)
+    resposta = Carrinho_service.get_cart(CPF=CPF)
+    return resposta
 
 @router.post(
     "/adicionar",
@@ -46,6 +51,7 @@ def visualizar_carrinho(CPF: str) -> HttpResponseModel:
 def adicionar_item_ao_carrinho(dados: DadosItem, CPF: str) -> HttpResponseModel:
     """ Tenta adicionar item ao carrinho """
     print("Entrou na função adicionar_item_ao_carrinho")
+    print(dados)
     resultado = Carrinho_service.add_item_to_cart(item_data= dados, CPF= CPF)
     print(resultado)
     if resultado.status_code == status.HTTP_200_OK:

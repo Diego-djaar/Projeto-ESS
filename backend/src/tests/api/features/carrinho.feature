@@ -35,3 +35,10 @@ Scenario: Limpar a base de dados de carrinhos
     When a base de dados de carrinhos é limpa
     Then o status da resposta deve ser "200"
     And a base de dados de carrinhos deve estar vazia
+
+Scenario: Incrementar quantidade de um item no carrinho
+    Given um produto com ID "12345678" de preço "29.99" está no carrinho de CPF "123.456.789-10" com quantidade "1"
+    When o item é incrementado
+    Then o status da resposta deve ser "200"
+    And o produto de ID "12345678" no carrinho "123.456.789-10" deve ter a quantidade "2"
+    And o total do carrinho de CPF "123.456.789-10" é "59.99"

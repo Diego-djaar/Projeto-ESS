@@ -4,7 +4,7 @@ from pymongo import MongoClient, errors
 from pymongo.collection import Collection, IndexModel
 #from src.config.config import env
 from logging import INFO, WARNING, getLogger
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 import re
 import os.path
 import jsonpickle
@@ -45,7 +45,9 @@ class Carrinho():
         aux = Decimal("0.00")
         for item in self.items.values():
             aux += Decimal(item.price) * item.quantidade # Valor inteiro
-        self.total = str(aux)
+        
+        dois_decimais = Decimal("0.00") # Arredonda para duas casas decimais
+        self.total = str(aux.quantize(dois_decimais, rounding=ROUND_HALF_UP))
 
     def alterar_endereço(self, rua: str, numero: int, bairro: str, cidade: str, estado: str, cep: str, pais: str, complemento: str | None = None):
         """ Tenta adicionar um endereço """

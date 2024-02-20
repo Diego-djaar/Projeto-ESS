@@ -90,6 +90,8 @@ class Item():
         """
 
         reason = []
+        print("Entrou em new_item")
+        print(id)
         # Verifica se imagem tem um formato sustentado
         if img is not None and not Item.is_image_path(img):
             reason.append("Caminho da imagem mal formulado")
