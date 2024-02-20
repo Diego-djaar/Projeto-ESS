@@ -118,7 +118,7 @@ class InventoryDatabase():
             file.write(objetos)
     
     def get_inventory_list(self):
-        """Retorna todos as tuplas loja-item-quantidade da base"""
+        """Retorna todos as entradas da base"""
         self.try_read_from_file()
         return list(self.db.values())
     
