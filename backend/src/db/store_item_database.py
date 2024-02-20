@@ -11,7 +11,7 @@ import jsonpickle
 from pydantic import BaseModel
 
 class DadosLojaItem(BaseModel):
-    id_loja: str # formato: definir
+    id_loja: str # id de 6 dígitos
     id_item: str # id de 8 dígitos
 
 logger = getLogger('uvicorn')
@@ -26,10 +26,10 @@ class LojaItem():
         
         reason será o nome do campo rejeitado pela validação
     """
-    id_loja: str # formato: definir
+    id_loja: str # id de 6 dígitos
     id_item: str # id de 8 dígitos
-    ID_LOJA_LENGTH : int # 6 dígitos
-    ID_ITEM_LENGTH : int # 8 dígitos
+    ID_LOJA_LENGTH = 6
+    ID_ITEM_LENGTH = 8
 
     def __init__(self, id_loja: str, id_item: str):
         self.id_loja = id_loja
@@ -41,8 +41,6 @@ class LojaItem():
             id_item=self.id_item,
         )
     
-    # service/impl/itens_database_service deve chamar esse método após criar um novo item,
-    # para não criar item desassociado de loja
     @staticmethod
     def new_lojaitem(id_loja: str, id_item: str):
         """Cria novo mapeamento loja-item a menos que excessão seja levantada
@@ -119,7 +117,7 @@ class LojaItemDatabase():
         reason = []
         self.try_read_from_file()
         # verifica id do item, porque id da loja pode ocorrer mais de uma vez
-        if LojaItemDatabase.get_lojaitem_by_ID(lojaitem.id_item, False): #---------------------------------------------------------
+        if LojaItemDatabase.get_lojaitem_by_ID(lojaitem.id_item): #---------------------------------------------------------
             reason.append("LojaItem com mesmo ID já na base de dados")
         
         if reason.__len__() > 0:
@@ -140,6 +138,7 @@ class LojaItemDatabase():
             reason (list[str]): contém "NOT_FOUND" se o item não foi encontrado
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
+
         self.try_read_from_file()
         toreturn = self.db.pop(id_item, None)
         self.write_to_file()
@@ -160,29 +159,6 @@ class LojaItemDatabase():
             if val.id_item == id_item: # val é do tipo LojaItem, possui atributo id_item
                 return val
         return None
-    
-    def modify_lojaitem_by_ID (self, id_item: str, new_lojaitem: LojaItem):
-        """ Modificar um loja-item da database
-
-        Args:
-            item_id (int): ID do item em questão
-            new_item (Item): novos valores do item a ser modificado
-
-        Returns:
-            success (bool): True para operação bem sucedida, False para mal sucedida
-            LojaItem (LojaItem | None): Se o item for encontrado.
-        """
-        reason = []
-        
-        self.try_read_from_file()
-        
-        if LojaItemDatabase.get_lojaitem_by_ID(id_item, False):
-            reason.append("LojaItem não encontrada")
-            return(False, reason)
-        
-        self.db[id_item] = new_lojaitem
-        self.write_to_file()
-        return (True, ["SUCCESS"])
 
 
     def clear_database(self):
