@@ -4,13 +4,38 @@ from src.db.__init__ import store_database as db
 from src.db.store_database import Store
 from src.schemas.store_response import HTTPSignUpResponses, HTTPLoginResponses, HTTPUpdateStoreResponses
 
+class DadosLoja(BaseModel):
+    cnpj: str
+    email: str
+    senha: str
+    categoria: str
+    nome: str
+
+class DadosLoginLoja(BaseModel):
+    cnpj: str
+    senha: str
+
+class DadosRetrieveLoja(BaseModel):
+    cnpj: str
+    email: str
+    nsenha: str
+
+
+class DadosChangeLoja(BaseModel):
+    cnpj: str
+    nemail: str | None
+    senha: str
+    nsenha: str | None
+    ncategoria: str | None
+    nnome: str | None
+   
 
 class Store_service():
 
     @staticmethod
-    def signup_store(CNPJ: str, Email: str, Senha: str, Categoria: str, Nome: str, database = db) -> HttpResponseModel:
+    def signup_store(dados: DadosLoja, database = db) -> HttpResponseModel:
         """Tentar registrar uma nova loja"""
-        store = Store.new(CNPJ, Email, Senha, Categoria, Nome)
+        store = Store.new(*dados.model_dump().values())
         if store == None:
             return HTTPSignUpResponses.BAD_REQUEST()
         success, r = database.signup(store)
@@ -22,8 +47,9 @@ class Store_service():
 
 
     @staticmethod
-    def login_store(CNPJ: str, Senha: str, database = db) -> HttpResponseModel:
-    
+    def login_store(dados: DadosLoginLoja, database = db) -> HttpResponseModel:
+        CNPJ = dados.cnpj
+        Senha = dados.senha
         store = database.get_store_by_cnpj(CNPJ)
     
         if store == None or store.senha != Senha:
@@ -33,7 +59,11 @@ class Store_service():
         
 
     @staticmethod
-    def retrieve_password(CNPJ: str, Email: str, New_password: str, database = db) -> HttpResponseModel:
+    def retrieve_password(dados:DadosRetrieveLoja, database = db) -> HttpResponseModel:
+        CNPJ = dados.cnpj
+        Email = dados.email
+        New_password = dados.nsenha
+
         store = database.get_store_by_cnpj(CNPJ)
 
         if store == None:
@@ -49,7 +79,14 @@ class Store_service():
         
 
     @staticmethod
-    def change_user_data(CNPJ: str, Senha: str, nEmail: str | None, nSenha: str | None, nCategoria: str | None, nNome: str | None, database = db) -> HttpResponseModel:
+    def change_user_data(dados: DadosChangeLoja, database = db) -> HttpResponseModel:
+        CNPJ = dados.cnpj
+        Senha = dados.senha
+        nSenha = dados.nsenha
+        nEmail = dados.nemail
+        nCategoria = dados.ncategoria
+        nNome = dados.nnome
+        
         store = database.get_store_by_cnpj(CNPJ)
         something_changed = False
 

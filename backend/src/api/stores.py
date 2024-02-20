@@ -1,11 +1,11 @@
 from fastapi import APIRouter, status, HTTPException
 from src.schemas.response import HttpResponseModel
-from src.service.impl.store_service import Store_service
+from src.service.impl.store_service import Store_service, DadosLoja, DadosLoginLoja, DadosRetrieveLoja, DadosChangeLoja
 
 router = APIRouter()
 
 @router.post(
-    "/singup/",
+    "/signup",
     response_model=HttpResponseModel,
     status_code=status.HTTP_200_OK,
     description="Cadastro do usuario",
@@ -20,9 +20,9 @@ router = APIRouter()
         }
     },
 )
-def store_signup(CNPJ: str, Email: str, Senha: str, Nome: str, Categoria: str):
+def store_signup(dados: DadosLoja):
     """Se a loja ainda não estiver cadastrada, adiciona ela na db"""
-    resultado = Store_service.signup_store(CNPJ, Email, Senha, Nome, Categoria)
+    resultado = Store_service.signup_store(dados)
     if resultado.status_code == status.HTTP_200_OK:
         return resultado
     else:
@@ -31,7 +31,7 @@ def store_signup(CNPJ: str, Email: str, Senha: str, Nome: str, Categoria: str):
 
 
 @router.post(
-    "/login/",
+    "/login",
     response_model=HttpResponseModel,
     status_code=status.HTTP_200_OK,
     description="Login do usuario",
@@ -50,9 +50,9 @@ def store_signup(CNPJ: str, Email: str, Senha: str, Nome: str, Categoria: str):
         },
     },
 )
-def store_login(CNPJ: str, Senha: str):
+def store_login(dados: DadosLoginLoja):
     """Se os dados de entrada corresponderem com a db redireciona usuario para homepage"""
-    resultado = Store_service.login_store(CNPJ, Senha)
+    resultado = Store_service.login_store(dados)
     if resultado.status_code == status.HTTP_200_OK:
         return resultado
     else:
@@ -61,7 +61,7 @@ def store_login(CNPJ: str, Senha: str):
 
 
 @router.post(
-    "/login/retrieve_password/",
+    "/login/retrieve_password",
     response_model=HttpResponseModel,
     status_code=status.HTTP_200_OK,
     description="Recuperação de Senha",
@@ -80,9 +80,9 @@ def store_login(CNPJ: str, Senha: str):
         },
     },
 )
-def store_retrieve_password(CNPJ: str, Email: str, New_password: str):
+def store_retrieve_password(dados: DadosRetrieveLoja):
     """Se CNPJ e Email estiverem no bd, redefine a senha do usuario"""
-    resultado = Store_service.retrieve_password(CNPJ, Email, New_password)
+    resultado = Store_service.retrieve_password(dados)
     if resultado.status_code == status.HTTP_200_OK:
         return resultado
     else:
@@ -104,9 +104,9 @@ def store_retrieve_password(CNPJ: str, Email: str, New_password: str):
         },
     },
 )
-def change_store_data(CNPJ: str, Senha: str, nEmail: str | None, nSenha: str | None, nCategoria: str | None, nNome: str | None):
+def change_store_data(dados:DadosChangeLoja):
     """Se CNPJ e Email estiverem no bd, redefine a senha do usuario"""
-    resultado = Store_service.change_user_data(CNPJ, Senha, nEmail, nSenha, nCategoria, nNome)
+    resultado = Store_service.change_user_data(dados)
     if resultado.status_code == status.HTTP_200_OK:
         return resultado
     else:
