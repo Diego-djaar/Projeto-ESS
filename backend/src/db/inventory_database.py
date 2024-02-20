@@ -91,6 +91,14 @@ class InventoryEntry():
 
         return (obj, reason)
 
+    #-----------------------------------------------------------------------------------------------------
+    função modificar quantidade no inventário (tem que mudar no InventoryDatabase tb)
+
+    depois precisa de uma função equivalente no inventory_service. 
+    função de modificar que já existe pode tirar, pq ela tá no item_database_service
+
+    pra poder modificar, add condicional no service vendo se cnpj 
+
 class InventoryDatabase():
     db: dict[InventoryEntry]
     file_path:str
@@ -144,6 +152,32 @@ class InventoryDatabase():
         
         # chave é id do item
         self.db[inventory_entry.id_item] = inventory_entry
+        self.write_to_file()
+        return (True, ["SUCCESS"])
+
+
+    def modify_inventory_entry_quantity(self, item_id : str, qnt : int):
+        """modifica InventoryEntry na base
+
+        Args:
+            inventory_entry (InventoryEntry)
+
+
+        Returns:
+            success (bool): True para operação bem sucedida, False para mal sucedida
+            reason (list[str]): contém "Chave inexistente" 
+            se não existir item com chave correspondente
+            ["SUCCESS"] caso tenha sido uma operação bem sucedida
+        """
+        self.try_read_from_file()
+
+        # verifica se existe entrada correspondente
+        inventry_entry = inInventoryDatabase.get_inventory_entry_by_ID(id_item) 
+        if inventry_entry == None:
+            return (False, ["Chave inexistente"])
+        
+        # sucesso
+        self.db[inventory_entry.id_item].qnt = qnt
         self.write_to_file()
         return (True, ["SUCCESS"])
 
