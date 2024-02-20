@@ -45,7 +45,7 @@ class InventoryService(ItemServiceMeta):
         # entre todos os itens
         for entry in all_entries: 
             if (entry.cnpj == cnpj):
-                valid_entries.append(entry)
+                valid_entries.append(entry) # os que são válidos (pertencem à loja de cnpj = cnpj)
 
         if storeitems.__len__() == 0:
             return HttpResponseModel(
@@ -100,7 +100,6 @@ class InventoryService(ItemServiceMeta):
                 data=item,
             )
     
-
     @staticmethod
     def modify_item_quantity(item_id: str, qnt : int) -> HttpResponseModel:
         """Troca unicamente quantidade. para trocar outros atributos, usar itens_database_service"""
