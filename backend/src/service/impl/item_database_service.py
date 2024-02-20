@@ -1,8 +1,8 @@
-from src.schemas.response import HTTPResponses, HttpResponseModel
-from src.service.meta.item_service_meta import ItemServiceMeta
-from src.db.__init__ import ItemDatabase as db
-from src.db.itens_database import Item, ItemDatabase
-from src.schemas.item_database_response import HTTPDatabaseResponses
+from schemas.response import HTTPResponses, HttpResponseModel
+from service.meta.item_service_meta import ItemServiceMeta
+from db.__init__ import ItemDatabase as db
+from db.itens_database import Item, ItemDatabase
+from schemas.item_database_response import HTTPDatabaseResponses
 from pydantic import BaseModel
 
 class DadosItem(BaseModel):

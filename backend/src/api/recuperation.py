@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, Response
-from src.schemas.response import HttpResponseModel
-import src.schemas.user_schemas as schemas
-from src.service.impl.recuperation_service import RecuperationService
+from schemas.response import HttpResponseModel
+import schemas.user_schemas as schemas
+from service.impl.recuperation_service import RecuperationService
 
 router = APIRouter()
 

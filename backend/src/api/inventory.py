@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, HTTPException
-from src.schemas.response import HttpResponseModel
-from src.service.impl.inventory_service import InventoryService
-from src.service.impl.item_database_service import DadosItem
+from schemas.response import HttpResponseModel
+from service.impl.inventory_service import InventoryService
+from service.impl.item_database_service import DadosItem
 
 router = APIRouter()
 

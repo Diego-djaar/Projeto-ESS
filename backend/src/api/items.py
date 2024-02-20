@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
-from src.schemas.response import HttpResponseModel
-from src.service.impl.item_service import ItemService
+from schemas.response import HttpResponseModel
+from service.impl.item_service import ItemService
 
 router = APIRouter()
 

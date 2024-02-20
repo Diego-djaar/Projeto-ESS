@@ -1,13 +1,13 @@
 import datetime
 from pydantic import BaseModel
-from src.schemas.response import HTTPResponses, HttpResponseModel
-from src.db.__init__ import user_database as db
-from src.db.user_database import User, UserDatabase
-from src.schemas.user_response import HTTPLoginResponses, HTTPVerifyResponses
+from schemas.response import HTTPResponses, HttpResponseModel
+from db.__init__ import user_database as db
+from db.user_database import User, UserDatabase
+from schemas.user_response import HTTPLoginResponses, HTTPVerifyResponses
 from random import randrange
 from bidict import bidict
-from src.service.impl.__init__ import token_service
-from src.schemas.user_schemas import DadosLogin, DadosUser
+from service.impl.__init__ import token_service
+from schemas.user_schemas import DadosLogin, DadosUser
 
 
 class AuthService():

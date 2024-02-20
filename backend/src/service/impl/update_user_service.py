@@ -1,12 +1,12 @@
 import datetime
 from pydantic import BaseModel
-from src.schemas.response import HTTPResponses, HttpResponseModel
-from src.db.__init__ import user_database as db
-from src.db.user_database import User, UserDatabase
-from src.schemas.user_response import HTTPSignUpResponses, HTTPUpdateUserResponses
-from src.schemas.user_schemas import DadosUser
-from src.service.impl.auth_service import AuthService
-from src.service.impl.__init__ import token_service
+from schemas.response import HTTPResponses, HttpResponseModel
+from db.__init__ import user_database as db
+from db.user_database import User, UserDatabase
+from schemas.user_response import HTTPSignUpResponses, HTTPUpdateUserResponses
+from schemas.user_schemas import DadosUser
+from service.impl.auth_service import AuthService
+from service.impl.__init__ import token_service
 
 class UpdateUserService():
     @staticmethod

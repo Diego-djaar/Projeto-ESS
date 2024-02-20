@@ -1,12 +1,12 @@
-from src.schemas.response import HTTPResponses, HttpResponseModel
-from src.service.meta.item_service_meta import ItemServiceMeta
-from src.db.__init__ import cart_database as db
-from src.db.carrinho_database import Carrinho, Carrinhos
-from src.db.itens_database import Item
-from src.schemas.item_database_response import HTTPDatabaseResponses
+from schemas.response import HTTPResponses, HttpResponseModel
+from service.meta.item_service_meta import ItemServiceMeta
+from db.__init__ import cart_database as db
+from db.carrinho_database import Carrinho, Carrinhos
+from db.itens_database import Item
+from schemas.item_database_response import HTTPDatabaseResponses
 from pydantic import BaseModel
-from src.schemas.carrinho_response import HTTPCarrinhoResponses
-from src.db.itens_database import DadosItem
+from schemas.carrinho_response import HTTPCarrinhoResponses
+from db.itens_database import DadosItem
 
 class DadosEndereço(BaseModel):
     rua: str

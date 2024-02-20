@@ -1,11 +1,11 @@
-from src.schemas.response import HTTPResponses, HttpResponseModel
-from src.service.meta.item_service_meta import ItemServiceMeta
-#from src.db.__init__ import ItemDatabase
-#from src.db.__init__ import InventoryDatabase
-from src.db.itens_database import DadosItem, Item, ItemDatabase
-from src.db.inventory_database import InventoryEntryData, InventoryEntry, InventoryDatabase
-from src.schemas.item_database_response import HTTPItemDatabaseResponses 
-from src.schemas.inventory_response import HTTPItemResponses
+from schemas.response import HTTPResponses, HttpResponseModel
+from service.meta.item_service_meta import ItemServiceMeta
+#from db.__init__ import ItemDatabase
+#from db.__init__ import InventoryDatabase
+from db.itens_database import DadosItem, Item, ItemDatabase
+from db.inventory_database import InventoryEntryData, InventoryEntry, InventoryDatabase
+from schemas.item_database_response import HTTPItemDatabaseResponses 
+from schemas.inventory_response import HTTPItemResponses
 from pydantic import BaseModel
 
 class InventoryService(ItemServiceMeta):

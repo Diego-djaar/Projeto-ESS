@@ -1,10 +1,10 @@
 import datetime
 from pydantic import BaseModel
-from src.schemas.response import HTTPResponses, HttpResponseModel
-from src.db.__init__ import user_database as db
-from src.db.user_database import User, UserDatabase
-from src.schemas.user_response import HTTPSignUpResponses
-from src.schemas.user_schemas import DadosCadastrais
+from schemas.response import HTTPResponses, HttpResponseModel
+from db.__init__ import user_database as db
+from db.user_database import User, UserDatabase
+from schemas.user_response import HTTPSignUpResponses
+from schemas.user_schemas import DadosCadastrais
 
 
 class SingUpService():

@@ -1,8 +1,8 @@
-from src.db.__init__ import user_database as db_user
-from src.db.user_database import UserDatabase
-from src.db.codigos_rec_database import RecuperacaoDatabase
-from src.db.__init__ import recuperacao_database as db_recuperacao
-from src.db.codigos_rec_database import Recuperacao
+from db.__init__ import user_database as db_user
+from db.user_database import UserDatabase
+from db.codigos_rec_database import RecuperacaoDatabase
+from db.__init__ import recuperacao_database as db_recuperacao
+from db.codigos_rec_database import Recuperacao
 import random, string, smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText

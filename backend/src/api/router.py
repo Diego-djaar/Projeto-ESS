@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from src.api import carrinho, users, recuperation, inventory
+from api import carrinho, users, recuperation, inventory
 
 api_router = APIRouter()
 

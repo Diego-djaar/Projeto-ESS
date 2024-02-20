@@ -1,9 +1,9 @@
 from fastapi import APIRouter, status, Response
-from src.schemas.response import HttpResponseModel
-from src.service.impl.signup_service import DadosCadastrais, SingUpService
-from src.service.impl.auth_service import DadosLogin, AuthService, DadosUser
-import src.schemas.user_schemas as schemas
-from src.service.impl.update_user_service import UpdateUserService
+from schemas.response import HttpResponseModel
+from service.impl.signup_service import DadosCadastrais, SingUpService
+from service.impl.auth_service import DadosLogin, AuthService, DadosUser
+import schemas.user_schemas as schemas
+from service.impl.update_user_service import UpdateUserService
 
 router = APIRouter()
 
