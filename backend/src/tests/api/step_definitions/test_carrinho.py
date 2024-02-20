@@ -46,6 +46,48 @@ def test_clear_cart_database_content():
 def test_increment_item_quantity():
     pass
 
+@scenario(scenario_name="Decrementar quantidade de um item no carrinho com quantidade maior que 1", feature_name="..//features/carrinho.feature")
+def test_decrementar_item_com_quantidade_maior_que_1():
+    pass
+
+@scenario(scenario_name="Decrementar quantidade de um item no carrinho com quantidade 1", feature_name="..//features/carrinho.feature")
+def test_decrementar_item_com_quantidade_1():
+    pass
+
+@scenario(scenario_name="Alterar endereço de destino do pedido", feature_name="..//features/carrinho.feature")
+def test_alterar_endereço():
+    pass
+
+@given(parsers.cfparse('o endereço do carrinho de CPF "{CPF}" não foi registrado'), target_fixture="context")
+def endereço_nao_registrado(context, CPF: str):
+    context["CPF"] = CPF
+    send_get_cart_request(context)
+    check_response_json(context)
+    return context
+
+@when(parsers.cfparse('o endereço do carrinho de CPF "{CPF}" é alterado para "{endereço}"'))
+def alterar_endereço(context, CPF: str, endereço: str):
+    endereco_lista = endereço.split(", ")
+    response = TESTCLIENT.put("/backend/api/carrinho/alterar_endereço", params={"CPF": CPF}, json={
+        "rua": endereco_lista[0],
+        "numero": endereco_lista[1],
+        "bairro": endereco_lista[2],
+        "cidade": endereco_lista[3],
+        "estado": endereco_lista[4],
+        "cep": endereco_lista[5],
+        "pais": endereco_lista[6],
+        "complemento": endereco_lista[7]
+    })
+    context["response"] = response
+    return context
+
+@then(parsers.cfparse('o carrinho de CPF "{CPF}" tem "{endereço}" no campo endereço'), target_fixture="context")
+def assert_adress(context, CPF: str, endereço: str):
+    send_get_cart_request(CPF)
+    cart_dict = context["response"].data
+    assert cart_dict["Endereço: "] == endereço
+    return context
+
 @given(parsers.cfparse('o Carrinho_service retorna um carrinho com cpf "{CPF}"'))
 def mock_cart_service_response(CPF: str):
     #Carrinho_service.get_cart = lambda CPF: HttpResponseModel(
@@ -106,6 +148,12 @@ def garantir_condicoes_iniciais(context, ID: str, preço: str, CPF: str, quantid
 @when(parsers.cfparse('o item é incrementado'), target_fixture="context")
 def incrementar_item(context):
     response = TESTCLIENT.put("backend/api/carrinho/incrementar_item",params={"item_id": context["id"], "CPF": context["CPF"]})
+    context["response"] = response
+    return context
+
+@when(parsers.cfparse('o item é decrementado'), target_fixture="context")
+def decrementar_item(context):
+    response = TESTCLIENT.put("backend/api/carrinho/decrementar_item",params={"item_id": context["id"], "CPF": context["CPF"]})
     context["response"] = response
     return context
 

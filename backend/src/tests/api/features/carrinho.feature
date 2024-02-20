@@ -42,3 +42,21 @@ Scenario: Incrementar quantidade de um item no carrinho
     Then o status da resposta deve ser "200"
     And o produto de ID "12345678" no carrinho "123.456.789-10" deve ter a quantidade "2"
     And o total do carrinho de CPF "123.456.789-10" é "59.99"
+
+Scenario: Decrementar quantidade de um item no carrinho com quantidade maior que 1
+    Given um produto com ID "12345678" de preço "29.99" está no carrinho de CPF "123.456.789-10" com quantidade "2"
+    When o item é incrementado
+    Then o status da resposta deve ser "200"
+    And o produto de ID "12345678" no carrinho "123.456.789-10" deve ter a quantidade "1"
+    And o total do carrinho de CPF "123.456.789-10" é "59.99"
+
+Scenario: Decrementar quantidade de um item no carrinho com quantidade 1
+    Given um produto com ID "12345678" de preço "29.99" está no carrinho de CPF "123.456.789-10" com quantidade "1"
+    When o item é decrementado
+    Then o status da resposta deve ser "200"
+    And o carrinho de CPF "123.456.789-10" está vazio
+
+Scenario: Alterar endereço de destino do pedido
+    Given o endereço do carrinho de CPF "123.456.789-10" não foi registrado
+    When o endereço do carrinho de CPF "123.456.789-10" é alterado para "Rua , 225, Bairro, Cidade, Estado, CEP, País, Complemento"
+    Then o carrinho de CPF "123.456.789-10" tem "Rua, 225, Complemento\nBairro, Cidade - Estado\nCEP: CEP\nPaís" no campo endereço
