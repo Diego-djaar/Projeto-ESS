@@ -88,8 +88,8 @@ def assert_adress(context, CPF: str, endereço: str):
     assert cart_dict["Endereço: "] == endereço
     return context
 
-@given(parsers.cfparse('o Carrinho_service retorna um carrinho com cpf "{CPF}"'))
-def mock_cart_service_response(CPF: str):
+@given(parsers.cfparse('o Carrinho_service retorna um carrinho com cpf "{CPF_}"'))
+def mock_cart_service_response(CPF_: str):
     #Carrinho_service.get_cart = lambda CPF: HttpResponseModel(
     #    message=HTTPResponses.ITEM_FOUND().message,
     #    status_code=HTTPResponses.ITEM_FOUND().status_code,
@@ -102,25 +102,25 @@ def produto_disponivel(id: str):
     # Adicionar lógica para verificar se o produto está disponível na base de dados
     pass
 
-@given(parsers.cfparse('o carrinho do cliente com CPF "{CPF}" está vazio'), target_fixture="context")
-def carrinho_vazio(context, CPF: str):
+@given(parsers.cfparse('o carrinho do cliente com CPF "{CPF_}" está vazio'), target_fixture="context")
+def carrinho_vazio(context, CPF_: str):
     # Inicialização do carrinho
-    context['CPF'] = CPF
+    context['CPF'] = CPF_
     response = TESTCLIENT.get(url="/backend/api/carrinho/view/123.456.789-10")
     assert response.status_code == 200
     return context
 
-@given(parsers.cfparse('um produto com ID "{id}" está no carrinho de CPF "{CPF}"'), target_fixture="context")
-def adicionar_item_ao_carrinho(context, id: str, CPF: str):
+@given(parsers.cfparse('um produto com ID "{id}" está no carrinho de CPF "{CPF_}"!'), target_fixture="context")
+def adicionar_item_ao_carrinho(context, id: str, CPF_: str):
     context["id"] = id
-    context["CPF"] = CPF
+    context["CPF"] = CPF_
     send_get_cart_request(context)
     adiciona_produto_ao_carrinho(context, id)
     return context
 
-@given(parsers.cfparse('os produtos com ID "{id1}" e "{id2}" estão no carrinho de CPF "{CPF}"'), target_fixture="context")
-def carrinho_com_dois_itens(context, id1: str, id2: str, CPF: str):
-    context["CPF"] = CPF
+@given(parsers.cfparse('os produtos com ID "{id1}" e "{id2}" estão no carrinho de CPF "{CPF_}"'), target_fixture="context")
+def carrinho_com_dois_itens(context, id1: str, id2: str, CPF_: str):
+    context["CPF"] = CPF_
     send_get_cart_request(context)
     adiciona_produto_ao_carrinho(context, id1)
     adiciona_produto_ao_carrinho(context, id2)
@@ -136,18 +136,23 @@ def registrar_carrinhos(context, CPF1: str, CPF2: str, CPF3: str):
     send_get_cart_request(context)
     return context
 
-@given(parsers.cfparse('um produto com ID "{ID}" de preço "{preço}" está no carrinho de CPF "{CPF}" com quantidade "{quantidade}"'), target_fixture="context")
-def garantir_condicoes_iniciais(context, ID: str, preço: str, CPF: str, quantidade: int):
+@given(parsers.cfparse('um produto com ID "{ID}" de preço "{preço}" está no carrinho de CPF "{CPF_}" com quantidade "{quantidade}"'), target_fixture="context")
+def garantir_condicoes_iniciais(context, ID: str, preço: str, CPF_: str, quantidade: int):
+    print("given")
     context["id"] = str(ID)
-    context["CPF"] = str(CPF)
-    send_get_cart_request(CPF)
-    assert context["response"] == 200
+    context["CPF"] = str(CPF_)
+    print(context)
+    send_get_cart_request(context)
+    assert context["response"].status_code == 200
     adiciona_produto_ao_carrinho(context, id= str(ID), quantidade=int(quantidade), preço=str(preço))
     return context
 
 @when(parsers.cfparse('o item é incrementado'), target_fixture="context")
 def incrementar_item(context):
+    print("Incrementar item")
     response = TESTCLIENT.put("backend/api/carrinho/incrementar_item",params={"item_id": context["id"], "CPF": context["CPF"]})
+    print(context["CPF"])
+    print(response.url)
     context["response"] = response
     return context
 
@@ -157,22 +162,22 @@ def decrementar_item(context):
     context["response"] = response
     return context
 
-@then(parsers.cfparse('o produto de ID "{ID}" no carrinho "{CPF}" deve ter a quantidade "{quantidade}"'), target_fixture="context")
-def verify_quantity(context, ID: str, CPF: str, quantidade: int):
+@then(parsers.cfparse('o produto de ID "{ID}" no carrinho "{CPF_}" deve ter a quantidade "{quantidade}"'), target_fixture="context")
+def verify_quantity(context, ID: str, CPF_: str, quantidade: int):
     verificar_item_no_carrinho(context)
     
     # Obter lista de IDs dos itens no carrinho
     cart_dict = context["response"].data
     for item in cart_dict["Itens:"]:
-        if item["id"] == ID:
-            assert item["quantidade"] == quantidade
+        if item.id == ID:
+            assert item.quantidade == int(quantidade)
     
     return context
 
-@then(parsers.cfparse('o total do carrinho de CPF "{CPF}" é "{total}"'), target_fixture="context")
-def verify_total(context, CPF: str, total: str):
+@then(parsers.cfparse('o total do carrinho de CPF "{CPF_}" é "{total}"'), target_fixture="context")
+def verify_total(context, CPF_: str, total: str):
     cart_dict = context["response"].data
-    assert cart_dict["Total:"] == total
+    assert cart_dict["Total"] == total
     return context
 
 
@@ -186,9 +191,9 @@ def clear_database(context):
 def verify_clear_database(database = cart_database):
     assert database.db == {}
 
-@when(parsers.cfparse('o carrinho de CPF "{CPF}" é limpo'), target_fixture="context")
-def clear_cart(context, CPF: str):
-    response = TESTCLIENT.delete("/backend/api/carrinho/clear_cart", params= {"CPF": CPF})
+@when(parsers.cfparse('o carrinho de CPF "{CPF_}" é limpo'), target_fixture="context")
+def clear_cart(context, CPF_: str):
+    response = TESTCLIENT.delete("/backend/api/carrinho/clear_cart", params= {"CPF": CPF_})
     context["response"] = response
     return context
 
@@ -198,8 +203,8 @@ def remover_item_do_carrinho(context, id: str):
     context["response"] = response
     return context
 
-@then(parsers.cfparse('o carrinho de CPF "{CPF}" está vazio'), target_fixture="context")
-def empty_cart(context, CPF):
+@then(parsers.cfparse('o carrinho de CPF "{CPF_}" está vazio'), target_fixture="context")
+def empty_cart(context, CPF_):
     send_get_cart_request(context)
     check_response_json(context)
     return context
@@ -235,7 +240,10 @@ def verificar_item_no_carrinho(context):
 
 @when(parsers.cfparse('uma requisição GET for enviada para "/backend/api/carrinho/view/123.456.789-10"'), target_fixture="context")
 def send_get_cart_request(context, client = TESTCLIENT):
+    print("send_get_cart_request")
+    print(context)
     response = client.get(url="/backend/api/carrinho/view/123.456.789-10")
+    print(context)
     context["response"] = response
     return context
 
