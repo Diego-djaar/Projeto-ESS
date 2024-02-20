@@ -2,7 +2,7 @@ from src.schemas.response import HttpResponseModel
 from pydantic import BaseModel
 from src.db.__init__ import store_database as db
 from src.db.store_database import Store
-from src.schemas.store_response import HTTPSignUpResponses, HTTPLoginResponses, HTTPUpdateUserResponses
+from src.schemas.store_response import HTTPSignUpResponses, HTTPLoginResponses, HTTPUpdateStoreResponses
 
 
 class Store_service():
@@ -37,15 +37,15 @@ class Store_service():
         store = database.get_store_by_cnpj(CNPJ)
 
         if store == None:
-            return HTTPLoginResponses.STORE_NOT_FOUND()
+            return HTTPLoginResponses.STORE_NOT_FOUND_UPDATE()
         
-        elif New_password == store.senha or Email != store.email:
-            return HTTPUpdateUserResponses.UPDATE_FAIL()
+        elif Email != store.email:
+            return HTTPUpdateStoreResponses.UNAUTORIZED()
         
         else:
             store.update_password({'senha': New_password})
             database.write_to_file()
-            return HTTPUpdateUserResponses.UPDATE_SUCCESS()
+            return HTTPUpdateStoreResponses.UPDATE_SUCCESS()
         
 
     @staticmethod
@@ -56,7 +56,7 @@ class Store_service():
         if store == None:
             return HTTPLoginResponses.STORE_NOT_FOUND()
         if store.senha != Senha:
-            return HTTPLoginResponses.LOGIN_FAILED()
+            return HTTPUpdateStoreResponses.UNAUTORIZED()
         
         if nSenha and store.senha != nSenha:
             store.update_password({'senha': nSenha})
@@ -73,7 +73,7 @@ class Store_service():
 
         if something_changed:
             database.write_to_file()
-            return HTTPUpdateUserResponses.UPDATE_SUCCESS()
+            return HTTPUpdateStoreResponses.UPDATE_SUCCESS()
             
         
 

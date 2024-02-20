@@ -20,7 +20,7 @@ router = APIRouter()
         }
     },
 )
-def signup(CNPJ: str, Email: str, Senha: str, Nome: str, Categoria: str):
+def store_signup(CNPJ: str, Email: str, Senha: str, Nome: str, Categoria: str):
     """Se a loja ainda não estiver cadastrada, adiciona ela na db"""
     resultado = Store_service.signup_store(CNPJ, Email, Senha, Nome, Categoria)
     if resultado.status_code == status.HTTP_200_OK:
@@ -50,7 +50,7 @@ def signup(CNPJ: str, Email: str, Senha: str, Nome: str, Categoria: str):
         },
     },
 )
-def login(CNPJ: str, Senha: str):
+def store_login(CNPJ: str, Senha: str):
     """Se os dados de entrada corresponderem com a db redireciona usuario para homepage"""
     resultado = Store_service.login_store(CNPJ, Senha)
     if resultado.status_code == status.HTTP_200_OK:
@@ -80,7 +80,7 @@ def login(CNPJ: str, Senha: str):
         },
     },
 )
-def retrieve_password(CNPJ: str, Email: str, New_password: str):
+def store_retrieve_password(CNPJ: str, Email: str, New_password: str):
     """Se CNPJ e Email estiverem no bd, redefine a senha do usuario"""
     resultado = Store_service.retrieve_password(CNPJ, Email, New_password)
     if resultado.status_code == status.HTTP_200_OK:
@@ -104,7 +104,7 @@ def retrieve_password(CNPJ: str, Email: str, New_password: str):
         },
     },
 )
-def change_user_data(CNPJ: str, Senha: str, nEmail: str | None, nSenha: str | None, nCategoria: str | None, nNome: str | None):
+def change_store_data(CNPJ: str, Senha: str, nEmail: str | None, nSenha: str | None, nCategoria: str | None, nNome: str | None):
     """Se CNPJ e Email estiverem no bd, redefine a senha do usuario"""
     resultado = Store_service.change_user_data(CNPJ, Senha, nEmail, nSenha, nCategoria, nNome)
     if resultado.status_code == status.HTTP_200_OK:

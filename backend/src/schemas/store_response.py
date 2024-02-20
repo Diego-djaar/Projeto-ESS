@@ -59,24 +59,32 @@ class HTTPLoginResponses:
     @staticmethod
     def LOGIN_FAILED() -> HttpResponseModel:
         return HttpResponseModel(
-            message = "Login falhou",
-            status_code = 401
+            message = "Login falhou, essa loja não deve estar cadastrada",
+            status_code = 400
         )
         
         
 
-class HTTPUpdateUserResponses:
+class HTTPUpdateStoreResponses:
+
+    @staticmethod
+    def STORE_NOT_FOUND_UPDATE() -> HttpResponseModel:
+        return HttpResponseModel(
+            message = "CNPJ ou Email incorretos",
+            status_code = 401
+        )
+    
     @staticmethod
     def REMOVE() -> HttpResponseModel:
         return HttpResponseModel(
-            message="Usuário deletado",
+            message="loja deletada",
             status_code=200
         )
         
     @staticmethod
     def REMOVE_FAIL() -> HttpResponseModel:
         return HttpResponseModel(
-            message="Deletar usuário falhou",
+            message="Deletar loja falhou",
             status_code=400
         )
     
