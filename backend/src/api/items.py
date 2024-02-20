@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status
 from src.schemas.response import HttpResponseModel
-from src.service.impl.item_service import ItemService
+#from src.service.impl.item_service import ItemService
 
 router = APIRouter()
 
@@ -34,7 +34,7 @@ def get_item(item_id: str) -> HttpResponseModel:
     - HTTPException 404: If the item is not found.
 
     """
-    item_get_response = ItemService.get_item(item_id)
+    #item_get_response = ItemService.get_item(item_id)
     return item_get_response
 
 
@@ -60,7 +60,7 @@ def get_items() -> HttpResponseModel:
 
     """
 
-    item_list_response = ItemService.get_items()
+    #item_list_response = ItemService.get_items()
 
     return item_list_response
 
