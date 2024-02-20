@@ -38,6 +38,10 @@ def test_remove_item_from_empty_cart():
 def test_clear_cart_content():
     pass
 
+@scenario(scenario_name="Limpar a base de dados de carrinhos", feature_name="..//features/carrinho.feature")
+def test_clear_cart_database_content():
+    pass
+
 @given(parsers.cfparse('o Carrinho_service retorna um carrinho com cpf "{CPF}"'))
 def mock_cart_service_response(CPF: str):
     #Carrinho_service.get_cart = lambda CPF: HttpResponseModel(
@@ -75,6 +79,26 @@ def carrinho_com_dois_itens(context, id1: str, id2: str, CPF: str):
     adiciona_produto_ao_carrinho(context, id1)
     adiciona_produto_ao_carrinho(context, id2)
     return context
+
+@given(parsers.cfparse('os carrinhos de CPF "{CPF1}", "{CPF2}" e "{CPF3}" estão registrados'), target_fixture="context")
+def registrar_carrinhos(context, CPF1: str, CPF2: str, CPF3: str):
+    context["CPF"] = CPF1
+    send_get_cart_request(context)
+    context["CPF"] = CPF2
+    send_get_cart_request(context)
+    context["CPF"] = CPF3
+    send_get_cart_request(context)
+    return context
+
+@when(parsers.cfparse('a base de dados de carrinhos é limpa'), target_fixture="context")
+def clear_database(context):
+    response = TESTCLIENT.delete("/backend/api/carrinho/clear_carts")
+    context["response"] = response
+    return context
+
+@then(parsers.cfparse('a base de dados de carrinhos deve estar vazia'))
+def verify_clear_database(database = cart_database):
+    assert database.db == {}
 
 @when(parsers.cfparse('o carrinho de CPF "{CPF}" é limpo'), target_fixture="context")
 def clear_cart(context, CPF: str):

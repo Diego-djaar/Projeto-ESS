@@ -29,3 +29,9 @@ Scenario: Limpar conteúdo do carrinho
     When o carrinho de CPF "123.456.789-10" é limpo
     Then o status da resposta deve ser "200"
     And o carrinho de CPF "123.456.789-10" está vazio
+
+Scenario: Limpar a base de dados de carrinhos
+    Given os carrinhos de CPF "123.456.789-10", "111.111.111-11" e "222.222.222-22" estão registrados
+    When a base de dados de carrinhos é limpa
+    Then o status da resposta deve ser "200"
+    And a base de dados de carrinhos deve estar vazia
