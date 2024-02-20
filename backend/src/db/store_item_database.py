@@ -100,13 +100,12 @@ class LojaItemDatabase():
         with open(self.file_path, 'w+') as file:
             file.write(objetos)
     
-    def get_lojaitens_list(self, update = True):
+    def get_lojaitens_list(self):
         """Retorna todas as entradas loja-item da base"""
-        if update:
-            self.try_read_from_file()
+        self.try_read_from_file()
         return list(self.db.values())
     
-    def add_new_lojaitem(self, lojaitem: LojaItem, update: bool = True):
+    def add_new_lojaitem(self, lojaitem: LojaItem):
         """Adicionar um novo objeto loja-item a base
 
         Args:
@@ -118,8 +117,7 @@ class LojaItemDatabase():
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
         reason = []
-        if update:
-            self.try_read_from_file()
+        self.try_read_from_file()
         # verifica id do item, porque id da loja pode ocorrer mais de uma vez
         if LojaItemDatabase.get_lojaitem_by_ID(lojaitem.id_item, False): #---------------------------------------------------------
             reason.append("LojaItem com mesmo ID já na base de dados")
@@ -131,7 +129,7 @@ class LojaItemDatabase():
         self.write_to_file()
         return (True, ["SUCCESS"])
 
-    def remove_lojaitem_by_ID (self, id_item: str, update: bool = True) -> LojaItem | None:
+    def remove_lojaitem_by_ID (self, id_item: str) -> LojaItem | None:
         """ Remover um loja-item da base
 
         Args:
@@ -142,14 +140,13 @@ class LojaItemDatabase():
             reason (list[str]): contém "NOT_FOUND" se o item não foi encontrado
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
-        if update:
-            self.try_read_from_file()
+        self.try_read_from_file()
         toreturn = self.db.pop(id_item, None)
         self.write_to_file()
         return toreturn
 
     @staticmethod
-    def get_lojaitem_by_ID (self, id_item: str, update: bool = True) -> LojaItem | None:
+    def get_lojaitem_by_ID (self, id_item: str) -> LojaItem | None:
         """ Acessar um loja-item da database
 
         Args:
@@ -158,14 +155,13 @@ class LojaItemDatabase():
         Returns:
             lojaitem (LojaItem | None): LojaItem se existe, None se não
         """
-        if update:
-            self.try_read_from_file()
+        self.try_read_from_file()
         for key,val in self.db.items():
             if val.id_item == id_item: # val é do tipo LojaItem, possui atributo id_item
                 return val
         return None
     
-    def modify_lojaitem_by_ID (self, id_item: str, new_lojaitem: LojaItem, update: bool = True):
+    def modify_lojaitem_by_ID (self, id_item: str, new_lojaitem: LojaItem):
         """ Modificar um loja-item da database
 
         Args:
@@ -177,8 +173,8 @@ class LojaItemDatabase():
             LojaItem (LojaItem | None): Se o item for encontrado.
         """
         reason = []
-        if update:
-            self.try_read_from_file()
+        
+        self.try_read_from_file()
         
         if LojaItemDatabase.get_lojaitem_by_ID(id_item, False):
             reason.append("LojaItem não encontrada")
