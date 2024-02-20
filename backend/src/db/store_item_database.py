@@ -121,7 +121,7 @@ class LojaItemDatabase():
         if update:
             self.try_read_from_file()
         # verifica id do item, porque id da loja pode ocorrer mais de uma vez
-        if LojaItemDatabase.get_item_by_ID(lojaitem.id_item, False): #---------------------------------------------------------
+        if LojaItemDatabase.get_lojaitem_by_ID(lojaitem.id_item, False): #---------------------------------------------------------
             reason.append("LojaItem com mesmo ID já na base de dados")
         
         if reason.__len__() > 0:
