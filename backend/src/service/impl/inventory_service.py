@@ -10,18 +10,19 @@ from pydantic import BaseModel
 
 class InventoryService(ItemServiceMeta):
 
+
     @staticmethod
-    def get_item(item_id: str, store_id : str) -> HttpResponseModel:
-        item = ItemDatabase.get_item_by_ID(item_id= item_id)
-        # se não existe:
-        if item is None:
+    def get_item(item_id: str, cnpj : str) -> HttpResponseModel:
+
+        # busca direto em inventário
+        entry = InventoryDatabase.get_inventory_entry_by_ID(id_item: str)
+        if entry is None:
             return HttpResponseModel(
                 message=HTTPResponses.ITEM_NOT_FOUND().message,
                 status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
             )
         # se existe mas não é da loja
-        inventory_entry = InventoryDatabase.get_inventory_entry_by_ID(item_id)
-        if (inventory_entry.cnpj != store_id):
+        else if entry.cnpj != cnpj:
             return HttpResponseModel(
                 message=HTTPItemResponses.UNAUTHORIZED().message,
                 status_code=HTTPItemResponses.UNAUTHORIZED().status_code,
@@ -30,25 +31,21 @@ class InventoryService(ItemServiceMeta):
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
-                data=item,
+                data=entry,
             )
 
-    # pegar todos os itens da loja - ok
+
     @staticmethod
     def get_items(cnpj : str) -> HttpResponseModel:
-
         # busca 
-        allitems = ItemDatabase.get_itens_list()
+        all_entries = InventoryDatabase.get_inventory_list()
 
-        storeitems = []
+        valid_entries = []
 
         # entre todos os itens
-        for item in allitems: 
-            id_item = item.id  # 
-            inventory_entry =  InventoryDatabase.get_inventory_entry_by_ID(id_item)  # InventoryEntry correspondente a item
-            id_loja = inventory_entry.cnpj  # loja daquele item
-            if (id_loja == cnpj):
-                storeitems.append(item) # adiciona à lista retornada apenas se for da loja que estiver pedindo
+        for entry in all_entries: 
+            if (entry.cnpj == cnpj):
+                valid_entries.append(entry)
 
         if storeitems.__len__() == 0:
             return HttpResponseModel(
@@ -59,22 +56,24 @@ class InventoryService(ItemServiceMeta):
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
-                data=storeitems,
+                data=valid_entries
             )
     
     # adicionar item à db itens e à db inventory
     @staticmethod
-    def add_new_item(item_data: DadosItem, cnpj : str):
+    def add_new_item(item_data: DadosItem, cnpj : str, qnt : int):
         """Tenta adicionar um novo item no banco de dados"""
+
         (item, reason) = Item.new_item(*item_data.model_dump().values())
+        
         if item is None:
             return HTTPItemDatabaseResponses.BAD_REQUEST(reason)
         (success, reason) = ItemDatabase.add_new_item(item=item)
 
         if success:
             
-            # add entrada relacionando item à loja
-            inventory_entry = InventoryEntry.new_inventory_entry(cnpj = cnpj, id_item = item.id)
+            # add valores na db inventário
+            inventory_entry = InventoryEntry.new_inventory_entry(cnpj = cnpj, id_item = item.id, nome = item.nome, qnt = qnt)
             InventoryDatabase.add_new_inventory_entry(inventory_entry)
 
             # retorna
@@ -101,18 +100,13 @@ class InventoryService(ItemServiceMeta):
                 data=item,
             )
     
-    # esse fica igual: troca atributos do item, não troca loja à qual pertence
+
     @staticmethod
-    def modify_item(item_id: str, new_item_data: DadosItem) -> HttpResponseModel:
-        """Tenta modificar um item do banco de dados. Na prática só associa os novos dados do item ao id do alvo."""
-        (item, reason) = Item.new_item(*new_item_data.model_dump().values())
-        if item is None:
-            return HTTPItemDatabaseResponses.BAD_REQUEST(reason)
-        (success, reason) = ItemDatabase.modify_item_by_ID(item_id= item_id, new_item=item)
+    def modify_item_quantity(item_id: str, qnt : int) -> HttpResponseModel:
+        """Troca unicamente quantidade. para trocar outros atributos, usar itens_database_service"""
+        (success, reason) = InventoryDatabase.modify_inventory_entry_quantity(item_id = item_id, qnt = qnt)
+
         if success:
             return HTTPDatabaseResponses.MODIFY_ITEM_SUCCESSFULLY()
         else:
-            return HttpResponseModel(
-                message=HTTPResponses.ITEM_NOT_FOUND().message,
-                status_code=HTTPResponses.ITEM_NOT_FOUND().status_code,
-            )
+            return HTTPItemDatabaseResponses.BAD_REQUEST(reason)
