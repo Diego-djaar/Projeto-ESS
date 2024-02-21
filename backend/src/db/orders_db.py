@@ -71,7 +71,7 @@ def order_user(user_CPF: str, order_id: int):
     db = read_file({}, "orders.json")
     if user_CPF in db:
         for order in db[user_CPF]:
-            if order["id"] == order_id:
+            if order["_id"] == order_id:
                 return order
     return {}
 
