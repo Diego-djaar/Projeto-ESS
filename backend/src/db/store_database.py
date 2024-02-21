@@ -111,6 +111,14 @@ class StoreDatabase():
             self.try_read_from_file()
         return self.db.get(cnpj) 
     
+    def get_store_by_name(self, name: str, update = True) -> Store | None:
+        if update:
+            self.try_read_from_file()
+        for key, val in self.db.items():
+            if val.email == name:
+                return val
+        return None
+    
     def remove_store_by_cnpj(self, cnpj: str, update = True) -> Store | None:
         if update:
             self.try_read_from_file()

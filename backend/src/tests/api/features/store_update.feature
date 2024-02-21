@@ -1,11 +1,11 @@
 Feature: Manutenção de lojas cadastradas
 
     Scenario: Recuperação de senha
-    Given Loja "Hortifruti", de CNPJ "48.449.992/0001-65" já está cadastrada com senha "htft8"
-    When Uma requisição POST for enviada para "login/retrieve_password", com as seguintes informações (CNPJ: "48.449.992/0001-65", Email: "Hortifruti@loja.com", Nova_senha: "1234")
+    Given Loja "Hortifruti", de CNPJ "37.555.457/0001-90" já está cadastrada com senha "htft8"
+    When Uma requisição POST for enviada para "login/retrieve_password", com as seguintes informações (CNPJ: "37.555.457/0001-90", Email: "Hortifruti@loja.com", Nova_senha: "1234")
     Then o status da resposta deve ser "200"
     And A senha da loja "Hortifruti" agora é "1234"
-    And O campo "message" tem valor "Atualização de dados bem sucedida"
+    And O campo "message" tem o resultado positivo "Atualização de dados bem sucedida"
 
     Scenario: Recuperação de senha com dados incorretos
     Given Given Loja "Hortifruti", de CNPJ "48.449.992/0001-65" já está cadastrada com senha "htft8"
