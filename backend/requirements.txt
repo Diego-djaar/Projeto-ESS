@@ -10,3 +10,6 @@ httpx
 py-bcrypt
 jsonpickle
 bidict
+bcrypt
+requirements
+datetime
