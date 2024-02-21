@@ -22,6 +22,31 @@ def clean_database():
 def test_create_cart():
     pass
 
+@scenario(scenario_name="Adicionar item ao carrinho", feature_name="..//features/carrinho.feature")
+def test_add_item_to_cart():
+    pass
+
+@given(parsers.cfparse('um carrinho de CPF "{CPF}" já foi criado'), target_fixture="context")
+def carrinho_criado(context, CPF: str):
+    context = criar_carrinho(context, CPF)
+    return context
+
+@when(parsers.cfparse('adiciona-se um item de id "{id}" ao carrinho'), target_fixture="context")
+def add_item_to_cart(context, id: str):
+    item, reason = Item.new_item(id, "nome", "description", "20.99", 1, "imagem.jpg")
+    context["item"] = item
+    carrinho = context["carrinho"]
+    carrinho.add_item(item)
+    context["carrinho"] = carrinho
+    return context
+
+@then(parsers.cfparse('o carrinho possui o item de id "{id}"'), target_fixture="context")
+def item_in_cart(context, id):
+    carrinho = context["carrinho"]
+    item = context["item"]
+    assert item.id in carrinho.items.keys()
+    return context
+
 @when(parsers.cfparse('é criado um novo carrinho com os dados (CPF="{CPF}")'), target_fixture="context")
 def criar_carrinho(context, CPF: str):
     carrinho = Carrinho(CPF)
