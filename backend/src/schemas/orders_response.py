@@ -49,7 +49,7 @@ class HTTPOrdersResponse:
     def GET_SUCCESSFULLY(orders_canceled) -> HttpResponseModel:
 
         return HttpResponseModel (
-            message="Pedido obtidos com sucesso",
+            message="Pedidos obtidos com sucesso",
             status_code=200,
             data=orders_canceled
         ) 
@@ -60,4 +60,18 @@ class HTTPOrdersResponse:
         return HttpResponseModel (
             message="O usuário não tem pedidos cancelados",
             status_code=400
+        ) 
+
+    @staticmethod
+    def USER_ORDER(data) -> HttpResponseModel:
+        if data == {}:
+            return HttpResponseModel (
+            message="ID de pedido não encontrado",
+            status_code=400
+        ) 
+        else:
+            return HttpResponseModel (
+            message="Pedido obtido com sucesso",
+            status_code=200,
+            data=data
         ) 
