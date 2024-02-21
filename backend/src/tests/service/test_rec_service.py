@@ -14,7 +14,7 @@ def user_valido():
         sobrenome="Melo", 
         cpf="111.111.111-02", 
         data_de_nascimento=datetime(2003,5,29), 
-        email="Peterson@gmail.com", 
+        email="djaar@cin.ufpe.br", 
         senha="faculdade123", 
         endereço= "Rua tal", 
         CEP="50000-000"
@@ -22,7 +22,7 @@ def user_valido():
     
     signup.SingUpService.signup_user(dados_cadastrais, db)
 
-    user = db.get_user_by_email("Peterson@gmail.com")
+    user = db.get_user_by_email("djaar@cin.ufpe.br")
 
     yield user
 
@@ -37,12 +37,12 @@ def email_valido(user_valido):
 # Fixture para fornecer um código válido para os testes
 @pytest.fixture
 def codigo_valido():
-    codigo = db_recuperacao.get_rec_by_email("Peterson@gmail.com").codigo
+    codigo = db_recuperacao.get_rec_by_email("djaar@cin.ufpe.br").codigo
     return codigo
 
 @pytest.fixture
 def codigo_expirado(codigo_valido):
-    recuperacao = Recuperacao("Peterson@gmail.com",codigo_valido,datetime.now() - timedelta(hours=1,seconds=1) )
+    recuperacao = Recuperacao("djaar@cin.ufpe.br",codigo_valido,datetime.now() - timedelta(hours=1,seconds=1) )
     db_recuperacao.add_recuperacao(recuperacao)
     return recuperacao.codigo
 

@@ -30,23 +30,46 @@ def database_setup():
     yield
     
     user_database.remove_user_by_cpf("453.456.426-95")
-
-
-"""Scenario: processar dados de login"""
-@scenario(scenario_name="processar dados de login", feature_name="../features/login.feature")
-def test_login():
-    """Process Login data"""
-
-"""Scenario: processar dados de login com usuário inexistente"""
-@scenario(scenario_name="processar dados de login com usuário inexistente", feature_name="../features/login.feature")
-def test_login_fail():
-    """Process Login data and return error"""
-
-"""Scenario: processar dados de login com senha incorreta"""
-@scenario(scenario_name="processar dados de login com senha incorreta", feature_name="../features/login.feature")
-def test_login_fail_psw():
-    """Process Login data and return error"""
     
+"""Scenario: Logar e usar carrinho"""
+@scenario(scenario_name="Logar e usar carrinho", feature_name="../features/integrate_login_carrinho.feature")
+def test_login_cart():
+    """Do Login, then access cart"""
+
+@when(parsers.cfparse('uma requisição GET for enviada para "/backend/api/carrinho/view/123.456.789-10"'), target_fixture="context")
+def send_get_cart_request(context, cpf = 0, client = TESTCLIENT):
+    print("send_get_cart_request")
+    print(context)
+    response = client.get(url="/backend/api/carrinho/view/" + cpf)
+    print(context)
+    context["response"] = response
+    return context
+
+@when(parsers.cfparse('o cliente adiciona o produto com ID "{id}" ao carrinho'), target_fixture="context")
+def adiciona_produto_ao_carrinho(context, id: str, quantidade: int = 1, preço: str = "29.99"):
+    response = TESTCLIENT.post("/backend/api/carrinho/adicionar", 
+                               json={
+                                        "id": str(id),
+                                        "nome": "Camisa",
+                                        "description": "string",
+                                        "price": preço,
+                                        "quantidade": quantidade,
+                                        "img": "string.jpg"
+                                    }, 
+                                    params={"CPF": context["CPF"]})
+    context["response"] = response
+    context["id"] = id 
+    return context  
+
+@given(parsers.cfparse('um produto com ID "{id}" está no carrinho de "{user}"'), target_fixture="context")
+def adicionar_item_ao_carrinho(context, id: str, user: str):
+    context["id"] = id
+    context["CPF"] = user_database.get_user_by_username(user).cpf
+    cpf = context["CPF"]
+    send_get_cart_request(context, cpf)
+    adiciona_produto_ao_carrinho(context, id)
+    return context
+
 @given(parsers.cfparse('Usuário "{username}" está cadastrado'))
 def verify_user(username: str):
     """
@@ -144,8 +167,6 @@ def check_user_data(username: str, campo_value):
     assert user.sobrenome == campo_value['sobrenome']
     assert user.cpf == campo_value['cpf']
     
-
-
 @then(
     parsers.cfparse('o campo "{campo1}" tem o valor "{value}"')
 )
@@ -154,4 +175,19 @@ def check_field_value(campo1: str, value: str, request_response):
     field = request_response_json[campo1]
     assert field == value
 
+@when(parsers.cfparse('o cliente tenta remover o produto com ID "{id}" do carrinho de "{user}"'), target_fixture="context")
+def remover_item_do_carrinho(context, id: str, user: str):
+    response = TESTCLIENT.delete("/backend/api/carrinho/remover", params={"CPF": user_database.get_user_by_username(user).cpf, "item_id": id})
+    context["response"] = response
+    return context
 
+def check_response_json(context):
+    expected_data = {"Itens:": [], "Total": "0.00", "Endereço": "Endereço não registrado"}
+    assert context["response"].json()["data"] == expected_data
+    return context
+
+@then(parsers.cfparse('o carrinho de "{user}" está vazio'), target_fixture="context")
+def empty_cart(context, user):
+    send_get_cart_request(context, user_database.get_user_by_username(user).cpf)
+    check_response_json(context)
+    return context

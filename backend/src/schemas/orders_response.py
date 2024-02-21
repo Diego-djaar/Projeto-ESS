@@ -7,7 +7,7 @@ class HTTPOrdersResponse:
     @staticmethod
     def CANCEL_SUCCESSFULLY() -> HttpResponseModel: 
         return HttpResponseModel (
-            message="Pedido cancelado com sucesso",
+            message="Pedido cancelado com sucesso!",
             status_code=200,
         ) 
 
