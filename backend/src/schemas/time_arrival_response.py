@@ -16,7 +16,7 @@ class HTTPTimeArrivalResponse:
     def BAD_REQUEST(errors) -> HttpResponseModel:
 
         return HttpResponseModel (
-            message="Informações inválidas", 
+            message="CEP do usuário inválido!", 
             status_code= 400,
             data=["User CEP"]
         )

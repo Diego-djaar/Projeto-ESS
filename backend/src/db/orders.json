@@ -26,12 +26,12 @@
             "request_date": "15-12-2023",
             "delivery_date": "20-12-2023",
             "delivery_model": "Traditional delivery",
-            "_status": "On the way",
-            "cancel_reason": null,
+            "_status": "Canceled",
+            "cancel_reason": "n\u00e3o gostei",
             "payment_method": "Ticket"
         }
     ],
-    "222.333.444-55": [ 
+    "222.333.444-55": [
         {
             "id": 3,
             "name": "Produto C",
