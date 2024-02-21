@@ -52,7 +52,9 @@ class Store_service():
         Senha = dados.senha
         store = database.get_store_by_cnpj(CNPJ)
     
-        if store == None or store.senha != Senha:
+        if store == None:
+            return HTTPLoginResponses.LOGIN_FAILED()
+        elif store.senha != Senha:
             return HTTPLoginResponses.STORE_NOT_FOUND()
         else: 
             return HTTPLoginResponses.LOGIN_SUCCESSFUL()
@@ -86,7 +88,7 @@ class Store_service():
         nEmail = dados.nemail
         nCategoria = dados.ncategoria
         nNome = dados.nnome
-        
+
         store = database.get_store_by_cnpj(CNPJ)
         something_changed = False
 
