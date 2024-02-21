@@ -1,0 +1,51 @@
+{
+    "111.222.333-44": [
+        {
+            "id": 1,
+            "name": "Produto A",
+            "supplier_name": "Fornecedor A",
+            "type": "Type A",
+            "img": "XXXX",
+            "quantity": 2,
+            "price": 10.5,
+            "request_date": "15-12-2023",
+            "delivery_date": "21-12-2023",
+            "delivery_model": "Express delivery",
+            "_status": "On the way",
+            "cancel_reason": null,
+            "payment_method": "Credit card"
+        },
+        {
+            "id": 2,
+            "name": "Produto B",
+            "supplier_name": "Fornecedor B",
+            "type": "Type B",
+            "img": "YYYY",
+            "quantity": 50,
+            "price": 50,
+            "request_date": "15-12-2023",
+            "delivery_date": "20-12-2023",
+            "delivery_model": "Traditional delivery",
+            "_status": "Canceled",
+            "cancel_reason": "n\u00e3o gostei",
+            "payment_method": "Ticket"
+        }
+    ],
+    "222.333.444-55": [
+        {
+            "id": 3,
+            "name": "Produto C",
+            "supplier_name": "Fornecedor C",
+            "type": "Type C",
+            "img": "ZZZZ",
+            "quantity": 30,
+            "price": 2000,
+            "request_date": "15-12-2023",
+            "delivery_date": "27-12-2023",
+            "delivery_model": "Air delivery",
+            "_status": "Delivered",
+            "cancel_reason": null,
+            "payment_method": "Credit card"
+        }
+    ]
+}

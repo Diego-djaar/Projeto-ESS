@@ -7,3 +7,10 @@ pytest
 pytest-mongodb
 pytest-bdd
 httpx
+py-bcrypt
+jsonpickle
+bidict
+bcrypt
+requirements
+datetime
+>>>>>>>>> Temporary merge branch 2
