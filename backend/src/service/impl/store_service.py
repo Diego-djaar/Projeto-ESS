@@ -69,7 +69,7 @@ class Store_service():
         store = database.get_store_by_cnpj(CNPJ)
 
         if store == None:
-            return HTTPLoginResponses.STORE_NOT_FOUND_UPDATE()
+            return HTTPUpdateStoreResponses.STORE_NOT_FOUND_UPDATE()
         
         elif Email != store.email:
             return HTTPUpdateStoreResponses.UNAUTORIZED()
@@ -77,6 +77,7 @@ class Store_service():
         else:
             store.update_password({'senha': New_password})
             database.write_to_file()
+            print(store.senha)
             return HTTPUpdateStoreResponses.UPDATE_SUCCESS()
         
 
@@ -95,6 +96,8 @@ class Store_service():
         if store == None:
             return HTTPLoginResponses.STORE_NOT_FOUND()
         if store.senha != Senha:
+            print(store.senha)
+            print(Senha)
             return HTTPUpdateStoreResponses.UNAUTORIZED()
         
         if nSenha and store.senha != nSenha:

@@ -115,7 +115,7 @@ class StoreDatabase():
         if update:
             self.try_read_from_file()
         for key, val in self.db.items():
-            if val.email == name:
+            if val.nome == name:
                 return val
         return None
     
