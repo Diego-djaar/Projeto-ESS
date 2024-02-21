@@ -2,14 +2,14 @@ from typing import List, Dict
 from uuid import uuid4
 from pymongo import MongoClient, errors
 from pymongo.collection import Collection, IndexModel
-#from src.config.config import env
+#from config.config import env
 from logging import INFO, WARNING, getLogger
 from decimal import Decimal
 import re
 import os.path
 import jsonpickle
-from src.db.itens_database import Item
-from src.db.schemas.adress_schema import Endereço
+from db.itens_database import Item
+from db.schemas.adress_schema import Endereço
 import sys
 
 # Faz os testes não interferirem com o funcionamento do programa em live

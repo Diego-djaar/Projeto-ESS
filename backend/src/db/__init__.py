@@ -13,10 +13,11 @@ user_database_example.clear_database()
 
 from .itens_database import ItemDatabase
 from .carrinho_database import Carrinhos
+from .inventory_database import InventoryDatabase
 
 item_database = ItemDatabase()
-
 cart_database = Carrinhos()
+inventory_database = InventoryDatabase()
 
 recuperacao_database = RecuperacaoDatabase()
 recuperacao_database_test = RecuperacaoDatabase("Códigos teste.json")

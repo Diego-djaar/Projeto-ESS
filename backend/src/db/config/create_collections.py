@@ -1,7 +1,7 @@
 from pymongo import ASCENDING, IndexModel
 from .item_collection_example import ITEM_COLLECTION_EXAMPLE
-from src.db.schemas.item_schema import ItemSchema
-from src.db.serializers.schema_serializer import schema_serializer
+from db.schemas.item_schema import ItemSchema
+from db.serializers.schema_serializer import schema_serializer
 
 
 def create_collections(database):

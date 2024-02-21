@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from src.db.user_database import User
+from db.user_database import User
 import datetime
 
 class Token(BaseModel):

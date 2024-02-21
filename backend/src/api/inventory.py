@@ -82,8 +82,8 @@ def adicionar_item(
     description: str, 
     price: str,
     quantidade: int,
-    img : str,
     CNPJ: str, 
+    img : str = None,
     ) -> HttpResponseModel:
     """ Cria novo item"""
 

@@ -1,8 +1,8 @@
 import datetime
 from pydantic import BaseModel
-from src.schemas.response import HTTPResponses, HttpResponseModel
-from src.db.user_database import User, UserDatabase
-from src.schemas.user_response import HTTPLoginResponses
+from schemas.response import HTTPResponses, HttpResponseModel
+from db.user_database import User, UserDatabase
+from schemas.user_response import HTTPLoginResponses
 from random import randrange
 from bidict import bidict
 

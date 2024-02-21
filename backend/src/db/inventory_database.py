@@ -2,7 +2,7 @@ from typing import List, Dict
 from uuid import uuid4
 from pymongo import MongoClient, errors
 from pymongo.collection import Collection, IndexModel
-#from src.config.config import env
+#from config.config import env
 from logging import INFO, WARNING, getLogger
 from decimal import Decimal
 import re
@@ -46,7 +46,7 @@ class InventoryEntry():
         return InventoryEntryData(
             cnpj = self.cnpj,
             id_item = self.id_item,
-            qnt = self.qnt
+            qnt = self.qnt,
             nome = self.nome
         )
     
@@ -81,7 +81,7 @@ class InventoryEntry():
             reason.append("Quantidade deve ser não negativa")
 
         # verifica que nome é não nulo
-        if nome == ""
+        if nome == "":
             reason.append("Nome deve ser não nulo")
 
         obj = None
@@ -90,14 +90,7 @@ class InventoryEntry():
             obj = InventoryEntry(cnpj = cnpj, id_item = id_item, qnt = qnt, nome = nome)
 
         return (obj, reason)
-
-    #-----------------------------------------------------------------------------------------------------
-    função modificar quantidade no inventário (tem que mudar no InventoryDatabase tb)
-
-    depois precisa de uma função equivalente no inventory_service. 
-    função de modificar que já existe pode tirar, pq ela tá no item_database_service
-
-    pra poder modificar, add condicional no service vendo se cnpj 
+        
 
 class InventoryDatabase():
     db: dict[InventoryEntry]

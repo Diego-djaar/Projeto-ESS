@@ -2,7 +2,7 @@ from typing import List, Dict
 from uuid import uuid4
 from pymongo import MongoClient, errors
 from pymongo.collection import Collection, IndexModel
-#from src.config.config import env
+#from config.config import env
 from logging import INFO, WARNING, getLogger
 from decimal import Decimal
 import re
@@ -155,7 +155,7 @@ class ItemDatabase():
         reason = []
         if update:
             self.try_read_from_file()
-        if ItemDatabase.get_item_by_ID(item.id, False):
+        if self.get_item_by_ID(item.id, False):
             reason.append("Item com mesmo ID já na base de dados")
         
         if reason.__len__() > 0:

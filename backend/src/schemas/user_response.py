@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel
 from .response import HttpResponseModel
-from src.schemas.user_schemas import DadosLogin, DadosUser
+from schemas.user_schemas import DadosLogin, DadosUser
 
 class HTTPSignUpResponses:
 
