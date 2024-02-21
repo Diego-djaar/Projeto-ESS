@@ -5,7 +5,7 @@ from src.api import carrinho, cancel_orders, estimated_time_arrival, order_histo
 
 api_router = APIRouter()
 
-
+api_router.include_router(carrinho.router, prefix="/carrinho", tags = ["carrinho"])
 api_router.include_router(users.router, prefix="/auth/user", tags = ["user"])
 
 api_router.include_router(carrinho.router, prefix="/carrinho", tags = ["carrinho"])
