@@ -89,7 +89,7 @@ def store_retrieve_password(dados: DadosRetrieveLoja):
         raise HTTPException(status_code=resultado.status_code, detail=resultado.message)
     
 @router.post(
-    "/user/change_user_data",
+    "/store/change_store_data",
     response_model=HttpResponseModel,
     status_code=status.HTTP_200_OK,
     description="Modifição de dados da loja",
