@@ -9,3 +9,9 @@ Scenario: Adicionar item ao carrinho
     Given um carrinho de CPF "123.456.789-10" já foi criado
     When adiciona-se um item de id "12345678" ao carrinho
     Then o carrinho possui o item de id "12345678"
+
+Scenario: Remover item de carrinho
+    Given um carrinho de CPF "123.456.789-10" já foi criado
+    And o carrinho possui o item de id "12345678"
+    When remove-se um item de id "12345678" do carrinho
+    Then o carrinho está vazio

@@ -26,6 +26,28 @@ def test_create_cart():
 def test_add_item_to_cart():
     pass
 
+@scenario(scenario_name="Remover item de carrinho", feature_name="../features/carrinho.feature")
+def test_remove_item_from_cart():
+    pass
+
+@given(parsers.cfparse('o carrinho possui o item de id "{id}"'), target_fixture="context")
+def item_no_carrinho(context, id: str):
+    add_item_to_cart(context, id)
+    return context
+
+@when(parsers.cfparse('remove-se um item de id "{id}" do carrinho'), target_fixture="context")
+def remove_item_from_cart(context, id: str):
+    carrinho = context["carrinho"]
+    carrinho.remove_item_by_ID(id)
+    context["carrinho"] = carrinho
+    return context
+
+@then(parsers.cfparse('O carrinho está vazio'), target_fixture="context")
+def carrinho_vazio(context):
+    carrinho = context["carrinho"]
+    assert carrinho.items == {}
+    return context
+
 @given(parsers.cfparse('um carrinho de CPF "{CPF}" já foi criado'), target_fixture="context")
 def carrinho_criado(context, CPF: str):
     context = criar_carrinho(context, CPF)
