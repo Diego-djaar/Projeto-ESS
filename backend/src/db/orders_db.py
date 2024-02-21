@@ -1,8 +1,8 @@
-from typing import List, Dict
-from logging import INFO, WARNING, getLogger
-from datetime import datetime, timedelta
+from logging import getLogger
 import json
 import os
+from src.schemas.history import OrderFilter
+from src.schemas.provisory_schemas import Order
 
 logger = getLogger('uvicorn')
 
@@ -58,3 +58,51 @@ def get_all_orders_db(user_CPF: str) -> (bool, []):
         return (False, [])
     else:
         return (True, canceled_orders)
+
+def orders_user(user_CPF: str):
+    db = read_file({}, "orders.json")
+    if user_CPF in db:
+        orders = db[user_CPF]
+        return orders
+    else:
+        return []
+
+def order_user(user_CPF: str, order_id: int):
+    db = read_file({}, "orders.json")
+    if user_CPF in db:
+        for order in db[user_CPF]:
+            if order["_id"] == order_id:
+                return order
+    return {}
+
+def orders_filtered(filtro: OrderFilter):
+    db = read_file({}, "orders.json")
+    result = []
+    if filtro.cpf in db:
+        orders = db[filtro.cpf]
+        for order in orders:
+            valid = validate_orders(filtro, order)
+            if valid:
+                result.append(order)
+    return result
+    
+def validate_orders(filter: OrderFilter, order_: Order):
+    valid = True
+    order = Order(**order_)
+    if filter.id and order_['id'] != filter.id:
+        valid = False
+    if valid and filter.supplier_name and filter.supplier_name.lower() not in order.supplier_name.lower():
+        valid = False
+    if valid and filter.name and filter.name.lower() not in order.name.lower():
+        valid = False
+    if valid and filter.quantity and filter.quantity != order.quantity:
+        valid = False
+    if valid and filter.price_min and (order.price < filter.price_min):
+        valid = False
+    if valid and filter.price_max and (order.price > filter.price_max):
+        valid = False
+    if valid and filter.start_date and (order.request_date < filter.start_date):
+        valid = False
+    if valid and filter.end_date and (order.request_date > filter.end_date):
+        valid = False
+    return valid

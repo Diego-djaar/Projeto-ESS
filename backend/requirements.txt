@@ -13,3 +13,4 @@ bidict
 bcrypt
 requirements
 datetime
+>>>>>>>>> Temporary merge branch 2
