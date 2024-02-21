@@ -115,6 +115,11 @@ def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, valida
 
     if cpf not in database:
         database[cpf] = []
+    else: 
+        for metodo in database[cpf]:
+            if metodo["tipo"] == "cartao":
+                if metodo["numero_cartao"] == numero_cartao:
+                    return (False, "ALREADY_EXIST")
 
     id_value = str(abs(hash((datetime.date.today(), cpf))))
 
@@ -290,6 +295,21 @@ def delete_method(id: str) -> bool:
  
     return False 
 
+def remove_card(cpf: str, numero_cartao: str): 
+
+    if cpf in database: 
+        for metodo in database[cpf]:
+            if metodo["numero_cartao"] == numero_cartao: 
+                index = database[cpf].index(metodo)
+                del database[cpf][index]
+                write_file(database)
+            else: 
+                return "NO_NUMBER_FOUND"
+    else: 
+        return "NO_USER"
+    
+
+
 def get_by_number(numero_cartao: str):
 
 
@@ -301,3 +321,63 @@ def get_by_number(numero_cartao: str):
                     return val 
                 
     return None
+
+def get_methods_list(cpf: str): 
+
+    if cpf in database:
+        return database[cpf]
+    return None 
+    
+def get_card_by_number_and_cpf(cpf: str, numero_cartao: str): 
+
+    if cpf in database: 
+        for metodo in database[cpf]:
+            if metodo["numero_cartao"] == numero_cartao: 
+                return metodo     
+    return None 
+    
+def get_pix_by_cpf(cpf: str): 
+
+    if cpf in database: 
+        for metodo in database[cpf]:
+            if metodo["tipo"] == "pix": 
+                return metodo
+    return None 
+
+def get_boleto_by_cpf(cpf: str): 
+
+    if cpf in database: 
+        for metodo in database[cpf]:
+            if metodo["tipo"] == "boleto": 
+                return metodo
+    return None
+
+def inserir_cartao_com_id(id: str, tipo: str, nome: str, numero: str, cvv: str, validade: datetime, cpf: str): 
+
+    database[cpf].append({
+        "id": id,
+        "tipo": tipo,
+        "nome": nome,
+        "numero": numero,
+        "cvv": cvv,
+        "validade":validade,
+        "cpf": cpf
+        }
+)
+    
+def get_cartao_id(cpf: str, numero: str):
+
+    if cpf in database:
+        for met in database[cpf]:
+            if met["numero_cartao"] == numero:
+                return met["id"] 
+    return None 
+
+
+def get_pix_id(cpf: str):
+
+    if cpf in database:
+        for met in database[cpf]:
+            if met["tipo"] == "pix":
+                return met["id"] 
+    return None 

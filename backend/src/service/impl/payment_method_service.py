@@ -12,6 +12,8 @@ class PaymentService:
 
         if sucess: 
             return HTTPPaymentResponse.INSERTION_SUCESSFULLY(problems)
+        elif problems == "ALREADY_EXIST":
+            return HTTPPaymentResponse.CARTAO_ALREADY_EXIST()
         else: 
             return HTTPPaymentResponse.BAD_REQUEST(problems)
     
