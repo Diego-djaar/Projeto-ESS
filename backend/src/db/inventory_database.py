@@ -49,6 +49,14 @@ class InventoryEntry():
             qnt = self.qnt,
             nome = self.nome
         )
+
+    def to_dict(self):
+        return {
+            "id_item": self.id_item,
+            "cnpj": self.cnpj,
+            "qnt": self.qnt,
+            "nome": self.nome
+        }
     
     @staticmethod
     def new_inventory_entry(cnpj: str, id_item: str, qnt : int, nome : str):
@@ -122,6 +130,24 @@ class InventoryDatabase():
         """Retorna todos as entradas da base"""
         self.try_read_from_file()
         return list(self.db.values())
+
+    def get_inventory_list_by_cnpj(self, cnpj: str) -> list:
+        """Retorna todos as entradas da base que correspondem àquele cnpj"""
+
+        all_entries = self.get_inventory_list()
+
+        print(f"all entries: {0}", all_entries)
+
+        valid_entries = []
+
+        # entre todos os itens
+        for entry in all_entries: 
+            if (entry.cnpj == cnpj):
+                valid_entries.append(entry.to_dict()) # os que são válidos (pertencem à loja de cnpj = cnpj)
+
+        print(f"valid entries: {0}", valid_entries)
+
+        return valid_entries
     
     def add_new_inventory_entry(self, inventory_entry: InventoryEntry):
         """Adicionar um novo objeto InventoryEntry à base
@@ -137,7 +163,7 @@ class InventoryDatabase():
         reason = []
         self.try_read_from_file()
         # verifica id do item, porque id da loja pode ocorrer mais de uma vez
-        if InventoryDatabase.get_inventory_entry_by_ID(inventory_entry.id_item):
+        if self.get_inventory_entry_by_ID(id_item = inventory_entry.id_item):
             reason.append("InventoryEntry com mesmo ID já na base de dados")
         
         if reason.__len__() > 0:
@@ -165,7 +191,7 @@ class InventoryDatabase():
         self.try_read_from_file()
 
         # verifica se existe entrada correspondente
-        inventry_entry = inInventoryDatabase.get_inventory_entry_by_ID(id_item) 
+        inventry_entry = self.get_inventory_entry_by_ID(id_item = id_item) 
         if inventry_entry == None:
             return (False, ["Chave inexistente"])
         
@@ -191,7 +217,7 @@ class InventoryDatabase():
         self.write_to_file()
         return toreturn
 
-    @staticmethod
+    #@staticmethod
     def get_inventory_entry_by_ID (self, id_item: str) -> InventoryEntry | None:
         """ Acessar um InventoryEntry da database
 

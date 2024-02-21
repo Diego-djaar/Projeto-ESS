@@ -37,20 +37,15 @@ class InventoryService(ItemServiceMeta):
                 data=entry,
             )
 
-
+    # todas as entradas referentes àquele cnpj
     @staticmethod
     def get_items(cnpj : str) -> HttpResponseModel:
         # busca 
-        all_entries = db.get_inventory_list()
+        entries = db.get_inventory_list_by_cnpj(cnpj = cnpj)
 
-        valid_entries = []
+        print(entries)
 
-        # entre todos os itens
-        for entry in all_entries: 
-            if (entry.cnpj == cnpj):
-                valid_entries.append(entry) # os que são válidos (pertencem à loja de cnpj = cnpj)
-
-        if valid_entries.__len__() == 0:
+        if entries.__len__() == 0:
             return HttpResponseModel(
                 message=HTTPDatabaseResponses.NO_ITEM_IN_DATABASE().message,
                 status_code=HTTPDatabaseResponses.NO_ITEM_IN_DATABASE().status_code,
@@ -59,12 +54,12 @@ class InventoryService(ItemServiceMeta):
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
-                data=valid_entries
+                data=entries
             )
     
     # adicionar item à db itens e à db inventory
     @staticmethod
-    def add_new_item(item_data: DadosItem, cnpj : str, qnt : int):
+    def add_new_item_service(item_data: DadosItem, cnpj : str, qnt : int):
         """Tenta adicionar um novo item no banco de dados"""
 
         (item, reason) = Item.new_item(*item_data.model_dump().values())
@@ -76,7 +71,7 @@ class InventoryService(ItemServiceMeta):
         if success:
             
             # add valores na db inventário
-            inventory_entry = InventoryEntry.new_inventory_entry(cnpj = cnpj, id_item = item.id, nome = item.nome, qnt = qnt)
+            (inventory_entry, reason ) = InventoryEntry.new_inventory_entry(cnpj = cnpj, id_item = item.id, nome = item.nome, qnt = qnt)
             db.add_new_inventory_entry(inventory_entry)
 
             # retorna

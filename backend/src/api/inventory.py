@@ -96,7 +96,7 @@ def adicionar_item(
         img = img
     )
         #inventory_service: add_new_item(item_data: DadosItem, cnpj : str, qnt : int)
-    resultado = InventoryService.add_new_item(item_data = item_data, cnpj = CNPJ, qnt = quantidade)
+    resultado = InventoryService.add_new_item_service(item_data = item_data, cnpj = CNPJ, qnt = quantidade)
 
     if resultado.status_code == status.HTTP_200_OK:
         return resultado

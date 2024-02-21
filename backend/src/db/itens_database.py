@@ -152,10 +152,11 @@ class ItemDatabase():
             reason (list[str]): contém "Item com mesmo ID já na base de dados" se for um item já existente.
             ["SUCCESS"] caso tenha sido uma operação bem sucedida
         """
+
         reason = []
         if update:
             self.try_read_from_file()
-        if self.get_item_by_ID(item.id, False):
+        if self.get_item_by_ID(item_id = item.id, update = False):
             reason.append("Item com mesmo ID já na base de dados")
         
         if reason.__len__() > 0:
@@ -169,7 +170,7 @@ class ItemDatabase():
         """ Remover um item da database
 
         Args:
-            item_id (int): ID do item em questão
+            item_id (str): ID do item em questão
 
         Returns:
             success (bool): True para operação bem sucedida, False para mal sucedida
@@ -182,16 +183,21 @@ class ItemDatabase():
         self.write_to_file()
         return toreturn
 
-    @staticmethod
+    #@staticmethod
     def get_item_by_ID (self, item_id: str, update: bool = True) -> Item | None:
         """ Acessar um item da database
 
         Args:
-            item_id (int): ID do item em questão
+            item_id (str): ID do item em questão
 
         Returns:
             item (Item | None): Item se existe, None se não
         """
+
+        print(type(self))
+        print(item_id)
+        print(update)
+
         if update:
             self.try_read_from_file()
         for key,val in self.db.items():
