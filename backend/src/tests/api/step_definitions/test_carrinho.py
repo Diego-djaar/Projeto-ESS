@@ -65,9 +65,10 @@ def endereço_nao_registrado(context, CPF: str):
     check_response_json(context)
     return context
 
-@when(parsers.cfparse('o endereço do carrinho de CPF "{CPF}" é alterado para "{endereço}"'))
+@when(parsers.cfparse('o endereço do carrinho de CPF "{CPF}" é alterado para "{endereço}"'), target_fixture="context")
 def alterar_endereço(context, CPF: str, endereço: str):
     endereco_lista = endereço.split(", ")
+    print(type(context))
     response = TESTCLIENT.put("/backend/api/carrinho/alterar_endereço", params={"CPF": CPF}, json={
         "rua": endereco_lista[0],
         "numero": endereco_lista[1],
@@ -78,14 +79,21 @@ def alterar_endereço(context, CPF: str, endereço: str):
         "pais": endereco_lista[6],
         "complemento": endereco_lista[7]
     })
+    print(f'{context} CONTEXT')
+    print(type(context))
     context["response"] = response
     return context
 
 @then(parsers.cfparse('o carrinho de CPF "{CPF}" tem "{endereço}" no campo endereço'), target_fixture="context")
 def assert_adress(context, CPF: str, endereço: str):
-    send_get_cart_request(CPF)
-    cart_dict = context["response"].data
-    assert cart_dict["Endereço: "] == endereço
+    send_get_cart_request(context)
+    print(context["response"].json()['data']['Endereço'])
+    print(endereço)
+    endereço_carrinho = context['response'].json()['data']["Endereço"]
+    endereço_carrinho_formatado = endereço_carrinho.replace("\\n", "\n")
+    endereço_formatado = endereço.replace("\\n", "\n")
+    print(endereço_formatado)
+    assert endereço_carrinho_formatado == endereço_formatado
     return context
 
 @given(parsers.cfparse('o Carrinho_service retorna um carrinho com cpf "{CPF_}"'))
@@ -241,9 +249,8 @@ def verificar_item_no_carrinho(context):
 @when(parsers.cfparse('uma requisição GET for enviada para "/backend/api/carrinho/view/123.456.789-10"'), target_fixture="context")
 def send_get_cart_request(context, client = TESTCLIENT):
     print("send_get_cart_request")
-    print(context)
+    print(type(context))
     response = client.get(url="/backend/api/carrinho/view/123.456.789-10")
-    print(context)
     context["response"] = response
     return context
 
