@@ -30,6 +30,30 @@ def test_add_item_to_cart():
 def test_remove_item_from_cart():
     pass
 
+@scenario(scenario_name="Alterar endereço do carrinho", feature_name="../features/carrinho.feature")
+def test_modify_adress():
+    pass
+
+@given(parsers.cfparse('o carrinho não possui endereço registrado'), target_fixture="context")
+def assert_no_adress(context):
+    assert context["carrinho"].endereço is None
+    return context
+
+@when(parsers.cfparse('adiciona-se o endereço "{endereço}"'), target_fixture="context")
+def modify_adress(context, endereço: str):
+    endereço_separado = endereço.split(", ")
+    carrinho = context["carrinho"]
+    carrinho.alterar_endereço(*endereço_separado)
+    context["carrinho"] = carrinho
+    return context
+
+@then(parsers.cfparse('o carrinho possui endereço "{endereço}"'), target_fixture="context")
+def assert_adress(context, endereço: str):
+    carrinho = context["carrinho"]
+    endereço_formatado = endereço.replace("\\n", "\n")
+    assert carrinho.endereço.__str__() == endereço_formatado
+    return context
+
 @given(parsers.cfparse('o carrinho possui o item de id "{id}"'), target_fixture="context")
 def item_no_carrinho(context, id: str):
     add_item_to_cart(context, id)
