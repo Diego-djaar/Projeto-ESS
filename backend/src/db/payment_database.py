@@ -367,6 +367,17 @@ def inserir_cartao_com_id(id: str, tipo: str, nome: str, numero: str, cvv: str, 
     
 def get_cartao_id(cpf: str, numero: str):
 
-    for met in database[cpf]:
-        if met["numero_cartao"] == numero:
-            return met["id"] 
+    if cpf in database:
+        for met in database[cpf]:
+            if met["numero_cartao"] == numero:
+                return met["id"] 
+    return None 
+
+
+def get_pix_id(cpf: str):
+
+    if cpf in database:
+        for met in database[cpf]:
+            if met["tipo"] == "pix":
+                return met["id"] 
+    return None 
