@@ -12,7 +12,7 @@ TESTCLIENT = TestClient(app)
 
 response_data = {"111.222.333-44": [
         {
-            "_id": 1,
+            "id": 1,
             "supplier_name": "Fornecedor A",
             "name": "Produto A",
             "img": "XXXX",
@@ -26,7 +26,7 @@ response_data = {"111.222.333-44": [
             "payment_method": "Cartão de Crédito"
         },
         {
-            "_id": 2,
+            "id": 2,
             "supplier_name": "Fornecedor B",
             "name": "Produto B",
             "img": "YYYY",
@@ -59,7 +59,7 @@ def mock_orders_service_response(order_1: int, order_2: int):
     OrdersService.orders_user_service = lambda id: HttpResponseModel(
         message= HTTPOrdersResponse.GET_SUCCESSFULLY(response_data[0]).message,
         status_code= HTTPOrdersResponse.GET_SUCCESSFULLY(response_data[0]).status_code,
-        data = [order for order in response_data["111.222.333-44"] if order["_id"] in (order_1, order_2)]
+        data = [order for order in response_data["111.222.333-44"] if order["id"] in (order_1, order_2)]
     )
 
 @given(parsers.cfparse('o OrdersService retorna uma lista de pedidos filtrados que contém o pedido de id "{order_id}"'))
@@ -69,13 +69,13 @@ def mock_orders_filtered_service_response(order_id: int):
     OrdersService.orders_filtered_service = lambda id: HttpResponseModel(
         message= HTTPOrdersResponse.GET_SUCCESSFULLY(response_data[0]).message,
         status_code= HTTPOrdersResponse.GET_SUCCESSFULLY(response_data[0]).status_code,
-        data = response_data["111.222.333-44"]["_id" == 1]
+        data = response_data["111.222.333-44"]["id" == 1]
     )
 @given(parsers.cfparse('a lista de pedidos possui a chave CPF "{cpf}" e possui o pedido de ID "{order_id}" associado a ele'))
 
 def mock_order_service_response(cpf: str, order_id: int):
     assert cpf in response_data
-    assert any(order['_id'] == int(order_id) for order in response_data[cpf])
+    assert any(order['id'] == int(order_id) for order in response_data[cpf])
 
 
 @when(
@@ -94,7 +94,7 @@ def send_get_orders_request(url: str):
     parsers.cfparse('é solicitado uma requisição GET para "{url}" com o parâmetro CPF do usuário "{cpf}" e ID de pedido "{order_id}"'),
     target_fixture="request_response"
 )
-def send_get_orders_request(url: str, cpf: str, order_id : int):
+def send_get_order_request(url: str, cpf: str, order_id : int):
     url = "http://127.0.0.1:8000" + url + cpf + "&" + str(order_id)
     headers = {'accept': 'application/json'}
 
@@ -106,7 +106,7 @@ def send_get_orders_request(url: str, cpf: str, order_id : int):
     parsers.cfparse('uma requisição POST é enviada para "{url}" com o body contendo o CPF "{cpf}", o price_max "{valor}" e o restante dos campos nulos'),
     target_fixture="request_response"
 )
-def send_get_orders_request(url: str, cpf: str, valor: str):
+def send_get_orders_filtered_request(url: str, cpf: str, valor: str):
     url = "http://127.0.0.1:8000" + url
     body = { 
         "cpf": cpf, "id": None, "supplier_name" : None, "name" : None,
@@ -116,7 +116,6 @@ def send_get_orders_request(url: str, cpf: str, valor: str):
     headers = {'accept': 'application/json'}
 
     response = requests.post(url, headers=headers,json=body)
-    print(response.json())
 
     return response
 
@@ -150,18 +149,18 @@ def check_response_json(request_response):
 
     for order in orders:
         assert isinstance(order, dict)
-        assert "_id" in order and isinstance(order["_id"], int)
+        assert "id" in order and isinstance(order["id"], int)
 
 @then(
     parsers.cfparse('o pedido de id "{order_id}" e nome "{order_name}" está na lista')
 )
 def check_order_in_list(request_response, order_id: int, order_name: str):
     orders = request_response.json()["data"]
-    assert any(order['_id'] == int(order_id) and order["name"] == order_name for order in orders)
+    assert any(order['id'] == int(order_id) and order["name"] == order_name for order in orders)
 
 @then(
     parsers.cfparse('o JSON de resposta terá os dados do pedido "{order_id}"')
 )
 def check_order_in_list(request_response, order_id: int):
     order = request_response.json()["data"]
-    assert order["_id"] == int(order_id)
+    assert order["id"] == int(order_id)
