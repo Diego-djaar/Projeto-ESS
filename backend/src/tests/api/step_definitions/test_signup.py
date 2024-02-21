@@ -81,29 +81,6 @@ def signup_request(
     post_ = getattr(client, request_type.lower())
     return post_("/backend/api/auth/user/" + signup, json=signup_request)
 
-@when('a requisição está correta')
-def assert_correction():
-    """A requisição deve estar correta
-    
-    Não é necessário checar aqui
-    """
-    pass
-
-@then(parsers.cfparse('o campo "{campo}" da requisição é validado'))
-def validade_field():
-    """O campo deve ser validado
-    
-    Não é necessário checar aqui
-    """
-    pass
-
-@then(parsers.cfparse('o campo "{campo}" da requisição é rejeitado'))
-def validade_field():
-    """O campo deve ser validado
-    
-    Não é necessário checar aqui
-    """
-    pass
 
 @then(parsers.cfparse('o status da resposta deve ser "{status}"'))
 def check_response_status(status: str, request_response):

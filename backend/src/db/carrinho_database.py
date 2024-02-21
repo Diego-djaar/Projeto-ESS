@@ -4,12 +4,19 @@ from pymongo import MongoClient, errors
 from pymongo.collection import Collection, IndexModel
 #from src.config.config import env
 from logging import INFO, WARNING, getLogger
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 import re
 import os.path
 import jsonpickle
 from src.db.itens_database import Item
 from src.db.schemas.adress_schema import Endereço
+import sys
+
+# Faz os testes não interferirem com o funcionamento do programa em live
+if "pytest" in sys.modules:
+    database_path = "Carrinhos teste.json"
+else:
+    database_path = "Carrinhos.json"
 
 logger = getLogger('uvicorn')
 
@@ -38,7 +45,9 @@ class Carrinho():
         aux = Decimal("0.00")
         for item in self.items.values():
             aux += Decimal(item.price) * item.quantidade # Valor inteiro
-        self.total = str(aux)
+        
+        dois_decimais = Decimal("0.00") # Arredonda para duas casas decimais
+        self.total = str(aux.quantize(dois_decimais, rounding=ROUND_HALF_UP))
 
     def alterar_endereço(self, rua: str, numero: int, bairro: str, cidade: str, estado: str, cep: str, pais: str, complemento: str | None = None):
         """ Tenta adicionar um endereço """
@@ -132,13 +141,14 @@ class Carrinho():
 
     def clear_database(self):
         self.items = dict()
+        self.recalcular_total()
         
 
 class Carrinhos():
     db: dict[Carrinho]
     file_path:str
 
-    def __init__(self, path: str = "Carrinhos.json"):
+    def __init__(self, path: str = database_path):
         self.db = dict()
         self.file_path = path
         self.try_read_from_file()
@@ -204,12 +214,14 @@ class Carrinhos():
         if update:
             self.try_read_from_file()
         if self.get_cart_by_CPF(carrinho.CPF, False):
+            print("Carrinho com mesmo CPF já na base de dados")
             reason.append("Carrinho com mesmo CPF já na base de dados")
         
         if reason.__len__() > 0:
             return (False, reason)
         
         self.db[carrinho.CPF] = carrinho
+        print("Carrinho criado e adicionado a base de dados")
         self.write_to_file()
         return (True, ["SUCCESS"])
 
@@ -367,7 +379,7 @@ class Carrinhos():
         else:
             del carrinho.items[item_id]
             reason.append("Quantidade do item alterada para 0, item removido do carrinho")
-        
+        carrinho.recalcular_total()
         self.write_to_file()
 
         return (True, reason)
@@ -398,6 +410,7 @@ class Carrinhos():
             return (False, reason)
 
         carrinho.items[item_id].quantidade += 1
+        carrinho.recalcular_total()
 
         self.write_to_file()
         reason.append("SUCCESS")
@@ -411,12 +424,13 @@ class Carrinhos():
     def clear_cart_by_CPF(self, CPF: str, update: bool = True):
         """ Tenta limpar o conteúdo do carrinho em questão. Retorna bool (success)"""
         if update:
-            self.try_read_from_file
+            self.try_read_from_file()
         
         carrinho = self.get_cart_by_CPF(CPF=CPF)
         if carrinho is None:
             return False
         else:
-            carrinho.items = dict()
-            self.write_to_file
+            carrinho.clear_database()
+            
+            self.write_to_file()
             return True

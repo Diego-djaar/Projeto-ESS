@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status, HTTPException
+from fastapi import APIRouter, status, HTTPException, Response
 from src.service.impl.payment_method_service import PaymentService
 from src.schemas.payment_schema import Cartao, Boleto, Pix, CartaoUpdate, PixUpdate, BoletoUpdate
 from src.schemas.response import HTTPResponses, HttpResponseModel
@@ -10,32 +10,65 @@ router = APIRouter()
 @router.post(
         '/inserting/cartao', 
         response_model=HttpResponseModel,
-        status_code=201, 
+        status_code=status.HTTP_200_OK,
+        responses = {
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Método de pagmento",
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Bad Request",
+        }
+    }, 
         description="Insert a new card", 
              )
-def insert_payment(cartao: Cartao) -> HttpResponseModel: 
-    response = PaymentService.inserting_card(cartao)
-    return response 
+def insert_payment(cartao: Cartao, response: Response) -> HttpResponseModel: 
+    result = PaymentService.inserting_card(cartao)
+    response.status_code = result.status_code
+    return result 
 
 @router.post(
         '/inserting/pix', 
         response_model=HttpResponseModel,
+        responses = {
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Método de pagmento",
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Bad Request",
+        }
+    }, 
         status_code=201, 
         description="Insert a new pix acount", 
              )
-def insert_payment(pix: Pix) -> HttpResponseModel: 
-    response = PaymentService.insertion_pix(pix)
-    return response 
+def insert_payment(pix: Pix, response: Response) -> HttpResponseModel: 
+    result = PaymentService.insertion_pix(pix)
+    response.status_code = result.status_code
+    return result 
 
 @router.post(
         '/inserting/boleto', 
         response_model=HttpResponseModel,
+        responses = {
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            "description": "Método de pagmento",
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            "description": "Bad Request",
+        }
+    }, 
         status_code=201, 
          description="Insert a new boleto acount", 
              )
-def insert_payment(boleto: Boleto) -> HttpResponseModel: 
-    response = PaymentService.insertion_ticket(boleto)
-    return response 
+def insert_payment(boleto: Boleto, response: Response) -> HttpResponseModel: 
+    result = PaymentService.inserting_card(boleto)
+    response.status_code = result.status_code
+    return result 
 
 # @router.get(
 #     "/get/payment_methods", 
