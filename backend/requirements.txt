@@ -11,6 +11,5 @@ py-bcrypt
 jsonpickle
 bidict
 bcrypt
-requirements
+requests
 datetime
->>>>>>>>> Temporary merge branch 2

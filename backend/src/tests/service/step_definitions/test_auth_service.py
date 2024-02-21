@@ -7,7 +7,7 @@ from random import randrange
 from bidict import bidict
 from src.service.impl.__init__ import token_service
 from src.schemas.user_schemas import DadosLogin, DadosUser
-from test_singup_service import sign_up_user
+#from test_singup_service import sign_up_user
 from src.service.impl.auth_service import AuthService
 from src.schemas.user_schemas import DadosLogin, DadosUser
 from fastapi.testclient import TestClient
