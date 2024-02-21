@@ -4,6 +4,7 @@ from src.schemas.response import HTTPResponses, HttpResponseModel
 from src.schemas.orders_response import HTTPOrdersResponse
 from src.db.orders_db import cancel_order_db, get_all_orders_db, orders_user, order_user, orders_filtered
 
+
 class OrdersService:
 
     @staticmethod

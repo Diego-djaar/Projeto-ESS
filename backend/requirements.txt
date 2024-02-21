@@ -7,3 +7,10 @@ pytest
 pytest-mongodb
 pytest-bdd
 httpx
+bcrypt
+jsonpickle
+requirements
+datetime
+py-bcrypt
+jsonpickle
+bidict

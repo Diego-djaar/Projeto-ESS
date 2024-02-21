@@ -61,7 +61,7 @@ class HTTPOrdersResponse:
             message="O usuário não tem pedidos cancelados",
             status_code=400
         ) 
-    
+
     @staticmethod
     def USER_ORDER(data) -> HttpResponseModel:
         if data == {}:
