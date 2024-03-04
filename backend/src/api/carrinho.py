@@ -1,8 +1,8 @@
 from fastapi import APIRouter, status, HTTPException
-from schemas.response import HttpResponseModel
-from service.impl.carrinho_service import Carrinho_service
-from service.impl.item_database_service import DadosItem
-from service.impl.carrinho_service import DadosEndereço
+from src.schemas.response import HttpResponseModel
+from src.service.impl.carrinho_service import Carrinho_service
+from src.service.impl.item_database_service import DadosItem
+from src.service.impl.carrinho_service import DadosEndereço
 
 router = APIRouter()
 
