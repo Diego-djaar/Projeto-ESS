@@ -55,3 +55,12 @@
   border: 12px solid rgb(112, 35, 0);
   outline: 0px;
 }
+
+.altered {
+  border: 10px solid rgb(235, 27, 27);
+}
+
+.altered:focus {
+  border: 12px solid rgb(235, 27, 27);
+  outline: 0px;
+}
