@@ -20,13 +20,14 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "7": "^0.0.1",
     "@hookform/resolvers": "^3.1.0",
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.44.1",
-    "react-router-dom": "^6.11.2",
-    "zod": "^3.21.4"
+    "react-hook-form": "^7.51.0",
+    "react-router-dom": "^6.22.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^18.0.1",
@@ -54,7 +55,7 @@
     "jsdom": "^22.1.0",
     "start-server-and-test": "^2.0.0",
     "typescript": "^5.0.2",
-    "vite": "^4.3.2",
+    "vite": "^4.5.2",
     "vite-plugin-istanbul": "^4.1.0",
     "vitest": "^0.31.1"
   }

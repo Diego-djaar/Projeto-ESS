@@ -1,234 +1,234 @@
-from typing import List, Dict
-from uuid import uuid4
-from pymongo import MongoClient, errors
-from pymongo.collection import Collection, IndexModel
-from src.config.config import env
-from logging import INFO, WARNING, getLogger
+# from typing import List, Dict
+# from uuid import uuid4
+# from pymongo import MongoClient, errors
+# from pymongo.collection import Collection, IndexModel
+# from src.config.config import env
+# from logging import INFO, WARNING, getLogger
 
-logger = getLogger('uvicorn')
+# logger = getLogger('uvicorn')
 
-class Database():
+# class Database():
 
-    ID_LENGTH = 8
+#     ID_LENGTH = 8
 
-    def __init__(self):
-        self.db = None
-        self.connect()
-
-
-    def connect(self):
-        try:
-            mongo_connection = MongoClient(env.DB_URL)
-
-            logger.setLevel(INFO)
-
-            self.db = mongo_connection[str(env.DB_NAME)]
-
-            print("--------------------")
-            logger.info("MongoDB connected!")
-            logger.info(f"Server Version: {mongo_connection.server_info()['version']}")
-            print("--------------------")
+#     def __init__(self):
+#         self.db = None
+#         self.connect()
 
 
-        except errors.ServerSelectionTimeoutError as err:
+#     def connect(self):
+#         try:
+#             mongo_connection = MongoClient(env.DB_URL)
 
-            mongo_connection = None
-            logger.setLevel(WARNING)
-            logger.info(f"MongoDB connection error! {err}")
+#             logger.setLevel(INFO)
 
-    def close_connection(self):
-        print("--------------------")
-        logger.info("MongoDB connection closed!")
-        print("--------------------")
-        self.db.client.close()
+#             self.db = mongo_connection[str(env.DB_NAME)]
 
-    def get_db(self):
-        return self.db
+#             print("--------------------")
+#             logger.info("MongoDB connected!")
+#             logger.info(f"Server Version: {mongo_connection.server_info()['version']}")
+#             print("--------------------")
 
 
-    def create_collection(
-        self,
-        name: str,
-        indexes: List[IndexModel] = [],
-        validation_schema: Dict = {}
-    ) -> Collection:
-        """
-        Create a collection
+#         except errors.ServerSelectionTimeoutError as err:
 
-        Parameters
-        - name : str
-            The name of the collection to create
-        - indexes : List[IndexModel]
-            The indexes to create in the collection
-        - validation_schema : dict
-            The validation schema used to validate data inserted into the
-            collection. It should be a dictionary representing a JSON Schema
+#             mongo_connection = None
+#             logger.setLevel(WARNING)
+#             logger.info(f"MongoDB connection error! {err}")
 
-        Returns
-        - pymongo.collection.Collection
-            The created collection
+#     def close_connection(self):
+#         print("--------------------")
+#         logger.info("MongoDB connection closed!")
+#         print("--------------------")
+#         self.db.client.close()
 
-        Raises
-        - TypeError: If indexes is not a list of pymongo.IndexModel
+#     def get_db(self):
+#         return self.db
 
-        """
 
-        collection_options = { "validator": { "$jsonSchema": validation_schema } }
+#     def create_collection(
+#         self,
+#         name: str,
+#         indexes: List[IndexModel] = [],
+#         validation_schema: Dict = {}
+#     ) -> Collection:
+#         """
+#         Create a collection
 
-        collection: Collection = self.db.create_collection(
-            name,
-            **collection_options
-        )
+#         Parameters
+#         - name : str
+#             The name of the collection to create
+#         - indexes : List[IndexModel]
+#             The indexes to create in the collection
+#         - validation_schema : dict
+#             The validation schema used to validate data inserted into the
+#             collection. It should be a dictionary representing a JSON Schema
 
-        collection.create_indexes(indexes)
+#         Returns
+#         - pymongo.collection.Collection
+#             The created collection
 
-        logger.info(f"Collection {name} created!")
+#         Raises
+#         - TypeError: If indexes is not a list of pymongo.IndexModel
 
-        return collection
+#         """
 
-    def drop_collection(self, name) -> bool:
-        """
-        Drop a collection
+#         collection_options = { "validator": { "$jsonSchema": validation_schema } }
 
-        Parameters
-        - name : str
-            The name of the collection to drop
+#         collection: Collection = self.db.create_collection(
+#             name,
+#             **collection_options
+#         )
 
-        Returns
-        - bool
-            True if the collection was dropped successfully, False otherwise
+#         collection.create_indexes(indexes)
 
-        """
+#         logger.info(f"Collection {name} created!")
 
-        if name in self.db.list_collection_names():
-            self.db.drop_collection(name)
-            logger.info(f"Collection {name} dropped!")
-            return True
+#         return collection
 
-        return False
+#     def drop_collection(self, name) -> bool:
+#         """
+#         Drop a collection
 
-    def get_all_items(self, collection_name: str) -> list:
-        """
-        Get all items from a collection
+#         Parameters
+#         - name : str
+#             The name of the collection to drop
 
-        Parameters:
-        - collection_name: str
-            The name of the collection
+#         Returns
+#         - bool
+#             True if the collection was dropped successfully, False otherwise
 
-        Returns:
-        - list
-            A list of all items in the collection
+#         """
 
-        """
+#         if name in self.db.list_collection_names():
+#             self.db.drop_collection(name)
+#             logger.info(f"Collection {name} dropped!")
+#             return True
 
-        collection: Collection = self.db[collection_name]
+#         return False
 
-        items = list(collection.find({}, {"_id": 0}))
+#     def get_all_items(self, collection_name: str) -> list:
+#         """
+#         Get all items from a collection
 
-        return items
+#         Parameters:
+#         - collection_name: str
+#             The name of the collection
 
-    def get_item_by_id(self, collection_name: str, item_id: str) -> dict:
-        """
-        Retrieve an item by its ID from a collection
+#         Returns:
+#         - list
+#             A list of all items in the collection
 
-        Parameters:
-        - collection_name: str
-            The name of the collection where the item will be stored
-        - item_id: str
-            The ID of the item to retrieve
+#         """
 
-        Returns:
-        - dict or None:
-            The item if found, None otherwise
+#         collection: Collection = self.db[collection_name]
 
-        """
-        collection: Collection = self.db[collection_name]
+#         items = list(collection.find({}, {"_id": 0}))
 
-        item = collection.find_one({"id": str(item_id)}, {"_id": 0})
-        return item
+#         return items
 
-    def insert_item(self, collection_name: str, item: dict) -> dict:
-        """
-        Insert an item into a collection
+#     def get_item_by_id(self, collection_name: str, item_id: str) -> dict:
+#         """
+#         Retrieve an item by its ID from a collection
 
-        Parameters:
-        - collection_name: str
-            The name of the collection where the item will be stored
-        - item: dict
-            The item to insert
+#         Parameters:
+#         - collection_name: str
+#             The name of the collection where the item will be stored
+#         - item_id: str
+#             The ID of the item to retrieve
 
-        Returns:
-        - dict:
-            The inserted item
+#         Returns:
+#         - dict or None:
+#             The item if found, None otherwise
 
-        """
-        # TODO: test if this method works
+#         """
+#         collection: Collection = self.db[collection_name]
 
-        item["id"] = str(uuid4())[:self.ID_LENGTH]
+#         item = collection.find_one({"id": str(item_id)}, {"_id": 0})
+#         return item
 
-        collection: Collection = self.db[collection_name]
+#     def insert_item(self, collection_name: str, item: dict) -> dict:
+#         """
+#         Insert an item into a collection
 
-        item_id = collection.insert_one(item).inserted_id
-        return {
-            "id": str(item_id),
-            **item
-        }
+#         Parameters:
+#         - collection_name: str
+#             The name of the collection where the item will be stored
+#         - item: dict
+#             The item to insert
 
-    # TODO: implement update_item method
-    # def update_item(self, collection_name: str, item_id: str, item: dict) -> dict:
-        """
-        Update an item in a collection
+#         Returns:
+#         - dict:
+#             The inserted item
 
-        Parameters:
-        - collection_name: str
-            The name of the collection where the item is stored
-        - item_id: str
-            The ID of the item to update
-        - item: dict
-            New item data
+#         """
+#         # TODO: test if this method works
 
-        Returns:
-        - dict:
-            The updated item
+#         item["id"] = str(uuid4())[:self.ID_LENGTH]
 
-        """
+#         collection: Collection = self.db[collection_name]
 
-    # TODO: implement delete_item method
-    # def delete_item(self, collection_name: str, item_id: str) -> list:
-        """
-        Delete an item of a collection
+#         item_id = collection.insert_one(item).inserted_id
+#         return {
+#             "id": str(item_id),
+#             **item
+#         }
 
-        Parameters:
-        - collection_name: str
-            The name of the collection where the item is stored
-        - item_id: str
-            The ID of the item to delete
+#     # TODO: implement update_item method
+#     # def update_item(self, collection_name: str, item_id: str, item: dict) -> dict:
+#         """
+#         Update an item in a collection
 
-        Returns:
-        - list:
-            A list of all items in the collection.
+#         Parameters:
+#         - collection_name: str
+#             The name of the collection where the item is stored
+#         - item_id: str
+#             The ID of the item to update
+#         - item: dict
+#             New item data
 
-        """
+#         Returns:
+#         - dict:
+#             The updated item
 
-    def add(self, collection_name: Collection, item: dict) -> dict: 
+#         """
 
-        #Insert a item in a collection.
+#     # TODO: implement delete_item method
+#     # def delete_item(self, collection_name: str, item_id: str) -> list:
+#         """
+#         Delete an item of a collection
+
+#         Parameters:
+#         - collection_name: str
+#             The name of the collection where the item is stored
+#         - item_id: str
+#             The ID of the item to delete
+
+#         Returns:
+#         - list:
+#             A list of all items in the collection.
+
+#         """
+
+#     def add(self, collection_name: Collection, item: dict) -> dict: 
+
+#         #Insert a item in a collection.
         
-        #Args: 
-            #collection_name (Collection) --> name of the collection. 
-            #item (dict) --> the item in form of a dict.
+#         #Args: 
+#             #collection_name (Collection) --> name of the collection. 
+#             #item (dict) --> the item in form of a dict.
         
-        #Process:
-            #acessing the collection of the item. 
-            #storing the item in the collection. 
+#         #Process:
+#             #acessing the collection of the item. 
+#             #storing the item in the collection. 
 
-        #Outuput:
-            #A document containing:
-                #A boolean acknowledged as true if the operation ran with write concern or false if write concern was disabled.
-                #A field insertedId with the _id value of the inserted document.
+#         #Outuput:
+#             #A document containing:
+#                 #A boolean acknowledged as true if the operation ran with write concern or false if write concern was disabled.
+#                 #A field insertedId with the _id value of the inserted document.
 
-        collection: Collection = self.db[collection_name]
+#         collection: Collection = self.db[collection_name]
 
-        result = collection.insert_one(dict(item))
+#         result = collection.insert_one(dict(item))
 
-        return result
+#         return result
