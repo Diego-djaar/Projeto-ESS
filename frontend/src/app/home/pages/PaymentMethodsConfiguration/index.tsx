@@ -1,5 +1,7 @@
 import styles from "./index.module.css";
 import Button from "../../components/buttom";
+import Pichu from "../../components/logo";
+import Mensage from "../../components/mensage";
 import { useNavigate } from 'react-router-dom';
 
 const PaymentConfig = () => {
@@ -11,22 +13,35 @@ const PaymentConfig = () => {
         navigate("/paymentMethod/inserting")
     }
 
+    const handleUpdatingClick = () => {
+
+        navigate("/paymentMethod/inserting")
+    }
+
+    const handleDeletingClick = () => {
+
+        navigate("/paymentMethod/inserting")
+    }
+
+    const handleViewingClick = () => {
+
+        navigate("/paymentMethod/inserting")
+    }
+
     return (
         <div className={styles.background}>
             <div>
-                <img src="../../../../../public/Pichu.png" alt="" className={styles.image}/>
+                <Pichu></Pichu>
             </div>
-            <p className={styles.mensage}>Configurações de método de pagamento</p>
+            <Mensage value= "Configurações de método de pagamento"></Mensage>
             <div className = {styles.buttomContainer}>
                 <div>
-                    <div onClick={handleInsertingClick}>
-                        <Button value="Inserir método de pagamento" ></Button>
-                    </div>
-                    <Button value="Atualizar método de pagamento"></Button>
+                    <Button value="Inserir método de pagamento" onClick={handleInsertingClick}></Button>
+                    <Button value="Atualizar método de pagamento" onClick={handleUpdatingClick}></Button>
                 </div>
                 <div>
-                    <Button value="Deletar método de pagamento" ></Button>
-                    <Button value="Visualizar método de pagamento" ></Button>
+                    <Button value="Deletar método de pagamento" onClick={handleDeletingClick}></Button>
+                    <Button value="Visualizar método de pagamento" onClick={handleViewingClick}></Button>
                 </div>
             </div>
         </div>
