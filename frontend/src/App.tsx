@@ -3,6 +3,7 @@ import CreateTest from "./app/home/pages/CreateTest";
 import ListTests from "./app/home/pages/ListTests";
 import PaymentConfig from "./app/home/pages/PaymentMethodsConfiguration";
 import PaymentInserting from "./app/home/pages/PaymentInserting";
+import InsertingBoleto from "./app/home/pages/InsertingBoleto";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/paymentMethod/inserting", 
     Component: PaymentInserting, 
+  },
+  {
+    path: "/paymentMethod/inserting/boleto",
+    Component: InsertingBoleto,
   },
 ]);
 

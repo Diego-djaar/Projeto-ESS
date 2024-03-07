@@ -1,0 +1,25 @@
+.forms {
+
+text-align: center;
+
+}
+
+.label {
+
+display: block;
+font-size: x-large;
+margin-bottom: 20px;
+margin-top: 20px;
+
+
+}
+
+.caixaTexto {
+
+border-radius: 8px;
+width: 300px;
+height: 40px;
+font-size: 20px;
+text-align: center;
+
+}
