@@ -1,5 +1,4 @@
 import styles from "./index.module.css";
-// import Button from "../../components/buttom";
 import Pichu from "../../components/logo";
 import Message from "../../components/mensage";
 import Form from "../../components/Form";
@@ -7,6 +6,7 @@ import Form from "../../components/Form";
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react'
 import axios from "axios";
+import SubmitButton from "../../components/SubmitButton";
 // import axios from "axios";
 
 const InsertingCard = () => {
@@ -60,7 +60,7 @@ const InsertingCard = () => {
                 <Form placeholder="Digite a validade do cartão" onChange={e => setValidade(e.target.value)}></Form>
                 </div>
                 <div className={styles.container4}>
-                 <button className={styles.submissionButton} onClick = {event => insertCartaoHandler(event)}>Inserir cartão</button>   
+                 <SubmitButton value= "Inserir cartão" onClick = {event => insertCartaoHandler(event)}></SubmitButton>
                 </div>
             </form>
         </div>
