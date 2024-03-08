@@ -2,6 +2,7 @@ import styles from "./index.module.css";
 // import Button from "../../components/buttom";
 import Pichu from "../../components/logo";
 import Message from "../../components/mensage";
+import Form from "../../components/Form";
 // import Formulario from "../../components/Formulário";
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react'
@@ -48,18 +49,15 @@ const InsertingCard = () => {
             <Message value="preencha com as suas informações"></Message>
             <form action="">
                 <div className={styles.container1}>
-                <input type="text" className={styles.caixaTexto} placeholder="Digite o nome" onChange={e => setNome(e.target.value)}/>
-                <input type="text" className={styles.caixaTexto} placeholder="Digite o número" onChange={e => setNumero(e.target.value)}/>
+                <Form placeholder="Digite o nome" onChange={e => setNome(e.target.value)}></Form>
+                <Form placeholder="Digite o número" onChange={e => setNumero(e.target.value)}></Form>
                 </div>
                 <div className={styles.container2}>
-                <label htmlFor=""></label>
-                <input type="text" className={styles.caixaTexto} placeholder="Digite o CVV" onChange={e => setCvv(e.target.value)}/>
-                <label htmlFor=""></label>
-                <input type="text" className={styles.caixaTexto} placeholder="Digite o seu CPF" onChange={e => setCpf(e.target.value)}/>  
+                <Form placeholder="Digite o CVV" onChange={e => setCvv(e.target.value)}></Form>
+                <Form placeholder="Digite o seu CPF" onChange={e => setCpf(e.target.value)}></Form>
                 </div>
                 <div className={styles.container3}>
-                <label htmlFor=""></label>
-                <input type="text" className={styles.caixaTexto} placeholder="Digite a validade do cartão" onChange={e => setValidade(e.target.value)}/>  
+                <Form placeholder="Digite a validade do cartão" onChange={e => setValidade(e.target.value)}></Form>
                 </div>
                 <div className={styles.container4}>
                  <button className={styles.submissionButton} onClick = {event => insertCartaoHandler(event)}>Inserir cartão</button>   
