@@ -4,6 +4,7 @@ import ListTests from "./app/home/pages/ListTests";
 import PaymentConfig from "./app/home/pages/PaymentMethodsConfiguration";
 import PaymentInserting from "./app/home/pages/PaymentInserting";
 import InsertingBoleto from "./app/home/pages/InsertingBoleto";
+import InsertingPix from "./app/home/pages/InsertingPix";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     path: "/paymentMethod/inserting/boleto",
     Component: InsertingBoleto,
   },
+  {
+    path: "/paymentMethod/inserting/pix", 
+    Component: InsertingPix
+  }
 ]);
 
 export default function App() {

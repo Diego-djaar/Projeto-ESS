@@ -6,7 +6,7 @@ import Message from "../../components/mensage";
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react'
 import axios from "axios";
-
+// import axios from "axios";
 
 const InsertingBoleto = () => {
 
@@ -18,7 +18,7 @@ const InsertingBoleto = () => {
 
         event.preventDefault();
 
-        axios.post("http://127.0.0.1:8000/payment/inserting/boleto", 
+        axios.post("http://127.0.0.1:8000/payment/inserting/pix", 
         {
             "nome_completo": nome,
             "cpf": cpf
@@ -27,7 +27,7 @@ const InsertingBoleto = () => {
 
             navigate("/paymentMethod/inserting")
             alert(res.data.message)
-        }else if (res.data.message == "Já existe um boleto cadastrado no sistema"){
+        }else if (res.data.message == "Já existe um pix cadastrado no sistema"){
 
             alert(res.data.message)
 
@@ -52,7 +52,7 @@ const InsertingBoleto = () => {
             <input className = {styles.caixaTexto} type="text" placeholder="Digite aqui o seu CPF" onChange={event => 
             setCpf(event.target.value)}/>
             <br />
-            <button  className={styles.submissionButton} onClick = {event => insertBoletoHandler(event)}>Inserir boleto</button>
+            <button  className={styles.submissionButton} onClick = {event => insertBoletoHandler(event)}>Inserir pix</button>
             </form>
             </div>
     
