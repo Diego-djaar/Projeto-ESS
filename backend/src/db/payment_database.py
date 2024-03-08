@@ -38,9 +38,9 @@ def read_file():
         return json.load(f)
     
 
-database = {}
-database = read_file()
-print(database)
+# database = {}
+# database = read_file()
+# print(database)
 
 def validate_CPF(cpf: str) -> bool: 
 
