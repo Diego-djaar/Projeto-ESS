@@ -1,8 +1,8 @@
 import styles from "./index.module.css";
-// import Button from "../../components/buttom";
 import Pichu from "../../components/logo";
+import SubmitButton from "../../components/SubmitButton";
+import Form from "../../components/Form";
 import Message from "../../components/mensage";
-// import Formulario from "../../components/Formulário";
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react'
 import axios from "axios";
@@ -45,14 +45,15 @@ const InsertingBoleto = () => {
             <Message value="preencha com as suas informações"></Message>
             <div>
             <form className={styles.forms}>
-            <label className={styles.label}>Nome completo</label>
-            <input className = {styles.caixaTexto} type="text" placeholder="Digite aqui o seu nome completo" onChange={event => 
-            setNomeCompleto(event.target.value)}/>
-            <label className={styles.label}>CPF</label>
-            <input className = {styles.caixaTexto} type="text" placeholder="Digite aqui o seu CPF" onChange={event => 
-            setCpf(event.target.value)}/>
-            <br />
-            <button  className={styles.submissionButton} onClick = {event => insertBoletoHandler(event)}>Inserir boleto</button>
+            <div>
+            <Form placeholder="Digite aqui o seu nome completo" onChange={event => 
+            setNomeCompleto(event.target.value)}></Form>  
+            </div>  
+            <div>
+            <Form placeholder="Digite aqui o seu CPF"  onChange={event => 
+            setCpf(event.target.value)}></Form>    
+            </div>
+            <SubmitButton value = "Inserir Boleto" onClick = {event => insertBoletoHandler(event)}></SubmitButton>            
             </form>
             </div>
     

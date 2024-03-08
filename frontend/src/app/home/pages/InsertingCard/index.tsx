@@ -2,12 +2,11 @@ import styles from "./index.module.css";
 import Pichu from "../../components/logo";
 import Message from "../../components/mensage";
 import Form from "../../components/Form";
-// import Formulario from "../../components/Formulário";
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react'
 import axios from "axios";
 import SubmitButton from "../../components/SubmitButton";
-// import axios from "axios";
+
 
 const InsertingCard = () => {
 
