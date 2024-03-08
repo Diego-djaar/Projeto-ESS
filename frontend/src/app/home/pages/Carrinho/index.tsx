@@ -1,11 +1,8 @@
 import GetCart from "../../components/getCart";
+import ListCart from "../../components/ListCart";
 
 const ViewCart = () => {
-    return (
-        <div>
-            <GetCart />
-        </div>
-    );
+    return <ListCart />
 };
 
 export default ViewCart

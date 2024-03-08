@@ -1,0 +1,30 @@
+.itemContainer {
+  border: 1px solid #14c4c4;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.itemContainer img {
+  max-width: 100%;
+  margin-top: 8px;
+  border-radius: 4px;
+}
+
+.itemInfo {
+  margin-top: 8px;
+}
+
+.itemInfo div {
+  margin-bottom: 4px;
+}
+
+.itemInfo .price {
+  font-weight: bold;
+}
+
+.itemInfo .quantity {
+  color: #666;
+}
