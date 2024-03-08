@@ -18,3 +18,4 @@ store_database = StoreDatabase()
 recuperacao_database = RecuperacaoDatabase()
 recuperacao_database_test = RecuperacaoDatabase("Códigos teste.json")
 
+

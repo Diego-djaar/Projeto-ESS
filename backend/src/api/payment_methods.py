@@ -66,7 +66,7 @@ def insert_payment(pix: Pix, response: Response) -> HttpResponseModel:
          description="Insert a new boleto acount", 
              )
 def insert_payment(boleto: Boleto, response: Response) -> HttpResponseModel: 
-    result = PaymentService.inserting_card(boleto)
+    result = PaymentService.insertion_ticket(boleto)
     response.status_code = result.status_code
     return result 
 
