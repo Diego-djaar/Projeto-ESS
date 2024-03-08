@@ -5,6 +5,7 @@ import PaymentConfig from "./app/home/pages/PaymentMethodsConfiguration";
 import PaymentInserting from "./app/home/pages/PaymentInserting";
 import InsertingBoleto from "./app/home/pages/InsertingBoleto";
 import InsertingPix from "./app/home/pages/InsertingPix";
+import InsertingCard from "./app/home/pages/InsertingCard";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/paymentMethod/inserting/pix", 
     Component: InsertingPix
+  }, 
+  {
+    path: "/paymentMethod/inserting/cartao", 
+    Component: InsertingCard
   }
 ]);
 

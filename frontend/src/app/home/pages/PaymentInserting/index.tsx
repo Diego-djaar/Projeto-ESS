@@ -16,7 +16,7 @@ const PaymentInserting = () => {
 
     const handleCartaoClick = () => {
 
-        navigate("/paymentMethod/inserting/cartaoCredito")
+        navigate("/paymentMethod/inserting/cartao")
     }
 
     const handlePixClick = () => {

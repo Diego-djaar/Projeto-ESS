@@ -8,7 +8,7 @@ import {useState} from 'react'
 import axios from "axios";
 // import axios from "axios";
 
-const InsertingBoleto = () => {
+const InsertingPix = () => {
 
     const [nome, setNomeCompleto] = useState("");
     const [cpf, setCpf] = useState("");
@@ -61,4 +61,4 @@ const InsertingBoleto = () => {
 
 }
 
-export default InsertingBoleto
+export default InsertingPix
