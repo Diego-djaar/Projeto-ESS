@@ -36,9 +36,11 @@ def write_file(database):
 def read_file(): 
     with open("payment_database.json", "r") as f:
         return json.load(f)
+    
 
 database = {}
 database = read_file()
+print(database)
 
 def validate_CPF(cpf: str) -> bool: 
 
@@ -97,6 +99,7 @@ def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, valida
 
     Output: A tuple contain the sucess (bool) of the insertion and the problems (List) in case of validation problem. """
 
+    database = read_file()
 
     problems = []
 
@@ -148,6 +151,8 @@ def insert_pix(nome_completo: str, cpf: str) :
 
     Output: A tuple contain the sucess (bool) of the insertion. """
 
+    database = read_file()
+
     result = validate_CPF(cpf)
 
     if not result: 
@@ -177,6 +182,8 @@ def insert_pix(nome_completo: str, cpf: str) :
     return ("OK", id_value) 
 
 def insert_ticket(nome_completo: str, cpf: str) -> str:
+
+    database = read_file()
 
 
     """Validate and insert or not a ticket. 
@@ -261,7 +268,7 @@ def update_card(id: str, nome_cartao: str, numero_cartao: str, cvv: str, validad
 
 def update_pix_or_ticket(id: str, nome_completo: str) -> bool:
         
-
+    database = read_file()
                 
     for key in database:
         for val in database[key]: 
@@ -274,7 +281,7 @@ def update_pix_or_ticket(id: str, nome_completo: str) -> bool:
 
 def delete_method(id: str) -> bool: 
 
-
+    database = read_file()
 
     for key in database:
         for val in database[key]: 
@@ -296,6 +303,8 @@ def delete_method(id: str) -> bool:
 
 def remove_card(cpf: str, numero_cartao: str): 
 
+    database = read_file()
+
     if cpf in database: 
         for metodo in database[cpf]:
             if metodo["numero_cartao"] == numero_cartao: 
@@ -311,6 +320,7 @@ def remove_card(cpf: str, numero_cartao: str):
 
 def get_by_number(numero_cartao: str):
 
+    database = read_file()
 
     for key in database:
         for val in database[key]: 
@@ -323,11 +333,15 @@ def get_by_number(numero_cartao: str):
 
 def get_methods_list(cpf: str): 
 
+    database = read_file()
+
     if cpf in database:
         return database[cpf]
     return None 
     
 def get_card_by_number_and_cpf(cpf: str, numero_cartao: str): 
+
+    database = read_file()
 
     if cpf in database: 
         for metodo in database[cpf]:
@@ -337,6 +351,8 @@ def get_card_by_number_and_cpf(cpf: str, numero_cartao: str):
     
 def get_pix_by_cpf(cpf: str): 
 
+    database = read_file()
+
     if cpf in database: 
         for metodo in database[cpf]:
             if metodo["tipo"] == "pix": 
@@ -345,6 +361,8 @@ def get_pix_by_cpf(cpf: str):
 
 def get_boleto_by_cpf(cpf: str): 
 
+    database = read_file()
+
     if cpf in database: 
         for metodo in database[cpf]:
             if metodo["tipo"] == "boleto": 
@@ -352,6 +370,8 @@ def get_boleto_by_cpf(cpf: str):
     return None
 
 def inserir_cartao_com_id(id: str, tipo: str, nome: str, numero: str, cvv: str, validade: datetime, cpf: str): 
+
+    database = read_file()
 
     database[cpf].append({
         "id": id,
@@ -366,6 +386,8 @@ def inserir_cartao_com_id(id: str, tipo: str, nome: str, numero: str, cvv: str, 
     
 def get_cartao_id(cpf: str, numero: str):
 
+    database = read_file()
+
     if cpf in database:
         for met in database[cpf]:
             if met["numero_cartao"] == numero:
@@ -374,6 +396,8 @@ def get_cartao_id(cpf: str, numero: str):
 
 
 def get_pix_id(cpf: str):
+
+    database = read_file()
 
     if cpf in database:
         for met in database[cpf]:
