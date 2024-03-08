@@ -198,7 +198,7 @@ def insert_ticket(nome_completo: str, cpf: str) -> str:
     result = validate_CPF(cpf)
 
     if not result: 
-        return ("INVALID_CPF", None)
+        return ("CPF", None)
     
     if cpf not in database:
         database[cpf] = []
