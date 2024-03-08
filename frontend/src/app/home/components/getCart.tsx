@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ItemData from '../models/ItemData';
 import HTTPResponseData from '../models/HTTPResponseData';
 
-function Item() {
+function GetCart() {
   const [cpf, setCpf] = useState('');
   const [responseData, setResponseData] = useState<HTTPResponseData | null>(null);
   const [error, setError] = useState('');
@@ -64,4 +64,4 @@ function Item() {
   );
 }
 
-export default Item;
+export default GetCart;

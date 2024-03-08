@@ -1,10 +1,9 @@
-import ListCart from "../../components/ListCart";
-import Item from "../../components/Item"
+import GetCart from "../../components/getCart";
 
 const ViewCart = () => {
     return (
         <div>
-            <Item />
+            <GetCart />
         </div>
     );
 };
