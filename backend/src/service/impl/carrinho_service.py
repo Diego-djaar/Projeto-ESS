@@ -32,13 +32,13 @@ class Carrinho_service():
             return HttpResponseModel(
                 message="Carrinho não encontrado, novo carrinho criado vinculado a este CPF",
                 status_code=HTTPResponses.ITEM_CREATED().status_code,
-                data={"Itens:": item_list, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
+                data={"Itens": item_list, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
             )
         item_list = [item.to_dados_item() for item in carrinho.get_all_items()]
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
-                data={"Itens:": item_list, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
+                data={"Itens": item_list, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
             )
 
     @staticmethod
