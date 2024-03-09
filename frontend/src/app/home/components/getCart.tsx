@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ItemData from '../models/ItemData';
 import HTTPResponseData from '../models/HTTPResponseData';
 import ItemComponent from './Item';
@@ -11,6 +11,15 @@ function GetCart() {
   const [error, setError] = useState('');
   const [cpf, setCpf] = useCpf();
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCpf(event.target.value);
+  };
+
+  const handleRefreshCart = async () => {
+    // Apenas chame loadCart sem definir estado adicional, já que loadCart já define estados.
+    await loadCart();
+  };
+
   // Função para carregar o carrinho de compras
   const loadCart = async () => {
     setLoading(true);
@@ -21,6 +30,7 @@ function GetCart() {
       }
       const data = await response.json();
       setResponseData(data);
+      setError(''); // Limpe o erro se houver um sucesso
     } catch (error) {
       setError('Falha na obtenção do conteúdo do carrinho');
       console.error(error);
@@ -29,17 +39,9 @@ function GetCart() {
     }
   };
 
-  // Efeito para carregar o carrinho na montagem do componente
-  useEffect(() => {
-    loadCart();
-  }, [cpf]);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCpf(event.target.value);
-  };
-
-  const handleRefreshCart = () => {
-    loadCart(); // Recarrega o carrinho após uma ação do usuário
+  // Esta função agora será usada no botão e após alterações nos itens.
+  const handleViewCartClick = () => {
+    handleRefreshCart();
   };
 
   return (
@@ -55,7 +57,7 @@ function GetCart() {
       />
       <button
         className={styles.viewCartButton}
-        onClick={loadCart}
+        onClick={handleViewCartClick}
         disabled={loading}
       >
         {loading ? 'Carregando...' : 'Visualizar Carrinho'}
