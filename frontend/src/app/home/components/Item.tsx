@@ -3,6 +3,7 @@ import ItemData from '../models/ItemData';
 import styles from './ItemComponent.module.css';
 import camisaImage from "./camisa.jpg";
 import RemoveFromCartButton from './RemoveFromCartButton';
+import IncreaseItemQuantityButton from './IncreaseItemQuantity';
 import { useCpf } from '../context/HomeContext/CpfContext';
 
 interface ItemProps {
@@ -18,14 +19,13 @@ const ItemComponent: React.FC<ItemProps> = ({ item, onItemChange }) => {
     onItemChange(); // Notifica o componente pai que um item foi removido
   };
 
+  const handleIncrease = () => {
+    console.log("Item incrementado com sucesso");
+    onItemChange();
+  }
+
   const handleError = (message: string) => {
     console.error(message);
-  };
-
-  // Funções para aumentar e diminuir a quantidade
-  const increaseQuantity = () => {
-    // Implementar lógica para aumentar a quantidade do item
-    onItemChange(); // Notifica o componente pai sobre a mudança
   };
 
   const decreaseQuantity = () => {
@@ -46,7 +46,12 @@ const ItemComponent: React.FC<ItemProps> = ({ item, onItemChange }) => {
           <div className={styles.itemQuantity}>
             <button className={styles.quantityMinus} onClick={decreaseQuantity}>-</button>
             <span className={styles.quantityValue}>{item.quantidade}</span>
-            <button className={styles.quantityPlus} onClick={increaseQuantity}>+</button>
+            <IncreaseItemQuantityButton
+            itemId={item.id}
+            cpf={cpf}
+            onItemIncreaseQuantity={handleIncrease}
+            onError={handleError}
+            />
           </div>
         </div>
         <RemoveFromCartButton 
