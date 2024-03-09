@@ -20,7 +20,7 @@ const PaymentConfig = () => {
 
     const handleDeletingClick = () => {
 
-        navigate("/paymentMethod/inserting")
+        navigate("/paymentMethod/deleting")
     }
 
     const handleViewingClick = () => {

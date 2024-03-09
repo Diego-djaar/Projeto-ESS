@@ -10,6 +10,7 @@ import UpdatingMethod from "./app/home/pages/UpdatingMethods";
 import UpdatingBoleto from "./app/home/pages/UpdatingBoleto";
 import UpdatingPix from "./app/home/pages/UpdatingPix";
 import UpdatingCartao from "./app/home/pages/UpdatingCard";
+import DeletingMethod from "./app/home/pages/DeletingMethod";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   {
     path: "/paymentMethod/updating/cartao", 
     Component: UpdatingCartao
+  }, 
+  {
+    path: "/paymentMethod/deleting", 
+    Component: DeletingMethod
   }
 ]);
 
