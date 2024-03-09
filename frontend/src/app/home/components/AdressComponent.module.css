@@ -1,0 +1,8 @@
+.modelButton {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }

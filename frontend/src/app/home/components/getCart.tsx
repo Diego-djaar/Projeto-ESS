@@ -4,6 +4,7 @@ import HTTPResponseData from '../models/HTTPResponseData';
 import ItemComponent from './Item';
 import styles from './getCart.module.css';
 import { useCpf } from '../context/HomeContext/CpfContext';
+import AdressComponent from './AdressComponent';
 
 function GetCart() {
   const [responseData, setResponseData] = useState<HTTPResponseData | null>(null);
@@ -84,6 +85,7 @@ function GetCart() {
               </ul>
               <p className={styles.totalPrice}>Total: {responseData.data.Total}</p>
               <p className={styles.addressInfo}>Endereço: {responseData.data.Endereço}</p>
+              <AdressComponent />
             </>
           )}
         </div>
