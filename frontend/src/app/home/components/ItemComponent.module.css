@@ -61,12 +61,3 @@
   min-width: 30px;
   text-align: center;
 }
-
-.itemRemove {
-  background-color: #d9534f;
-  color: white;
-  border: none;
-  padding: 5px 20px;
-  margin-top: 10px;
-  cursor: pointer;
-}

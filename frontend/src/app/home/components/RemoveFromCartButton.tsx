@@ -1,5 +1,5 @@
 import React from 'react';
-import axios, { AxiosError } from 'axios'; // Usando axios para chamadas HTTP
+import axios from 'axios'; // Usando axios para chamadas HTTP
 import styles from "./RemoveFromCartButton.module.css"
 
 // ButtonProps.ts
@@ -24,20 +24,23 @@ const RemoveFromCartButton: React.FC<ButtonProps> = ({ itemId, cpf, onItemRemove
         onError('Falha na remoção do item do carrinho'); // Chamar o callback de erro
       }
     } catch (error) {
-        const axiosError = error as AxiosError;
-        if (axiosError.response) {
+        let errorMessage = 'Erro desconhecido';
+        if (axios.isAxiosError(error)) {
+          if (error.response) {
             // Resposta com erro da API
-            onError(axiosError.response.data.detail || axiosError.response.statusText);
-        } else if (axiosError.request) {
+            errorMessage = error.response.data.detail || error.response.statusText;
+          } else if (error.request) {
             // O erro ocorreu na configuração da requisição e a requisição foi enviada,
             // mas não houve resposta do servidor
-            onError('Nenhuma resposta foi recebida do servidor.');
-        } else {
+            errorMessage = 'Nenhuma resposta foi recebida do servidor.';
+          } else {
             // Um erro ocorreu ao configurar a requisição que disparou um erro
-            onError(axiosError.message);
+            errorMessage = error.message;
+          }
         }
-      console.error(error);
-    }
+        onError(errorMessage);
+        console.error(error);
+      }
   };
 
   return (

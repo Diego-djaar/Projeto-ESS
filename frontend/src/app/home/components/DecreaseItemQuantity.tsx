@@ -1,25 +1,25 @@
 import React from 'react';
 import axios from 'axios'; // Usando axios para chamadas HTTP
-import styles from './IncreaseItemQuantity.module.css'
+import styles from './DecreaseItemQuantity.module.css'
 
 // ButtonProps.ts
 interface ButtonProps {
     itemId: string;
     cpf: string;
-    onItemIncreaseQuantity: () => void; // Esta função será chamada após a remoção bem-sucedida
+    onItemDecreaseQuantity: () => void; // Esta função será chamada após a remoção bem-sucedida
     onError: (message: string) => void; // Esta função será chamada em caso de erro
   }  
 
-const IncreaseItemQuantityButton: React.FC<ButtonProps> = ({ itemId, cpf, onItemIncreaseQuantity, onError }) => {
-  const increaseQuantity = async () => {
+const DecreaseItemQuantityButton: React.FC<ButtonProps> = ({ itemId, cpf, onItemDecreaseQuantity, onError }) => {
+  const decreaseQuantity = async () => {
     try {
       // Atenção: Os parâmetros devem ser enviados como query string na URL
-      const response = await axios.put(`http://127.0.0.1:8000/backend/api/carrinho/incrementar_item?item_id=${itemId}&CPF=${cpf}`);
+      const response = await axios.put(`http://127.0.0.1:8000/backend/api/carrinho/decrementar_item?item_id=${itemId}&CPF=${cpf}`);
 
       if (response.status === 200) {
-        onItemIncreaseQuantity(); // Chamar o callback de sucesso
+        onItemDecreaseQuantity(); // Chamar o callback de sucesso
       } else {
-        onError('Falha ao incrementar a quantidade do item'); // Chamar o callback de erro
+        onError('Falha ao decrementar a quantidade do item'); // Chamar o callback de erro
       }
     } catch (error) {
       let errorMessage = 'Erro desconhecido';
@@ -42,11 +42,11 @@ const IncreaseItemQuantityButton: React.FC<ButtonProps> = ({ itemId, cpf, onItem
   };
 
   return (
-    <button className={styles.quantityPlus} onClick={increaseQuantity}>
-      +
+    <button className={styles.quantityMinus} onClick={decreaseQuantity}>
+      -
     </button>
   );
 };
 
 
-export default IncreaseItemQuantityButton;
+export default DecreaseItemQuantityButton;

@@ -5,6 +5,7 @@ import camisaImage from "./camisa.jpg";
 import RemoveFromCartButton from './RemoveFromCartButton';
 import IncreaseItemQuantityButton from './IncreaseItemQuantity';
 import { useCpf } from '../context/HomeContext/CpfContext';
+import DecreaseItemQuantityButton from './DecreaseItemQuantity';
 
 interface ItemProps {
   item: ItemData;
@@ -24,13 +25,13 @@ const ItemComponent: React.FC<ItemProps> = ({ item, onItemChange }) => {
     onItemChange();
   }
 
+  const handleDecrease = () => {
+    console.log("Item decrementado com sucesso");
+    onItemChange();
+  }
+
   const handleError = (message: string) => {
     console.error(message);
-  };
-
-  const decreaseQuantity = () => {
-    // Implementar lógica para diminuir a quantidade do item
-    onItemChange(); // Notifica o componente pai sobre a mudança
   };
 
   return (
@@ -44,7 +45,12 @@ const ItemComponent: React.FC<ItemProps> = ({ item, onItemChange }) => {
         <div className={styles.itemPriceQuantity}>
           <p className={styles.itemPrice}>{item.price}</p>
           <div className={styles.itemQuantity}>
-            <button className={styles.quantityMinus} onClick={decreaseQuantity}>-</button>
+            <DecreaseItemQuantityButton 
+            itemId={item.id}
+            cpf={cpf}
+            onItemDecreaseQuantity={handleDecrease}
+            onError={handleError}
+            />
             <span className={styles.quantityValue}>{item.quantidade}</span>
             <IncreaseItemQuantityButton
             itemId={item.id}
