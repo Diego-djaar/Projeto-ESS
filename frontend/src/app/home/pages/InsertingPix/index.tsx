@@ -17,7 +17,7 @@ const InsertingPix = () => {
 
         event.preventDefault();
 
-        axios.post("http://127.0.0.1:8000/payment/inserting/pix", 
+        axios.post("http://127.0.0.1:8000/backend/api/payment/inserting/pix", 
         {
             "nome_completo": nome,
             "cpf": cpf

@@ -18,7 +18,7 @@ const InsertingBoleto = () => {
 
         event.preventDefault();
 
-        axios.post("http://127.0.0.1:8000/payment/inserting/boleto", 
+        axios.post("http://127.0.0.1:8000/backend/api/payment/inserting/boleto", 
         {
             "nome_completo": nome,
             "cpf": cpf

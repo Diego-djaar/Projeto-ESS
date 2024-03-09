@@ -21,7 +21,7 @@ const InsertingCard = () => {
 
         event.preventDefault();
 
-        axios.post("http://127.0.0.1:8000/payment/inserting/cartao", 
+        axios.post("http://127.0.0.1:8000/backend/api/payment/inserting/cartao", 
         {
             "nome_cartao": nome,
             "numero_cartao": numero,
