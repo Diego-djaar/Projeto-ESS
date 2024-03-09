@@ -1,6 +1,6 @@
 import ItemData from "../models/ItemData";
 import ItemComponent from "./Item";
-import styles from "./ListCart.module.css"
+import styles from "./ListCart.module.css";
 
 function ListCart() {
     const item: ItemData = {
@@ -9,11 +9,11 @@ function ListCart() {
         description: 'Descrição do item de exemplo',
         price: '$10.00',
         quantidade: 5,
-        img: 'caminho/para/imagem.jpg'
+        img: './camisa.jpg'
       };
 
     return (
-        <div className={styles.list}>
+        <div className='aaa'>
           <ItemComponent item={item} />
         </div>
     );

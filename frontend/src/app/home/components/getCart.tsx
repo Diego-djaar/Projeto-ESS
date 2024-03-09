@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import ItemData from '../models/ItemData';
 import HTTPResponseData from '../models/HTTPResponseData';
+import ItemComponent from './Item';
+import styles from './getCart.module.css'
 
 function GetCart() {
   const [cpf, setCpf] = useState('');
@@ -27,37 +29,36 @@ function GetCart() {
   };
 
   return (
-    <div>
-      <h1>Visualização do Carrinho</h1>
+    <div className={styles.container}>
+      <h1 className={styles.header}>Visualização do Carrinho</h1>
       <input
+        className={styles.inputCpf}
         type="text"
         value={cpf}
         onChange={handleInputChange}
         placeholder="Digite o CPF"
       />
-      <button onClick={handleButtonClick}>Visualizar Carrinho</button>
-      {error && <p>{error}</p>}
+      <button
+        className={styles.viewCartButton}
+        onClick={handleButtonClick}
+      >
+        Visualizar Carrinho
+      </button>
+      {error && <p className={styles.errorMsg}>{error}</p>}
       {responseData && responseData.data && (
-        <div>
-          <h2>Status: {responseData.status_code}</h2>
-          <p>Mensagem: {responseData.message}</p>
-          <p>Itens:</p>
-          <ul>
+        <div className={styles.cartDetails}>
+          <h2 className={styles.statusMessage}>Status: {responseData.status_code}</h2>
+          <p className={styles.statusMessage}>Mensagem: {responseData.message}</p>
+          <p className={styles.statusMessage}>Itens:</p>
+          <ul className={styles.itemList}>
             {responseData.data.Itens.map((item: ItemData, index) => (
               <li key={index}>
-                <div>
-                  <p>ID: {item.id}</p>
-                  <p>Nome: {item.nome}</p>
-                  <p>Descrição: {item.description}</p>
-                  <p>Preço: {item.price}</p>
-                  <p>Quantidade: {item.quantidade}</p>
-                  {item.img && <img src={item.img} alt={item.nome} />}
-                </div>
+                <ItemComponent item={item} />
               </li>
             ))}
           </ul>
-          <p>Total: {responseData.data.Total}</p>
-          <p>Endereço: {responseData.data.Endereço}</p>
+          <p className={styles.totalPrice}>Total: {responseData.data.Total}</p>
+          <p className={styles.addressInfo}>Endereço: {responseData.data.Endereço}</p>
         </div>
       )}
     </div>

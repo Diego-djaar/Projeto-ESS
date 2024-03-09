@@ -2,7 +2,7 @@ import GetCart from "../../components/getCart";
 import ListCart from "../../components/ListCart";
 
 const ViewCart = () => {
-    return <ListCart />
+    return <GetCart />
 };
 
 export default ViewCart
