@@ -2,12 +2,23 @@ import React from 'react';
 import ItemData from '../models/ItemData';
 import styles from './ItemComponent.module.css'; // Importa o módulo de estilo CSS
 import camisaImage from "./camisa.jpg";
+import RemoveFromCartButton from './RemoveFromCartButton';
+import { useCpf } from '../context/HomeContext/CpfContext';
 
 interface ItemProps {
   item: ItemData;
 }
 
 const ItemComponent: React.FC<ItemProps> = ({ item }) => {
+  const [cpf] = useCpf();
+
+  const handleItemRemoved = () => {
+    console.log("Item removido com sucesso")
+  };
+
+  const handleError = (message: string) => {
+    console.error(message)
+  };
     
   return (
     <div className={styles.itemCard}>
@@ -25,7 +36,12 @@ const ItemComponent: React.FC<ItemProps> = ({ item }) => {
             <button className={styles.quantityValue}>+</button>
           </div>
         </div>
-        <button className={styles.itemRemove}>Remover</button>
+        <RemoveFromCartButton 
+        itemId={item.id}
+        cpf= {cpf}
+        onItemRemoved={handleItemRemoved}
+        onError={handleError}
+        />
     </div>
     </div>
   );

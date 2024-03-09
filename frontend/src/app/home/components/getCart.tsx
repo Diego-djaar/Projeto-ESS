@@ -3,11 +3,12 @@ import ItemData from '../models/ItemData';
 import HTTPResponseData from '../models/HTTPResponseData';
 import ItemComponent from './Item';
 import styles from './getCart.module.css'
+import { useCpf } from '../context/HomeContext/CpfContext';
 
 function GetCart() {
-  const [cpf, setCpf] = useState('');
   const [responseData, setResponseData] = useState<HTTPResponseData | null>(null);
   const [error, setError] = useState('');
+  const[cpf, setCpf] = useCpf();
 
   const handleInputChange = (event) => {
     setCpf(event.target.value);
@@ -53,7 +54,7 @@ function GetCart() {
           <ul className={styles.itemList}>
             {responseData.data.Itens.map((item: ItemData, index) => (
               <li key={index}>
-                <ItemComponent item={item} />
+                  <ItemComponent item={item} />
               </li>
             ))}
           </ul>
