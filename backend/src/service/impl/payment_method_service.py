@@ -69,7 +69,7 @@ class PaymentService:
     @staticmethod
     def update_pix(id:int, pix: PixUpdate): 
 
-        sucess = update_pix_or_ticket(id, *pix.model_dump().values())
+        sucess = update_pix(id, *pix.model_dump().values())
 
         if not sucess: 
             
@@ -80,7 +80,7 @@ class PaymentService:
     @staticmethod
     def update_ticket(id:int, boleto: BoletoUpdate): 
 
-        sucess = update_pix_or_ticket(id, *boleto.model_dump().values())
+        sucess = update_ticket(id, *boleto.model_dump().values())
 
         if not sucess: 
             

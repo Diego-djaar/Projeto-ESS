@@ -266,13 +266,26 @@ def update_card(id: str, nome_cartao: str, numero_cartao: str, cvv: str, validad
     return (False, problems)
 
 
-def update_pix_or_ticket(id: str, nome_completo: str) -> bool:
+def update_pix(id: str, nome_completo: str) -> bool:
         
     database = read_file()
                 
     for key in database:
         for val in database[key]: 
-            if val["id"] == id:
+            if val["id"] == id and val["tipo"] == "pix":
+                val["nome_completo"] = nome_completo
+                write_file(database)
+                return True
+                
+        return False
+    
+def update_ticket(id: str, nome_completo: str) -> bool:
+        
+    database = read_file()
+                
+    for key in database:
+        for val in database[key]: 
+            if val["id"] == id and val["tipo"] == "boleto":
                 val["nome_completo"] = nome_completo
                 write_file(database)
                 return True
