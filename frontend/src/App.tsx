@@ -9,6 +9,7 @@ import InsertingCard from "./app/home/pages/InsertingCard";
 import UpdatingMethod from "./app/home/pages/UpdatingMethods";
 import UpdatingBoleto from "./app/home/pages/UpdatingBoleto";
 import UpdatingPix from "./app/home/pages/UpdatingPix";
+import UpdatingCartao from "./app/home/pages/UpdatingCard";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/paymentMethod/updating/pix", 
     Component: UpdatingPix
+  }, 
+  {
+    path: "/paymentMethod/updating/cartao", 
+    Component: UpdatingCartao
   }
 ]);
 

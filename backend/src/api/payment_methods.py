@@ -81,7 +81,7 @@ def insert_payment(boleto: Boleto, response: Response) -> HttpResponseModel:
 #     return request 
 
 @router.put(
-    "update/cartao/{id}", 
+    "/update/cartao/{id}", 
     response_model=HttpResponseModel, 
     status_code=200, 
     description="Update the card payment method"
