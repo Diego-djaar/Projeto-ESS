@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CreateTest from "./app/home/pages/CreateTest";
 import ListTests from "./app/home/pages/ListTests";
 import ViewCart from "./app/home/pages/Carrinho";
+import ItemPage from "./app/home/pages/ItemPage";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/carrinho",
     Component: ViewCart,
+  },
+  {
+    path: "/itempage",
+    Component: ItemPage,
   },
 ]);
 

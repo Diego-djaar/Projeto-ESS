@@ -5,8 +5,11 @@ import AdressModal from './AdressModal';
 import axios from 'axios';
 import styles from './AdressComponent.module.css'
 
+interface AdressProps {
+  onAdressChange: () => void; // Prop para notificar mudanças no item
+}
 
-const AdressComponent: React.FC = () => {
+const AdressComponent: React.FC<AdressProps> = ({ onAdressChange} ) => {
     const [mostrarModal, setMostrarModal] = useState(false);
     const [endereco, setEndereco] = useState<AdressData>({
       rua: '',
@@ -59,6 +62,7 @@ const AdressComponent: React.FC = () => {
             if (response.status === 200) {
                 console.log('Endereço alterado com sucesso');
                 handleCloseModal();
+                onAdressChange();
             }
         } catch (error) {
             let errorMessage = 'Erro desconhecido';
