@@ -1,6 +1,7 @@
 import styles from "./index.module.css";
 import Pichu from "../../components/logo";
 import SubmitButton from "../../components/SubmitButton";
+import ReturnButton from "../../components/ReturnButton";
 import Form from "../../components/Form";
 import Message from "../../components/mensage";
 import { useNavigate } from 'react-router-dom';
@@ -53,7 +54,8 @@ const InsertingBoleto = () => {
             <Form placeholder="Digite aqui o seu CPF"  onChange={event => 
             setCpf(event.target.value)}></Form>    
             </div>
-            <SubmitButton value = "Inserir Boleto" onClick = {event => insertBoletoHandler(event)}></SubmitButton>            
+            <SubmitButton value = "Inserir Boleto" onClick = {event => insertBoletoHandler(event)}></SubmitButton> 
+            <ReturnButton path="/paymentMethod/inserting"></ReturnButton>
             </form>
             </div>
     

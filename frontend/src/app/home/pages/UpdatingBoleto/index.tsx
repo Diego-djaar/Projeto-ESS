@@ -4,6 +4,7 @@ import Message from "../../components/mensage";
 import SubmitButton from "../../components/SubmitButton";
 import Form from "../../components/Form";
 import { useNavigate } from 'react-router-dom';
+import ReturnButton from "../../components/ReturnButton";
 import { useState } from 'react';
 import axios from "axios";
 
@@ -50,6 +51,7 @@ const UpdatingBoleto = () => {
         </div>
         <SubmitButton value="Atualizar" onClick={e => handleUpdating(e)}></SubmitButton>
     </form>
+    <ReturnButton path = "/paymentMethod/updating"></ReturnButton>
     </div>
 
   )

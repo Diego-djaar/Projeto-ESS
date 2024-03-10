@@ -1,6 +1,7 @@
 import styles from "./index.module.css";
 import Pichu from "../../components/logo";
 import SubmitButton from "../../components/SubmitButton";
+import ReturnButton from "../../components/ReturnButton";
 import Form from "../../components/Form";
 import Message from "../../components/mensage";
 import { useNavigate } from 'react-router-dom';
@@ -47,6 +48,7 @@ const DeletingMethod = () => {
             <SubmitButton value = "Deletar" onClick = {event => insertBoletoHandler(event)}></SubmitButton>            
             </form>
             </div>
+            <ReturnButton path="/paymentMethod"></ReturnButton>
     
         </div>
     )

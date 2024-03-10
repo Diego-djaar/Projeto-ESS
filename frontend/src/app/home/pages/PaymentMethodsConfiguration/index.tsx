@@ -3,6 +3,7 @@ import Button from "../../components/buttom";
 import Pichu from "../../components/logo";
 import Mensage from "../../components/mensage";
 import { useNavigate } from 'react-router-dom';
+import ReturnButton from "../../components/ReturnButton";
 
 const PaymentConfig = () => {
 
@@ -43,6 +44,7 @@ const PaymentConfig = () => {
                     <Button value="Deletar método de pagamento" onClick={handleDeletingClick}></Button>
                     <Button value="Visualizar método de pagamento" onClick={handleViewingClick}></Button>
                 </div>
+                <ReturnButton path="paymentMethod"></ReturnButton>
             </div>
         </div>
     )

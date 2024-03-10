@@ -1,17 +1,20 @@
-// BotaoVoltar.jsx
+import styles from "./index.module.css";
+
 import { useNavigate } from 'react-router-dom';
 
 const ReturnButton = ({path}) => {
   const navigate = useNavigate();
 
   const handleVoltar = () => {
-    navigate(path)
+    navigate(path);
   };
 
   return (
-    <button onClick={handleVoltar}>
+    <div className={styles.returnButton}>
+      <button onClick={handleVoltar} className={styles.returnButton}>
       Voltar
     </button>
+    </div>
   );
 };
 

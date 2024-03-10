@@ -3,6 +3,7 @@ import Pichu from "../../components/logo";
 import Message from "../../components/mensage";
 import SubmitButton from "../../components/SubmitButton";
 import Form from "../../components/Form";
+import ReturnButton from "../../components/ReturnButton";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from "axios";
@@ -43,6 +44,7 @@ const UpdatingPix = () => {
           <Form placeholder="Digite o novo nome" onChange={e => setNovoNome(e.target.value)}></Form>
         </div>
         <SubmitButton value="Atualizar" onClick={e => handleUpdating(e)}></SubmitButton>
+        <ReturnButton path="/paymentMethod/updating"></ReturnButton>
     </form>
     </div>
 

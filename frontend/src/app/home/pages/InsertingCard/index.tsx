@@ -2,6 +2,7 @@ import styles from "./index.module.css";
 import Pichu from "../../components/logo";
 import Message from "../../components/mensage";
 import Form from "../../components/Form";
+import ReturnButton from "../../components/ReturnButton";
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react'
 import axios from "axios";
@@ -61,6 +62,7 @@ const InsertingCard = () => {
                 <div className={styles.container4}>
                  <SubmitButton value= "Inserir cartão" onClick = {event => insertCartaoHandler(event)}></SubmitButton>
                 </div>
+                <ReturnButton path="/paymentMethod/inserting"></ReturnButton>
             </form>
         </div>
     )

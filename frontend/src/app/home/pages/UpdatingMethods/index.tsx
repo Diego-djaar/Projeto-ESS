@@ -2,7 +2,7 @@ import styles from "./index.module.css";
 import Pichu from "../../components/logo";
 import Message from "../../components/mensage";
 import Button from "../../components/buttom";
-import Form from "../../components/Form";
+import ReturnButton from "../../components/ReturnButton";
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react'
 import axios from "axios";
@@ -41,6 +41,7 @@ const UpdatingMethod = () => {
             <div className={styles.container}>
                 <Button value="Pix" onClick={handlePixClick}></Button>
             </div>
+            <ReturnButton path = "/paymentMethod"></ReturnButton>
         </div>
         
 

@@ -3,6 +3,7 @@ import Pichu from "../../components/logo";
 import Message from "../../components/mensage";
 import SubmitButton from "../../components/SubmitButton";
 import Form from "../../components/Form";
+import ReturnButton from "../../components/ReturnButton";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from "axios";
@@ -16,7 +17,7 @@ const UpdatingCartao = () => {
     const navigate = useNavigate();  
 
   const handleUpdating = (e) => {
-    
+
     e.preventDefault(); 
 
     axios.put(`http://127.0.0.1:8000/backend/api/payment/update/cartao/${id}`, {
@@ -55,6 +56,7 @@ const UpdatingCartao = () => {
           <Form placeholder="Digite a nova validade" onChange={e => setValidade(e.target.value)}></Form>
         </div>
         <SubmitButton value="Atualizar" onClick={e => handleUpdating(e)}></SubmitButton>
+        <ReturnButton path = "/paymentMethod/updating"></ReturnButton>
     </form>
     </div>
 
