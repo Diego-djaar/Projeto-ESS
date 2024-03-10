@@ -24,7 +24,7 @@ const ItemPage = () => {
     return (<>
         <AddToCartButton
         item = {itemExemplo}
-        cpf = "123.456.789-10"
+        cpf = {cpf}
         onItemAdded={handleItemAdded}
         onError={handleError}
         />

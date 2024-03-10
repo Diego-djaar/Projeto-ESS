@@ -43,7 +43,7 @@ const AddToCartButton: React.FC<ButtonProps> = ({ item, cpf, onItemAdded, onErro
   };
 
   return (
-    <button className={styles.itemAddButton} onClick={addToCart}>
+    <button className={styles.itemAddButton} onClick={addToCart} disabled={!cpf.trim()}>
       Adicionar ao carrinho
     </button>
   );
