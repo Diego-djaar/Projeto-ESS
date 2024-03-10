@@ -1,126 +1,16 @@
 {
     "111.111.111-11": [
         {
-            "id": "6997404989067542122",
+            "id": "2966b7ce-544f-45cb-8ba3-7f56cc8806ba",
             "tipo": "boleto",
-            "nome_completo": "Maria Marta",
+            "nome_completo": "Breno Gabriel",
             "cpf": "111.111.111-11"
         },
         {
-            "id": "6949023072991808987",
-            "tipo": "cartao",
-            "nome_cartao": "America",
-            "numero_cartao": "4556193045897381",
-            "cvv": "972",
-            "validade": "2024-03-18",
-            "cpf": "111.111.111-11"
-        },
-        {
-            "id": "8429435527578280979",
+            "id": "4444e131-ae2f-450d-8a5d-4581b98ade0e",
             "tipo": "pix",
-            "nome_completo": "Breno Gabriel ",
+            "nome_completo": "Breno Gabriel",
             "cpf": "111.111.111-11"
-        }
-    ],
-    "111.111.111-10": [
-        {
-            "id": "8645339971358152607",
-            "tipo": "boleto",
-            "nome_completo": "bre",
-            "cpf": "111.111.111-10"
-        }
-    ],
-    "333.333.333-33": [
-        {
-            "id": "2581821794727986127",
-            "tipo": "boleto",
-            "nome_completo": "Breno gabriel de melo lima",
-            "cpf": "333.333.333-33"
-        },
-        {
-            "id": "6861051094484061740",
-            "tipo": "cartao",
-            "nome_cartao": "Lucas Henrique do Nascimento",
-            "numero_cartao": "347605184593872",
-            "cvv": "324",
-            "validade": "2024-03-08",
-            "cpf": "333.333.333-33"
-        }
-    ],
-    "222.222.222-22": [
-        {
-            "id": "3320542867294149942",
-            "tipo": "cartao",
-            "nome_cartao": "Breno Gabriel de Melo Lima ",
-            "numero_cartao": "4556193045897381",
-            "cvv": "435",
-            "validade": "2024-03-08",
-            "cpf": "222.222.222-22"
-        }
-    ],
-    "444.444.444-44": [
-        {
-            "id": "7856725992546211340",
-            "tipo": "boleto",
-            "nome_completo": "Maria Aparecida",
-            "cpf": "444.444.444-44"
-        }
-    ],
-    "555.555.555-55": [
-        {
-            "id": "8893896323495782289",
-            "tipo": "boleto",
-            "nome_completo": "Jo\u00e3o Om\u00eana",
-            "cpf": "555.555.555-55"
-        }
-    ],
-    "666.666.666-66": [
-        {
-            "id": "2255142715274256319",
-            "tipo": "cartao",
-            "nome_cartao": "Breno Gabriel de Melo Lima",
-            "numero_cartao": "6011348723456789",
-            "cvv": "765",
-            "validade": "2024-03-08",
-            "cpf": "666.666.666-66"
-        }
-    ],
-    "111.111.111-14": [
-        {
-            "id": "6058436134766537797",
-            "tipo": "cartao",
-            "nome_cartao": "Breno Gabriel",
-            "numero_cartao": "5410278654890123",
-            "cvv": "435",
-            "validade": "2024-03-08",
-            "cpf": "111.111.111-14"
-        }
-    ],
-    "111.111.111-18": [
-        {
-            "id": "5682655072709619081",
-            "tipo": "cartao",
-            "nome_cartao": "Breno Gabriel de Melo Lima",
-            "numero_cartao": "5289157632478906",
-            "cvv": "982",
-            "validade": "2024-03-08",
-            "cpf": "111.111.111-18"
-        }
-    ],
-    "999.999.999-99": [
-        {
-            "id": "4986317650217466948",
-            "tipo": "pix",
-            "nome_completo": "Breno Gabriel ",
-            "cpf": "999.999.999-99"
-        }
-    ],
-    "888.888.888-08": [
-        {
-            "id": "6586898270689017281",
-            "tipo": "boleto",
-            "nome_completo": "Maria Edna",
-            "cpf": "888.888.888-08"
         }
     ]
 }

@@ -19,7 +19,8 @@ logger = getLogger('uvicorn')
 #Regex for CPF and card number. 
 cpf_pattern = re.compile(r"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$")
 cartao_pattern = re.compile(r"^(4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9]{2})[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])?[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$")
-   
+
+
 def write_file(database): 
 
     """Write the content of a dict in a JSON. 
@@ -36,7 +37,6 @@ def write_file(database):
 def read_file(): 
     with open("payment_database.json", "r") as f:
         return json.load(f)
-    
 
 # database = {}
 # database = read_file()
@@ -88,6 +88,7 @@ def validate_card_number(numero_cartao: str) -> bool:
     
     return True 
 
+
 def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date): 
 
     """Validate and insert or not a card. 
@@ -123,10 +124,12 @@ def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, valida
                 if metodo["numero_cartao"] == numero_cartao:
                     return (False, "ALREADY_EXIST")
 
-    id_value = str(abs(hash((datetime.date.today(), cpf))))
+    # id_value = str(abs(hash((datetime.date.today(), cpf))))
+            
+    id = str(uuid.uuid4()) 
 
     cartao = {
-        "id" : id_value, 
+        "id" : id, 
         "tipo": "cartao", 
         "nome_cartao": nome_cartao,
         "numero_cartao": numero_cartao,
@@ -138,7 +141,7 @@ def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, valida
     database[cpf].append(cartao)
     write_file(database)
 
-    return (True, id_value)
+    return (True, id)
 
 def insert_pix(nome_completo: str, cpf: str) : 
 
@@ -165,10 +168,12 @@ def insert_pix(nome_completo: str, cpf: str) :
         if val["tipo"] == "pix":
             return ("ALREADY_EXIST", None)
         
-    id_value = str(abs(hash((datetime.date.today(), cpf))))
-    
+    # id_value = str(abs(hash((datetime.date.today(), cpf))))
+        
+    id = str(uuid.uuid4()) 
+            
     pix = {
-        "id" : id_value, 
+        "id" : id, 
         "tipo": "pix", 
         "nome_completo": nome_completo,
         "cpf": cpf
@@ -179,7 +184,7 @@ def insert_pix(nome_completo: str, cpf: str) :
 
     print(database)
 
-    return ("OK", id_value) 
+    return ("OK", id) 
 
 def insert_ticket(nome_completo: str, cpf: str) -> str:
 
@@ -207,10 +212,12 @@ def insert_ticket(nome_completo: str, cpf: str) -> str:
         if val["tipo"] == "boleto":
             return ("ALREADY_EXIST", None)
         
-    id_value = str(abs(hash((datetime.date.today(), cpf))))
+    # id_value = str(abs(hash((datetime.date.today(), cpf))))
+        
+    id = str(uuid.uuid4()) 
 
     boleto = {
-        "id" : id_value, 
+        "id" : id, 
         "tipo": "boleto", 
         "nome_completo": nome_completo,
         "cpf": cpf
@@ -219,7 +226,7 @@ def insert_ticket(nome_completo: str, cpf: str) -> str:
     database[cpf].append(boleto)
     write_file(database)
 
-    return ("OK", id_value)  
+    return ("OK", id)  
 
 def update_card(id: str, nome_cartao: str, numero_cartao: str, cvv: str, validade: datetime.date):
 
