@@ -40,7 +40,7 @@ const ItemComponent: React.FC<ItemProps> = ({ item, onItemChange }) => {
         <img src={camisaImage} alt={item.nome} />
       </div>
       <div className={styles.itemInfo}>
-        <h2 className={styles.itemName}>{item.nome}</h2>
+        <h2 className={styles.itemName}>{item.nome} <span className={styles.itemId}>(ID: {item.id})</span> </h2>
         <p className={styles.itemDescription}>{item.description}</p>
         <div className={styles.itemPriceQuantity}>
           <p className={styles.itemPrice}>{item.price}</p>

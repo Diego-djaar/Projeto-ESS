@@ -61,3 +61,10 @@
   min-width: 30px;
   text-align: center;
 }
+
+.itemId {
+  font-weight: normal;
+  font-size: 0.8em; /* Exemplo de tamanho de fonte menor */
+  color: #666; /* Exemplo de cor mais discreta */
+  margin-left: 8px; /* Um pequeno espaço à esquerda */
+}
