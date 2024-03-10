@@ -7,7 +7,7 @@ export default function MainPage() {
             <h1>
                 placeholder text
             </h1>
-            <Button func={() => set_page("signup")} text={"SignUp"} style={{}} />
+            <Button func={() => set_page("signup")} text={"SignUp"} style={{}} id={""} />
         </div>
     )
 }

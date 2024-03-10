@@ -15,7 +15,7 @@ class SignUp extends Component {
     render() {
         const val = (
             <div>
-                <Button func={() => set_page("main")} text={"Back to main Page"} style={{}} />
+                <Button func={() => set_page("main")} text={"Back to main Page"} style={{}} id="Main"/>
                 <h1 className="signup-text">Sign Up</h1>
                 <div className="two-inputs">
                     <Input campo="Username" type="username" internal="div1" form={CreateRequest} add_function={add_function} />
@@ -37,7 +37,7 @@ class SignUp extends Component {
                     <Input campo="Endereço" type="Address" internal="div1" form={CreateRequest} add_function={add_function} />
                     <Input campo="CEP" type="CEP" internal="div1" form={CreateRequest} add_function={add_function} />
                 </div>
-                <Button func={MakeRequest} text="signup" style={{ color: "black", fontSize: "30px" }} />
+                <Button func={MakeRequest} text="signup" style={{ color: "black", fontSize: "30px" }} id="Cadastrar"/>
             </div>
         )
         return val
