@@ -4,13 +4,40 @@ import { useState } from 'react';
 import AdressModal from './AdressModal';
 import axios from 'axios';
 import styles from './AdressComponent.module.css'
+import { useEffect } from 'react';
 
 interface AdressProps {
-  onAdressChange: () => void; // Prop para notificar mudanças no item
+  endereco_atual: string
 }
 
-const AdressComponent: React.FC<AdressProps> = ({ onAdressChange} ) => {
+const AdressComponent: React.FC<AdressProps> = ({ endereco_atual } ) => {
     const [mostrarModal, setMostrarModal] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [endereco_visivel, setEnderecoVisivel] = useState(endereco_atual)
+
+    function formatarEndereco(endereco: AdressData): string {
+      let enderecoCompleto = `${endereco.rua}, ${endereco.numero}`;
+      if (endereco.complemento) {
+        enderecoCompleto += `, ${endereco.complemento}`;
+      }
+      enderecoCompleto += `\n${endereco.bairro}, ${endereco.cidade} - ${endereco.estado}\nCEP: ${endereco.cep}\n${endereco.pais}`;
+      return enderecoCompleto;
+    }
+    
+
+    // Função para mostrar o pop-up de confirmação por um tempo limitado
+    const showConfirmationPopup = () => {
+        setShowConfirmation(true);
+        setTimeout(() => {
+            setShowConfirmation(false);
+        }, 3000); // O pop-up será escondido após 3 segundos
+    };
+
+    useEffect(() => {
+      console.log('Show Confirmation changed: ', showConfirmation);
+    }, [showConfirmation]);
+  
+
     const [endereco, setEndereco] = useState<AdressData>({
       rua: '',
       numero: 0,
@@ -62,7 +89,8 @@ const AdressComponent: React.FC<AdressProps> = ({ onAdressChange} ) => {
             if (response.status === 200) {
                 console.log('Endereço alterado com sucesso');
                 handleCloseModal();
-                onAdressChange();
+                showConfirmationPopup(); // Mostra o pop-up de confirmação
+                setEnderecoVisivel(formatarEndereco(endereco))
             }
         } catch (error) {
             let errorMessage = 'Erro desconhecido';
@@ -86,6 +114,7 @@ const AdressComponent: React.FC<AdressProps> = ({ onAdressChange} ) => {
   
     return (
       <>
+        <p className={styles.addressInfo}>Endereço: {endereco_visivel}</p>
         <button className={styles.modelButton} onClick={handleOpenModal}>Alterar Endereço</button>
         {mostrarModal && (
           <AdressModal
@@ -96,6 +125,11 @@ const AdressComponent: React.FC<AdressProps> = ({ onAdressChange} ) => {
           errorMessage={formError}
           />
         )}
+        {showConfirmation && (
+        <div className={styles.confirmationPopup}>
+            Endereço alterado com sucesso!
+        </div>
+      )}
       </>
     );
   };

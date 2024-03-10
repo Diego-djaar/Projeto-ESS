@@ -84,8 +84,7 @@ function GetCart() {
                 ))}
               </ul>
               <p className={styles.totalPrice}>Total: {responseData.data.Total}</p>
-              <p className={styles.addressInfo}>Endereço: {responseData.data.Endereço}</p>
-              <AdressComponent onAdressChange={handleRefreshCart}/>
+              <AdressComponent endereco_atual={responseData.data.Endereço} />
             </>
           )}
         </div>

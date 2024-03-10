@@ -6,3 +6,25 @@
     margin-top: 10px;
     cursor: pointer;
   }
+
+.confirmationPopup {
+    position: fixed; /* Fixo na tela */
+    bottom: 20px; /* Uma pequena margem do fundo da tela */
+    left: 50%; /* Centraliza o pop-up */
+    transform: translateX(-50%); /* Ajuste fino para centralizar o pop-up */
+    padding: 10px 20px; /* Padding interno */
+    background-color: #dff0d8; /* Uma cor de fundo verde claro para sucesso */
+    color: #3c763d; /* Cor de texto para contrastar com o fundo */
+    border-radius: 5px; /* Bordas arredondadas */
+    z-index: 1000; /* Garante que o pop-up estará no topo de outros elementos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra para se destacar */
+    font-size: 1rem; /* Tamanho do texto */
+    animation: fadeOut 3s forwards; /* Animação para desaparecer */
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
