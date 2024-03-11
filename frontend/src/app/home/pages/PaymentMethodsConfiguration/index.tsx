@@ -41,8 +41,8 @@ const PaymentConfig = () => {
                     <Button  DataCy="update_payment" value="Atualizar método de pagamento" onClick={handleUpdatingClick}></Button>
                 </div>
                 <div>
-                    <Button   DataCy="delete_payment"value="Deletar método de pagamento" onClick={handleDeletingClick}></Button>
-                    <Button   DataCy="view_payment"value="Visualizar método de pagamento" onClick={handleViewingClick}></Button>
+                    <Button  DataCy="delete_payment"value="Deletar método de pagamento" onClick={handleDeletingClick}></Button>
+                    {/* <Button   DataCy="view_payment"value="Visualizar método de pagamento" onClick={handleViewingClick}></Button> */}
                 </div>
                 <ReturnButton path="/paymentMethod"></ReturnButton>
             </div>
