@@ -5,3 +5,6 @@ __pycache__/
 *.swp
 fastapi-env/
 node_modules
+cypress/downloads
+screenshots
+

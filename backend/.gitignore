@@ -1,6 +1,7 @@
 __pycache__
-.pytest_cache
+.pytest_cache/
 .env
 *.txt
 *.json
 *.sh
+.idea/
