@@ -13,10 +13,10 @@ Feature: Visualizar e modificar carrinho
     Scenario: Alterar endereço com sucesso
         Given o usuário está na página "carrinho"
         And o endereço não foi registrado
-        When o usuário clica no botão "Alterar Endereço"
+        When o usuário clica no botão de "Alterar Endereço"
         And preenche todos os campos obrigatórios
-        Then o usuário está na página "carrinho"
-        And o usuário visualiza um pop-up com o texto "Endereço alterado com sucesso!"
+        And o usuário clica no botão de "Salvar Endereço"
+        Then o usuário visualiza um pop-up com o texto "Endereço alterado com sucesso!"
 
 
     Scenario: Alterar endereço com falha

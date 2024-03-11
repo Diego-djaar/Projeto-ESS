@@ -1,5 +1,10 @@
 import { Given, Then, When } from "@badeball/cypress-cucumber-preprocessor";
 
+beforeEach(() => {
+    // Chamada para a função/API que limpa a base de dados
+    cy.request('DELETE', 'http://127.0.0.1:8000/backend/api/carrinho/clear_carts');
+  });  
+
 Given('o usuário está na página {string}', (page: string)=>{
     cy.visit(`http://localhost:3000/${page}`)
 });
@@ -42,9 +47,40 @@ When('o usuário clica no botão {string} do item {string}', (string: string, st
 Then('o usuário não deve ver mais o item de ID {string} na lista de itens do carrinho', (itemID) => {
     const CPF = "123.456.789-10";
 
-    cy.get('input.inputCpf').type(CPF);
     cy.get('button.viewCartButton').click();
 
     // Carrinho vazio
     cy.get('.itemList').find('li').should('not.exist')
+});
+
+Given('o endereço não foi registrado', ()=> {
+    const CPF = "123.456.789-10";
+
+    cy.get('input.inputCpf').type(CPF);
+
+    cy.get('button.viewCartButton').click();
+
+    cy.get('.addressInfo').should('contain', 'Endereço não registrado');
+});
+
+When('o usuário clica no botão de {string}', (string: string) => {
+    if (string === "Alterar Endereço") {
+        cy.get('.modelButton').click();
+    } else if (string === "Salvar Endereço") {
+        cy.get('.saveButton').click();
+    }
+});
+
+When('preenche todos os campos obrigatórios', ()=> {
+    // O exemplo abaixo presume que você está dentro de um contexto 'it' ou 'beforeEach' do Cypress
+    cy.fixture('address.json').then((address) => {
+    Object.keys(address).forEach((key) => {
+      cy.get(`input[name=${key}]`).type(address[key]);
+        });
+    });
+  
+});
+
+Then('o usuário visualiza um pop-up com o texto {string}', (string: string) => {
+    cy.get(".confirmationPopup").should('exist')
 });
