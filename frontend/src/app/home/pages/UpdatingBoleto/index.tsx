@@ -44,12 +44,12 @@ const UpdatingBoleto = () => {
         <Message value="Preecha com as informações"></Message>
         <form action="" className={styles.forms}>
         <div>
-          <Form placeholder="Digite o ID do método" onChange={e => setId(e.target.value)}></Form>
+          <Form Datacy = "update_id_boleto" placeholder="Digite o ID do método" onChange={e => setId(e.target.value)}></Form>
         </div>
         <div>
-          <Form placeholder="Digite o novo nome" onChange={e => setNovoNome(e.target.value)}></Form>
+          <Form Datacy = "update_nome_boleto" placeholder="Digite o novo nome" onChange={e => setNovoNome(e.target.value)}></Form>
         </div>
-        <SubmitButton value="Atualizar" onClick={e => handleUpdating(e)}></SubmitButton>
+        <SubmitButton Datacy = "update_pix_botao" value="Atualizar" onClick={e => handleUpdating(e)}></SubmitButton>
     </form>
     <ReturnButton path = "/paymentMethod/updating"></ReturnButton>
     </div>

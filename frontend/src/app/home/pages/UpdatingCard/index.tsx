@@ -45,17 +45,17 @@ const UpdatingCartao = () => {
         <Message value="Preecha com as informações"></Message>
         <form action="" className={styles.forms}>
         <div>
-          <Form placeholder="Digite o ID do método" onChange={e => setId(e.target.value)}></Form>
+          <Form Datacy="update_id_cartao" placeholder="Digite o ID do método" onChange={e => setId(e.target.value)}></Form>
         </div>
         <div>
-          <Form placeholder="Digite o novo nome do cartão" onChange={e => setNomeCartao(e.target.value)}></Form>
-          <Form placeholder="Digite o novo numero do cartão" onChange={e => setNumeroCartao(e.target.value)}></Form>
+          <Form Datacy="update_nome_cartao" placeholder="Digite o novo nome do cartão" onChange={e => setNomeCartao(e.target.value)}></Form>
+          <Form Datacy="update_numero_cartao" placeholder="Digite o novo numero do cartão" onChange={e => setNumeroCartao(e.target.value)}></Form>
         </div>
         <div>
-          <Form placeholder="Digite o novo cvv" onChange={e => setCvv(e.target.value)}></Form>
-          <Form placeholder="Digite a nova validade" onChange={e => setValidade(e.target.value)}></Form>
+          <Form Datacy="update_cvv_cartao" placeholder="Digite o novo cvv" onChange={e => setCvv(e.target.value)}></Form>
+          <Form Datacy="update_validade_cartao" placeholder="Digite a nova validade" onChange={e => setValidade(e.target.value)}></Form>
         </div>
-        <SubmitButton value="Atualizar" onClick={e => handleUpdating(e)}></SubmitButton>
+        <SubmitButton Datacy="update_cartao_botao" value="Atualizar" onClick={e => handleUpdating(e)}></SubmitButton>
         <ReturnButton path = "/paymentMethod/updating"></ReturnButton>
     </form>
     </div>

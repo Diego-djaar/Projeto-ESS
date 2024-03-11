@@ -30,11 +30,11 @@ const PaymentInserting = () => {
             <Pichu></Pichu>
             <Message value="Selecione uma forma de pagamento"></Message>
             <div className={styles.container}>
-                <Button value = "Boleto" onClick={handleBoletoClick}></Button>
-                <Button value = "Cartão de débito" onClick={handleCartaoClick}></Button>
+                <Button DataCy = "select_boleto" value = "Boleto" onClick={handleBoletoClick}></Button>
+                <Button  DataCy = "select_cartao" value = "Cartão de débito" onClick={handleCartaoClick}></Button>
             </div>
             <div className={styles.container}>
-                <Button value="Pix" onClick={handlePixClick}></Button>
+                <Button  DataCy = "select_pix" value="Pix" onClick={handlePixClick}></Button>
             </div>
             <ReturnButton path="/paymentMethod"></ReturnButton>
         </div>

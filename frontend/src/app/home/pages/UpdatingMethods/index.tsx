@@ -35,11 +35,11 @@ const UpdatingMethod = () => {
             <Pichu></Pichu>
             <Message value="Selecione uma forma de pagamento para atualizar"></Message>
             <div className={styles.container}>
-                <Button value = "Boleto" onClick={handleBoletoClick}></Button>
-                <Button value = "Cartão de débito" onClick={handleCartaoClick}></Button>
+                <Button value = "Boleto" DataCy="select_update_boleto"onClick={handleBoletoClick}></Button>
+                <Button value = "Cartão de débito"  DataCy="select_update_cartao" onClick={handleCartaoClick}></Button>
             </div>
             <div className={styles.container}>
-                <Button value="Pix" onClick={handlePixClick}></Button>
+                <Button value="Pix"  DataCy="select_update_pix" onClick={handlePixClick}></Button>
             </div>
             <ReturnButton path = "/paymentMethod"></ReturnButton>
         </div>

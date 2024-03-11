@@ -9,11 +9,11 @@ import {useState} from 'react'
 import axios from "axios";
 // import axios from "axios";
 
-const SubmitButton = ({onClick, value}) => {
+const SubmitButton = ({onClick, value, Datacy}) => {
 
     return (
         <>  
-        <button className={styles.submissionButton} onClick = {onClick}>{value}</button>   
+        <button data-cy = {Datacy} className={styles.submissionButton} onClick = {onClick}>{value}</button>   
         </>
     )
 

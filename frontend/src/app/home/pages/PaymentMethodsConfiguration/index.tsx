@@ -37,14 +37,14 @@ const PaymentConfig = () => {
             <Mensage value= "Configurações de método de pagamento"></Mensage>
             <div className = {styles.buttomContainer}>
                 <div>
-                    <Button value="Inserir método de pagamento" onClick={handleInsertingClick}></Button>
-                    <Button value="Atualizar método de pagamento" onClick={handleUpdatingClick}></Button>
+                    <Button DataCy="insert_payment" value="Inserir método de pagamento" onClick={handleInsertingClick}></Button>
+                    <Button  DataCy="update_payment" value="Atualizar método de pagamento" onClick={handleUpdatingClick}></Button>
                 </div>
                 <div>
-                    <Button value="Deletar método de pagamento" onClick={handleDeletingClick}></Button>
-                    <Button value="Visualizar método de pagamento" onClick={handleViewingClick}></Button>
+                    <Button   DataCy="delete_payment"value="Deletar método de pagamento" onClick={handleDeletingClick}></Button>
+                    <Button   DataCy="view_payment"value="Visualizar método de pagamento" onClick={handleViewingClick}></Button>
                 </div>
-                <ReturnButton path="paymentMethod"></ReturnButton>
+                <ReturnButton path="/paymentMethod"></ReturnButton>
             </div>
         </div>
     )

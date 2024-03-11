@@ -1,8 +1,8 @@
 import styles from "./index.module.css";
 
-const Button = ({value, onClick}) => {
+const Button = ({value, onClick, DataCy}) => {
 
-    return <button className={styles.buttom} onClick={onClick}>{value} </button>
+    return <button data-cy = {DataCy} className={styles.buttom} onClick={onClick}>{value} </button>
 
 }
 

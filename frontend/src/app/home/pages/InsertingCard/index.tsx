@@ -34,7 +34,7 @@ const InsertingCard = () => {
         .then(res => {if (res.data.message == "metodo de pagamento cadastrado com sucesso") {
 
             navigate("/paymentMethod/inserting")
-            alert(res.data.message)
+            alert(`metodo de pagamento cadastrado com sucesso\nSeu ID é ${res.data.data["ID"]}`)
         }else {
 
             alert("Informações inválidas")
@@ -49,18 +49,18 @@ const InsertingCard = () => {
             <Message value="preencha com as suas informações"></Message>
             <form action="">
                 <div className={styles.container1}>
-                <Form placeholder="Digite o nome" onChange={e => setNome(e.target.value)}></Form>
-                <Form placeholder="Digite o número" onChange={e => setNumero(e.target.value)}></Form>
+                <Form Datacy= "inserir_nome_cartao" placeholder="Digite o nome" onChange={e => setNome(e.target.value)}></Form>
+                <Form Datacy= "inserir_numero_cartao" placeholder="Digite o número" onChange={e => setNumero(e.target.value)}></Form>
                 </div>
                 <div className={styles.container2}>
-                <Form placeholder="Digite o CVV" onChange={e => setCvv(e.target.value)}></Form>
-                <Form placeholder="Digite o seu CPF" onChange={e => setCpf(e.target.value)}></Form>
+                <Form Datacy="inserir_cvv" placeholder="Digite o CVV" onChange={e => setCvv(e.target.value)}></Form>
+                <Form Datacy="inserir_cpf_cartao" placeholder="Digite o seu CPF" onChange={e => setCpf(e.target.value)}></Form>
                 </div>
                 <div className={styles.container3}>
-                <Form placeholder="Digite a validade do cartão" onChange={e => setValidade(e.target.value)}></Form>
+                <Form Datacy="inserir_validade" placeholder="Digite a validade do cartão" onChange={e => setValidade(e.target.value)}></Form>
                 </div>
                 <div className={styles.container4}>
-                 <SubmitButton value= "Inserir cartão" onClick = {event => insertCartaoHandler(event)}></SubmitButton>
+                 <SubmitButton Datacy="inserir_cartao_botao" value= "Inserir cartão" onClick = {event => insertCartaoHandler(event)}></SubmitButton>
                 </div>
                 <ReturnButton path="/paymentMethod/inserting"></ReturnButton>
             </form>

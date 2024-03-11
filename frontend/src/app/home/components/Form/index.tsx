@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import {useState} from 'react'
 import axios from "axios";
 
-const Form = ({placeholder, onChange}) => {
+const Form = ({placeholder, onChange, Datacy}) => {
 
     return (
         <>
-        <input type="text" className={styles.caixaTexto} placeholder={placeholder}  onChange={onChange}/>
+        <input data-cy = {Datacy} type="text" className={styles.caixaTexto} placeholder={placeholder}  onChange={onChange}/>
         </>
     )
 

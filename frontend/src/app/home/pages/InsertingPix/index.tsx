@@ -26,14 +26,15 @@ const InsertingPix = () => {
         .then(res => {if (res.data.message == "metodo de pagamento cadastrado com sucesso") {
 
             navigate("/paymentMethod/inserting")
-            alert(res.data.message)
+            alert(`metodo de pagamento cadastrado com sucesso`)
         }else if (res.data.message == "Já existe um pix cadastrado no sistema"){
-
+            navigate("/paymentMethod/inserting/pix")
             alert(res.data.message)
 
         }else {
 
             alert("Informações inválidas")
+            navigate("/paymentMethod/inserting/pix")
 
         } } )
 
@@ -45,14 +46,14 @@ const InsertingPix = () => {
             <Message value="preencha com as suas informações"></Message>
             <form className={styles.forms}>
             <div>
-            <Form placeholder= "Digite aqui o seu nome completo"  onChange={event => 
+            <Form Datacy = "inserir_nome_pix" placeholder= "Digite aqui o seu nome completo"  onChange={event => 
             setNomeCompleto(event.target.value)}></Form>  
             </div>
             <div>
-            <Form placeholder= "Digite aqui o seu CPF"  onChange={event => 
+            <Form Datacy = "inserir_cpf_pix" placeholder= "Digite aqui o seu CPF"  onChange={event => 
             setCpf(event.target.value)}></Form>
             </div>
-            <SubmitButton onClick = {event => insertBoletoHandler(event)} value = "Inserir pix"></SubmitButton>
+            <SubmitButton Datacy = "inserir_pix_botao" onClick = {event => insertBoletoHandler(event)} value = "Inserir pix"></SubmitButton>
             </form>
             <ReturnButton path="/paymentMethod/inserting"></ReturnButton>
 

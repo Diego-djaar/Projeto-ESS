@@ -27,7 +27,7 @@ const InsertingBoleto = () => {
         .then(res => {if (res.data.message == "metodo de pagamento cadastrado com sucesso") {
 
             navigate("/paymentMethod/inserting")
-            alert(res.data.message)
+            alert(`metodo de pagamento cadastrado com sucesso\nSeu ID é ${res.data.data["ID"]}`)
         }else if (res.data.message == "Já existe um boleto cadastrado no sistema"){
 
             alert(res.data.message)
@@ -47,14 +47,14 @@ const InsertingBoleto = () => {
             <div>
             <form className={styles.forms}>
             <div>
-            <Form placeholder="Digite aqui o seu nome completo" onChange={event => 
+            <Form Datacy = "inserir_nome_boleto" placeholder="Digite aqui o seu nome completo" onChange={event => 
             setNomeCompleto(event.target.value)}></Form>  
             </div>  
             <div>
-            <Form placeholder="Digite aqui o seu CPF"  onChange={event => 
+            <Form Datacy = "inserir_cpf_boleto" placeholder="Digite aqui o seu CPF"  onChange={event => 
             setCpf(event.target.value)}></Form>    
             </div>
-            <SubmitButton value = "Inserir Boleto" onClick = {event => insertBoletoHandler(event)}></SubmitButton> 
+            <SubmitButton Datacy = "inserir_boleto_botao" value = "Inserir Boleto" onClick = {event => insertBoletoHandler(event)}></SubmitButton> 
             <ReturnButton path="/paymentMethod/inserting"></ReturnButton>
             </form>
             </div>

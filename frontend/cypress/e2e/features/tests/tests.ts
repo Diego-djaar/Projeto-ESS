@@ -3,6 +3,11 @@ import { Given, Then, When } from "@badeball/cypress-cucumber-preprocessor";
 // Scenario: Criar um test
 //Given: common-step-definitions.ts
 
+Given("o usuário está na página {string}", (page: string) => {
+  cy.visit(page);
+});
+
+
 When(
   "o usuário preenche o campo {string} com {string} e clica no botão {string}",
   (field: string, value: string, button: string) => {
