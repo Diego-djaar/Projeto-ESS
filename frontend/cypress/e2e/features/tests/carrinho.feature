@@ -37,7 +37,7 @@ Feature: Visualizar e modificar carrinho
         Given o usuário está na página "carrinho"
         And o usuário observa "2" na quantidade do item de ID "12345678"
         When o usuário clica no botão de "-"
-        Then o usuário observa "1" na quantidade do item de ID "12345678"
+        Then o usuário vê "1" na quantidade do item de ID "12345678"
 
     Scenario: Decrementar item no carrinho quando quantidade é 1 com sucesso
         Given o usuário está na página "carrinho"
