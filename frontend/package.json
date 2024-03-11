@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
+    "@playwright/test": "^1.42.1",
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -31,7 +32,7 @@
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^18.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
-    "@cucumber/cucumber": "^9.2.0",
+    "@cucumber/cucumber": "^9.6.0",
     "@cypress/code-coverage": "^3.10.7",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@testing-library/jest-dom": "^5.16.5",

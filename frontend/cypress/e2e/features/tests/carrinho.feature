@@ -7,7 +7,7 @@ Feature: Visualizar e modificar carrinho
     Scenario: Remover item de carrinho com sucesso
         Given o usuário está na página "carrinho"
         And o item de ID "12345678" está na lista de itens do carrinho
-        When o usuário clica no botão "remover" do item "1234578"
+        When o usuário clica no botão "remover" do item "12345678"
         Then o usuário não deve ver mais o item de ID "12345678" na lista de itens do carrinho
 
     Scenario: Alterar endereço com sucesso

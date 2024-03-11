@@ -1,0 +1,16 @@
+.itemPageButton {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+}
+
+.itemPageButton img {
+    width: 40px; /* ou qualquer outro tamanho adequado */
+    height: auto;
+    transition: transform 0.3s ease; /* Suaviza a transformação */
+}
+  
+.itemPageButton:hover img {
+    transform: scale(1.1); /* Aumenta ligeiramente o ícone quando o mouse passa por cima */
+    cursor: pointer;
+}
