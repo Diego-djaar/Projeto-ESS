@@ -59,7 +59,7 @@ class PaymentService:
         if not sucess: 
 
             if "VALIDADE" in problems: 
-                return HTTPPaymentResponse.BAD_REQUEST()
+                return HTTPPaymentResponse.BAD_REQUEST(["VALIDADE"])
             
             if "ID_NOT_FOUND" in problems: 
                 return HTTPPaymentResponse.INEXISTENT_ID()
