@@ -25,7 +25,7 @@ class PaymentService:
         if result == "CPF":
             return HTTPPaymentResponse.BAD_REQUEST(["CPF"])
         elif result == "ALREADY_EXIST":
-            return HTTPPaymentResponse.PIX_ALREADY_EXIST()
+            return HTTPPaymentResponse.PIX_ALREADY_EXIST(id)
 
         return HTTPPaymentResponse.INSERTION_SUCESSFULLY(id)
     
@@ -37,7 +37,7 @@ class PaymentService:
         if result == "CPF":
             return HTTPPaymentResponse.BAD_REQUEST(["CPF"])
         elif result == "ALREADY_EXIST":
-            return HTTPPaymentResponse.BOLETO_ALREADY_EXIST()
+            return HTTPPaymentResponse.BOLETO_ALREADY_EXIST(id)
 
         return HTTPPaymentResponse.INSERTION_SUCESSFULLY(id)
     

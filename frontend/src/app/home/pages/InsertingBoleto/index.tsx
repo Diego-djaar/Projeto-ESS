@@ -27,13 +27,15 @@ const InsertingBoleto = () => {
         .then(res => {if (res.data.message == "metodo de pagamento cadastrado com sucesso") {
 
             navigate("/paymentMethod/inserting")
-            alert(`metodo de pagamento cadastrado com sucesso\nSeu ID é ${res.data.data["ID"]}`)
+            alert(`metodo de pagamento cadastrado com sucesso`)
         }else if (res.data.message == "Já existe um boleto cadastrado no sistema"){
 
+            navigate("/paymentMethod/inserting/boleto")
             alert(res.data.message)
 
         }else {
 
+            navigate("/paymentMethod/inserting/boleto")
             alert("Informações inválidas")
 
         } } )

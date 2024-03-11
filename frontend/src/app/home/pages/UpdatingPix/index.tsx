@@ -20,11 +20,11 @@ const UpdatingPix = () => {
       "nome_completo": novoNome
     }).then(res => {
       if (res.data.message === "Dados atualizados com sucesso") {
+        navigate("/paymentMethod/updating")
         alert("Dados atualizados com sucesso")
-        navigate("/paymentMethod/updating")
       } else {
-        alert("Id não encontrado")
         navigate("/paymentMethod/updating")
+        alert("Id não encontrado")
       }
     }).catch(error => {
       // Lida com erros, se houver algum

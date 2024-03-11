@@ -42,10 +42,10 @@ const DeletingMethod = () => {
             <div>
             <form className={styles.forms}>
             <div>
-            <Form placeholder="Digite aqui o Id do método a ser deletado" onChange={event => 
+            <Form Datacy="delete_id" placeholder="Digite aqui o Id do método a ser deletado" onChange={event => 
             setId(event.target.value)}></Form>  
             </div>  
-            <SubmitButton value = "Deletar" onClick = {event => insertBoletoHandler(event)}></SubmitButton>            
+            <SubmitButton Datacy="delete_button" value = "Deletar" onClick = {event => insertBoletoHandler(event)}></SubmitButton>            
             </form>
             </div>
             <ReturnButton path="/paymentMethod"></ReturnButton>

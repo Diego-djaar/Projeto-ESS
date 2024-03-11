@@ -34,7 +34,7 @@ const InsertingCard = () => {
         .then(res => {if (res.data.message == "metodo de pagamento cadastrado com sucesso") {
 
             navigate("/paymentMethod/inserting")
-            alert(`metodo de pagamento cadastrado com sucesso\nSeu ID é ${res.data.data["ID"]}`)
+            alert(`metodo de pagamento cadastrado com sucesso`)
         }else {
 
             alert("Informações inválidas")

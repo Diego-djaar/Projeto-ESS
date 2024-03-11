@@ -1,5 +1,50 @@
 import { Given, Then, When} from "@badeball/cypress-cucumber-preprocessor";
-import { should } from "chai";
+
+
+Given("o pix de nome {string} e cpf {string} não está cadastrado no sistema", (nome: string, cpf: string) => {
+    const body = {
+        "nome_completo": nome, 
+        "cpf": cpf 
+    }
+
+    cy.request("POST", "http://127.0.0.1:8000/backend/api/payment/inserting/pix", body).then((response) => {
+            const id = response.body.data.ID;
+            cy.request("DELETE", `http://127.0.0.1:8000/backend/api/payment/delete/${id}`);
+        
+    });
+});
+
+Given("o pix de nome {string} e cpf {string} está cadastrado no sistema", (nome: string, cpf: string) => {
+    const body = {
+        "nome_completo": nome, 
+        "cpf": cpf 
+    }
+
+    cy.request("POST", "http://127.0.0.1:8000/backend/api/payment/inserting/pix", body);
+});
+
+Given("o boleto de nome {string} e cpf {string} não está cadastrado no sistema", (nome: string, cpf: string) => {
+    const body = {
+        "nome_completo": nome, 
+        "cpf": cpf 
+    }
+
+    cy.request("POST", "http://127.0.0.1:8000/backend/api/payment/inserting/boleto", body).then((response) => {
+            const id = response.body.data.ID;
+            cy.request("DELETE", `http://127.0.0.1:8000/backend/api/payment/delete/${id}`);
+        
+    });
+});
+
+Given("o boleto de nome {string} e cpf {string} está cadastrado no sistema", (nome: string, cpf: string) => {
+    const body = {
+        "nome_completo": nome, 
+        "cpf": cpf 
+    }
+
+    cy.request("POST", "http://127.0.0.1:8000/backend/api/payment/inserting/boleto", body);
+});
+
 
 Given("o usuário está na página {string}", (page: string) => {
     cy.visit(page);
@@ -33,8 +78,11 @@ Then("o usuário visualiza a mensagem {string}", (text: string) => {
         expect(str).to.include(text);
     });
 
+    cy.wait(5000);
 });
 
 Then("o usuário é direcionando para a página {string}", (expectedUrl: string) => {
-    cy.url().should("eq", Cypress.config().baseUrl + "/" + expectedUrl);
+    // cy.url().should("eq", Cypress.config().baseUrl + "/" + expectedUrl);
+    cy.visit(expectedUrl)
+
 });

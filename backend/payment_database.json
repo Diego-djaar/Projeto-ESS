@@ -1,18 +1,41 @@
 {
     "111.111.111-11": [
         {
-            "id": "b2d2b70a-1d7e-4d6b-ba49-ec5d5587d847",
+            "id": "8d33d563-4ebd-45b5-b048-ad5558ea97f3",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-11"
+        },
+        {
+            "id": "47c27500-b5c9-4642-be38-5a27932ec396",
             "tipo": "pix",
+            "nome_completo": "Breno gabriel de Melo Lima",
+            "cpf": "111.111.111-11"
+        },
+        {
+            "id": "91b07219-f5b0-4a8c-b2cb-ff7269c3886b",
+            "tipo": "boleto",
             "nome_completo": "Breno gabriel de Melo Lima",
             "cpf": "111.111.111-11"
         }
     ],
     "222.222.222-22": [
         {
-            "id": "e79e6301-dbd6-41a6-9daf-6e1c10dbad0c",
+            "id": "30877285-6549-49cb-a618-7abec1a662cc",
             "tipo": "pix",
             "nome_completo": "Maria Francisco Teixeira",
             "cpf": "222.222.222-22"
+        }
+    ],
+    "444.444.444-44": [
+        {
+            "id": "21a31e1a-bc0e-43ed-b91c-3c7847182aa7",
+            "tipo": "boleto",
+            "nome_completo": "Maria",
+            "cpf": "444.444.444-44"
         }
     ]
 }

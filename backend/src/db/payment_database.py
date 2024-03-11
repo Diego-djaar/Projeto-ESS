@@ -166,7 +166,7 @@ def insert_pix(nome_completo: str, cpf: str) :
 
     for val in database[cpf]:
         if val["tipo"] == "pix":
-            return ("ALREADY_EXIST", None)
+            return ("ALREADY_EXIST", val["id"])
         
     # id_value = str(abs(hash((datetime.date.today(), cpf))))
         
@@ -210,7 +210,7 @@ def insert_ticket(nome_completo: str, cpf: str) -> str:
 
     for val in database[cpf]:
         if val["tipo"] == "boleto":
-            return ("ALREADY_EXIST", None)
+            return ("ALREADY_EXIST", val["id"])
         
     # id_value = str(abs(hash((datetime.date.today(), cpf))))
         
@@ -276,6 +276,7 @@ def update_card(id: str, nome_cartao: str, numero_cartao: str, cvv: str, validad
 def update_pix(id: str, nome_completo: str) -> bool:
         
     database = read_file()
+
                 
     for key in database:
         for val in database[key]: 
