@@ -33,9 +33,9 @@ function ClearInputs() {
 export function Init() {
     console.log(signup_input_functions)
     Object.keys(SignUpForm).forEach(loc => {
-        console.log(loc.toLowerCase() + "Text")
-        console.log(signup_input_functions[loc.toLowerCase() + "Text"])
-        console.log(SignUpForm[loc])
+        //console.log(loc.toLowerCase() + "Text")
+        //console.log(signup_input_functions[loc.toLowerCase() + "Text"])
+        //console.log(SignUpForm[loc])
         signup_input_functions[loc.toLowerCase() + "Text"](SignUpForm[loc])
     });
 }

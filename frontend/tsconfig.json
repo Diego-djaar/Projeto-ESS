@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "cypress/e2e/features/user_signup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

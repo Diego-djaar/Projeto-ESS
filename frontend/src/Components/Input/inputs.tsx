@@ -39,7 +39,7 @@ class Input extends Component {
     }
 
     setText(text: string) {
-        console.log("hat")
+        //console.log("hat")
         this.setState({ texto: text });
     }
 
@@ -50,7 +50,7 @@ class Input extends Component {
     }
 
     render() {
-        console.log("oi")
+        //console.log("oi")
         this.props.add_function(this.props.campo.toLowerCase() + "Color", this.changeColor);
         this.props.add_function(this.props.campo.toLowerCase() + "Text", this.setText)
         return (
