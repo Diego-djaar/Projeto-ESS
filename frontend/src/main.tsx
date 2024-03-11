@@ -10,4 +10,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <App />
     </Provider>
   </React.StrictMode>
+<<<<<<< Updated upstream
 );
+=======
+);
+>>>>>>> Stashed changes
