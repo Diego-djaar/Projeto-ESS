@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'; // Usando axios para chamadas HTTP
-import styles from "./AddToCartButton.module.css"
+import "./AddToCartButton.css"
 import ItemData from '../models/ItemData';
 
 // ButtonProps.ts
@@ -43,7 +43,7 @@ const AddToCartButton: React.FC<ButtonProps> = ({ item, cpf, onItemAdded, onErro
   };
 
   return (
-    <button className={styles.itemAddButton} onClick={addToCart} disabled={!cpf.trim()}>
+    <button className="itemAddButton" onClick={addToCart} disabled={!cpf.trim()}>
       Adicionar ao carrinho
     </button>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'; // Usando axios para chamadas HTTP
-import styles from './DecreaseItemQuantity.module.css'
+import './DecreaseItemQuantity.css'
 
 // ButtonProps.ts
 interface ButtonProps {
@@ -42,7 +42,7 @@ const DecreaseItemQuantityButton: React.FC<ButtonProps> = ({ itemId, cpf, onItem
   };
 
   return (
-    <button className={styles.quantityMinus} onClick={decreaseQuantity}>
+    <button className="quantityMinus" onClick={decreaseQuantity}>
       -
     </button>
   );

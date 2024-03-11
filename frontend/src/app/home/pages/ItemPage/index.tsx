@@ -2,7 +2,7 @@ import AddToCartButton from "../../components/AddToCartButton";
 import ItemData from "../../models/ItemData";
 import { useCpf } from "../../context/HomeContext/CpfContext";
 import GoToCartButton from "../../components/GoToCartButton";
-import styles from './index.module.css'
+import './index.css'
 
 const ItemPage = () => {
     const [ cpf ] = useCpf();
@@ -24,8 +24,8 @@ const ItemPage = () => {
     };
 
     return (<>
-        <div className={styles.itemPage}>
-            <div className={styles.itemDetails}>
+        <div className="itemPage">
+            <div className="itemDetails">
                 <h1>{itemExemplo.nome}</h1>
                 <p>{itemExemplo.description}</p>
                 <p>Preço: R${itemExemplo.price}</p>
@@ -36,7 +36,7 @@ const ItemPage = () => {
                     onError={handleError}
                 />
             </div>
-            <div className={styles.goToCartButton}>
+            <div className="goToCartButton">
                 <GoToCartButton itemCount={1} />
             </div>
         </div>

@@ -1,4 +1,4 @@
-import styles from './AdressModal.module.css'; // Assuma que este é o seu arquivo de estilos para o modal
+import './AdressModal.css';
 
 const AdressModal = ({ endereco, setEndereco, onSubmit, onClose, errorMessage }) => {
 
@@ -11,13 +11,13 @@ const AdressModal = ({ endereco, setEndereco, onSubmit, onClose, errorMessage })
   };
 
   return (
-    <div className={styles.modalBackground}>
-      <div className={styles.modalContainer}>
-        <div className={styles.modalHeader}>
+    <div className="modalBackground">
+      <div className="modalContainer">
+        <div className="modalHeader">
           <h2>Editar Endereço</h2>
-          <button onClick={onClose} className={styles.closeButton}>&times;</button>
+          <button onClick={onClose} className="closeButton">&times;</button>
         </div>
-        <div className={styles.modalContent}>
+        <div className="modalContent">
           <input name="rua" value={endereco.rua} onChange={handleChange} placeholder="Rua *" />
           <input name="numero" type="number" value={endereco.numero} onChange={handleChange} placeholder="Número *" />
           <input name="bairro" value={endereco.bairro} onChange={handleChange} placeholder="Bairro *" />
@@ -27,12 +27,12 @@ const AdressModal = ({ endereco, setEndereco, onSubmit, onClose, errorMessage })
           <input name="pais" value={endereco.pais} onChange={handleChange} placeholder="País *" />
           <input name="complemento" value={endereco.complemento || ''} onChange={handleChange} placeholder="Complemento" />
         </div>
-        <div className={styles.modalActions}>
-          <button onClick={onSubmit} className={styles.saveButton}>Salvar Endereço</button>
-          <button onClick={onClose} className={styles.cancelButton}>Cancelar</button>
+        <div className="modalActions">
+          <button onClick={onSubmit} className="saveButton">Salvar Endereço</button>
+          <button onClick={onClose} className="cancelButton">Cancelar</button>
         </div>
         {errorMessage && (
-                <div className={styles.errorMessage}>
+                <div className="errorMessage">
                     {errorMessage}
                 </div>
         )}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ItemData from '../models/ItemData';
 import HTTPResponseData from '../models/HTTPResponseData';
 import ItemComponent from './Item';
-import styles from './getCart.module.css';
+import './getCart.css';
 import { useCpf } from '../context/HomeContext/CpfContext';
 import AdressComponent from './AdressComponent';
 
@@ -46,10 +46,10 @@ function GetCart() {
   };
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.header}>Visualização do Carrinho</h1>
+    <div className="container">
+      <h1 className="header">Visualização do Carrinho</h1>
       <input
-        className={styles.inputCpf}
+        className="inputCpf"
         type="text"
         value={cpf}
         onChange={handleInputChange}
@@ -57,23 +57,23 @@ function GetCart() {
         disabled={loading}
       />
       <button
-        className={styles.viewCartButton}
+        className="viewCartButton"
         onClick={handleViewCartClick}
         disabled={loading}
       >
         {loading ? 'Carregando...' : 'Visualizar Carrinho'}
       </button>
-      {error && <p className={styles.errorMsg}>{error}</p>}
+      {error && <p className="errorMsg">{error}</p>}
       {responseData && responseData.data && (
-        <div className={styles.cartDetails}>
-          <h2 className={styles.statusMessage}>Status: {responseData.status_code}</h2>
-          <p className={styles.statusMessage}>Mensagem: {responseData.message}</p>
+        <div className="cartDetails">
+          <h2 className="statusMessage">Status: {responseData.status_code}</h2>
+          <p className="statusMessage">Mensagem: {responseData.message}</p>
           {loading ? (
-            <p className={styles.statusMessage}>Atualizando itens...</p>
+            <p className="statusMessage">Atualizando itens...</p>
           ) : (
             <>
-              <p className={styles.statusMessage}>Itens:</p>
-              <ul className={styles.itemList}>
+              <p className="statusMessage">Itens:</p>
+              <ul className="itemList">
                 {responseData.data.Itens.map((item: ItemData) => (
                   <li key={item.id}>
                     <ItemComponent
@@ -83,7 +83,7 @@ function GetCart() {
                   </li>
                 ))}
               </ul>
-              <p className={styles.totalPrice}>Total: {responseData.data.Total}</p>
+              <p className="totalPrice">Total: {responseData.data.Total}</p>
               <AdressComponent endereco_atual={responseData.data.Endereço} />
             </>
           )}

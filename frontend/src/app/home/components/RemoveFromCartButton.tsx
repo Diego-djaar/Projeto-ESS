@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'; // Usando axios para chamadas HTTP
-import styles from "./RemoveFromCartButton.module.css"
+import "./RemoveFromCartButton.css"
 
 // ButtonProps.ts
 interface ButtonProps {
@@ -44,7 +44,7 @@ const RemoveFromCartButton: React.FC<ButtonProps> = ({ itemId, cpf, onItemRemove
   };
 
   return (
-    <button className={styles.itemRemove} onClick={removeFromCart}>
+    <button className="removeButton" onClick={removeFromCart}>
       Remover
     </button>
   );

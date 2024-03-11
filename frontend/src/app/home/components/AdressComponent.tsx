@@ -3,7 +3,7 @@ import { useCpf } from '../context/HomeContext/CpfContext';
 import { useState } from 'react';
 import AdressModal from './AdressModal';
 import axios from 'axios';
-import styles from './AdressComponent.module.css'
+import './AdressComponent.css'
 import { useEffect } from 'react';
 
 interface AdressProps {
@@ -114,8 +114,8 @@ const AdressComponent: React.FC<AdressProps> = ({ endereco_atual } ) => {
   
     return (
       <>
-        <p className={styles.addressInfo}>Endereço: {endereco_visivel}</p>
-        <button className={styles.modelButton} onClick={handleOpenModal}>Alterar Endereço</button>
+        <p className="addressInfo">Endereço: {endereco_visivel}</p>
+        <button className="modelButton" onClick={handleOpenModal}>Alterar Endereço</button>
         {mostrarModal && (
           <AdressModal
           endereco={endereco}
@@ -126,7 +126,7 @@ const AdressComponent: React.FC<AdressProps> = ({ endereco_atual } ) => {
           />
         )}
         {showConfirmation && (
-        <div className={styles.confirmationPopup}>
+        <div className="confirmationPopup">
             Endereço alterado com sucesso!
         </div>
       )}

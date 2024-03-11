@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemData from '../models/ItemData';
-import styles from './ItemComponent.module.css';
+import './ItemComponent.css';
 import camisaImage from "./camisa.jpg";
 import RemoveFromCartButton from './RemoveFromCartButton';
 import IncreaseItemQuantityButton from './IncreaseItemQuantity';
@@ -35,23 +35,23 @@ const ItemComponent: React.FC<ItemProps> = ({ item, onItemChange }) => {
   };
 
   return (
-    <div className={styles.itemCard}>
-      <div className={styles.itemImage}>
+    <div className="itemCard">
+      <div className="itemImage">
         <img src={camisaImage} alt={item.nome} />
       </div>
-      <div className={styles.itemInfo}>
-        <h2 className={styles.itemName}>{item.nome} <span className={styles.itemId}>(ID: {item.id})</span> </h2>
-        <p className={styles.itemDescription}>{item.description}</p>
-        <div className={styles.itemPriceQuantity}>
-          <p className={styles.itemPrice}>{item.price}</p>
-          <div className={styles.itemQuantity}>
+      <div className="itemInfo">
+        <h2 className="itemName">{item.nome} <span className="itemID">(ID: {item.id})</span> </h2>
+        <p className="itemDescription">{item.description}</p>
+        <div className="itemPriceQuantity">
+          <p className="itemPrice">{item.price}</p>
+          <div className="itemQuantity">
             <DecreaseItemQuantityButton 
             itemId={item.id}
             cpf={cpf}
             onItemDecreaseQuantity={handleDecrease}
             onError={handleError}
             />
-            <span className={styles.quantityValue}>{item.quantidade}</span>
+            <span className="quantityValue">{item.quantidade}</span>
             <IncreaseItemQuantityButton
             itemId={item.id}
             cpf={cpf}
