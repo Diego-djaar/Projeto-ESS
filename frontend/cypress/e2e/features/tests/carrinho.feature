@@ -22,8 +22,9 @@ Feature: Visualizar e modificar carrinho
     Scenario: Alterar endereço com falha
         Given o usuário está na página "carrinho"
         And o endereço não foi registrado
-        When o usuário clica no botão "Alterar Endereço"
+        When o usuário clica no botão de "Alterar Endereço"
         And não preenche nenhum campo obrigatório
+        And o usuário clica no botão de "Salvar Endereço"
         Then o usuário visualiza uma mensagem com o texto "Por favor, preencha todos os campos obrigatórios."
 
     Scenario: Incrementar item no carrinho com sucesso

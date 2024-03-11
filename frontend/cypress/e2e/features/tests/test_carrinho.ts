@@ -84,3 +84,12 @@ When('preenche todos os campos obrigatórios', ()=> {
 Then('o usuário visualiza um pop-up com o texto {string}', (string: string) => {
     cy.get(".confirmationPopup").should('exist')
 });
+
+When('não preenche nenhum campo obrigatório', ()=>{
+
+});
+
+Then('o usuário visualiza uma mensagem com o texto {string}', (string: string)=>{
+    cy.get('.errorMessage').should('exist');
+    cy.get('.errorMessage').should('contain', string)
+});
