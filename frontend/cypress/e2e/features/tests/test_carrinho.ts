@@ -68,6 +68,10 @@ When('o usuário clica no botão de {string}', (string: string) => {
         cy.get('.modelButton').click();
     } else if (string === "Salvar Endereço") {
         cy.get('.saveButton').click();
+    } else if (string === "+") {
+        cy.get(".quantityPlus").click();
+    } else if (string === "-") {
+        cy.get(".quantityMinus").click();
     }
 });
 
@@ -92,4 +96,29 @@ When('não preenche nenhum campo obrigatório', ()=>{
 Then('o usuário visualiza uma mensagem com o texto {string}', (string: string)=>{
     cy.get('.errorMessage').should('exist');
     cy.get('.errorMessage').should('contain', string)
+});
+
+Given('o usuário observa {string} na quantidade do item de ID {string}', (string: string, string2: string) => {
+    const CPF = '123.456.789-10'
+
+    cy.get('input.inputCpf').type(CPF);
+
+    cy.get('button.viewCartButton').click();
+
+    cy.get('.itemPageButton').click();
+    let quantidade: number = parseInt(string);
+    for (let i = 0; i < quantidade; i++) { cy.get('.itemAddButton').click(); }
+
+    cy.get('.cartButton').click();
+
+    cy.get('button.viewCartButton').click();
+
+    cy.get(".quantityValue").should('contain', string)
+});
+
+Then('o usuário vê {string} na quantidade do item de ID {string}', (string: string, string2: string) => {
+    cy.get('.itemList > li').each(($li) => {
+        cy.wrap($li).find('span.itemID').contains(`(ID: ${string2})`).then(($li) => {
+            cy.get(".quantityValue").should('contain', string)
+        })});
 });
