@@ -101,3 +101,10 @@ export async function MakeRequest() {
         });
     return val
 }
+
+export async function exclude() {
+    const val = await axios
+        .delete('http://127.0.0.1:8000/backend/api/auth/user/remove', {data: { "token": GetToken() }})
+    unlogin()
+    return val
+}

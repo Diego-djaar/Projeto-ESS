@@ -2,7 +2,7 @@ import { Component } from "react"
 import { Init, UserData } from "../../Services/user"
 import Button from "../../Components/Button/button";
 import { set_page } from "../../Services/page_select";
-import { unlogin } from "../../Services/login";
+import { exclude, unlogin } from "../../Services/login";
 
 export default class User extends Component{
     state: {user_data: {"username": string,
@@ -53,6 +53,8 @@ export default class User extends Component{
                 <Button func={() => set_page("main")} text={"Página principal"} style={{}} id="Main" />
                 <h1></h1>
                 <Button func={() => { unlogin(); window.location.reload() }} text={"Sair"} style={{}} id="Unlogin"/>
+                <h1></h1>
+                <Button func={() => { exclude(); window.location.reload() }} text={"Excluir Usuário"} style={{}} id="Exclude"/>
             </div>
         )
         return val
