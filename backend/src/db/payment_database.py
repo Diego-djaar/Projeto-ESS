@@ -277,7 +277,6 @@ def update_pix(id: str, nome_completo: str) -> bool:
         
     database = read_file()
 
-                
     for key in database:
         for val in database[key]: 
             if val["id"] == id and val["tipo"] == "pix":
@@ -285,7 +284,7 @@ def update_pix(id: str, nome_completo: str) -> bool:
                 write_file(database)
                 return True
                 
-        return False
+    return False
     
 def update_ticket(id: str, nome_completo: str) -> bool:
         
@@ -298,7 +297,7 @@ def update_ticket(id: str, nome_completo: str) -> bool:
                 write_file(database)
                 return True
                 
-        return False
+    return False
 
 def delete_method(id: str) -> bool: 
 
