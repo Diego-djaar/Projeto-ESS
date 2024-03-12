@@ -1,11 +1,17 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CreateTest from "./app/home/pages/CreateTest";
 import ListTests from "./app/home/pages/ListTests";
+import Inventory from "./inventory";
+import AddItem from "./add_item";
 
 const router = createBrowserRouter([
   {
-    path: "*",
-    Component: CreateTest,
+    path: "/inventory",
+    Component: Inventory,
+  },
+  {
+    path: "/inventory/add_item/:CNPJ",
+    Component: AddItem,
   },
   {
     path: "/create-test",
