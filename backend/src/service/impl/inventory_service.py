@@ -1,10 +1,10 @@
-from schemas.response import HTTPResponses, HttpResponseModel
-from db.itens_database import DadosItem, Item, ItemDatabase
-from db.inventory_database import InventoryEntryData, InventoryEntry, InventoryDatabase
-from db.__init__ import inventory_database as db
-from db.__init__ import item_database2 as item_db
-from schemas.item_database_response import HTTPDatabaseResponses 
-from schemas.inventory_response import HTTPItemResponses
+from src.schemas.response import HTTPResponses, HttpResponseModel
+from src.db.itens_database import DadosItem, Item, ItemDatabase
+from src.db.inventory_database import InventoryEntryData, InventoryEntry, InventoryDatabase
+from src.db.__init__ import inventory_database as db
+from src.db.__init__ import item_database2 as item_db
+from src.schemas.item_database_response import HTTPDatabaseResponses 
+from src.schemas.inventory_response import HTTPItemResponses
 from pydantic import BaseModel
 
 

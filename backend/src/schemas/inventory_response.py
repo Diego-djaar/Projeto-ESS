@@ -1,6 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel
-from schemas.response import HttpResponseModel
+from src.schemas.response import HttpResponseModel
 
 
 class HTTPItemResponses:
