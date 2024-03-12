@@ -101,7 +101,7 @@ def mock_cart_service_response(CPF_: str):
     #Carrinho_service.get_cart = lambda CPF: HttpResponseModel(
     #    message=HTTPResponses.ITEM_FOUND().message,
     #    status_code=HTTPResponses.ITEM_FOUND().status_code,
-    #    data={"Itens:": {}, "Total": "0.00", "Endereço": "Endereço não registrado"}
+    #    data={"Itens": {}, "Total": "0.00", "Endereço": "Endereço não registrado"}
     #)
     pass
 
@@ -176,7 +176,7 @@ def verify_quantity(context, ID: str, CPF_: str, quantidade: int):
     
     # Obter lista de IDs dos itens no carrinho
     cart_dict = context["response"].data
-    for item in cart_dict["Itens:"]:
+    for item in cart_dict["Itens"]:
         if item.id == ID:
             assert item.quantidade == int(quantidade)
     
@@ -240,7 +240,7 @@ def verificar_item_no_carrinho(context):
     cart_dict = response.data # Da forma {"Itens": list[DadosItem], "Total": "29.99", "Endereço": "Endereço não registrado"}
 
     # Obter lista de IDs dos itens no carrinho
-    item_ids_no_carrinho = [item.id for item in cart_dict["Itens:"]]
+    item_ids_no_carrinho = [item.id for item in cart_dict["Itens"]]
 
     assert context["id"] in item_ids_no_carrinho
     context["response"] = response
@@ -266,6 +266,6 @@ def check_response_status_code(context, status_code: int):
     target_fixture="context"
 )
 def check_response_json(context):
-    expected_data = {"Itens:": [], "Total": "0.00", "Endereço": "Endereço não registrado"}
+    expected_data = {"Itens": [], "Total": "0.00", "Endereço": "Endereço não registrado"}
     assert context["response"].json()["data"] == expected_data
     return context

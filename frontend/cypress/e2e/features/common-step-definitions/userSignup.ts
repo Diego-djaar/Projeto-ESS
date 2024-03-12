@@ -16,7 +16,7 @@ Given("Eu não estou logado", () => {
 
 // Given Eu estou na página de "signup”
 Given("Eu estou na página de {string}", (page: string) => { 
-    cy.visit('http://localhost:3123')
+    cy.visit('http://localhost:3123/'+page)
     set_page(page);
 });
 

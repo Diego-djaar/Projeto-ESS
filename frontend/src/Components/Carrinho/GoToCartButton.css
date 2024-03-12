@@ -1,0 +1,36 @@
+.cartButton {
+    position: relative;
+    display: inline-block;
+    width: 50px; /* Ajuste conforme o tamanho do seu ícone */
+}
+  
+.itemCount {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff3e3e; /* Um vermelho mais vibrante */
+    color: white;
+    border-radius: 50%;
+    width: 24px; /* Ajuste conforme necessário */
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Adiciona uma sombra suave */
+    border: 2px solid white; /* Adiciona uma borda branca para separar do ícone se necessário */
+}
+  
+
+.cartButton img {
+    width: 40px; /* ou qualquer outro tamanho adequado */
+    height: auto;
+    transition: transform 0.3s ease; /* Suaviza a transformação */
+}
+  
+.cartButton:hover img {
+    transform: scale(1.1); /* Aumenta ligeiramente o ícone quando o mouse passa por cima */
+    cursor: pointer;
+}
+  
