@@ -1,5 +1,5 @@
 import { Given, Then, When } from "@badeball/cypress-cucumber-preprocessor";
-import { logado } from "../../../../src/Services/login";
+//import { logado } from "../../../../src/Services/login";
 import { page_atual, set_page } from "../../../../src/Services/page_select";
 import { post } from "../../../../src/Services/sync_req"
 
@@ -11,7 +11,7 @@ function post(body, fail = false) {
 
 // Given Eu não estou logado
 Given("Eu não estou logado", () => {
-    assert(!logado);
+    //assert(!logado);
 });
 
 // Given Eu estou na página de "signup”

@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios"
 import { GetBody, GetData, GetDetail } from "./request"
-import { SetLogin } from "./login"
+//import { SetLogin } from "./login"
 
 // eslint-disable-next-line prefer-const
 let SignUpForm = {
