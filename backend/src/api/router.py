@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from src.api import users, recuperation, payment_methods, stores
-from src.api import carrinho, cancel_orders, estimated_time_arrival, order_history
+from src.api import carrinho, cancel_orders, estimated_time_arrival, order_history, inventory
 
 api_router = APIRouter()
 
