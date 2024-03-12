@@ -6,7 +6,7 @@ beforeEach(() => {
   });  
 
 Given('o usuário está na página {string}', (page: string)=>{
-    cy.visit(`http://localhost:3000/${page}`)
+    cy.visit(`http://localhost:3123/${page}`)
 });
 
 Given('o item de ID {string} está na lista de itens do carrinho', (string: string) => {

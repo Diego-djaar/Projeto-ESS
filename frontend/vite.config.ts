@@ -9,9 +9,12 @@ export default defineConfig({
     istanbul({
       cypress: true,
       requireEnv: false,
-    }),
+  }),
   ],
   server: {
-    port: 3000,
+    port: 3123,
+  },
+  build: {
+    sourcemap: "hidden"
   },
 });
