@@ -18,24 +18,24 @@ class SignUp extends Component {
                 <Button func={() => set_page("main")} text={"Back to main Page"} style={{}} id="Main"/>
                 <h1 className="signup-text">Sign Up</h1>
                 <div className="two-inputs">
-                    <Input campo="Username" type="username" internal="div1" form={CreateRequest} add_function={add_function} />
-                    <Input campo="Nome" type="Name" internal="div1" form={CreateRequest} add_function={add_function} />
+                    <Input campo="Username" type="username" internal="div1" form={CreateRequest} add_function={add_function} initial_text=""/>
+                    <Input campo="Nome" type="Name" internal="div1" form={CreateRequest} add_function={add_function} initial_text=""/>
                 </div>
                 <div className="two-inputs">
-                    <Input campo="Sobrenome" type="surname" internal="div1" form={CreateRequest} add_function={add_function} />
-                    <Input campo="CPF" type="CPF" internal="div1" form={CreateRequest} add_function={add_function} />
+                    <Input campo="Sobrenome" type="surname" internal="div1" form={CreateRequest} add_function={add_function} initial_text=""/>
+                    <Input campo="CPF" type="CPF" internal="div1" form={CreateRequest} add_function={add_function} initial_text=""/>
                 </div>
                 <div className="two-inputs">
-                    <Input campo="Data_de_nascimento" type="Date" internal="div1" form={CreateRequest} add_function={add_function} />
-                    <Input campo="Email" type="Email" internal="div1" form={CreateRequest} add_function={add_function} />
+                    <Input campo="Data_de_nascimento" type="Date" internal="div1" form={CreateRequest} add_function={add_function} initial_text=""/>
+                    <Input campo="Email" type="Email" internal="div1" form={CreateRequest} add_function={add_function} initial_text=""/>
                 </div>
                 <div className="two-inputs">
-                    <Input campo="Senha" type="Password" internal="div1" form={CreateRequest} add_function={add_function} />
-                    <Input campo="Repetir_Senha" type="Password" internal="div1" form={CreateRequest} add_function={add_function} />
+                    <Input campo="Senha" type="Password" internal="div1" form={CreateRequest} add_function={add_function} initial_text=""/>
+                    <Input campo="Repetir_Senha" type="Password" internal="div1" form={CreateRequest} add_function={add_function} initial_text=""/>
                 </div>
                 <div className="two-inputs">
-                    <Input campo="Endereço" type="Address" internal="div1" form={CreateRequest} add_function={add_function} />
-                    <Input campo="CEP" type="CEP" internal="div1" form={CreateRequest} add_function={add_function} />
+                    <Input campo="Endereço" type="Address" internal="div1" form={CreateRequest} add_function={add_function} initial_text=""/>
+                    <Input campo="CEP" type="CEP" internal="div1" form={CreateRequest} add_function={add_function} initial_text=""/>
                 </div>
                 <Button func={MakeRequest} text="signup" style={{ color: "black", fontSize: "30px" }} id="Cadastrar"/>
             </div>

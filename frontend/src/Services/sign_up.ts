@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios"
 import { GetBody, GetData, GetDetail } from "./request"
-import { SetLogin } from "./login"
+import { CreateLoginRequest, MakeLoginRequest, SetLogin } from "./login"
 
 // eslint-disable-next-line prefer-const
 let SignUpForm = {
@@ -79,8 +79,9 @@ export async function MakeRequest() {
         console.log(response.data);
         if (response.data.message === "Usuário cadastrado com sucesso") {
             SetLogin(true)
-            // Temporário
-            alert('Cadastro realizado com sucesso')
+            CreateLoginRequest("cpf_ou_user_ou_email", SignUpForm.cpf);
+            CreateLoginRequest("senha", SignUpForm.senha);
+            MakeLoginRequest();
         }
     })
     .catch(function (error: AxiosError) {
