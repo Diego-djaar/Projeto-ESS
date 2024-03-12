@@ -10,6 +10,7 @@ export default function MainPage() {
             <Button func={() => set_page("signup")} text={"SignUp"} style={{}} id={""} />
             <Button func={() => set_page("login")} text={"Login"} style={{}} id={""} />
             <Button func={() => set_page("carrinho")} text={"Carrinho"} style={{}} id={""} />
+            <Button func={() => set_page("user")} text={"Página de usuário"} style={{}} id={""} />
         </div>
     )
 }

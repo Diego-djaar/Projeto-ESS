@@ -1,10 +1,30 @@
 import axios, { AxiosError } from "axios";
 import { set_page } from "./page_select";
 
-export let logado: boolean = false
-export let session_token = null
+let logado: boolean = false
+let session_token = ""
+
+export function SetToken(valor: string) {
+    session_token = valor
+    window.localStorage.setItem("session_token", session_token)
+}
+
+export function GetToken() {
+    return window.localStorage.getItem("session_token")
+}
+
+export function GetLogin() {
+    return JSON.parse(window.localStorage.getItem("logado")!)
+}
+
 export function SetLogin(valor: boolean) {
     logado = valor
+    window.localStorage.setItem("logado", JSON.stringify(logado))
+}
+
+export function unlogin() {
+    SetToken("")
+    SetLogin(false)
 }
 
 // eslint-disable-next-line prefer-const
@@ -58,7 +78,7 @@ export async function MakeRequest() {
             if (response?.status === 200) {
                 if (response.data.message === "Login com sucesso") {
                     SetLogin(true)
-                    session_token = response.data.data.token
+                    SetToken(response.data.data.token)
                     console.log("session token: ",session_token)
                     set_page("User")
                 }
