@@ -21,7 +21,7 @@ export async function Init(func: () => void) {
     func()
 }
 
-async function GetUser(redirect = false) {
+export async function GetUser(redirect = false) {
     const val = await axios
         .post('http://127.0.0.1:8000/backend/api/auth/user/verify', { "token": GetToken() })
         .then(function (response) { 

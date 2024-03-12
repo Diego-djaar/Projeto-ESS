@@ -5,7 +5,8 @@ class Input extends Component {
     props: {
         campo: string, type: string, internal: string,
         form: (arg1: string, arg2: string) => boolean,
-        add_function: (arg1: string, arg2: (arg01: string) => void) => void
+        add_function: (arg1: string, arg2: (arg01: string) => void) => void,
+        initial_text: string
     }
     
     state: { texto: string, cor: string };
@@ -15,11 +16,13 @@ class Input extends Component {
         type: string,
         internal: string,
         form: (arg1: string, arg2: string) => boolean,
-        add_function: (arg1: string, arg2: (arg01: string) => void) => void
-    }) {
+        add_function: (arg1: string, arg2: (arg01: string) => void) => void,
+        initial_text: string
+    }
+    ) {
         super(props);
         this.props = props;
-        this.state = {texto: '', cor: 'normal'};
+        this.state = {texto: props.initial_text, cor: 'normal'};
         this.onChange = this.onChange.bind(this);
         this.changeColor = this.changeColor.bind(this);
         this.setText = this.setText.bind(this);

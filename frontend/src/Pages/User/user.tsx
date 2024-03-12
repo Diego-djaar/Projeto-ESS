@@ -55,6 +55,8 @@ export default class User extends Component{
                 <Button func={() => { unlogin(); window.location.reload() }} text={"Sair"} style={{}} id="Unlogin"/>
                 <h1></h1>
                 <Button func={() => { exclude(); window.location.reload() }} text={"Excluir Usuário"} style={{}} id="Exclude"/>
+                <h1></h1>
+                <Button func={() => { set_page("update_user") }} text={"Atualizar Dados"} style={{}} id="Update"/>
             </div>
         )
         return val
