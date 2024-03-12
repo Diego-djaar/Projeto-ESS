@@ -63,7 +63,7 @@ export function Init() {
     });
 }
 
-export function CreateRequest(entry: string, value: string) {
+export function CreateLoginRequest(entry: string, value: string) {
     if (value === "") {
             LoginForm[entry.toLowerCase()] = null
         }
@@ -71,7 +71,7 @@ export function CreateRequest(entry: string, value: string) {
     return true
 }
 
-export async function MakeRequest() {
+export async function MakeLoginRequest() {
     const val = await axios
         .post("http://127.0.0.1:8000/backend/api/auth/user/login", LoginForm)
         .then(function (response) {
