@@ -5,6 +5,9 @@ import MainPage from "./Pages/MainPage/main_page"
 import SignUp from "./Pages/SignUp/signup"
 import { Component } from "react";
 import { page_atual, refresh_window_assign } from "./Services/page_select";
+import Login from "./Pages/Login/login"
+import User from "./Pages/User/user";
+import UpdateUser from "./Pages/UpdateUser/update";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +21,18 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     Component: SignUp
+  },
+  {
+    path: "/login",
+    Component: Login
+  },
+  {
+    path: "/user",
+    Component: User
+  },
+  {
+    path: "/update_user",
+    Component: UpdateUser
   },
   {
     path: "/carrinho",
