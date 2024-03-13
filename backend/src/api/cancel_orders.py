@@ -13,9 +13,11 @@ router = APIRouter()
     status_code=status.HTTP_200_OK,
     description="Order cancel by its ID",
     )
-def cancel_order(id_product: int, user_CPF: str, cancel_reason:str) -> HttpResponseModel:
-    response = OrdersService.cancel_order_service(id_product, user_CPF, cancel_reason)
-    return response
+def cancel_order(id_product: int, user_CPF: str, cancel_reason:str, response:Response) -> HttpResponseModel:
+    request_response = OrdersService.cancel_order_service(id_product, user_CPF, cancel_reason)
+    response.status_code = request_response.status_code
+
+    return request_response
 
 @router.get(
     '/get_all',
