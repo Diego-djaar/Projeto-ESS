@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios"
 import { GetBody, GetData, GetDetail } from "./request"
 import { CreateLoginRequest, MakeLoginRequest, SetLogin } from "./login"
 
+
 // eslint-disable-next-line prefer-const
 let SignUpForm = {
   "username": null,

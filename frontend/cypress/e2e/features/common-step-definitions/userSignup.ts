@@ -129,7 +129,7 @@ Given("Usuário {string} está cadastrado, com os dados: nome: {string}, sobreno
 
 // Then Eu sou notificado que o usuário "Enzo" já existe
 Then("Eu sou notificado que o usuário {string} já existe", () => {
-    cy.on('window:alert',(t)=>{
+cy.on('window:alert',(t)=>{
          //assertions
          assert(t.includes("Já existe uma conta com esse USER"));
       })
