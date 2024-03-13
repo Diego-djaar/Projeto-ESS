@@ -118,11 +118,6 @@ def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, valida
 
     if cpf not in database:
         database[cpf] = []
-    else: 
-        for metodo in database[cpf]:
-            if metodo["tipo"] == "cartao":
-                if metodo["numero_cartao"] == numero_cartao:
-                    return (False, "ALREADY_EXIST")
 
     # id_value = str(abs(hash((datetime.date.today(), cpf))))
             

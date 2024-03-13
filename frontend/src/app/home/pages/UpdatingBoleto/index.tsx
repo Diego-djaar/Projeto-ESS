@@ -49,7 +49,7 @@ const UpdatingBoleto = () => {
         <div>
           <Form Datacy = "update_nome_boleto" placeholder="Digite o novo nome" onChange={e => setNovoNome(e.target.value)}></Form>
         </div>
-        <SubmitButton Datacy = "update_pix_botao" value="Atualizar" onClick={e => handleUpdating(e)}></SubmitButton>
+        <SubmitButton Datacy = "update_boleto_botao" value="Atualizar" onClick={e => handleUpdating(e)}></SubmitButton>
     </form>
     <ReturnButton path = "/paymentMethod/updating"></ReturnButton>
     </div>

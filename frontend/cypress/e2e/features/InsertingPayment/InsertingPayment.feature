@@ -1,3 +1,4 @@
+
 Feature: Inserir método de pagamento
     As a usuário 
     I want inserir novos métodos de pagamento 
@@ -88,3 +89,4 @@ Scenario: Inserir Cartao com validade inválido
 #     And o usuário preenche o campo "inserir_nome_cartao" com "MasterCard", o campo "inserir_numero_cartao" com "4916538421959382", o campo "inserir_cvv" com "437", o campo "inserir_cpf_cartao" com "111.111.111-11", o campo "inserir_validade" com "2024-03-25" e clica no botão "inserir_cartao_botao"
 #     Then o usuário visualiza a mensagem "metodo de pagamento cadastrado"
 #     And o usuário é direcionando para a página "http://localhost:3000/paymentMethod/inserting"
+
