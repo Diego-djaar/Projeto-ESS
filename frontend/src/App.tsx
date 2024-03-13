@@ -1,4 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import CreateTest from "./app/home/pages/CreateTest";
+import ListTests from "./app/home/pages/ListTests";
+import PaymentConfig from "./app/home/pages/PaymentMethodsConfiguration";
+import PaymentInserting from "./app/home/pages/PaymentInserting";
+import InsertingBoleto from "./app/home/pages/InsertingBoleto";
+import InsertingPix from "./app/home/pages/InsertingPix";
+import InsertingCard from "./app/home/pages/InsertingCard";
+import UpdatingMethod from "./app/home/pages/UpdatingMethods";
+import UpdatingBoleto from "./app/home/pages/UpdatingBoleto";
+import UpdatingPix from "./app/home/pages/UpdatingPix";
+import UpdatingCartao from "./app/home/pages/UpdatingCard";
+import DeletingMethod from "./app/home/pages/DeletingMethod";
 import ViewCart from "./Pages/Carrinho";
 import ItemPage from "./Pages/ItemPage";
 import MainPage from "./Pages/MainPage/main_page"
@@ -73,6 +85,46 @@ const router = createBrowserRouter([
     path: "/stores/update_store",
     Component: StoreUpdate,
   },
+  {
+    path: "/paymentMethod", 
+    Component: PaymentConfig,
+  }, 
+  {
+    path: "/paymentMethod/inserting", 
+    Component: PaymentInserting, 
+  },
+  {
+    path: "/paymentMethod/inserting/boleto",
+    Component: InsertingBoleto,
+  },
+  {
+    path: "/paymentMethod/inserting/pix", 
+    Component: InsertingPix
+  }, 
+  {
+    path: "/paymentMethod/inserting/cartao", 
+    Component: InsertingCard
+  }, 
+  {
+    path: "/paymentMethod/updating", 
+    Component: UpdatingMethod
+  }, 
+  {
+    path: "/paymentMethod/updating/boleto", 
+    Component: UpdatingBoleto
+  }, 
+  {
+    path: "/paymentMethod/updating/pix", 
+    Component: UpdatingPix
+  }, 
+  {
+    path: "/paymentMethod/updating/cartao", 
+    Component: UpdatingCartao
+  }, 
+  {
+    path: "/paymentMethod/deleting", 
+    Component: DeletingMethod
+  }
 ]);
 
 class App extends Component {

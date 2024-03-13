@@ -5,5 +5,5 @@
     "sourceMap": false,
     "types": ["node", "cypress"]
   },
-  "include": ["./**/*.ts"]
+  "include": ["./**/*.ts", "e2e/features/tests/common-step-definitions.ts"]
 }

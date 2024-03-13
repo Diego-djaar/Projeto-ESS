@@ -1,9 +1,8 @@
 import os
 from typing import List, Dict
 from uuid import uuid4
-import jsonpickle
-from pymongo import MongoClient, errors
-from pymongo.collection import Collection, IndexModel
+# from pymongo import MongoClient, errors
+# from pymongo.collection import Collection, IndexModel
 #from src.config.config import env
 from logging import INFO, WARNING, getLogger
 import datetime
@@ -20,7 +19,8 @@ logger = getLogger('uvicorn')
 #Regex for CPF and card number. 
 cpf_pattern = re.compile(r"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$")
 cartao_pattern = re.compile(r"^(4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9]{2})[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])?[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$")
-   
+
+
 def write_file(database): 
 
     """Write the content of a dict in a JSON. 
@@ -38,8 +38,9 @@ def read_file():
     with open("payment_database.json", "r") as f:
         return json.load(f)
 
-database = {}
-database = read_file()
+# database = {}
+# database = read_file()
+# print(database)
 
 def validate_CPF(cpf: str) -> bool: 
 
@@ -87,6 +88,7 @@ def validate_card_number(numero_cartao: str) -> bool:
     
     return True 
 
+
 def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, validade: datetime.date): 
 
     """Validate and insert or not a card. 
@@ -98,6 +100,7 @@ def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, valida
 
     Output: A tuple contain the sucess (bool) of the insertion and the problems (List) in case of validation problem. """
 
+    database = read_file()
 
     problems = []
 
@@ -115,16 +118,13 @@ def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, valida
 
     if cpf not in database:
         database[cpf] = []
-    else: 
-        for metodo in database[cpf]:
-            if metodo["tipo"] == "cartao":
-                if metodo["numero_cartao"] == numero_cartao:
-                    return (False, "ALREADY_EXIST")
 
-    id_value = str(abs(hash((datetime.date.today(), cpf))))
+    # id_value = str(abs(hash((datetime.date.today(), cpf))))
+            
+    id = str(uuid.uuid4()) 
 
     cartao = {
-        "id" : id_value, 
+        "id" : id, 
         "tipo": "cartao", 
         "nome_cartao": nome_cartao,
         "numero_cartao": numero_cartao,
@@ -136,7 +136,7 @@ def insert_card(nome_cartao: str, numero_cartao: str, cvv: str, cpf: str, valida
     database[cpf].append(cartao)
     write_file(database)
 
-    return (True, id_value)
+    return (True, id)
 
 def insert_pix(nome_completo: str, cpf: str) : 
 
@@ -149,6 +149,8 @@ def insert_pix(nome_completo: str, cpf: str) :
 
     Output: A tuple contain the sucess (bool) of the insertion. """
 
+    database = read_file()
+
     result = validate_CPF(cpf)
 
     if not result: 
@@ -159,12 +161,14 @@ def insert_pix(nome_completo: str, cpf: str) :
 
     for val in database[cpf]:
         if val["tipo"] == "pix":
-            return ("ALREADY_EXIST", None)
+            return ("ALREADY_EXIST", val["id"])
         
-    id_value = str(abs(hash((datetime.date.today(), cpf))))
-    
+    # id_value = str(abs(hash((datetime.date.today(), cpf))))
+        
+    id = str(uuid.uuid4()) 
+            
     pix = {
-        "id" : id_value, 
+        "id" : id, 
         "tipo": "pix", 
         "nome_completo": nome_completo,
         "cpf": cpf
@@ -175,9 +179,11 @@ def insert_pix(nome_completo: str, cpf: str) :
 
     print(database)
 
-    return ("OK", id_value) 
+    return ("OK", id) 
 
 def insert_ticket(nome_completo: str, cpf: str) -> str:
+
+    database = read_file()
 
 
     """Validate and insert or not a ticket. 
@@ -192,19 +198,21 @@ def insert_ticket(nome_completo: str, cpf: str) -> str:
     result = validate_CPF(cpf)
 
     if not result: 
-        return ("INVALID_CPF", None)
+        return ("CPF", None)
     
     if cpf not in database:
         database[cpf] = []
 
     for val in database[cpf]:
         if val["tipo"] == "boleto":
-            return ("ALREADY_EXIST", None)
+            return ("ALREADY_EXIST", val["id"])
         
-    id_value = str(abs(hash((datetime.date.today(), cpf))))
+    # id_value = str(abs(hash((datetime.date.today(), cpf))))
+        
+    id = str(uuid.uuid4()) 
 
     boleto = {
-        "id" : id_value, 
+        "id" : id, 
         "tipo": "boleto", 
         "nome_completo": nome_completo,
         "cpf": cpf
@@ -213,7 +221,7 @@ def insert_ticket(nome_completo: str, cpf: str) -> str:
     database[cpf].append(boleto)
     write_file(database)
 
-    return ("OK", id_value)  
+    return ("OK", id)  
 
 def update_card(id: str, nome_cartao: str, numero_cartao: str, cvv: str, validade: datetime.date):
 
@@ -260,22 +268,35 @@ def update_card(id: str, nome_cartao: str, numero_cartao: str, cvv: str, validad
     return (False, problems)
 
 
-def update_pix_or_ticket(id: str, nome_completo: str) -> bool:
+def update_pix(id: str, nome_completo: str) -> bool:
         
+    database = read_file()
 
-                
     for key in database:
         for val in database[key]: 
-            if val["id"] == id:
+            if val["id"] == id and val["tipo"] == "pix":
                 val["nome_completo"] = nome_completo
                 write_file(database)
                 return True
                 
-        return False
+    return False
+    
+def update_ticket(id: str, nome_completo: str) -> bool:
+        
+    database = read_file()
+                
+    for key in database:
+        for val in database[key]: 
+            if val["id"] == id and val["tipo"] == "boleto":
+                val["nome_completo"] = nome_completo
+                write_file(database)
+                return True
+                
+    return False
 
 def delete_method(id: str) -> bool: 
 
-
+    database = read_file()
 
     for key in database:
         for val in database[key]: 
@@ -297,6 +318,8 @@ def delete_method(id: str) -> bool:
 
 def remove_card(cpf: str, numero_cartao: str): 
 
+    database = read_file()
+
     if cpf in database: 
         for metodo in database[cpf]:
             if metodo["numero_cartao"] == numero_cartao: 
@@ -312,6 +335,7 @@ def remove_card(cpf: str, numero_cartao: str):
 
 def get_by_number(numero_cartao: str):
 
+    database = read_file()
 
     for key in database:
         for val in database[key]: 
@@ -324,11 +348,15 @@ def get_by_number(numero_cartao: str):
 
 def get_methods_list(cpf: str): 
 
+    database = read_file()
+
     if cpf in database:
         return database[cpf]
     return None 
     
 def get_card_by_number_and_cpf(cpf: str, numero_cartao: str): 
+
+    database = read_file()
 
     if cpf in database: 
         for metodo in database[cpf]:
@@ -338,6 +366,8 @@ def get_card_by_number_and_cpf(cpf: str, numero_cartao: str):
     
 def get_pix_by_cpf(cpf: str): 
 
+    database = read_file()
+
     if cpf in database: 
         for metodo in database[cpf]:
             if metodo["tipo"] == "pix": 
@@ -346,6 +376,8 @@ def get_pix_by_cpf(cpf: str):
 
 def get_boleto_by_cpf(cpf: str): 
 
+    database = read_file()
+
     if cpf in database: 
         for metodo in database[cpf]:
             if metodo["tipo"] == "boleto": 
@@ -353,6 +385,8 @@ def get_boleto_by_cpf(cpf: str):
     return None
 
 def inserir_cartao_com_id(id: str, tipo: str, nome: str, numero: str, cvv: str, validade: datetime, cpf: str): 
+
+    database = read_file()
 
     database[cpf].append({
         "id": id,
@@ -367,6 +401,8 @@ def inserir_cartao_com_id(id: str, tipo: str, nome: str, numero: str, cvv: str, 
     
 def get_cartao_id(cpf: str, numero: str):
 
+    database = read_file()
+
     if cpf in database:
         for met in database[cpf]:
             if met["numero_cartao"] == numero:
@@ -375,6 +411,8 @@ def get_cartao_id(cpf: str, numero: str):
 
 
 def get_pix_id(cpf: str):
+
+    database = read_file()
 
     if cpf in database:
         for met in database[cpf]:

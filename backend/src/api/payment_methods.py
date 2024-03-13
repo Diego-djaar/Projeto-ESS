@@ -66,7 +66,7 @@ def insert_payment(pix: Pix, response: Response) -> HttpResponseModel:
          description="Insert a new boleto acount", 
              )
 def insert_payment(boleto: Boleto, response: Response) -> HttpResponseModel: 
-    result = PaymentService.inserting_card(boleto)
+    result = PaymentService.insertion_ticket(boleto)
     response.status_code = result.status_code
     return result 
 
@@ -81,7 +81,7 @@ def insert_payment(boleto: Boleto, response: Response) -> HttpResponseModel:
 #     return request 
 
 @router.put(
-    "update/cartao/{id}", 
+    "/update/cartao/{id}", 
     response_model=HttpResponseModel, 
     status_code=200, 
     description="Update the card payment method"

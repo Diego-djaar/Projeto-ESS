@@ -19,6 +19,7 @@
     "cy:show-coverage": "open ./cypress-coverage/lcov-report/index.html"
   },
   "dependencies": {
+    "7": "^0.0.1",
     "@hookform/resolvers": "^3.1.0",
     "@playwright/test": "^1.42.1",
     "axios": "^1.6.7",
@@ -56,7 +57,7 @@
     "@typescript-eslint/parser": "^7.0.2",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-c8": "^0.31.1",
-    "cypress": "^13.6.6",
+    "cypress": "^12.15.0",
     "esbuild": "^0.18.8",
     "eslint": "^8.56.0",
     "eslint-plugin-react-hooks": "^4.6.0",
@@ -64,8 +65,8 @@
     "husky": "^8.0.3",
     "jsdom": "^22.1.0",
     "start-server-and-test": "^2.0.0",
-    "typescript": "^5.2.2",
-    "vite": "^5.1.4",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2",
     "vite-plugin-istanbul": "^4.1.0",
     "vitest": "^0.31.1"
   }

@@ -40,7 +40,7 @@ class HTTPPaymentResponse:
 
         return HttpResponseModel (
             message=f"informações inválidas", 
-            status_code=400,
+            status_code=200,
             data= problemas 
         )
     
@@ -65,7 +65,7 @@ class HTTPPaymentResponse:
 
         return HttpResponseModel (
             message="O usuário não está registrado na base de dados", 
-            status_code=404
+            status_code=200
         ) 
     
     @staticmethod
@@ -73,7 +73,7 @@ class HTTPPaymentResponse:
 
         return HttpResponseModel (
             message="ID não encontrado na base de dados", 
-            status_code=404
+            status_code=200
         ) 
     
     @staticmethod
@@ -93,26 +93,35 @@ class HTTPPaymentResponse:
         ) 
     
     @staticmethod
-    def PIX_ALREADY_EXIST() -> HttpResponseModel:
+    def PIX_ALREADY_EXIST(id: str) -> HttpResponseModel:
 
         return HttpResponseModel (
             message="Já existe um pix cadastrado no sistema", 
-            status_code=400
+            status_code=200, 
+            data = {
+                "ID": id 
+            }
         )
         
     @staticmethod
-    def BOLETO_ALREADY_EXIST() -> HttpResponseModel:
+    def BOLETO_ALREADY_EXIST(id: str) -> HttpResponseModel:
 
         return HttpResponseModel (
             message="Já existe um boleto cadastrado no sistema", 
-            status_code=400
+            status_code=200, 
+            data = {
+                "ID": id 
+            }
         )
     
-    def CARTAO_ALREADY_EXIST() -> HttpResponseModel:
+    def CARTAO_ALREADY_EXIST(id: str) -> HttpResponseModel:
 
         
         return HttpResponseModel (
             message="esse cartão já está cadastrado no sistema", 
-            status_code=400
+            status_code=200, 
+            data = {
+                "ID": id 
+            }
         )
     
