@@ -80,7 +80,7 @@ export async function MakeLoginRequest() {
                     SetLogin(true)
                     SetToken(response.data.data.token)
                     console.log("session token: ",session_token)
-                    set_page("User")
+                    set_page("user")
                 }
             }
         })

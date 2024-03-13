@@ -27,7 +27,7 @@ export async function GetUser(redirect = false) {
         .then(function (response) { 
             if (response?.status === 200) { 
                 UserData = response.data.data.user
-                console.log(UserData)
+                console.log('userdata: ', UserData)
                 return
             }
         })

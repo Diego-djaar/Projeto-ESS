@@ -42,7 +42,7 @@ export default class User extends Component{
         const val = (
             <div>
                 <h1>Dados Usuário:</h1>
-                <h2>Username: { this.state.user_data.username}</h2>
+                <h2 id="Username">Username: { this.state.user_data.username}</h2>
                 <h2>Nome: { this.state.user_data.nome}</h2>
                 <h2>Sobrenome: { this.state.user_data.sobrenome}</h2>
                 <h2>CPF: { this.state.user_data.cpf}</h2>
