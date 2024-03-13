@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-<<<<<<< HEAD
-import CreateTest from "./app/home/pages/CreateTest";
-import ListTests from "./app/home/pages/ListTests";
+// import CreateTest from "./app/home/pages/CreateTest";
+// import ListTests from "./app/home/pages/ListTests";
 import PaymentConfig from "./app/home/pages/PaymentMethodsConfiguration";
 import PaymentInserting from "./app/home/pages/PaymentInserting";
 import InsertingBoleto from "./app/home/pages/InsertingBoleto";
@@ -12,7 +11,7 @@ import UpdatingBoleto from "./app/home/pages/UpdatingBoleto";
 import UpdatingPix from "./app/home/pages/UpdatingPix";
 import UpdatingCartao from "./app/home/pages/UpdatingCard";
 import DeletingMethod from "./app/home/pages/DeletingMethod";
-=======
+import CPFView from "./app/home/pages/CpfView";
 import ViewCart from "./Pages/Carrinho";
 import ItemPage from "./Pages/ItemPage";
 import MainPage from "./Pages/MainPage/main_page"
@@ -28,7 +27,6 @@ import StoreSignUp from "./Pages/StoreSignUp";
 import StoreLogin from "./Pages/StoreLogin";
 import StoreRetrieve from "./Pages/StorePassRetrieve";
 import StoreUpdate from "./Pages/StoreUpdate";
->>>>>>> Diego-djaar/development
 
 const router = createBrowserRouter([
   {
@@ -127,6 +125,10 @@ const router = createBrowserRouter([
   {
     path: "/paymentMethod/deleting", 
     Component: DeletingMethod
+  }, 
+  {
+    path: "/paymentMethod/view", 
+    Component: CPFView
   }
 ]);
 

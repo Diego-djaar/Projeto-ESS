@@ -26,7 +26,7 @@ const PaymentConfig = () => {
 
     const handleViewingClick = () => {
 
-        navigate("/paymentMethod/inserting")
+        navigate("/paymentMethod/view")
     }
 
     return (
@@ -42,9 +42,9 @@ const PaymentConfig = () => {
                 </div>
                 <div>
                     <Button  DataCy="delete_payment"value="Deletar método de pagamento" onClick={handleDeletingClick}></Button>
-                    {/* <Button   DataCy="view_payment"value="Visualizar método de pagamento" onClick={handleViewingClick}></Button> */}
+                    <Button   DataCy="view_payment"value="Visualizar método de pagamento" onClick={handleViewingClick}></Button>
                 </div>
-                <ReturnButton path="/paymentMethod"></ReturnButton>
+                <ReturnButton path="/carrinho"></ReturnButton>
             </div>
         </div>
     )
