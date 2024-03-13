@@ -106,7 +106,7 @@ def check_response_status(status: str, request_response):
     assert int(status) == request_response.status_code
 
 @then(
-    parsers.cfparse('o campo "{campo1}" possui o campo "{token}" com valor "$token_valor"'),
+    parsers.cfparse('o campo "{campo1}" possui o campo "{token}" com valor $token_valor'),
     target_fixture="token_value"
 )
 def check_field_token(campo1: str, token: str, request_response):
@@ -115,7 +115,7 @@ def check_field_token(campo1: str, token: str, request_response):
     return field
 
 @when(
-    parsers.cfparse('uma requisição "{request_type}" for enviada para "{verify}", com "$token_valor"'),
+    parsers.cfparse('uma requisição "{request_type}" for enviada para "{verify}", com $token_valor'),
     target_fixture="request_response"
 )
 def verify_request(request_type: str, verify: str, token_value, client = TESTCLIENT):

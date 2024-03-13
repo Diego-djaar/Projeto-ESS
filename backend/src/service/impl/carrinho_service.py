@@ -5,14 +5,7 @@ from src.db.itens_database import Item
 from src.schemas.item_database_response import HTTPDatabaseResponses
 from pydantic import BaseModel
 from src.schemas.carrinho_response import HTTPCarrinhoResponses
-
-class DadosItem(BaseModel):
-    id: str # Acessos a database serão pelo ID (8 dígitos)
-    nome: str # Nome visível na interface
-    description: str
-    price: str
-    quantidade: int
-    img: str | None # Path para o arquivo
+from src.db.itens_database import DadosItem
 
 class DadosEndereço(BaseModel):
     rua: str
@@ -29,19 +22,23 @@ class Carrinho_service():
     @staticmethod
     def get_cart(CPF: str, database: Carrinhos = db) -> HttpResponseModel:
         """ Tenta obter um carrinho, se não conseguir criar um novo para o CPF selecionado """
+        print("Entrou em get_cart")
         carrinho = database.get_cart_by_CPF(CPF= CPF)
         if carrinho is None:
+            print("Entrou em carrinho is none")
             carrinho = Carrinho(CPF=CPF)
             (success, reason) = database.add_new_cart(carrinho)
+            item_list = [item.to_dados_item() for item in carrinho.get_all_items()]
             return HttpResponseModel(
                 message="Carrinho não encontrado, novo carrinho criado vinculado a este CPF",
                 status_code=HTTPResponses.ITEM_CREATED().status_code,
-                data={"Itens:": carrinho.items, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
+                data={"Itens": item_list, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
             )
+        item_list = [item.to_dados_item() for item in carrinho.get_all_items()]
         return HttpResponseModel(
                 message=HTTPResponses.ITEM_FOUND().message,
                 status_code=HTTPResponses.ITEM_FOUND().status_code,
-                data={"Itens:": carrinho.items, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
+                data={"Itens": item_list, "Total": carrinho.total, "Endereço": carrinho.get_adress()},
             )
 
     @staticmethod
@@ -62,9 +59,12 @@ class Carrinho_service():
     @staticmethod
     def add_item_to_cart(item_data: DadosItem, CPF: str, database: Carrinhos = db):
         """Tenta adicionar um novo item no banco de dados"""
+        print("Entrou em add_item_to_cart")
+        print(item_data)
         item_data_dict = item_data.model_dump()  # Se isso retornar um dicionário com as chaves corretas
         (item, reason) = Item.new_item(**item_data_dict)
         if item is None:
+            print("Entrou item is None")
             return HTTPDatabaseResponses.BAD_REQUEST(reason)
         (success, reason) = database.add_item_to_cart(item=item, CPF= CPF)
 
@@ -111,6 +111,7 @@ class Carrinho_service():
     @staticmethod
     def clear_cart_by_CPF(CPF: str, database: Carrinhos = db) -> HttpResponseModel:
         """ Tenta limpar um carrinho da base de dados """
+        print("Entrou em clear_cart_by_CPF")
         success = database.clear_cart_by_CPF(CPF=CPF)
         return HTTPCarrinhoResponses.CLEAR_CART(success)
     

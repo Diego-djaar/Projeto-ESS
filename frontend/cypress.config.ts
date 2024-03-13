@@ -4,6 +4,7 @@ import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
 import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esbuild";
 
 export default defineConfig({
+  projectId: 'b93eqz',
   video: false,
   viewportWidth: 1280,
   viewportHeight: 720,
@@ -38,7 +39,7 @@ export default defineConfig({
 
       return config;
     },
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://localhost:3123",
     specPattern: "cypress/e2e/**/*.feature",
   },
 });

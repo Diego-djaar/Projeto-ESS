@@ -1,0 +1,75 @@
+/* GetCart.module.css */
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .inputCpf {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    width: calc(100% - 24px); /* 20px padding + 2 * 2px border */
+  }
+  
+  .viewCartButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .viewCartButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .errorMsg {
+    color: red;
+    text-align: center;
+  }
+  
+  .cartDetails {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+  }
+  
+  .statusMessage {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .itemList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .itemList li {
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .totalPrice {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .addressInfo {
+    font-size: 16px;
+    color: #666;
+  }
+  

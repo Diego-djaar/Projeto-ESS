@@ -1,10 +1,210 @@
 {
+    "222.222.222-22": [
+        {
+            "id": "8181826380199017224",
+            "tipo": "pix",
+            "nome_completo": "Breno Gabriel de Melo Lima",
+            "cpf": "222.222.222-22"
+        }
+    ],
+    "444.444.444-44": [
+        {
+            "id": "21a31e1a-bc0e-43ed-b91c-3c7847182aa7",
+            "tipo": "boleto",
+            "nome_completo": "Maria",
+            "cpf": "444.444.444-44"
+        }
+    ],
     "111.111.111-10": [
         {
-            "id": "2616058799231613355",
-            "tipo": "pix",
-            "nome_completo": "Breno gabriel de Melo Lima",
+            "id": "cea267cc-44a7-42e9-b13c-21ee840814e8",
+            "tipo": "cartao",
+            "nome_cartao": "Nubank",
+            "numero_cartao": "4556193045897381",
+            "cvv": "938",
+            "validade": "2025-06-17",
             "cpf": "111.111.111-10"
+        },
+        {
+            "id": "923f45d0-a4e3-41eb-83d6-dc667cd07626",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "ad9f895b-1bac-4977-b79c-d19dc7f33ca7",
+            "tipo": "cartao",
+            "nome_cartao": "Nubank",
+            "numero_cartao": "4556193045897381",
+            "cvv": "938",
+            "validade": "2025-06-17",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "23ddc40e-27ab-46b0-b053-03228b39cc13",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "d04218f9-cc80-4deb-bb0c-dd77937342a7",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "32da24f0-0d91-4e21-b194-0b730aea9a49",
+            "tipo": "cartao",
+            "nome_cartao": "Nubank",
+            "numero_cartao": "4556193045897381",
+            "cvv": "938",
+            "validade": "2025-06-17",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "fb5f1beb-e8df-47fb-94da-d153cc81c4f8",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "d726cc0b-5df6-42a4-8a47-b2c4fb04cb27",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "9ed943e5-a312-4fbc-beb4-2192b35906de",
+            "tipo": "cartao",
+            "nome_cartao": "Nubank",
+            "numero_cartao": "4556193045897381",
+            "cvv": "938",
+            "validade": "2025-06-17",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "d986ec6c-fe62-4160-8ea3-1b190a0d9306",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "654b6a62-d088-47c2-ab95-ef64021d0de3",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "beb2edce-78dd-4d16-9fba-dc13e8e8bea8",
+            "tipo": "cartao",
+            "nome_cartao": "Nubank",
+            "numero_cartao": "4556193045897381",
+            "cvv": "938",
+            "validade": "2025-06-17",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "6ef9586d-2f47-45a0-a82a-91ac3edcca60",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "8a26cee5-f015-4f38-b9f3-21eb2f082334",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "9aac26a0-6719-472a-bd6b-2304d0e2c5e0",
+            "tipo": "cartao",
+            "nome_cartao": "Nubank",
+            "numero_cartao": "4556193045897381",
+            "cvv": "938",
+            "validade": "2025-06-17",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "2c831c4a-231c-4723-b1b0-8461ae96a966",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "17d85f18-e8b1-44b8-9f0c-c0f17908aadd",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        }
+    ],
+    "111.111.111-11": [
+        {
+            "id": "3c63b6bd-a3dd-4bd0-9c44-91b126efe058",
+            "tipo": "boleto",
+            "nome_completo": "Breno gabriel de Melo Lima",
+            "cpf": "111.111.111-11"
+        },
+        {
+            "id": "653518d1-7756-4bc9-b487-183bdddbce39",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "378734493671000",
+            "cvv": "493",
+            "validade": "2025-06-22",
+            "cpf": "111.111.111-11"
+        },
+        {
+            "id": "a24411f2-8c89-4dfa-a5a8-d95f27973fba",
+            "tipo": "pix",
+            "nome_completo": "Mariana Gomes",
+            "cpf": "111.111.111-11"
+        }
+    ],
+    "333.333.333-33": [
+        {
+            "id": "00ca8b31-14c2-48a0-bcab-8cc423874863",
+            "tipo": "pix",
+            "nome_completo": "Mariano Alvez da Costa",
+            "cpf": "333.333.333-33"
+        },
+        {
+            "id": "f317ef4b-5a21-426f-a966-8a74b40e4dd9",
+            "tipo": "boleto",
+            "nome_completo": "Mariano Alvez da Costa",
+            "cpf": "333.333.333-33"
         }
     ]
 }

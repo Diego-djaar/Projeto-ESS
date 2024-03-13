@@ -95,7 +95,7 @@ def cancel_request(
     }
 
     post = getattr(client, request_type.lower())
-    return post(f"orders/cancel/{product_id}?user_CPF={user_cpf}&cancel_reason={cancel_reason}", json=cancel_request)
+    return post(f"/backend/api/orders/cancel/{product_id}?user_CPF={user_cpf}&cancel_reason={cancel_reason}", json=cancel_request)
 
 @then(parsers.cfparse('o status de resposta deverá ser de "{response_status}"'))
 def check_response_status(response_status: str, request_response):

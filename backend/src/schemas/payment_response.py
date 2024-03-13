@@ -14,6 +14,23 @@ class HTTPPaymentResponse:
             }
         )
     
+    @staticmethod
+    def INEXISTENT_CPF() -> HttpResponseModel: 
+        return HttpResponseModel (
+            message="cpf nao cadastrado",
+            status_code=201
+        )
+    
+    @staticmethod
+    def VIEW(list: list) -> HttpResponseModel: 
+        return HttpResponseModel (
+            message="aqui estão os métodos de pagamento cadastrados",
+            status_code=201, 
+            data = {
+                "res": list
+            }
+        )
+    
     # @staticmethod
     # def INVALID_CPF() -> HttpResponseModel:
     #     return HttpResponseModel (
@@ -39,8 +56,8 @@ class HTTPPaymentResponse:
     def BAD_REQUEST(problemas) -> HttpResponseModel:
 
         return HttpResponseModel (
-            message=f" informações inválidas", 
-            status_code=400,
+            message=f"informações inválidas", 
+            status_code=200,
             data= problemas 
         )
     
@@ -65,7 +82,7 @@ class HTTPPaymentResponse:
 
         return HttpResponseModel (
             message="O usuário não está registrado na base de dados", 
-            status_code=400  
+            status_code=200
         ) 
     
     @staticmethod
@@ -73,7 +90,7 @@ class HTTPPaymentResponse:
 
         return HttpResponseModel (
             message="ID não encontrado na base de dados", 
-            status_code=400  
+            status_code=200
         ) 
     
     @staticmethod
@@ -93,18 +110,35 @@ class HTTPPaymentResponse:
         ) 
     
     @staticmethod
-    def PIX_ALREADY_EXIST() -> HttpResponseModel:
+    def PIX_ALREADY_EXIST(id: str) -> HttpResponseModel:
 
         return HttpResponseModel (
             message="Já existe um pix cadastrado no sistema", 
-            status_code=400
+            status_code=200, 
+            data = {
+                "ID": id 
+            }
         )
         
     @staticmethod
-    def BOLETO_ALREADY_EXIST() -> HttpResponseModel:
+    def BOLETO_ALREADY_EXIST(id: str) -> HttpResponseModel:
 
         return HttpResponseModel (
             message="Já existe um boleto cadastrado no sistema", 
-            status_code=400
+            status_code=200, 
+            data = {
+                "ID": id 
+            }
+        )
+    
+    def CARTAO_ALREADY_EXIST(id: str) -> HttpResponseModel:
+
+        
+        return HttpResponseModel (
+            message="esse cartão já está cadastrado no sistema", 
+            status_code=200, 
+            data = {
+                "ID": id 
+            }
         )
     
