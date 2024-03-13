@@ -39,7 +39,7 @@ export default defineConfig({
 
       return config;
     },
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://localhost:3123",
     specPattern: "cypress/e2e/**/*.feature",
   },
 });

@@ -1,6 +1,6 @@
 {
-  "cucumber": {
-  "features": "./features",
-  "stepDefinitions": "./stepDefinitions"
-  }
-  }
+  "nonGlobalStepDefinitions": true,
+  "stepDefinitions": [
+    "cypress/e2e/features/*/*.ts"
+  ]
+}
