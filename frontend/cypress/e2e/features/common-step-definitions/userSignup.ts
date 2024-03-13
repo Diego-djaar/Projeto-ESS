@@ -4,7 +4,7 @@ import { page_atual, set_page } from "../../../../src/Services/page_select";
 import { login_request, remove_request, signup_request } from "../../../support/requests";
 
 let fixture_campos = []
-const fixture_senha = "Xyzw3456" // Senha padrão dos testes
+export const fixture_senha = "Xyzw3456" // Senha padrão dos testes
 
 // Scenario: Cadastro de usuário mal sucedido
 
