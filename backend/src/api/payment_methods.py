@@ -7,6 +7,31 @@ from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
+@router.get(
+    "/view/{CPF}",
+    response_model=HttpResponseModel,
+    status_code=status.HTTP_200_OK,
+    description="Visualização dos métodos de pagamento",
+    responses={
+        status.HTTP_200_OK: {
+            "model": HttpResponseModel,
+            
+        },
+        status.HTTP_201_CREATED: {
+            "model":HttpResponseModel,
+        
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "model": HttpResponseModel,
+            
+        }
+    },
+)
+def visualizar_carrinho(CPF: str) -> HttpResponseModel:
+    resultado = PaymentService.view_methods(CPF)
+    return resultado
+
+
 @router.post(
         '/inserting/cartao', 
         response_model=HttpResponseModel,
@@ -48,6 +73,8 @@ def insert_payment(pix: Pix, response: Response) -> HttpResponseModel:
     result = PaymentService.insertion_pix(pix)
     response.status_code = result.status_code
     return result 
+
+
 
 @router.post(
         '/inserting/boleto', 

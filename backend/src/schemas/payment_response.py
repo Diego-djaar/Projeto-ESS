@@ -14,6 +14,23 @@ class HTTPPaymentResponse:
             }
         )
     
+    @staticmethod
+    def INEXISTENT_CPF() -> HttpResponseModel: 
+        return HttpResponseModel (
+            message="cpf nao cadastrado",
+            status_code=201
+        )
+    
+    @staticmethod
+    def VIEW(list: list) -> HttpResponseModel: 
+        return HttpResponseModel (
+            message="aqui estão os métodos de pagamento cadastrados",
+            status_code=201, 
+            data = {
+                "res": list
+            }
+        )
+    
     # @staticmethod
     # def INVALID_CPF() -> HttpResponseModel:
     #     return HttpResponseModel (
