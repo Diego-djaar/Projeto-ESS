@@ -83,8 +83,10 @@ def adicionar_item_ao_carrinho(dados: DadosItem, CPF: str) -> HttpResponseModel:
         }
     },
 )
-def remover_item_do_carrinho(item_id: str, CPF: str) -> HttpResponseModel:
+def remover_item_do_carrinho(item_id, CPF) -> HttpResponseModel:
     """ Tenta remover item do carrinho """
+    item_id = str(item_id)
+    CPF = str(CPF)
     resultado = Carrinho_service.remove_item_from_cart(item_id=item_id, CPF=CPF)
     if resultado.status_code == status.HTTP_200_OK:
         return resultado

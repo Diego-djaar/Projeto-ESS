@@ -1,0 +1,16 @@
+.cartContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+.getCartContainer {
+    margin-bottom: 20px;
+}
+  
+.goToItemPageContainer {
+    margin-top: 20px;
+}
+  

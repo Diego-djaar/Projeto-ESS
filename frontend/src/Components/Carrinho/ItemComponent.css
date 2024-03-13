@@ -1,0 +1,70 @@
+.itemCard {
+  display: flex;
+  border: 1px solid #000000;
+  padding: 10px;
+  max-width: 500px;
+}
+
+.itemImage img {
+  max-width: 100px; /* Ajuste conforme o tamanho desejado */
+  height: auto;
+}
+
+.itemInfo {
+  flex-grow: 1;
+  padding-left: 10px;
+}
+
+.itemName {
+  font-size: 1.2em;
+}
+
+.itemDescription {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.itemPriceQuantity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.itemPrice {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.itemQuantity {
+  display: flex;
+  align-items: center;
+}
+
+.quantityMinus {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.quantityPlus {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.quantityValue {
+  min-width: 30px;
+  text-align: center;
+}
+
+.itemId {
+  font-weight: normal;
+  font-size: 0.8em; /* Exemplo de tamanho de fonte menor */
+  color: #666; /* Exemplo de cor mais discreta */
+  margin-left: 8px; /* Um pequeno espaço à esquerda */
+}

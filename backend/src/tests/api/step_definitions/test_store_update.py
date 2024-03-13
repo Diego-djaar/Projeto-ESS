@@ -8,9 +8,14 @@ import json
 
 TESTCLIENT = TestClient(app)
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(autouse=True, scope='session')
 def remove_test_from_db():
+    store_database.clear_database()
     store_database.add_store(Store.new("121212", "@loja.com", "htft8", "alimento", "Hortifruti"))
+
+    yield
+
+    store_database.clear_database()
 
 
 
@@ -92,6 +97,7 @@ def check_good_message(context):
 
 @scenario(scenario_name="Modificação de dados de uma loja", feature_name="../features/store_update.feature")
 def test_success_change_data():
+
     pass
 
 @given(parsers.cfparse('Loja "{nome}", de CNPJ "{cnpj}" já está cadastrada com senha "{senha}"'))

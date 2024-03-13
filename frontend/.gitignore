@@ -37,3 +37,5 @@ cypress/downloads
 .env.development
 .env.staging
 .env.production
+
+*-lock.json

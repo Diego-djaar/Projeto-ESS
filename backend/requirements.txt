@@ -11,5 +11,5 @@ py-bcrypt
 jsonpickle
 bidict
 bcrypt
-requirements
+requests
 datetime
