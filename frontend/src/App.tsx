@@ -8,6 +8,8 @@ import { page_atual, refresh_window_assign } from "./Services/page_select";
 import Login from "./Pages/Login/login"
 import User from "./Pages/User/user";
 import UpdateUser from "./Pages/UpdateUser/update";
+import Inventory from "./inventory";
+import AddItem from "./add_item";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
   {
     path: "/login",
     Component: Login
+  },
+  {
+    path: "/inventory",
+    Component: Inventory,
+  },
+  {
+    path: "/inventory/add_item/:CNPJ",
+    Component: AddItem,
   },
   {
     path: "/user",
