@@ -10,6 +10,10 @@ import User from "./Pages/User/user";
 import UpdateUser from "./Pages/UpdateUser/update";
 import Inventory from "./inventory";
 import AddItem from "./add_item";
+import StoreSignUp from "./Pages/StoreSignUp";
+import StoreLogin from "./Pages/StoreLogin";
+import StoreRetrieve from "./Pages/StorePassRetrieve";
+import StoreUpdate from "./Pages/StoreUpdate";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +56,23 @@ const router = createBrowserRouter([
     path: "/itempage",
     Component: ItemPage,
   },
+  {
+    path: "/stores/signup",
+    Component: StoreSignUp,
+  },
+  {
+    path: "/stores/login",
+    Component: StoreLogin,
+  },
+  {
+    path: "/stores/retrieve_password",
+    Component: StoreRetrieve,
+    
+  },
+  {
+    path: "/stores/update_store",
+    Component: StoreUpdate,
+  },
 ]);
 
 class App extends Component {
@@ -76,5 +97,4 @@ class App extends Component {
     }
 }
 export default App;
-
 
