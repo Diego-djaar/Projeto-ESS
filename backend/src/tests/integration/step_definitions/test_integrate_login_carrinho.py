@@ -182,7 +182,7 @@ def remover_item_do_carrinho(context, id: str, user: str):
     return context
 
 def check_response_json(context):
-    expected_data = {"Itens:": [], "Total": "0.00", "Endereço": "Endereço não registrado"}
+    expected_data = {"Itens": [], "Total": "0.00", "Endereço": "Endereço não registrado"}
     assert context["response"].json()["data"] == expected_data
     return context
 
