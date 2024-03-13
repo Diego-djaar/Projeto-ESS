@@ -1,0 +1,17 @@
+.form {
+    /* Adicione estilos para o formulário aqui, se necessário */
+}
+
+.formRow {
+    display: flex;
+    margin-bottom: 10px; /* Espaçamento entre as linhas */
+}
+
+.formRow input {
+    flex: 1; /* Ocupa todo o espaço disponível */
+    margin-right: 10px; /* Espaçamento entre os campos */
+}
+
+.formRow input:last-child {
+    margin-right: 0; /* Remove a margem direita do último campo na linha */
+}
