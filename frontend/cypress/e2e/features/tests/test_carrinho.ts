@@ -72,6 +72,8 @@ When('o usuário clica no botão de {string}', (string: string) => {
         cy.get(".quantityPlus").click();
     } else if (string === "-") {
         cy.get(".quantityMinus").click();
+    } else if (string === "Visualizar carrinho") {
+        cy.get('button.viewCartButton').click();
     }
 });
 
@@ -121,4 +123,17 @@ Then('o usuário vê {string} na quantidade do item de ID {string}', (string: st
         cy.wrap($li).find('span.itemID').contains(`(ID: ${string2})`).then(($li) => {
             cy.get(".quantityValue").should('contain', string)
         })});
+});
+
+// Integração
+Then('o carrinho de CPF {string} é criado', (string: string) => {
+    cy.request('GET', `http://127.0.0.1:8000/backend/api/carrinho/view/${string}`)
+});
+
+When('o usuário coloca o CPF {string} no campo de visualizar carrinho', (string: string) => {
+    cy.get('input.inputCpf').type(string);
+});
+
+Then('o usuário vê um carrinho vazio', () => {
+    cy.get('.itemList').find('li').should('not.exist')
 });
