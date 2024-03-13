@@ -61,7 +61,7 @@ class UpdateUser extends Component {
                     <Input campo="CEP" type="CEP" internal="div1" form={CreateRequest} add_function={add_function}  initial_text={ this.state.user_data.CEP} />
                     <h1></h1>
                 </div>
-                <Button func={MakeRequest} text="update" style={{ color: "black", fontSize: "30px" }} id="Cadastrar"/>
+                <Button func={MakeRequest} text="update" style={{ color: "black", fontSize: "30px" }} id="UpdateUser"/>
             </div>
         )
         return val
