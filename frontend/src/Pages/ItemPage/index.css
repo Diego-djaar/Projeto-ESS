@@ -1,0 +1,15 @@
+.itemPage {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.itemDetails {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.goToCartButton {
+    flex-shrink: 0;
+}
