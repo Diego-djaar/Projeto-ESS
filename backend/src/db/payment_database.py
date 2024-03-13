@@ -350,7 +350,9 @@ def get_methods_list(cpf: str):
 
     database = read_file()
 
+    print(cpf)
     if cpf in database:
+        print("entrou")
         return database[cpf]
     return None 
     

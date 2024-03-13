@@ -1,17 +1,17 @@
 import { Given, Then, When } from "@badeball/cypress-cucumber-preprocessor";
 
-Given("o usuário está na página {string}", (page: string) => {
+// Given("o usuário está na página {string}", (page: string) => {
 
-    cy.visit(page); 
+//     cy.visit(page); 
 
-});
+// });
 
 
-When("o usuário clica no botão {string}", (button: string) => {
+// When("o usuário clica no botão {string}", (button: string) => {
 
-    cy.getDataCy(button).click();
+//     cy.getDataCy(button).click();
 
-});
+// });
 
 
 When("o usuário cujo pix de nome {string} e cpf {string} preenche o campo {string} com o id do método, o campo {string} com {string} e clica no botão {string}", 
@@ -73,29 +73,29 @@ When("o usuário cujo cartão de nome {string}, numero {string}, cvv {string}, c
 
  });
 
- When("o usuário preenche o campo {string} com {string}, o campo {string} com {string} e clica no botão {string}", 
-(id_campo: string, id: string, nome_campo: string, nome: string, button: string) => {
+//  When("o usuário preenche o campo {string} com {string}, o campo {string} com {string} e clica no botão {string}", 
+// (id_campo: string, id: string, nome_campo: string, nome: string, button: string) => {
 
-    cy.getDataCy(id_campo).type(id);
-    cy.getDataCy(nome_campo).type(nome);
-    cy.getDataCy(button).click();
+//     cy.getDataCy(id_campo).type(id);
+//     cy.getDataCy(nome_campo).type(nome);
+//     cy.getDataCy(button).click();
 
- });
-
-
-Then("o usuário visualiza a mensagem {string}", (text: string) => {
-
-    cy.on("window:alert", (str) => {
-        expect(text).to.equal(str);
-      });
-
-      cy.wait(5000);
-
-});
+//  });
 
 
-Then("o usuário é direcionando para a página {string}", (page: string) => {
+// Then("o usuário visualiza a mensagem {string}", (text: string) => {
 
-    cy.visit(page); 
+//     cy.on("window:alert", (str) => {
+//         expect(text).to.equal(str);
+//       });
 
-});
+//       cy.wait(1000);
+
+// });
+
+
+// Then("o usuário é direcionando para a página {string}", (page: string) => {
+
+//     cy.visit(page); 
+
+// });

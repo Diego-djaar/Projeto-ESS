@@ -49,14 +49,14 @@ Given("o boleto de nome {string} e cpf {string} está cadastrado no sistema", (n
 });
 
 
-Given("o usuário está na página {string}", (page: string) => {
-    cy.visit(page);
-});
+// Given("o usuário está na página {string}", (page: string) => {
+//     cy.visit(page);
+// });
 
 
-When("o usuário clica no botão {string}", (button: string) => {
-    cy.getDataCy(button).click();
-});
+// When("o usuário clica no botão {string}", (button: string) => {
+//     cy.getDataCy(button).click();
+// });
 
 
 When("o usuário preenche o campo {string} com {string}, o campo {string} com {string} e clica no botão {string}", 
@@ -85,12 +85,12 @@ Then("o usuário visualiza a mensagem {string}", (text: string) => {
         expect(str).to.include(text);
     });
 
-    cy.wait(5000);
+    cy.wait(1000);
 });
 
 
-Then("o usuário é direcionando para a página {string}", (expectedUrl: string) => {
-    // cy.url().should("eq", Cypress.config().baseUrl + "/" + expectedUrl);
-    cy.visit(expectedUrl)
+// Then("o usuário é direcionando para a página {string}", (expectedUrl: string) => {
+//     // cy.url().should("eq", Cypress.config().baseUrl + "/" + expectedUrl);
+//     cy.visit(expectedUrl)
 
-});
+// });

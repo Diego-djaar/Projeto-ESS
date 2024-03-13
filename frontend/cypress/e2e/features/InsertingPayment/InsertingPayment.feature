@@ -6,17 +6,17 @@ Feature: Inserir método de pagamento
 
 Scenario: Inserir Pix corretamente 
     Given o pix de nome "Breno Gabriel de Melo Lima" e cpf "111.111.111-11" não está cadastrado no sistema 
-    And o usuário está na página "http://localhost:3000/paymentMethod"
+    And o usuário está na página "http://localhost:3123/paymentMethod"
     When o usuário clica no botão "insert_payment"
     And o usuário clica no botão "select_pix"
     And o usuário preenche o campo "inserir_nome_pix" com "Breno gabriel de Melo Lima", o campo "inserir_cpf_pix" com "111.111.111-11" e clica no botão "inserir_pix_botao"
     Then o usuário visualiza a mensagem "metodo de pagamento cadastrado com sucesso"
-    And o usuário é direcionando para a página "http://localhost:3000/paymentMethod/inserting"
+    And o usuário é direcionando para a página "http://localhost:3123/paymentMethod/inserting"
 
 
 Scenario: Inserir Pix que já foi cadastrado
     Given o pix de nome "Breno Gabriel de Melo Lima" e cpf "111.111.111-11" está cadastrado no sistema 
-    And o usuário está na página "http://localhost:3000/paymentMethod"
+    And o usuário está na página "http://localhost:3123/paymentMethod"
     When o usuário clica no botão "insert_payment"
     And o usuário clica no botão "select_pix"
     And o usuário preenche o campo "inserir_nome_pix" com "Maria Edna Francisco", o campo "inserir_cpf_pix" com "111.111.111-11" e clica no botão "inserir_pix_botao"
@@ -24,7 +24,7 @@ Scenario: Inserir Pix que já foi cadastrado
 
 
 Scenario: Inserir Pix com valor de CPF incorreto 
-    Given o usuário está na página "http://localhost:3000/paymentMethod"
+    Given o usuário está na página "http://localhost:3123/paymentMethod"
     When o usuário clica no botão "insert_payment"
     And o usuário clica no botão "select_pix"
     And o usuário preenche o campo "inserir_nome_pix" com "Maria Francisco Teixeira", o campo "inserir_cpf_pix" com "222.222.222" e clica no botão "inserir_pix_botao"
@@ -33,17 +33,17 @@ Scenario: Inserir Pix com valor de CPF incorreto
 
 Scenario: Inserir Boleto corretamente 
     Given o boleto de nome "Breno Gabriel de Melo Lima" e cpf "111.111.111-11" não está cadastrado no sistema 
-    And o usuário está na página "http://localhost:3000/paymentMethod"
+    And o usuário está na página "http://localhost:3123/paymentMethod"
     When o usuário clica no botão "insert_payment"
     And o usuário clica no botão "select_boleto"
     And o usuário preenche o campo "inserir_nome_boleto" com "Breno gabriel de Melo Lima", o campo "inserir_cpf_boleto" com "111.111.111-11" e clica no botão "inserir_boleto_botao"
     Then o usuário visualiza a mensagem "metodo de pagamento cadastrado com sucesso"
-    And o usuário é direcionando para a página "http://localhost:3000/paymentMethod/inserting"
+    And o usuário é direcionando para a página "http://localhost:3123/paymentMethod/inserting"
 
 
 Scenario: Inserir Boleto que já foi cadastrado
     Given o boleto de nome "Breno Gabriel de Melo Lima" e cpf "111.111.111-11" está cadastrado no sistema 
-    And o usuário está na página "http://localhost:3000/paymentMethod"
+    And o usuário está na página "http://localhost:3123/paymentMethod"
     When o usuário clica no botão "insert_payment"
     And o usuário clica no botão "select_boleto"
     And o usuário preenche o campo "inserir_nome_boleto" com "Breno gabriel de Melo Lima", o campo "inserir_cpf_boleto" com "111.111.111-11" e clica no botão "inserir_boleto_botao"
@@ -51,7 +51,7 @@ Scenario: Inserir Boleto que já foi cadastrado
 
 
 Scenario: Inserir Boleto com cpf incorreto 
-    Given o usuário está na página "http://localhost:3000/paymentMethod"
+    Given o usuário está na página "http://localhost:3123/paymentMethod"
     When o usuário clica no botão "insert_payment"
     And o usuário clica no botão "select_boleto"
     And o usuário preenche o campo "inserir_nome_boleto" com "Breno gabriel de Melo Lima", o campo "inserir_cpf_boleto" com "111.111.111" e clica no botão "inserir_boleto_botao"
@@ -59,7 +59,7 @@ Scenario: Inserir Boleto com cpf incorreto
 
 
 Scenario: Inserir Cartao com número inválido
-    Given o usuário está na página "http://localhost:3000/paymentMethod"
+    Given o usuário está na página "http://localhost:3123/paymentMethod"
     When o usuário clica no botão "insert_payment"
     And o usuário clica no botão "select_cartao"
     And o usuário preenche o campo "inserir_nome_cartao" com "MasterCard", o campo "inserir_numero_cartao" com "8394204850258390", o campo "inserir_cvv" com "437", o campo "inserir_cpf_cartao" com "111.111.111-11", o campo "inserir_validade" com "2024-03-25" e clica no botão "inserir_cartao_botao"
@@ -67,7 +67,7 @@ Scenario: Inserir Cartao com número inválido
 
 
 Scenario: Inserir Cartao com cpf inválido
-    Given o usuário está na página "http://localhost:3000/paymentMethod"
+    Given o usuário está na página "http://localhost:3123/paymentMethod"
     When o usuário clica no botão "insert_payment"
     And o usuário clica no botão "select_cartao"
     And o usuário preenche o campo "inserir_nome_cartao" com "MasterCard", o campo "inserir_numero_cartao" com "8394204850258390", o campo "inserir_cvv" com "437", o campo "inserir_cpf_cartao" com "111.111.111", o campo "inserir_validade" com "2024-03-25" e clica no botão "inserir_cartao_botao"
@@ -75,7 +75,7 @@ Scenario: Inserir Cartao com cpf inválido
 
 
 Scenario: Inserir Cartao com validade inválido
-    Given o usuário está na página "http://localhost:3000/paymentMethod"
+    Given o usuário está na página "http://localhost:3123/paymentMethod"
     When o usuário clica no botão "insert_payment"
     And o usuário clica no botão "select_cartao"
     And o usuário preenche o campo "inserir_nome_cartao" com "MasterCard", o campo "inserir_numero_cartao" com "8394204850258390", o campo "inserir_cvv" com "437", o campo "inserir_cpf_cartao" com "111.111.111-11", o campo "inserir_validade" com "2024-03-07" e clica no botão "inserir_cartao_botao"
@@ -83,10 +83,10 @@ Scenario: Inserir Cartao com validade inválido
 
 
 # Scenario: Inserir Cartao corretamente 
-#     Given o usuário está na página "http://localhost:3000/paymentMethod"
+#     Given o usuário está na página "http://localhost:3123/paymentMethod"
 #     When o usuário clica no botão "insert_payment"
 #     And o usuário clica no botão "select_cartao"
 #     And o usuário preenche o campo "inserir_nome_cartao" com "MasterCard", o campo "inserir_numero_cartao" com "4916538421959382", o campo "inserir_cvv" com "437", o campo "inserir_cpf_cartao" com "111.111.111-11", o campo "inserir_validade" com "2024-03-25" e clica no botão "inserir_cartao_botao"
 #     Then o usuário visualiza a mensagem "metodo de pagamento cadastrado"
-#     And o usuário é direcionando para a página "http://localhost:3000/paymentMethod/inserting"
+#     And o usuário é direcionando para a página "http://localhost:3123/paymentMethod/inserting"
 

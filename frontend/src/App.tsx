@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import CreateTest from "./app/home/pages/CreateTest";
-// import ListTests from "./app/home/pages/ListTests";
+import CreateTest from "./app/home/pages/CreateTest";
+import ListTests from "./app/home/pages/ListTests";
 import PaymentConfig from "./app/home/pages/PaymentMethodsConfiguration";
 import PaymentInserting from "./app/home/pages/PaymentInserting";
+import CPFView from "./app/home/pages/CpfView";
 import InsertingBoleto from "./app/home/pages/InsertingBoleto";
 import InsertingPix from "./app/home/pages/InsertingPix";
 import InsertingCard from "./app/home/pages/InsertingCard";
@@ -11,7 +12,7 @@ import UpdatingBoleto from "./app/home/pages/UpdatingBoleto";
 import UpdatingPix from "./app/home/pages/UpdatingPix";
 import UpdatingCartao from "./app/home/pages/UpdatingCard";
 import DeletingMethod from "./app/home/pages/DeletingMethod";
-import CPFView from "./app/home/pages/CpfView";
+
 import ViewCart from "./Pages/Carrinho";
 import ItemPage from "./Pages/ItemPage";
 import MainPage from "./Pages/MainPage/main_page"

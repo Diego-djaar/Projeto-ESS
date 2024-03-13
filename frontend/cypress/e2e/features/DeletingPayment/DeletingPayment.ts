@@ -2,11 +2,11 @@ import { Given, Then, When } from "@badeball/cypress-cucumber-preprocessor";
 
 
 
-Given("o usuário está na página {string}", (page: string) => {
+// Given("o usuário está na página {string}", (page: string) => {
 
-    cy.visit(page); 
+//     cy.visit(page); 
 
-})
+// })
 
 
 
@@ -80,13 +80,13 @@ When("o usuário preenche o campo {string} com o id incorreto do método e clica
 })
 
 
-Then("o usuário visualiza a mensagem {string}", (text: string) => {
-    cy.on("window:alert", (str) => {
-      expect(text).to.equal(str);
-    });
+// Then("o usuário visualiza a mensagem {string}", (text: string) => {
+//     cy.on("window:alert", (str) => {
+//       expect(text).to.equal(str);
+//     });
   
-    cy.wait(5000);
-  });
+//     cy.wait(1000);
+//   });
   
   
 Then("o usuário é direcionando para a página {string}", (page: string) => {

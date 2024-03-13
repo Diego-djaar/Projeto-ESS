@@ -28,8 +28,6 @@ router = APIRouter()
     },
 )
 def visualizar_carrinho(CPF: str) -> HttpResponseModel:
-    """ Se carrinho não for encontrado cria carrinho para o respectivo CPF """
-    print("Entrou em visualizar carrinho")
     resultado = PaymentService.view_methods(CPF)
     return resultado
 
