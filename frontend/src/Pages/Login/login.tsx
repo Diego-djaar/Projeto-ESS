@@ -15,11 +15,11 @@ export default class Login extends Component{
         const val = (
             <div>
                 <Button func={() => set_page("main")} text={"Back to main Page"} style={{}} id="Main" />
-                <Button func={() => set_page("signup")} text={"SignUp"} style={{}} id={""} />
+                <Button func={() => set_page("signup")} text={"SignUp"} style={{}} id={"SignUp"} />
                 <h1 className="login-text">Login</h1>
                 <div className="two-inputs">
-                    <Input campo="CPF_ou_User_ou_Email" type="username" internal="div1" form={CreateLoginRequest} add_function={add_function} />
-                    <Input campo="Senha" type="Password" internal="div1" form={CreateLoginRequest} add_function={add_function} />
+                    <Input campo="CPF_ou_User_ou_Email" type="username" internal="div1" form={CreateLoginRequest} add_function={add_function} initial_text=""/>
+                    <Input campo="Senha" type="Password" internal="div1" form={CreateLoginRequest} add_function={add_function} initial_text="" />
                 </div>
                 
                 <Button func={MakeLoginRequest} text="login" style={{ color: "black", fontSize: "30px" }} id="Login"/>      

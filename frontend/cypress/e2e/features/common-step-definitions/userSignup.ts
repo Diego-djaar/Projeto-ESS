@@ -21,7 +21,7 @@ Given("Eu estou na página de {string}", (page: string) => {
 
 function write_signup_req(Nome: string, Sobrenome: string, Username: string, CPF: string,
     Address: string, CEP: string, Date: string, Email: string, Senha: string) {
-    assert(page_atual == "signup");
+    cy.url().should('eq', `http://localhost:3123/signup`);
     if (Nome !== "") {
         cy.get('input[id="Nome"]').type(Nome);
     }
@@ -143,6 +143,7 @@ Then("Eu sou notificado que o usuário com esse {string} já existe", (campo: st
 });
 
 Then("Eu sou redirecionado para a página de {string}", (page: string) => {
+    cy.wait(1000)
     cy.url().should('eq', `http://localhost:3123/${page}`);
 });
 

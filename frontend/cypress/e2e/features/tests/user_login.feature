@@ -22,20 +22,9 @@ And Eu sou redirecionado para a página de "user"
 # Then "Gabriel" visualiza a mensagem "senha redefinida"
 # And retorna para a página de login 
 
-# integração com feature cadastro
-# Scenario: Ausência de cadastro
-# Given Eu estou na página de "login"
-# Given Usuário "Gabriel" não está cadastrado
-# When "Gabriel" seleciona a opção "Não tem uma conta ?!"
-# And preenche os campos com seu nome "Gabriel" , sobrenome "Lopes" , CPF "000000000-00", endereço: "Rua alameda sempre verde", CEP "XXXXXXXX", data de nascimento "20/06/2001" , email "XXXXXXXXXXXX@gmail.com"  e a senha "123456yuytre ". 
-# And "Gabriel" seleciona a opção "realizar cadastro"
-# Then "Gabriel" visualiza a mensagem "Cadastro realizado"
-# And "Gabriel" é direcionado para a "página inicial" da plataforma
-# And "Gabriel" visualiza a página "lista de ofertas"
-
 Scenario: login mal sucedido devido a senha incorreta
 Given Eu estou na página de "login"
-And Usuário "Gabriel" está cadastrado, com os dados: nome: "Gabriel", sobrenome: "Silva", user: "Enzo", CPF: "111.222.333-44", endereço: "Rua alameda sempre verde", CEP: "12345-678", data de nascimento: "2003-06-17", email: "usuario@gmail.com", senha: "Xyzw3456"
+And Usuário "Gabriel" está cadastrado, com os dados: nome: "Gabriel", sobrenome: "Silva", user: "Gabriel", CPF: "111.222.333-44", endereço: "Rua alameda sempre verde", CEP: "12345-678", data de nascimento: "2003-06-17", email: "usuario@gmail.com", senha: "Xyzw3456"
 When Eu preencho no campo "CPF_ou_User_ou_Email" "usuario2@gmail.com"
 And Eu preencho no campo "Senha" "4245235"
 And eu clico em "Login"
