@@ -6,6 +6,16 @@ from src.schemas.payment_response import HTTPPaymentResponse
 class PaymentService:
 
     @staticmethod
+    def view_methods(cpf: str) -> HttpResponseModel:
+
+        result = get_methods_list(cpf)
+
+        if result is not None: 
+            return HTTPPaymentResponse.VIEW(result)
+        else: 
+            return HTTPPaymentResponse.INEXISTENT_CPF()
+
+    @staticmethod
     def inserting_card(cartao: Cartao) -> HttpResponseModel:
 
         sucess, problems = insert_card(*cartao.model_dump().values())
