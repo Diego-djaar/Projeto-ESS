@@ -53,6 +53,7 @@ const CPFView = () => {
                             {method.tipo === "pix" || method.tipo === "boleto" ? (
                                 <div>
                                     <p>Nome: {method.nome_completo}</p>
+                                    <p>Tipo: {method.tipo}</p>
                                     <p>ID: {method.id}</p>
                                 </div>
                             ) : method.tipo === "cartao" && (
