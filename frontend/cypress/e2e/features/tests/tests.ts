@@ -47,9 +47,9 @@ Given(
   }
 );
 
-When("o usuário clica no botão {string}", (button: string) => {
-  cy.getDataCy(button).click();
-});
+// When("o usuário clica no botão {string}", (button: string) => {
+//   cy.getDataCy(button).click();
+// });
 
 Then(
   "o usuário deve ir para a página {string} e ver o test {string}",

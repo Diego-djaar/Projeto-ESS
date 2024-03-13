@@ -5,9 +5,9 @@ beforeEach(() => {
     cy.request('DELETE', 'http://127.0.0.1:8000/backend/api/carrinho/clear_carts');
   });  
 
-Given('o usuário está na página {string}', (page: string)=>{
-    cy.visit(`http://localhost:3123/${page}`)
-});
+// Given('o usuário está na página {string}', (page: string)=>{
+//     cy.visit(`http://localhost:3123/${page}`)
+// });
 
 Given('o item de ID {string} está na lista de itens do carrinho', (string: string) => {
     const CPF = "123.456.789-10";

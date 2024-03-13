@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-<<<<<<< HEAD
 import CreateTest from "./app/home/pages/CreateTest";
 import ListTests from "./app/home/pages/ListTests";
 import PaymentConfig from "./app/home/pages/PaymentMethodsConfiguration";
@@ -12,7 +11,6 @@ import UpdatingBoleto from "./app/home/pages/UpdatingBoleto";
 import UpdatingPix from "./app/home/pages/UpdatingPix";
 import UpdatingCartao from "./app/home/pages/UpdatingCard";
 import DeletingMethod from "./app/home/pages/DeletingMethod";
-=======
 import ViewCart from "./Pages/Carrinho";
 import ItemPage from "./Pages/ItemPage";
 import MainPage from "./Pages/MainPage/main_page"
@@ -28,7 +26,6 @@ import StoreSignUp from "./Pages/StoreSignUp";
 import StoreLogin from "./Pages/StoreLogin";
 import StoreRetrieve from "./Pages/StorePassRetrieve";
 import StoreUpdate from "./Pages/StoreUpdate";
->>>>>>> Diego-djaar/development
 
 const router = createBrowserRouter([
   {

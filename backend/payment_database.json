@@ -1,32 +1,9 @@
 {
-    "111.111.111-11": [
-        {
-            "id": "8d33d563-4ebd-45b5-b048-ad5558ea97f3",
-            "tipo": "cartao",
-            "nome_cartao": "MasterCard",
-            "numero_cartao": "4916538421959382",
-            "cvv": "437",
-            "validade": "2024-03-25",
-            "cpf": "111.111.111-11"
-        },
-        {
-            "id": "4b07b666-f199-486b-84eb-a85ab3966c01",
-            "tipo": "pix",
-            "nome_completo": "Breno gabriel de Melo Lima",
-            "cpf": "111.111.111-11"
-        },
-        {
-            "id": "3607e8d6-eca6-42e8-9783-8e06ea2983ad",
-            "tipo": "boleto",
-            "nome_completo": "Breno gabriel de Melo Lima",
-            "cpf": "111.111.111-11"
-        }
-    ],
     "222.222.222-22": [
         {
-            "id": "30877285-6549-49cb-a618-7abec1a662cc",
+            "id": "8181826380199017224",
             "tipo": "pix",
-            "nome_completo": "Ferreirinha",
+            "nome_completo": "Breno Gabriel de Melo Lima",
             "cpf": "222.222.222-22"
         }
     ],
@@ -137,15 +114,88 @@
             "cvv": "437",
             "validade": "2024-03-25",
             "cpf": "111.111.111-10"
+        },
+        {
+            "id": "beb2edce-78dd-4d16-9fba-dc13e8e8bea8",
+            "tipo": "cartao",
+            "nome_cartao": "Nubank",
+            "numero_cartao": "4556193045897381",
+            "cvv": "938",
+            "validade": "2025-06-17",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "6ef9586d-2f47-45a0-a82a-91ac3edcca60",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "8a26cee5-f015-4f38-b9f3-21eb2f082334",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "9aac26a0-6719-472a-bd6b-2304d0e2c5e0",
+            "tipo": "cartao",
+            "nome_cartao": "Nubank",
+            "numero_cartao": "4556193045897381",
+            "cvv": "938",
+            "validade": "2025-06-17",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "2c831c4a-231c-4723-b1b0-8461ae96a966",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
+        },
+        {
+            "id": "17d85f18-e8b1-44b8-9f0c-c0f17908aadd",
+            "tipo": "cartao",
+            "nome_cartao": "MasterCard",
+            "numero_cartao": "4916538421959382",
+            "cvv": "437",
+            "validade": "2024-03-25",
+            "cpf": "111.111.111-10"
         }
     ],
-    "111.111.111-11": [],
-    "222.222.222-22": [
+    "111.111.111-11": [
         {
-            "id": "8181826380199017224",
+            "id": "88fd3d8a-dcd8-40d3-821b-e3e4fd6cf935",
             "tipo": "pix",
-            "nome_completo": "Breno Gabriel de Melo Lima",
-            "cpf": "222.222.222-22"
+            "nome_completo": "Breno gabriel de Melo Lima",
+            "cpf": "111.111.111-11"
+        },
+        {
+            "id": "3c63b6bd-a3dd-4bd0-9c44-91b126efe058",
+            "tipo": "boleto",
+            "nome_completo": "Breno gabriel de Melo Lima",
+            "cpf": "111.111.111-11"
+        }
+    ],
+    "333.333.333-33": [
+        {
+            "id": "00ca8b31-14c2-48a0-bcab-8cc423874863",
+            "tipo": "pix",
+            "nome_completo": "Mariano Alvez da Costa",
+            "cpf": "333.333.333-33"
+        },
+        {
+            "id": "f317ef4b-5a21-426f-a966-8a74b40e4dd9",
+            "tipo": "boleto",
+            "nome_completo": "Mariano Alvez da Costa",
+            "cpf": "333.333.333-33"
         }
     ]
 }

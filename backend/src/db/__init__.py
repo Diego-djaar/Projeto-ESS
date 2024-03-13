@@ -17,11 +17,7 @@ cart_database = Carrinhos()
 store_database = StoreDatabase()
 recuperacao_database = RecuperacaoDatabase()
 recuperacao_database_test = RecuperacaoDatabase("Códigos teste.json")
-<<<<<<< HEAD
 
-
-=======
 from .inventory_database import InventoryDatabase, ItemDatabase2
 inventory_database = InventoryDatabase()
 item_database2 = ItemDatabase2()
->>>>>>> Diego-djaar/development
