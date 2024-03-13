@@ -55,7 +55,7 @@ const router = createBrowserRouter([
   {
     path: "/itempage",
     Component: ItemPage,
-  }
+  },
   {
     path: "/stores/signup",
     Component: StoreSignUp,
