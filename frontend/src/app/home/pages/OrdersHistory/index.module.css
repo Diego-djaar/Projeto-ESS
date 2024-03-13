@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 16px;
+}
+
+.listItem {
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.listItemText {
+  font-size: 1.5rem;
+}
+
+.titleContainer {
+  position:relative;
+  top: 0;
+  width: 400px;
+  height: 180px;
+  display: flex;
+  z-index: 1;
+  align-items: flex-end; /* Alinha os itens verticalmente ao centro */
+  margin-bottom: 2px;
+}
+
+.titleContainer h2 { /* Adiciona uma margem à esquerda para separar a imagem do título */
+  margin-bottom: 0px;
+}
+
+.imageContainer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Evita que a imagem ultrapasse os limites do contêiner */
+}
+
+.imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Redimensiona a imagem para preencher o contêiner sem distorção */
+}
