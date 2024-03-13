@@ -52,13 +52,13 @@ function FilterForm({cpf, setOrders}) {
                 <input type="number" name="quantity" value={formData.quantity} placeholder="Quantidade" onChange={handleChange} />
             </div>
             <div className={styles.formRow}>
-                <input type="text" name="price_min" value={formData.price_min} placeholder="Preço Mínimo" onChange={handleChange} />
+                <input type="text" name="price_min" value={formData.price_min} data-cy = "Preço Mínimo" placeholder="Preço Mínimo" onChange={handleChange} />
                 <input type="text" name="price_max" value={formData.price_max} placeholder="Preço Máximo" onChange={handleChange} />
                 <input type="date" name="start_date" value={formData.start_date} placeholder="Data Início" onChange={handleChange} />
                 <input type="date" name="end_date" value={formData.end_date} placeholder="Data Fim" onChange={handleChange} />
             </div>
             <div className={styles.buttonRow}>
-                <button className={styles.searchButton} type="submit" onClick={handleSubmit}>PESQUISAR</button>
+                <button className={styles.searchButton} type="submit" onClick={handleSubmit} data-cy="pesquisar">PESQUISAR</button>
                 <button className={styles.clearButton} type="button" onClick={handleClear} data-cy="limpar">LIMPAR</button>
             </div>
         </form>

@@ -8,7 +8,7 @@ import * as OrdersService from "../../Services/ordersService";
 import { useCpf } from '../../Context/CpfContext';
 
 const OrdersHistory = () => {
-  const [cpf] = useCpf;
+  const [cpf] = useState(useCpf());
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
   useEffect(() => {

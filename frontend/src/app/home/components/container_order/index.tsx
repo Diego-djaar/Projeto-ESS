@@ -7,7 +7,7 @@ function ContainerList({ containers, page }) {
     const currentItems = containers.slice(indexOfFirstItem, indexOfLastItem);
 
     const orderArray = currentItems.map(order =>
-        <li key={order.id} className={styles.orderItem}>
+        <li key={order.id} data-cy={'id'+order.id} className={styles.orderItem}>
             <div className={styles.interno}>
                 <img src={order.img} className={styles.image} />
                 <div className={styles.info}>

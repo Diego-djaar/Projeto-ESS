@@ -17,6 +17,13 @@ When(
 Then(
     "o usuario deve ver o pedido de id {string}",
     (orderId: string) => {
-        cy.getDataCy(`[data-cy="${orderId}"]`).should("contain", orderId);
+        cy.getDataCy('id'+orderId)
+    }
+)
+
+When(
+    "o usuario preenche o campo {string} com {string}",
+    (campo: string, preenchimento: string) => {
+        cy.getDataCy(campo).type(preenchimento);
     }
 )

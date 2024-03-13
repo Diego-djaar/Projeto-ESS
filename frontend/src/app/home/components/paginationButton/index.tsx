@@ -12,7 +12,7 @@ function PaginationButtons({ setPage, page, maxPage }) {
     return (
         <div className={styles.button}>
             <button onClick={handlePrevPage} disabled={page === 1}>Previous</button>
-            <button onClick={handleNextPage} disabled={page === maxPage || maxPage == 0}>Next</button>
+            <button onClick={handleNextPage} disabled={page === maxPage || maxPage == 0} data-cy="next">Next</button>
         </div>
     );
 }
