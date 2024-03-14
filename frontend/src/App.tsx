@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CreateTest from "./app/home/pages/CreateTest";
 import ListTests from "./app/home/pages/ListTests";
+import OrdersHistory from "./app/home/pages/OrdersHistory";
 import PaymentConfig from "./app/home/pages/PaymentMethodsConfiguration";
 import PaymentInserting from "./app/home/pages/PaymentInserting";
 import CPFView from "./app/home/pages/CpfView";
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: "/itempage",
     Component: ItemPage,
+  },
+  {
+    path: "/orderhistory",
+    Component: OrdersHistory,
   },
   {
     path: "/stores/signup",

@@ -44,14 +44,6 @@ response_data = {"111.222.333-44": [
 def test_get_orders_by_cpf():
     pass
 
-@scenario(scenario_name= "Usuário quer visualizar um pedido específico", feature_name="../features/order_history.feature")
-def test_get_order_by_cpf():
-    pass
-
-@scenario(scenario_name="Obter pedidos com determinado Filtro", feature_name="../features/order_history.feature")
-def test_history_filter():
-    pass
-    
 @given(parsers.cfparse('o OrdersService retorna uma lista de pedidos que contém os pedidos de ids "{order_1}" e "{order_2}"'))
 
 def mock_orders_service_response(order_1: int, order_2: int):
@@ -61,22 +53,6 @@ def mock_orders_service_response(order_1: int, order_2: int):
         status_code= HTTPOrdersResponse.GET_SUCCESSFULLY(response_data[0]).status_code,
         data = [order for order in response_data["111.222.333-44"] if order["id"] in (order_1, order_2)]
     )
-
-@given(parsers.cfparse('o OrdersService retorna uma lista de pedidos filtrados que contém o pedido de id "{order_id}"'))
-
-def mock_orders_filtered_service_response(order_id: int):
-
-    OrdersService.orders_filtered_service = lambda id: HttpResponseModel(
-        message= HTTPOrdersResponse.GET_SUCCESSFULLY(response_data[0]).message,
-        status_code= HTTPOrdersResponse.GET_SUCCESSFULLY(response_data[0]).status_code,
-        data = response_data["111.222.333-44"]["id" == 1]
-    )
-@given(parsers.cfparse('a lista de pedidos possui a chave CPF "{cpf}" e possui o pedido de ID "{order_id}" associado a ele'))
-
-def mock_order_service_response(cpf: str, order_id: int):
-    assert cpf in response_data
-    assert any(order['id'] == int(order_id) for order in response_data[cpf])
-
 
 @when(
     parsers.cfparse('uma requisição GET é enviada para "{url}"'),
@@ -90,55 +66,11 @@ def send_get_orders_request(url: str):
 
     return response
 
-@when(
-    parsers.cfparse('é solicitado uma requisição GET para "{url}" com o parâmetro CPF do usuário "{cpf}" e ID de pedido "{order_id}"'),
-    target_fixture="request_response"
-)
-def send_get_order_request(url: str, cpf: str, order_id : int):
-    url = "http://127.0.0.1:8000" + url + cpf + "&" + str(order_id)
-    headers = {'accept': 'application/json'}
-
-    response = requests.get(url, headers=headers)
-
-    return response
-
-@when(
-    parsers.cfparse('uma requisição POST é enviada para "{url}" com o body contendo o CPF "{cpf}", o price_max "{valor}" e o restante dos campos nulos'),
-    target_fixture="request_response"
-)
-def send_get_orders_filtered_request(url: str, cpf: str, valor: str):
-    url = "http://127.0.0.1:8000" + url
-    body = { 
-        "cpf": cpf, "id": None, "supplier_name" : None, "name" : None,
-        "quantity": None, "price_min": None, "price_max": valor,
-        "start_date": None, "end_date": None
-    }
-    headers = {'accept': 'application/json'}
-
-    response = requests.post(url, headers=headers,json=body)
-
-    return response
-
-
 @then(
     parsers.cfparse('o status de resposta JSON deve ser "{status_code}"')
 )
 def check_response_status_code(request_response, status_code: int):
     assert int(request_response.status_code) == int(status_code)
-
-@then(
-    parsers.cfparse('a mensagem de resposta será "{mensagem}"')
-)
-def check_response_message(request_response, mensagem: str):
-    assert request_response.json()["message"] == mensagem
-
-@then(
-    parsers.cfparse('o JSON de resposta deve ser uma lista com um único pedido')
-)
-def check_list_lenght(request_response):
-    orders = request_response.json()
-    assert len(orders["data"]) == 1
-
 
 @then(
     parsers.cfparse('o JSON de resposta deve ser uma lista de pedidos')
@@ -158,9 +90,77 @@ def check_order_in_list(request_response, order_id: int, order_name: str):
     orders = request_response.json()["data"]
     assert any(order['id'] == int(order_id) and order["name"] == order_name for order in orders)
 
+
+@scenario(scenario_name= "Usuário quer visualizar um pedido específico", feature_name="../features/order_history.feature")
+def test_get_order_by_cpf():
+    pass
+
+@given(parsers.cfparse('a lista de pedidos possui a chave CPF "{cpf}" e possui o pedido de ID "{order_id}" associado a ele'))
+
+def mock_order_service_response(cpf: str, order_id: int):
+    assert cpf in response_data
+    assert any(order['id'] == int(order_id) for order in response_data[cpf])
+
+@when(
+    parsers.cfparse('é solicitado uma requisição GET para "{url}" com o parâmetro CPF do usuário "{cpf}" e ID de pedido "{order_id}"'),
+    target_fixture="request_response"
+)
+def send_get_order_request(url: str, cpf: str, order_id : int):
+    url = "http://127.0.0.1:8000" + url + cpf + "&" + str(order_id)
+    headers = {'accept': 'application/json'}
+
+    response = requests.get(url, headers=headers)
+
+    return response
+
+@then(
+    parsers.cfparse('a mensagem de resposta será "{mensagem}"')
+)
+def check_response_message(request_response, mensagem: str):
+    assert request_response.json()["message"] == mensagem
+
 @then(
     parsers.cfparse('o JSON de resposta terá os dados do pedido "{order_id}"')
 )
 def check_order_in_list(request_response, order_id: int):
     order = request_response.json()["data"]
     assert order["id"] == int(order_id)
+
+@scenario(scenario_name="Obter pedidos com determinado Filtro", feature_name="../features/order_history.feature")
+def test_history_filter():
+    pass
+
+@given(parsers.cfparse('o OrdersService retorna uma lista de pedidos filtrados que contém o pedido de id "{order_id}"'))
+
+def mock_orders_filtered_service_response(order_id: int):
+
+    OrdersService.orders_filtered_service = lambda id: HttpResponseModel(
+        message= HTTPOrdersResponse.GET_SUCCESSFULLY(response_data[0]).message,
+        status_code= HTTPOrdersResponse.GET_SUCCESSFULLY(response_data[0]).status_code,
+        data = response_data["111.222.333-44"]["id" == 1]
+    )
+
+@when(
+    parsers.cfparse('uma requisição POST é enviada para "{url}" com o body contendo o CPF "{cpf}", o price_max "{valor}" e o restante dos campos nulos'),
+    target_fixture="request_response"
+)
+def send_get_orders_filtered_request(url: str, cpf: str, valor: str):
+    url = "http://127.0.0.1:8000" + url
+    body = { 
+        "cpf": cpf, "id": None, "supplier_name" : None, "name" : None,
+        "quantity": None, "price_min": None, "price_max": valor,
+        "start_date": None, "end_date": None
+    }
+    headers = {'accept': 'application/json'}
+
+    response = requests.post(url, headers=headers,json=body)
+
+    return response
+
+@then(
+    parsers.cfparse('o JSON de resposta deve ser uma lista com um único pedido')
+)
+def check_list_lenght(request_response):
+    orders = request_response.json()
+    assert len(orders["data"]) == 1
+
