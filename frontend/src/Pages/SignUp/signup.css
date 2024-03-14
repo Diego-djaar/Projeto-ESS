@@ -1,0 +1,17 @@
+.signup-text {
+  text-align: center;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 50px;
+}
+
+.two-inputs {
+  margin-left: 35%;
+  margin-right: 20%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+
+.input {
+  align-self: center;
+}

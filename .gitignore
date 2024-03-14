@@ -3,3 +3,8 @@ __pycache__/
 
 *.log
 *.swp
+fastapi-env/
+node_modules
+cypress/downloads
+screenshots
+

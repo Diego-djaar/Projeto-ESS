@@ -1,0 +1,8 @@
+.itemAddButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }

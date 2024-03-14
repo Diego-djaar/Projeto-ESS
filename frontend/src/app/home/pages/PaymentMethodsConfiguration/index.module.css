@@ -1,0 +1,20 @@
+body {
+    margin: 0; /* Remova as margens padrão do body */
+    padding: 0; /* Remova os preenchimentos padrão do body */
+    background-color:#ffec99;
+    height: 100vh; /* Certifique-se de que a altura ocupe 100% da visualização da tela */
+  }
+
+.buttomContainer {
+
+text-align: center;
+
+
+}
+
+/* .background {
+
+background-color: yellow;
+
+} */
+
